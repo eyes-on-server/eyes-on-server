@@ -8,7 +8,6 @@
         "dev": "nodemon --exec node app.js"
     },
     "author": "Modificações por Rafael Scheneider",
-    "license": "Apenas para estudos",
     "dependencies": {
         "cors": "^2.8.5",
         "express": "^4.17.1",
