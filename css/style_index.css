@@ -1,0 +1,166 @@
+/*Formatação da navbar*/
+/* Cor de fundo rgb(241, 241, 241) */
+
+html{    
+    background-color: white;
+}
+
+body{
+    margin: 0%;
+}
+
+.header {
+    display: flex;
+    width: 100%;
+    background-color: white;
+    border-bottom: 1px solid black;
+}
+
+.container {
+    display: flex;
+    width: 80%;
+    margin: auto;
+}
+
+.header .container {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.conta{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1vw;
+}
+
+.nome_usuario{
+    font-size: 4vh;
+}
+
+.imagem_usuario{
+    height: 5vh;
+}
+
+.links_navbar{
+    display: flex;
+}
+
+hr{
+    border: 1px solid black;
+}
+
+li{
+    font-family: 'Fraunces', serif;
+    font-size:3vh;
+    margin-left: 2vh;
+}
+
+ul {
+    display: flex;
+    gap: 1vw;
+    list-style-type: none;
+}
+
+.banner1{
+    background-image: url(../img/banner1.png);
+    width: 100%;
+    height: 80vh;
+    background-size:cover;
+    border-bottom: 1vh solid white;
+    border-top: 1vh solid white;
+}
+
+.produtos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12vh;
+    background-color: rgb(229, 250, 250);
+    width: 100%;
+    height: 80vh;
+    background-size:cover;
+    border-bottom: 1vh solid white;
+    border-top: 1vh solid white;
+}
+
+.produtos_superiores{
+    width: 100%;
+    display: flex;
+    justify-content:space-around;
+}
+
+.produtos_inferiores{
+    width: 100%;
+    display: flex;
+    justify-content:space-around;
+}
+
+.bolinha{
+    text-align: center;
+    vertical-align: middle;
+    line-height: 20vh;
+    width: 10vw;
+    height: 20vh;
+    margin-bottom: 20px;
+    border-radius: 100%;
+    float: left;
+    overflow: hidden;
+    background-color: rgb(51, 102, 102);
+    margin-left: 1vw;
+}
+
+.banner2{
+    background-image: url(../img/banner2.png);
+    width: 100%;
+    height: 80vh;
+    background-size:cover;
+    border-bottom: 1vh solid white;
+    border-top: 1vh solid white;
+}
+
+.sobre_nos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 12vh;
+    background-color: rgb(229, 250, 250);
+    width: 100%;
+    height: 80vh;
+    background-size:cover;
+    border-bottom: 1vh solid white;
+    border-top: 1vh solid white;
+}
+
+.pessoas_superiores{
+    width: 100%;
+    display: flex;
+    justify-content:space-around;
+}
+
+.pessoas_inferiores{
+    width: 100%;
+    display: flex;
+    justify-content:space-around;
+}
+
+
+.footer {
+    display: flex;
+    width: 100%;
+    background-color: white;
+    border-bottom: 1px solid black;
+}
+
+.footer .container {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer .bolinha{
+    width: 5vw;
+    height: 10vh;
+    line-height: 10vh;
+}
