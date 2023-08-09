@@ -10,13 +10,15 @@ function info(nome_funcao, info_query) {
 function listar() {
     var query = 'SELECT * FROM usuario';
 
-    info("Listar()", query);
+    info("listar()", query);
 
     return bancoDados.consultaBd(query);
 }
 
 function cadastrar(nome, email, senha){
     var query  = `INSERT INTO usuario (nome, email, senha) VALUES ('${nome}', '${email}', '${senha}')`;
+
+    info("cadastrar()", query);
 
     return bancoDados.consultaBd(query);
 }

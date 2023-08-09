@@ -25,6 +25,7 @@ function listar(req, res) {
 
 function cadastrar(req, res){
     
+    info("cadastrar()");
     var nome = req.body.nome_html;
     var email = req.body.email_html;
     var senha = req.body.senha_html;

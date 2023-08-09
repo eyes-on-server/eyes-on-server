@@ -13,6 +13,7 @@ rota.get("/listar", (req, res) => {
 });
 
 rota.post("/cadastrar", (req, res) => {
+    info("Cadastrar");
     userController.cadastrar(req, res);
 });
 
