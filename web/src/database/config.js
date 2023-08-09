@@ -1,10 +1,10 @@
 const mysql = require('mysql2');
 
 var configBd = {
-host: "localhost",
-database: "eye-on-server",
-user: "aluno",
-password: "sptech"
+    host: "localhost",
+    database: "eye-on-server",
+    user: "aluno",
+    password: "sptech"
 };
 
 function consultaBd(pesquisa) {
@@ -13,7 +13,6 @@ function consultaBd(pesquisa) {
         conexao.connect();
 
         conexao.query(pesquisa, (erro, resultados) => {
-
             conexao.end();
 
             if (erro) {
@@ -23,9 +22,11 @@ function consultaBd(pesquisa) {
             resolve(resultados);
 
         });
+
         conexao.on('error', function (erro) {
-            return ("ERROOOOOOOOOOOOOOOOOOOOO!!!!!!!!!!!!!!!!!!!!! \n, erro:config.js")
+            return ("ERRO NO MySQL: ", erro.sqlMessage)
         })
+    
     })
 }
 

@@ -5,11 +5,9 @@ const cors = require('cors');
 const app = express();
 const porta = 5000;
 
-
 // Chamada de rotas --------------------
 const userRota = require("./src/routers/user");
-
-
+const indexRota = require("./src/routers/index")
 
 
 // Configurações -----------------------
@@ -19,13 +17,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 
-
 // Criação de Rotas --------------------
+app.use("/", indexRota);
 app.use("/user", userRota);
-
-
-
-
 
 
 // Iniciar servidor --------------------
