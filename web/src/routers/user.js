@@ -12,4 +12,8 @@ rota.get("/listar", (req, res) => {
     userController.listar(req, res);
 });
 
+rota.post("/cadastrar", (req, res) => {
+    userController.cadastrar(req, res);
+});
+
 module.exports = rota;

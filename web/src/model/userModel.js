@@ -15,6 +15,14 @@ function listar() {
     return bancoDados.consultaBd(query);
 }
 
-module.exports = {
-    listar
+function cadastrar(nome, email, senha){
+    var query  = `INSERT INTO usuario (nome, email, senha) VALUES ('${nome}', '${email}', '${senha}')`;
+
+    return bancoDados.consultaBd(query);
 }
+
+module.exports = {
+    listar,
+    cadastrar
+}
+
