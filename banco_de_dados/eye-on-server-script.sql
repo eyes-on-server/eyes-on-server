@@ -18,7 +18,7 @@ USE `eye-on-server` ;
 -- Table `eye-on-server`.`empresa`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `eye-on-server`.`empresa` (
-  `idEmpresa` INT NOT NULL,
+  `idEmpresa` INT NOT NULL AUTO_INCREMENT,
   `nomeFantasia` VARCHAR(45) NULL,
   `cnpj` CHAR(14) NULL,
   `email` VARCHAR(45) NULL,
@@ -30,7 +30,7 @@ ENGINE = InnoDB;
 -- Table `eye-on-server`.`usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `eye-on-server`.`usuario` (
-  `idusuario` INT NOT NULL,
+  `idusuario` INT NOT NULL AUTO_INCREMENT,
   `fkEmpresa` INT NULL,
   `nome` VARCHAR(45) NULL,
   `root` INT NULL,
