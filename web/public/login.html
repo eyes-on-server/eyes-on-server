@@ -6,6 +6,41 @@
     <title>Document</title>
 </head>
 <body>
-    
+    Email: <input type="text" id="emailLogin">
+    <br>
+    Senha: <input type="text" id="senhaLogin">
+    <br>
+    <button onclick="login()">Login</button>
 </body>
 </html>
+
+<script>
+
+    function login() {
+        var email = emailLogin.value;
+        var senha = senhaLogin.value;
+
+        fetch("/user/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email_html: email,
+                senha_html: senha
+            })
+        }).then(function(resposta) {
+
+            if (resposta.ok) {
+                alert("Login realizado com sucesso! Redirecionando para dashboard...")
+                setTimeout(() => {window.location = "./index.html"}, 1000);
+            } else {
+                throw("Houve um erro ao realizar o login!");
+            }
+        }).catch(function (resposta){
+            console.log(`#ERRO AO FAZER O LOGIN: ${resposta}`);
+        });
+        return false;
+    }
+
+</script>

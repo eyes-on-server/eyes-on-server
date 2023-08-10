@@ -23,8 +23,17 @@ function cadastrar(nome, email, senha){
     return bancoDados.consultaBd(query);
 }
 
+function login(email, senha) {
+    var query = `SELECT nome, email, senha FROM usuario WHERE email = ${email} AND senha = ${senha};`;
+
+    info("login()", query);
+
+    return bancoDados.consultaBd(query);
+}
+
 module.exports = {
     listar,
-    cadastrar
+    cadastrar,
+    login
 }
 
