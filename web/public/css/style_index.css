@@ -105,6 +105,9 @@ ul {
 }
 
 .banner1{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-image: url(../img/banner1.png);
     width: 100%;
     height: 80vh;
@@ -113,12 +116,57 @@ ul {
     border-top: 1vh solid white;
 }
 
+.banner1 img{
+    width: 6vw;
+}
+
+.banner1 .container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner1_infocard{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #c4c4c4ad;
+    backdrop-filter: blur(5px);
+    width: 95%;
+    height: 50vh;
+    border-radius: 2vh 2vh 2vh;
+}
+
+.banner1_textos{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner1_img{
+    width: 100%;
+    display: flex;
+    justify-content:space-evenly;
+}
+
+.banner1_infocard h1{
+    font-family: 'Lalezar';
+    font-size: 6vh;
+}
+
+.banner1_infocard span{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 5vh;
+    font-weight: 100;
+}
+
 .produtos{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 12vh;
     background-color: #E4F1F1;
     width: 100%;
     height: 80vh;
@@ -127,30 +175,68 @@ ul {
     border-top: 1vh solid white;
 }
 
-.produtos_superiores{
-    width: 100%;
-    display: flex;
-    justify-content:space-around;
+.produtos img{
+    width: 7vw;
 }
 
-.produtos_inferiores{
-    width: 100%;
-    display: flex;
-    justify-content:space-around;
+.produtos h1{
+    font-family: 'Lalezar';
+    margin: 0px;
+    font-size: 4vh;
 }
 
-.bolinha{
+.produtos span{
+    font-family: 'IBM Plex Sans Hebrew';
+    font-size: 3vh;
     text-align: center;
-    vertical-align: middle;
-    line-height: 20vh;
-    width: 10vw;
-    height: 20vh;
-    margin-bottom: 20px;
-    border-radius: 100%;
-    float: left;
-    overflow: hidden;
-    background-color: #779A9B;
-    margin-left: 1vw;
+    margin-bottom: 3vh;
+}
+
+.produtos img{
+    margin-top: 1vh;
+}
+
+.beneficios_superiores{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    justify-content:space-around;
+}
+
+.beneficios{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.beneficios span{
+    font-family: 'IBM Plex Sans Hebrew';
+    font-size: 3vh;
+    text-align: center;
+}
+
+.titulo_ben{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Lalezar';
+    width: 100%;
+    background-color: #00A9AF;
+    height: 5vh;
+    border-radius: 1vh 1vh 1vh;
+}
+
+.beneficios_inferiores{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    justify-content:space-around;
 }
 
 .banner2{
@@ -160,6 +246,55 @@ ul {
     background-size:cover;
     border-bottom: 1vh solid white;
     border-top: 1vh solid white;
+}
+
+.banner2 .container{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+
+.banner2_infocard{
+    width: 60%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    align-items: end;
+    text-align: right;
+}
+
+.banner2_infocard h1{
+    font-family: 'Lalezar';
+    font-size: 7vh;
+}
+
+.banner2_infocard span{
+    font-family: 'IBM Plex Sans Hebrew';
+    font-size: 5vh;
+    text-align: right;
+}
+
+.banner2_infocard .banner2_1{
+    margin-top: 4vh;
+    margin-bottom: 4vh;
+    font-family: 'Lalezar';
+    font-size: 3.8vh;
+    width: 70%;
+    height: 5vh;
+    border: none;
+    border-radius: 1vh 1vh 1vh;
+    background-color: #00A9AF;
+
+}
+.banner2_infocard .banner2_2{
+    font-family: 'Lalezar';
+    font-size: 3.8vh;
+    width: 70%;
+    height: 5vh;
+    border: none;
+    border-radius: 1vh 1vh 1vh;
+    background-color: #13D4DB;
 }
 
 .sobre_nos{
@@ -176,18 +311,89 @@ ul {
     border-top: 1vh solid white;
 }
 
-.pessoas_superiores{
-    width: 100%;
+.sobre_nos .container{
     display: flex;
-    justify-content:space-around;
+    flex-direction: column;
+    align-items: end;
+    justify-content: right;
+    width: 90%;
+    height: 90%;
 }
 
-.pessoas_inferiores{
-    width: 100%;
-    display: flex;
-    justify-content:space-around;
+.sobre_nos_tit{
+    font-family: 'Lalezar';
+    font-size: 4vh;
 }
 
+.sobre_infocard{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.sobre_valores{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.valores{
+    width: 27%;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.valores img{
+    width: 40%;
+}
+
+.valores h1{
+    font-family: 'Lalezar';
+    font-size: 4vh;
+}
+
+.valores span{
+    font-family: 'IBM Plex Sans Hebrew';
+    font-size: 2.9vh;
+    text-align: center;
+}
+
+.sobre_buttons{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.sobre_buttons_1{
+    margin-right: 3vw;
+    font-family: 'Lalezar';
+    font-size: 6vh;
+    width: 70%;
+    height: 9vh;
+    border: none;
+    border-radius: 1vh 1vh 1vh;
+    background-color: #13D4DB;
+}
+
+.sobre_buttons_2{
+    font-family: 'Lalezar';
+    font-size: 6vh;
+    width: 30%;
+    height: 9vh;
+    border: none;
+    border-radius: 1vh 1vh 1vh;
+    background-color: #00A9AF;
+}
 
 .footer {
     display: flex;
@@ -196,24 +402,27 @@ ul {
     background-color: #A0C5C7;
 }
 
+.direita_footer img{
+    width: 3vw;
+}
+
 .footer .container{
     height: 100%;
-}
-
-.direita_footer{
-    margin-top: 2vh;
-    height: 100%;
-    display: flex;
-    justify-content:start;
-}
-
-.footer .container {
     justify-content: space-between;
     align-items: center;
 }
 
-.footer .bolinha{
-    width: 5vw;
-    height: 10vh;
-    line-height: 10vh;
+.direita_footer{
+    width: 10vw;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content:start;
+}
+
+
+.direita_footer span{
+    font-family: 'IBM Plex Sans Hebrew';
+    font-size: 2.2vh;
+    text-align: center;
 }
