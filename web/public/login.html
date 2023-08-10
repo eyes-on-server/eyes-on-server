@@ -32,8 +32,15 @@
         }).then(function(resposta) {
 
             if (resposta.ok) {
-                alert("Login realizado com sucesso! Redirecionando para dashboard...")
-                setTimeout(() => {window.location = "./index.html"}, 1000);
+                alert("Login realizado com sucesso! Redirecionando para dashboard...");
+                resposta.json().then(json => {
+                    sessionStorage.NOME_USER = json.nome;
+                    sessionStorage.EMAIL_USER = json.email;
+                    sessionStorage.ID_USER = json.idusuario;
+
+                    setTimeout(() => {window.location = "./denied_user/dashboard.html"}, 1000);
+                })
+
             } else {
                 throw("Houve um erro ao realizar o login!");
             }
