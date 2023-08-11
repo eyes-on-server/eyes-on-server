@@ -6,6 +6,7 @@ const app = express();
 const porta = 5000;
 
 // Chamada de rotas --------------------
+const empresaRota = require("./src/routers/empresa")
 const userRota = require("./src/routers/user");
 const indexRota = require("./src/routers/index")
 
@@ -20,6 +21,7 @@ app.use(cors());
 // Criação de Rotas --------------------
 app.use("/", indexRota);
 app.use("/user", userRota);
+app.use("/empresa", empresaRota);
 
 
 // Iniciar servidor --------------------
