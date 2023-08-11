@@ -6,9 +6,9 @@
     <title>Document</title>
 </head>
 <body>
-    Nome: <input type="text" name="" id="nomeEmpresa"> <br>
-    CNPJ: <input type="text" name="" id="cnpj"> <br>
-    Email: <input type="text" name="" id="emailEmpresa"> <br>
+    Nome: <input type="text" name="" id="id_nomeEmpresa"> <br>
+    CNPJ: <input type="text" name="" id="id_cnpj"> <br>
+    Email: <input type="text" name="" id="id_emailEmpresa"> <br>
 
     <button onclick="cadastrarEmpresa()">Cadastrar</button>
 </body>
@@ -16,9 +16,9 @@
 
 <script>
     function cadastrarEmpresa() {
-        var nomeEmpresa = nomeEmpresa.value;
-        var cnpj = cnpj.value;
-        var emailEmpresa = emailEmpresa.value;
+        var nomeEmpresa = id_nomeEmpresa.value;
+        var cnpj = id_cnpj.value;
+        var emailEmpresa = id_emailEmpresa.value;
 
         fetch("/empresa/cadastrar", {
             method: "POST",
