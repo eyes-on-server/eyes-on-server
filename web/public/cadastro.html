@@ -18,24 +18,44 @@
                 <li class="dropdown_1">
                     <button href="javascript:void(0)" class="btn_superiores" id="dropbtn_1"> Servidores </button>
                     <div class="dropdown_content_1">
-                        <button class="btn_inferiores"> Cadastrar </button>
-                        <button class="btn_inferiores"> Consultar </button>
-                        <button class="btn_inferiores"> Atualizar </button>
-                        <button class="btn_inferiores"> Deletar </button>
+                        <button class="btn_inferiores" id="btn_cadastrar_servidor"> Cadastrar </button>
+                        <button class="btn_inferiores" id="btn_consultar_servidor"> Consultar </button>
+                        <button class="btn_inferiores" id="btn_atualizar_servidor"> Atualizar </button>
+                        <button class="btn_inferiores" id="btn_deletar_servidor"> Deletar </button>
                     </div>
                 </li>
                 <li class="dropdown_2">
                     <button href="javascript:void(0)" class="btn_superiores" id="dropbtn_2"> Funcionários </button>
                     <div class="dropdown_content_2">
-                        <button class="btn_inferiores"> Cadastrar </button>
-                        <button class="btn_inferiores"> Consultar </button>
-                        <button class="btn_inferiores"> Atualizar </button>
-                        <button class="btn_inferiores"> Deletar </button>
+                        <button class="btn_inferiores" id="btn_cadastrar_funcionarios"> Cadastrar </button>
+                        <button class="btn_inferiores" id="btn_consultar_funcionarios"> Consultar </button>
+                        <button class="btn_inferiores" id="btn_atualizar_funcionarios"> Atualizar </button>
+                        <button class="btn_inferiores" id="btn_deletar_funcionarios"> Deletar </button>
                     </div>
                 </li>
             </div>
         </div>
-        <div class="div_cadastro">
+        <div class="div_cadastro_servidor">
+            <h1>Cadastro</h1>
+            <div>Nome: <input type="text" id="nomeCadastro"></div>
+            <div>Senha: <input type="text" id="senhaCadastro"></div>
+            <div>email: <input type="text" id="emailCadastro"></div>
+            <button onclick="cadastrar()" class="btn_cadastrar">Cadastrar</button>
+        </div>
+        <div class="div_consultar_servidor">
+            <h1>Cadastro</h1>
+            <div>ID: <input type="text" id="idConsulta"></div>
+            <div>Senha: <input type="text" id="senhaCadastro"></div>
+            <button onclick="cadastrar()" class="btn_cadastrar">Cadastrar</button>
+        </div>
+        <div class="div_atualizar_servidor">
+            <h1>Cadastro</h1>
+            <div>Nome: <input type="text" id="nomeCadastro"></div>
+            <div>Senha: <input type="text" id="senhaCadastro"></div>
+            <div>email: <input type="text" id="emailCadastro"></div>
+            <button onclick="cadastrar()" class="btn_cadastrar">Cadastrar</button>
+        </div>
+        <div class="div_deletar_servidor">
             <h1>Cadastro</h1>
             <div>Nome: <input type="text" id="nomeCadastro"></div>
             <div>Senha: <input type="text" id="senhaCadastro"></div>
