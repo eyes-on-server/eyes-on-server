@@ -3,16 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style_cadastro.css">
     <title>Cadastro</title>
 </head>
 <body>
-    Nome: <input type="text" id="nomeCadastro">
-    <br>
-    Senha: <input type="text" id="senhaCadastro">
-    <br>
-    email: <input type="text" id="emailCadastro">
-
-    <button onclick="cadastrar()">Cadastrar</button>
+    <div class="div_central">
+        <div class="div_gerenciamento">
+            <span>Gerenciamento</span>
+            <div class="div_superior">
+                <li class="dropdown_1">
+                    <button href="javascript:void(0)" class="btn_superiores" id="dropbtn_1"> Servidores </button>
+                    <div class="dropdown_content_1">
+                        <button class="btn_inferiores"> Cadastrar </button>
+                        <button class="btn_inferiores"> Consultar </button>
+                        <button class="btn_inferiores"> Atualizar </button>
+                        <button class="btn_inferiores"> Deletar </button>
+                    </div>
+                </li>
+                <li class="dropdown_2">
+                    <button href="javascript:void(0)" class="btn_superiores" id="dropbtn_2"> Funcionários </button>
+                    <div class="dropdown_content_2">
+                        <button class="btn_inferiores"> Cadastrar </button>
+                        <button class="btn_inferiores"> Consultar </button>
+                        <button class="btn_inferiores"> Atualizar </button>
+                        <button class="btn_inferiores"> Deletar </button>
+                    </div>
+                </li>
+            </div>
+        </div>
+        <div class="div_cadastro">
+            <h1>Cadastro</h1>
+            <div>Nome: <input type="text" id="nomeCadastro"></div>
+            <div>Senha: <input type="text" id="senhaCadastro"></div>
+            <div>email: <input type="text" id="emailCadastro"></div>
+            <button onclick="cadastrar()" class="btn_cadastrar">Cadastrar</button>
+        </div>
+    </div>
 </body>
 </html>
 <script>

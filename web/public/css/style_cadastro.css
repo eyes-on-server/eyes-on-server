@@ -1,0 +1,152 @@
+body{
+    margin: 0%;
+}
+
+html{    
+    background-color: white;
+}
+
+.dropdown{
+    display: inline;
+}
+
+.div_central{
+    background-image: url(../img/fundo_cadastro_1.png);
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.div_gerenciamento{
+    background-color: rgba(128, 128, 128, 0.445);
+    backdrop-filter: blur(10vh);
+    width: 80vw;
+    height: 10vh;
+    border-radius: 0vh 0vh 7vh 7vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 10px 10vh black;
+}
+
+.div_gerenciamento span{
+    color: gray;
+    font-weight: 600;
+}
+
+.btn_superiores{
+    height: 4vh;
+    width: 10vw;
+    border: none;
+    border-radius: 2vh 2vh 2vh 2vh;
+    background-color: #00FFE0;
+}
+
+.div_superior{
+    display: flex;
+    gap: 10vw;
+}
+
+.dropdown_content_1{
+    display: none;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1vh;
+    background-color: rgba(128, 128, 128, 0.445);
+    backdrop-filter: blur(10vh);
+    width: 10vw;
+    height: 24vh;
+    gap: 1vw;
+    border-radius: 1vh 1vh 1vh 1vh;
+    z-index: 1;
+}
+
+li{
+    list-style-type: none;
+    float: left;
+}
+
+.dropdown_1:hover .dropdown_content_1{
+    display: flex;
+}
+
+.dropdown_content_1 button{
+    height: 4vh;
+    width: 10vw;
+    border: none;
+    border-radius: 2vh 2vh 2vh 2vh;
+    background-color: #00FFE0;
+    margin-right: 1vw;
+    margin-left: 1vw;
+}
+
+.dropdown_content_2{
+    display: none;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1vh;
+    background-color: rgba(128, 128, 128, 0.445);
+    backdrop-filter: blur(10vh);
+    width: 10vw;
+    height: 24vh;
+    gap: 1vw;
+    border-radius: 1vh 1vh 1vh 1vh;
+    z-index: 1;
+}
+
+.dropdown_2:hover .dropdown_content_2{
+    display: flex;
+}
+
+
+.dropdown_content_2 button{
+    height: 4vh;
+    width: 10vw;
+    border: none;
+    border-radius: 2vh 2vh 2vh 2vh;
+    background-color: #00FFE0;
+    margin-right: 1vw;
+    margin-left: 1vw;
+}
+
+input{
+    border-radius: 1vh;
+    border: 0.1vh solid black;
+}
+
+.div_cadastro{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10vh;
+    width: 25vw;
+    height: 50vh;
+    gap: 3vh;
+    border-radius: 4vh 4vh 4vh 4vh;
+    background-color: #9f9f9f52;
+}
+
+.div_cadastro h1{
+    font-weight: 500;
+}
+
+.btn_cadastrar{
+    margin-top: 5vh;
+    font-weight: 600;
+    font-size: 3vh;
+    height: 6vh;
+    width: 11vw;
+    border: none;
+    border-radius: 2vh 2vh 2vh 2vh;
+    background-color: #00FFE0;
+    margin-right: 1vw;
+    margin-left: 1vw;
+}

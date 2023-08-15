@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/css/style_cadastroEmpresa.css">
     <title>Document</title>
 </head>
 <body>
-    Nome: <input type="text" name="" id="id_nomeEmpresa"> <br>
-    CNPJ: <input type="text" name="" id="id_cnpj"> <br>
-    Email: <input type="text" name="" id="id_emailEmpresa"> <br>
-
-    <button onclick="cadastrarEmpresa()">Cadastrar</button>
+    <div class="div_central">
+        <div class="div_cadastro">
+            <h1>Cadastro Empresa</h1>
+            <div>Nome: <input type="text" id="id_nomeEmpresa"></div>
+            <div>CNPJ: <input type="text" id="id_cnpj"></div>
+            <div>Email: <input type="text" id="id_emailEmpresa"></div>
+            <button onclick="cadastrarEmpresa()" class="btn_cadastrar">Cadastrar</button>
+        </div>
+    </div>
 </body>
 </html>
 
