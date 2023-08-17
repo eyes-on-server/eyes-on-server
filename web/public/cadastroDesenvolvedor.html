@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style_cadastroDesenvolvedor.css">
+    <link rel="stylesheet" href="css/style_footer_header.css">
+    <link href='https://fonts.googleapis.com/css?family=Lalezar' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=IBM Plex Sans Hebrew' rel='stylesheet'>
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./js/header.js"></script>
+    <div class="div_central">
+        <div class="div_cadastro">
+            <h1>Cadastro Desenvolvedor</h1>
+            <div>Nome: <input type="text" id="id_nomeDev"></div>
+            <div>E-mail: <input type="text" id="id_emailDev"></div>
+            <div>Senha: <input type="text" id="id_senhaDev"></div>
+            <div><button onclick="cadastrarDesenvolvedor()" class="btn_cadastrar">Cadastrar</button></div>
+        </div>
+    </div>
+    <script src="./js/footer.js"></script>
+</body>
+
+</html>
+
+<script>
+
+    function cadastrarDesenvolvedor() {
+        var nome = id_nomeDev.value;
+        var email = id_emailDev.value;
+        var senha = id_senhaDev.value;
+
+        fetch("/desenvolvedor/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nome_html: nome,
+                email_hmtl: email,
+                senha_html: senha
+            })
+        }).then(function (resposta) {
+            
+            if (resposta.ok){
+                alert("Desenvolvedor cadastrado com sucesso!");
+
+                nome.innerHTML = "";
+                email.innerHTML = "";
+                senha.innerHTML = "";
+                
+            }else{
+                throw("Houve um erro ao tentar cadastrar!");
+            }
+        }).catch(function (resposta){
+            console.log(`#ERRO AO CADASTRAR: ${resposta}`);
+        });
+        
+        return false;
+    }
+</script>
