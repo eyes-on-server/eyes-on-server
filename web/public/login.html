@@ -1,23 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style_footer_header.css">
-    <link href='https://fonts.googleapis.com/css?family=Lalezar' rel='stylesheet'>
-    <link href='https://fonts.googleapis.com/css?family=IBM Plex Sans Hebrew' rel='stylesheet'>
-    <title>Document</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/style_login.css">
+        <link rel="stylesheet" href="css/style_footer_header.css">
+        <link href='https://fonts.googleapis.com/css?family=Lalezar' rel='stylesheet'>
+        <link href='https://fonts.googleapis.com/css?family=IBM Plex Sans Hebrew' rel='stylesheet'>
+        <title>Eye on Server | Login</title>
+    </head>
 <body>
-    Email: <input type="text" id="emailLogin">
-    <br>
-    Senha: <input type="text" id="senhaLogin">
-    <br>
-    <button onclick="login()">Login</button>
+    <script src="./js/header.js"></script>
+    <div class="div_central">
+        <div class="div_cadastro">
+            <h1>Login</h1>
+            <div>Email: <input type="text" id="emailLogin"></div>
+            <div>Senha: <input type="password" id="senhaLogin"></div>
+            <button onclick="validarLogin()" class="btn_cadastrar">Login</button>
+            <!--<div>Nome: <input type="text" id="id_nomeEmpresa"></div>
+            <div>CNPJ: <input type="text" id="id_cnpj"></div>
+            <div>Email: <input type="text" id="id_emailEmpresa"></div>
+            <button onclick="cadastrarEmpresa()" class="btn_cadastrar">Cadastrar</button>-->
+        </div>
+    </div>
+    <script src="./js/footer.js"></script>
 </body>
 </html>
 
 <script>
+    function validarLogin() {
+        var erro = false;
+        var email = emailLogin.value;
+        var senha = senhaLogin.value;
+
+        if (email.indexOf("@") == -1) {
+            alert("Email inválido");
+            erro = true;
+        }
+        if (!erro) {
+            login();
+        }
+    }
 
     function login() {
         var email = emailLogin.value;
