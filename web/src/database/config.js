@@ -3,8 +3,8 @@ const mysql = require('mysql2');
 var configBd = {
     host: "localhost",
     database: "eye-on-server",
-    user: "root",
-    password: "OcEuEch31r0s077@"
+    user: "aluno",
+    password: "sptech"
 };
 
 function consultaBd(pesquisa) {
