@@ -12,12 +12,12 @@ body{
     background-color: white;
     border-bottom: 1px solid black;
     font-family: 'Lalezar';
-    font-size: 3vh;
+    font-size: 3vw;
 }
 
 .header a{
     font-family: 'Lalezar';
-    font-size: 3vh;
+    font-size: 2.5vw;
     color: black;
     text-decoration: none;
 }
@@ -34,11 +34,13 @@ body{
 }
 
 .logo{
-    height: 12vh;
+    height: 12vw;
+    margin-right: 10vw;
 }
 
 .header .container {
-    justify-content: space-between;
+    justify-content:center;
+    gap: 10vw;
     align-items: center;
 }
 
@@ -70,7 +72,7 @@ body{
 }
 
 .nome_usuario{
-    font-size: 2.9vh;
+    font-size: 2.9vw;
     font-family: 'IBM Plex Sans Hebrew';
 }
 
@@ -95,7 +97,7 @@ hr{
 
 li{
     font-family: 'Fraunces', serif;
-    font-size:3vh;
+    font-size:3vw;
     margin-left: 2vh;
 }
 
@@ -137,6 +139,6 @@ ul {
 
 .direita_footer span{
     font-family: 'IBM Plex Sans Hebrew';
-    font-size: 2.2vh;
+    font-size: 2.2vw;
     text-align: center;
 }

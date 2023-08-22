@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eyes On Server</title>
     <link rel="shortcut icon" href="./img/icon_no_bg.png" type="image/x-icon">
-    <link rel="stylesheet" href="./css/style_index.css">
+    <link rel="stylesheet" href="./css/style_footer_header.css">
     <link href='https://fonts.googleapis.com/css?family=Lalezar' rel='stylesheet'>
+    <div id="Modo"><link rel="stylesheet" href="./css/style_mobile_index.css"></div>
     <link href='https://fonts.googleapis.com/css?family=IBM Plex Sans Hebrew' rel='stylesheet'>
 </head>
 <body>
@@ -163,3 +164,13 @@
     </div>
 </body>
 </html>
+
+<script>
+    var nav_agent = (navigator.userAgent).toUpperCase()
+
+    if(nav_agent.indexOf("ANDROID") == -1 && nav_agent.indexOf("IPHONE") == -1 && nav_agent.indexOf("IPAD") == -1){
+        Modo.innerHTML = '<link rel="stylesheet" href="./css/style_index.css">'
+    }
+
+    
+</script>
