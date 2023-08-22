@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style_cadastroDesenvolvedor.css">
-    <link rel="stylesheet" href="css/style_footer_header.css">
+    <div id="Modo"><link rel="stylesheet" href="./css/style_mobile_cadastroDesenvolvedor.css"> <link rel="stylesheet" href="./css/style_mobile_footer_header.css"></div>
     <link href='https://fonts.googleapis.com/css?family=Lalezar' rel='stylesheet'>
     <link href='https://fonts.googleapis.com/css?family=IBM Plex Sans Hebrew' rel='stylesheet'>
     <title>Document</title>
@@ -62,4 +61,13 @@
         
         return false;
     }
+</script>
+<script>
+    var nav_agent = (navigator.userAgent).toUpperCase()
+
+    if(nav_agent.indexOf("ANDROID") == -1 && nav_agent.indexOf("IPHONE") == -1 && nav_agent.indexOf("IPAD") == -1){
+        Modo.innerHTML = '<link rel="stylesheet" href="./css/style_cadastroDesenvolvedor.css"><link rel="stylesheet" href="./css/style_footer_header.css">'
+    }
+
+    
 </script>
