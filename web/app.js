@@ -6,10 +6,11 @@ const app = express();
 const porta = 5000;
 
 // Chamada de rotas --------------------
-const servidorRota = require("./src/routers/servidor")
-const empresaRota = require("./src/routers/empresa")
+const desenvolvedorRota = require("./src/routers/desenvolvedor");
+const servidorRota = require("./src/routers/servidor");
+const empresaRota = require("./src/routers/empresa");
 const userRota = require("./src/routers/user");
-const indexRota = require("./src/routers/index")
+const indexRota = require("./src/routers/index");
 
 
 // Configurações -----------------------
@@ -24,10 +25,10 @@ app.use("/", indexRota);
 app.use("/user", userRota);
 app.use("/empresa", empresaRota);
 app.use("/servidor", servidorRota);
+app.use("/desenvolvedor", desenvolvedorRota);
 
 
 // Iniciar servidor --------------------
 app.listen(porta, () => {
     console.log(`http://localhost:${porta}/`)
 })
-
