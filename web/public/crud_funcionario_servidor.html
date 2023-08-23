@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style_cadastro.css">
+    <link rel="stylesheet" href="css/style_footer_header.css">
+    <link href='https://fonts.googleapis.com/css?family=Lalezar' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=IBM Plex Sans Hebrew' rel='stylesheet'>
+    <title>Cadastro</title>
+</head>
+<body>
+    <script src="js/header.js"></script>
+    <div class="div_central">
+        <div class="div_gerenciamento">
+            <span>Gerenciamento</span>
+            <div class="div_superior">
+                <li class="dropdown_1">
+                    <button href="javascript:void(0)" class="btn_superiores" id="dropbtn_1"> Servidores </button>
+                    <div class="dropdown_content_1">
+                        <button class="btn_inferiores" id="btn_cadastrar_servidor" onclick="mostrar_cadastrar_servidor()"> Cadastrar </button>
+                        <button class="btn_inferiores" id="btn_consultar_servidor" onclick="mostrar_consultar_servidor()"> Consultar </button>
+                        <button class="btn_inferiores" id="btn_atualizar_servidor" onclick="mostrar_atualizar_servidor()"> Atualizar </button>
+                        <button class="btn_inferiores" id="btn_deletar_servidor" onclick="mostrar_deletar_servidor()"> Deletar </button>
+                    </div>
+                </li>
+                <li class="dropdown_2">
+                    <button href="javascript:void(0)" class="btn_superiores" id="dropbtn_2"> Funcionários </button>
+                    <div class="dropdown_content_2">
+                        <button class="btn_inferiores" id="btn_cadastrar_funcionarios" onclick="mostrar_cadastrar_usuario()"> Cadastrar </button>
+                        <button class="btn_inferiores" id="btn_consultar_funcionarios" onclick="mostrar_consultar_usuario()"> Consultar </button>
+                        <button class="btn_inferiores" id="btn_atualizar_funcionarios" onclick="mostrar_atualizar_usuario()"> Atualizar </button>
+                        <button class="btn_inferiores" id="btn_deletar_funcionarios" onclick="mostrar_deletar_usuario()"> Deletar </button>
+                    </div>
+                </li>
+            </div>
+        </div>
+        <div id="div_cadastrar_servidor">
+            <h1>Cadastrar servidor</h1>
+            <div class="div_input">Nome: <input type="text" id="id_nomeServidorCadastrar"></div>
+            <div class="div_input">Tipo: <input type="text" id="id_tipoServidorCadastrar"></div>
+            <div class="div_input">Descrição: <input type="text" id="id_descrServidorCadastrar"></div>
+            <div class="div_input">Local: <input type="text" id="id_localServidorCadastrar"></div>
+            <button onclick="cadastrar_servidor()" class="btn_cadastrar">Cadastrar</button>
+        </div>
+        <div id="div_consultar_servidor">
+            <h1>Consultar servidor</h1>
+            <div class="div_input">ID: <input type="text" id="id_idServidorConsultar"></div>
+            <button onclick="consultar_servidor()" class="btn_cadastrar">Consultar</button>
+        </div>
+        <div id="div_atualizar_servidor">
+            <h1>Atualizar servidor</h1>
+            <div class="div_input">ID: <input type="text" id="id_idServidorAtualizar"></div>
+            <div class="div_input">Nome: <input type="text" id="id_nomeServidorAtualizar"></div>
+            <div class="div_input">Tipo: <input type="text" id="id_tipoServidorAtualizar"></div>
+            <div class="div_input">Descrição: <input type="text" id="id_descrServidorAtualizar"></div>
+            <div class="div_input">Local: <input type="text" id="id_localServidorAtualizar"></div>
+            <button onclick="atualizar_servidor()" class="btn_cadastrar">Atualização</button>
+        </div>
+        <div id="div_deletar_servidor">
+            <h1>Deletar servidor</h1>
+            <div class="div_input">ID: <input type="text" id="id_idServidorDeletar"></div>
+            <div class="div_input">Nome: <input type="text" id="id_nomeServidorDeletar"></div>
+            <button onclick="deletar_servidor()" class="btn_cadastrar">Deletar</button>
+        </div>
+        <div id="div_cadastrar_usuario">
+            <h1>Cadastrar usuário</h1>
+            <div class="div_input">Nome: <input type="text" id="id_nomeUsuarioCadastrar"></div>
+            <div class="div_input">Senha: <input type="text" id="id_senhaUsuarioCadastrar"></div>
+            <div class="div_input">email: <input type="text" id="id_emailUsuarioCadastrar"></div>
+            <button onclick="cadastrar_usuario()" class="btn_cadastrar">Cadastrar</button>
+        </div>
+        <div id="div_consultar_usuario">
+            <h1>Consultar usuário</h1>
+            <div class="div_input">ID: <input type="text" id="id_idUsuarioConsultar"></div>
+            <div class="div_input">Nome: <input type="text" id="id_nomeUsuarioConsultar"></div>
+            <button onclick="consultar_usuario()" class="btn_cadastrar">Consultar</button>
+        </div>
+        <div id="div_atualizar_usuario">
+            <h1>Atualizar usuário</h1>
+            <div class="div_input">Nome: <input type="text" id="id_nomeUsuarioAtualizar"></div>
+            <div class="div_input">Senha: <input type="text" id="id_senhaUsuarioAtualizar"></div>
+            <div class="div_input">email: <input type="text" id="id_emailUsuarioAtualizar"></div>
+            <button onclick="atualizar_usuario()" class="btn_cadastrar">Atualizar</button>
+        </div>
+        <div id="div_deletar_usuario">
+            <h1>Deletar usuário</h1>
+            <div class="div_input">email: <input type="text" id="id_emailUsuarioDeletar"></div>
+            <div class="div_input">Senha: <input type="text" id="id_senhaUsuarioDeletar"></div>
+            <button onclick="deletar_usuario()" class="btn_cadastrar">Deletar</button>
+        </div>
+
+    </div>
+    <script src="js/footer.js"></script>
+</body>
+</html>
+<script>
+    /*--------------Funções Gerenciamento-----------------------------*/
+    esconder_div()
+
+    function esconder_div() {
+        div_cadastrar_servidor.style.display = 'none';
+        div_consultar_servidor.style.display = 'none';
+        div_atualizar_servidor.style.display = 'none';
+        div_deletar_servidor.style.display = 'none';
+        div_cadastrar_usuario.style.display = 'none';
+        div_consultar_usuario.style.display = 'none';
+        div_atualizar_usuario.style.display = 'none';
+        div_deletar_usuario.style.display = 'none';
+    }
+    
+    function mostrar_cadastrar_servidor() {
+        esconder_div();
+        div_cadastrar_servidor.style.display = 'block';
+    }
+
+    function mostrar_consultar_servidor() {
+        esconder_div();
+        div_consultar_servidor.style.display = 'block';
+    }
+
+    function mostrar_atualizar_servidor() {
+        esconder_div();
+        div_atualizar_servidor.style.display = 'block';
+    }
+
+    function mostrar_deletar_servidor() {
+        esconder_div();
+        div_deletar_servidor.style.display = 'block';
+    }
+
+    function mostrar_cadastrar_usuario() {
+        esconder_div();
+        div_cadastrar_usuario.style.display = 'block';
+    }
+
+    function mostrar_consultar_usuario() {
+        esconder_div();
+        div_consultar_usuario.style.display = 'block';
+    }
+
+    function mostrar_atualizar_usuario() {
+        esconder_div();
+        div_atualizar_usuario.style.display = 'block';
+    }
+
+    function mostrar_deletar_usuario() {
+        esconder_div();
+        div_deletar_usuario.style.display = 'block';
+    }
+
+/*-----------------------------------------------Funções Servidor-----------------------------------------------------------------*/
+    function cadastrar_servidor(){
+        
+        var nomeServidor = id_nomeServidorCadastrar.value;
+        var tipoServidor = id_tipoServidorCadastrar.value;
+        var descricaoServidor = id_descrServidorCadastrar.value;
+        var localServidor = id_localServidorCadastrar.value;
+        console.log(nomeServidor)
+        
+        fetch("/servidor/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServidor_html: nomeServidor,
+                tipoServidor_html: tipoServidor,
+                descricaoServidor_html: descricaoServidor,
+                localServidor_html: localServidor
+                
+            })
+        }).then(function (resposta) {
+            
+            if (resposta.ok){
+                alert("Servidor cadastrado com sucesso!");
+                nomeServidor.innerHTML = "";
+                tipoServidor.innerHTML = "";
+                descricaoServidor.innerHTML = "";
+                localServidor.innerHTML = "";
+
+            }else{
+                throw("Houve um erro ao tentar cadastrar!");
+            }
+        }).catch(function (resposta){
+            console.log(`#ERRO AO CADASTRAR: ${resposta}`);
+        });
+        return false;
+    }
+
+/*-----------------------------------------------Funções Usuário-----------------------------------------------------------------*/
+    function cadastrar_usuario(){
+        var nome = id_nomeCadastrar.value;
+        var email = id_emailCadastrar.value;
+        var senha = id_senhaCadastrar.value;
+
+        fetch("/user/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nome_html: nome,
+                email_html: email,
+                senha_html: senha
+            })
+        }).then(function (resposta) {
+            
+            if (resposta.ok){
+                alert("Cadastrado com sucesso! Redirecionando para tela de login...");
+                setTimeout(() => {window.location = "./login.html"; }, 1000);
+
+            }else{
+                throw("Houve um erro ao tentar cadastrar!");
+            }
+        }).catch(function (resposta){
+            console.log(`#ERRO AO CADASTRAR: ${resposta}`);
+        });
+        return false;
+    }
+</script>
