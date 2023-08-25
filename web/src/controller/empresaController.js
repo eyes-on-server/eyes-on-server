@@ -13,7 +13,7 @@ function listar(req, res) {
             res.status(200).json(resultado);
         }
         else {
-            res.status(204).send("TÁ VAZIO AQUI TIO, CADE AS INFO???!");
+            res.status(204).send("Não foi possível retornar algum valor.");
         }
 
     }).catch((erro) => {
@@ -51,7 +51,64 @@ function cadastrar(req, res){
     }
 }
 
+function atualizar(req, res) {
+    info("atualizar()");
+    var idEmpresa_server = req.body.idEmpresa_html;
+    var nomeFantasia_server = req.body.nomeFantasia_html;
+    var cnpj_server = req.body.cnpj_html;
+    var email_server = req.body.email_html;
+
+    if(idEmpresa_server == undefined){
+        res.status(400).send("Seu idEmpresa está indefinido!");
+    } else if (nomeFantasia_server == undefined){
+        res.status(400).send("Seu nomeFantasia está indefinido!");
+    } else if (cnpj_server == undefined){
+        res.status(400).send("Seu cnpj está indefinido!");
+    }else if (email_server == undefined){
+        res.status(400).send("Seu email está indefinido!");
+    } else {
+        empresaModel.atualizar(idEmpresa_server, nomeFantasia_server, cnpj_server, email_server).then (
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function(erro) {
+                console.log(erro);
+                console.log(erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        )
+    }
+}
+
+function deletar(req, res) {
+    info ("deletar()");
+    var cnpj_server = req.body.cnpj_html;
+    var email_server = req.body.email_html;
+
+    if (cnpj_server == undefined){
+        res.status(400).send("Seu cnpj está indefinido!");
+    } else if (email_server == undefined){
+        res.status(400).send("Seu email está indefinido!");
+    } 
+     else {
+        userModel.deletar(cnpj_server, email_server).then(
+            function (resultado){
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro){
+                console.log(erro);
+                console.log(erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+    }
+}
+
 module.exports = {
     listar,
-    cadastrar
-}
+    cadastrar,
+    atualizar,
+    deletar
+};

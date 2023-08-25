@@ -17,4 +17,14 @@ rota.post("/cadastrar", (req, res) => {
     empresaController.cadastrar(req, res);
 });
 
+rota.post("/atualizar", (req, res) =>{
+    info("Atualizar")
+    empresaController.atualizar(req, res)
+})
+
+rota.post("/deletar", (req, res) =>{
+    info("Deletar")
+    empresaController.deletar(req, res)
+})
+
 module.exports = rota;

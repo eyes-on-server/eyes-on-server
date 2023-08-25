@@ -22,7 +22,25 @@ function cadastrar(nomeFantasia, cnpj, email){
     return bancoDados.consultaBd(query);
 }
 
+function atualizar (idEmpresa, nomeFantasia, cnpj, email) {
+    var query = `UPDATE empresa SET nomeFantasia = "${nomeFantasia}", cnpj = "${cnpj}", email = "${email} WHERE idEmpresa = "${idEmpresa}";`
+
+    info ("atualizar()", query)
+
+    return bancoDados.consultaBd(query);
+}
+
+function deletar(cnpj, email){
+    var query = `DELETE FROM empresa WHERE cnpj = "${cnpj}" and email = "${email}"`
+
+    info("deletar()", query);
+
+    return bancoDados.consultaBd(query);
+}
+
 module.exports = {
     listar,
-    cadastrar
+    cadastrar,
+    atualizar,
+    deletar
 }
