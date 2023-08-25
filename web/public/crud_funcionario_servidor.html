@@ -78,6 +78,7 @@
         </div>
         <div id="div_atualizar_usuario">
             <h1>Atualizar usuário</h1>
+            <div class="div_input">Digite o id do usuario que deseja atualizar: <input type="text" id="id_idUsuarioAtualizar"></div>
             <div class="div_input">Nome: <input type="text" id="id_nomeUsuarioAtualizar"></div>
             <div class="div_input">Senha: <input type="text" id="id_senhaUsuarioAtualizar"></div>
             <div class="div_input">email: <input type="text" id="id_emailUsuarioAtualizar"></div>
@@ -190,9 +191,10 @@
 
 /*-----------------------------------------------Funções Usuário-----------------------------------------------------------------*/
     function cadastrar_usuario(){
-        var nome = id_nomeCadastrar.value;
-        var email = id_emailCadastrar.value;
-        var senha = id_senhaCadastrar.value;
+        alert('teste')
+        var nome = id_nomeUsuarioCadastrar.value;
+        var email = id_emailUsuarioCadastrar.value;
+        var senha = id_senhaUsuarioCadastrar.value;
 
         fetch("/user/cadastrar", {
             method: "POST",
@@ -215,6 +217,97 @@
             }
         }).catch(function (resposta){
             console.log(`#ERRO AO CADASTRAR: ${resposta}`);
+        });
+        return false;
+    }
+
+    function consultar_usuario(){
+        var id_user = id_idUsuarioConsultar.value
+        var nome_user = id_nomeUsuarioConsultar.value
+
+        fetch("/user/consultar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id_user_html:id_user,
+                nome_user_html:nome_user 
+            })
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(JSON.stringify(json))
+                    alert(`${json[0].idusuario} ${json[0].nome} ${json[0].root} ${json[0].email}`)
+                });
+            } else {
+                console.log("Houve um erro ao tentar consultar o usuario!!");
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+        return false;
+    }
+
+    function atualizar_usuario(){
+        var id_user = id_idUsuarioAtualizar.value
+        var nome_user = id_nomeUsuarioAtualizar.value
+        var senha_user = id_senhaUsuarioAtualizar.value
+        var email_user = id_emailUsuarioAtualizar.value
+
+        fetch("/user/atualizar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id_html: id_user,
+                nome_html: nome_user,
+                senha_html: senha_user,
+                email_html:email_user
+            })
+        }).then(function (resposta) {
+            
+            if (resposta.ok){
+                alert("Atualização feita!!");
+
+            }else{
+                throw("Houve um erro ao tentar atualizar!");
+            }
+        }).catch(function (resposta){
+            console.log(`#ERRO AO ATUALIZAR: ${resposta}`);
+        });
+        return false;
+    }
+
+    function deletar_usuario(){
+        var senha_user = id_senhaUsuarioDeletar.value
+        var email_user = id_emailUsuarioDeletar.value
+
+        fetch("/user/deletar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                senha_html: senha_user,
+                email_html: email_user
+            })
+        }).then(function (resposta) {
+            
+            if (resposta.ok){
+                alert("Usuario deletado!!");
+
+            }else{
+                throw("Houve um erro ao tentar deletar!");
+            }
+        }).catch(function (resposta){
+            console.log(`#ERRO AO DELETAR: ${resposta}`);
         });
         return false;
     }

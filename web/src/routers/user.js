@@ -22,4 +22,19 @@ rota.post("/login", (req, res) => {
     userController.login(req, res);
 });
 
+rota.post("/consultar", (req, res) => {
+    info("Consultar")
+    userController.consultar(req, res)
+})
+
+rota.post("/atualizar", (req, res) =>{
+    info("Atualizar")
+    userController.atualizar(req, res)
+})
+
+rota.post("/deletar", (req, res) =>{
+    info("Deletar")
+    userController.deletar(req, res)
+})
+
 module.exports = rota;
