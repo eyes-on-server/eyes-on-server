@@ -30,8 +30,26 @@ function consultar(nomeServidor){
     return bancoDados.consultaBd(query);
 }
 
+function atualizar(idServidor, nomeServidor, tipoServidor, descricaoServidor, localServidor){
+    var query = `UPDATE servidor SET nomeServidor = '${nomeServidor}', tipoServidor = '${tipoServidor}', descricaoServidor = '${descricaoServidor}', localServidor = '${localServidor}' WHERE idServidor = ${idServidor}`;
+
+    info("atualizar()", query);
+
+    return bancoDados.consultaBd(query);
+}
+
+function deletar(idServidor, nomeServidor){
+    var query = `DELETE FROM servidor WHERE idServidor = ${idServidor} AND nomeServidor = '${nomeServidor}'`;
+
+    info("deletar()", query);
+
+    return bancoDados.consultaBd(query);
+}
+
 module.exports = {
     listar, 
     cadastrar,
-    consultar
+    consultar,
+    atualizar,
+    deletar
 }

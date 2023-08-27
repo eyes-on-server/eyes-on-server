@@ -22,4 +22,14 @@ rota.post("/consultar", (req, res) => {
     servidorController.consultar(req, res);
 })
 
+rota.post("/atualizar", (req, res) => {
+    info("Atualizar");
+    servidorController.atualizar(req, res);
+})
+
+rota.post("/deletar", (req, res) => {
+    info("Deletar");
+    servidorController.deletar(req, res);
+})
+
 module.exports = rota;

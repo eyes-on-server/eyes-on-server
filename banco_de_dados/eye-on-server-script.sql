@@ -75,8 +75,9 @@ CREATE TABLE IF NOT EXISTS `eye-on-server`.`servidor` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-SELECT * FROM servidor WHERE `descricaoServidor` = 'teste' OR `idServidor` = 1;
-SELECT *
+SELECT * FROM servidor WHERE `descricaoServidor` = 'teste' OR `idServidor` = 10; --teste(bifon)
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

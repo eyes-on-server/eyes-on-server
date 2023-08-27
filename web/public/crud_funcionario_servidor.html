@@ -219,6 +219,64 @@
         return false;
     }
 
+    function atualizar_servidor(){
+        var idServidor = id_idServidorAtualizar.value;
+        var nomeServidor = id_nomeServidorAtualizar.value;
+        var tipoServidor = id_tipoServidorAtualizar.value;
+        var descricaoServidor = id_descrServidorAtualizar.value;
+        var localServidor = id_localServidorAtualizar.value;
+
+        fetch("/servidor/atualizar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idServidor_html: idServidor,
+                nomeServidor_html: nomeServidor,
+                tipoServidor_html: tipoServidor,
+                descricaoServidor_html: descricaoServidor,
+                localServidor_html: localServidor
+            })
+        }).then (function (resposta) {
+            if (resposta.ok){
+                alert("Atualização Feita!!");
+            
+            }else{
+                throw("Houve um erro ao tentar atualizar!");
+            }
+        }).catch(function (resposta) {
+            console.log(`#ERRO AO ATUALIZAR: ${resposta}`);
+        });
+        return false;
+    }
+
+    function deletar_servidor(){
+        var idServidor = id_idServidorDeletar.value;
+        var nomeServidor = id_nomeServidorDeletar.value;
+        
+        fetch("/servidor/deletar",{
+            method:"POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idServidor_html: idServidor,
+                nomeServidor_html: nomeServidor
+            })
+        }).then(function (resposta){
+            if (resposta.ok){
+                alert("Servidor deletado!!");
+
+            }else{
+                throw("Houve um erro ao tentar deletar!");
+            }
+        }).catch(function (resposta){
+            console.log(`#ERRO AO DELETAR: ${resposta}`);
+        });
+        return false;
+    }
+
 /*-----------------------------------------------Funções Usuário-----------------------------------------------------------------*/
     function cadastrar_usuario(){
         alert('teste')
