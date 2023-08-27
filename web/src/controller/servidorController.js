@@ -52,7 +52,32 @@ function cadastrar(req, res){
     }
 }
 
+function consultar(req, res){
+    info("consultar()")
+    var nomeServidor = req.body.nomeServidor_html;
+
+    if(nomeServidor == undefined){
+        res.status(400).send("O nome está indefinido!");
+    }
+
+    servidorModel.consultar(nomeServidor).then((resultado)=> {
+
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        }
+        else {
+            res.status(204).send("NAO ACHOU NADA NESSA BRINCADEIRA DE MAL GOSTO!!!");
+        }
+
+    }).catch((erro) => {
+        console.log(erro);
+        console.log("!! ERRO > ServidorController: Listar()\n", erro.sqlMessage)
+    })
+    
+}
+
 module.exports = {
     listar,
-    cadastrar
+    cadastrar, 
+    consultar
 }

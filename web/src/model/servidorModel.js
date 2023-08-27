@@ -22,8 +22,16 @@ function cadastrar(nomeServidor, tipoServidor, descricaoServidor, localServidor)
     return bancoDados.consultaBd(query);
 }
 
+function consultar(nomeServidor){
+    var query = `SELECT idServidor, nomeServidor, tipoServidor, descricaoServidor, localServidor FROM servidor WHERE nomeServidor = "${nomeServidor}"`;
+    
+    info("consultar()", query);
+
+    return bancoDados.consultaBd(query);
+}
 
 module.exports = {
     listar, 
-    cadastrar
+    cadastrar,
+    consultar
 }

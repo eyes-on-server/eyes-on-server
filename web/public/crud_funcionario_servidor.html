@@ -44,8 +44,8 @@
             <button onclick="cadastrar_servidor()" class="btn_cadastrar">Cadastrar</button>
         </div>
         <div id="div_consultar_servidor">
-            <h1>Consultar servidor</h1>
-            <div class="div_input">ID: <input type="text" id="id_idServidorConsultar"></div>
+            <h1>Consultar servidor</h1> 
+            <div class="div_input">Nome: <input type="text" id="id_nomeServidorConsultar"></div>
             <button onclick="consultar_servidor()" class="btn_cadastrar">Consultar</button>
         </div>
         <div id="div_atualizar_servidor">
@@ -157,7 +157,6 @@
         var tipoServidor = id_tipoServidorCadastrar.value;
         var descricaoServidor = id_descrServidorCadastrar.value;
         var localServidor = id_localServidorCadastrar.value;
-        console.log(nomeServidor)
         
         fetch("/servidor/cadastrar", {
             method: "POST",
@@ -186,6 +185,37 @@
         }).catch(function (resposta){
             console.log(`#ERRO AO CADASTRAR: ${resposta}`);
         });
+        return false;
+    }
+
+    function consultar_servidor(){
+        var nomeServidor = id_nomeServidorConsultar.value;
+
+        fetch("/servidor/consultar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nomeServidor_html: nomeServidor,
+            })
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(JSON.stringify(json))
+                    alert(`${json[0].idServidor} ${json[0].nomeServidor} ${json[0].tipoServidor} ${json[0].descricaoServidor} ${json[0].localServidor}`)
+                });
+            } else {
+                console.log("Houve um erro ao tentar consultar o servidor!!");
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        })
         return false;
     }
 

@@ -17,4 +17,9 @@ rota.post("/cadastrar", (req, res) => {
     servidorController.cadastrar(req, res);
 });
 
+rota.post("/consultar", (req, res) => {
+    info("Consultar");
+    servidorController.consultar(req, res);
+})
+
 module.exports = rota;
