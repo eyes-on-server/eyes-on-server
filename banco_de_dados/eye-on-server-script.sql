@@ -18,7 +18,7 @@ USE `eye-on-server` ;
 -- Table `eye-on-server`.`empresa`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `eye-on-server`.`empresa` (
-  `idEmpresa` INT NOT NULL,
+  `idEmpresa` INT NOT NULL AUTO_INCREMENT,
   `nomeFantasia` VARCHAR(120) NULL,
   `cnpj` CHAR(14) NULL,
   `email` VARCHAR(120) NULL,
@@ -30,7 +30,7 @@ ENGINE = InnoDB;
 -- Table `eye-on-server`.`usuario`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `eye-on-server`.`usuario` (
-  `idUsuario` INT NOT NULL,
+  `idUsuario` INT NOT NULL AUTO_INCREMENT,
   `fkEmpresa` INT NOT NULL,
   `nome` VARCHAR(120) NULL,
   `root` INT NULL,
@@ -50,7 +50,7 @@ ENGINE = InnoDB;
 -- Table `eye-on-server`.`servidor`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `eye-on-server`.`servidor` (
-  `idServidor` INT NOT NULL,
+  `idServidor` INT NOT NULL AUTO_INCREMENT,
   `fkEmpresa` INT NOT NULL,
   `nomeServidor` VARCHAR(120) NULL,
   `tipoServidor` VARCHAR(120) NULL,
@@ -70,7 +70,7 @@ ENGINE = InnoDB;
 -- Table `eye-on-server`.`medida`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `eye-on-server`.`medida` (
-  `idMedida` INT NOT NULL,
+  `idMedida` INT NOT NULL AUTO_INCREMENT,
   `tipoMedida` VARCHAR(10) NULL,
   PRIMARY KEY (`idMedida`))
 ENGINE = InnoDB;
@@ -80,7 +80,7 @@ ENGINE = InnoDB;
 -- Table `eye-on-server`.`componente`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `eye-on-server`.`componente` (
-  `idComponente` INT NOT NULL,
+  `idComponente` INT NOT NULL AUTO_INCREMENT,
   `fkServidor` INT NOT NULL,
   `nomeComponente` VARCHAR(120) NULL,
   `modeloComponete` VARCHAR(120) NULL,
@@ -107,7 +107,7 @@ ENGINE = InnoDB;
 -- Table `eye-on-server`.`chamados`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `eye-on-server`.`chamados` (
-  `idChamados` INT NOT NULL,
+  `idChamados` INT NOT NULL AUTO_INCREMENT,
   `fkComponente` INT NOT NULL,
   `tituloChamado` VARCHAR(120) NULL,
   `descricaoChamado` TEXT NULL,
