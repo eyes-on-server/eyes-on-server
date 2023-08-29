@@ -13,6 +13,9 @@ html{
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 10vh;
 }
 
 .div_gerenciamento{
@@ -106,15 +109,16 @@ input{
     border: 0.1vh solid black;
 }
 
-.div_cadastro{
+.form{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     margin-top: 10vh;
     width: 25vw;
-    height: 50vh;
+    height: fit-content;
     gap: 3vh;
+    padding-bottom: 1vh;
     border-radius: 4vh 4vh 4vh 4vh;
     background-color: #9f9f9f52;
 }
@@ -138,4 +142,16 @@ input{
 
 .div_input {
     padding: 1vh;
+}
+
+table {
+    border-collapse: collapse;
+    width: 80%;
+    background-color: #ffffff;
+}
+
+td, th {
+    width: 50%;
+    border: solid 1px #000000;
+    text-align: center;
 }
