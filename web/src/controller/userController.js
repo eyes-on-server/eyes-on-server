@@ -29,6 +29,7 @@ function cadastrar(req, res){
     var nome = req.body.nome_html;
     var email = req.body.email_html;
     var senha = req.body.senha_html;
+    var conf_senha = req.body.conf_senha_html;
 
     if(nome == undefined){
         res.status(400).send("Seu nome está indefinido!");
@@ -36,6 +37,8 @@ function cadastrar(req, res){
         res.status(400).send("Seu email está indefinido!");
     } else if (senha == undefined){
         res.status(400).send("Sua senha está indefinido!");
+    } else if (senha != conf_senha){
+        res.status(400).send("Senhas não idênticas!");
     } else {
 
         userModel.cadastrar(nome, email, senha).then(

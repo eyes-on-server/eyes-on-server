@@ -10476,7 +10476,7 @@ a:focus {
   text-align: center;
   padding: 0 1rem;
   font-weight: 800;
-  font-size: 0.65rem;
+  font-size: 0.55rem;
 }
 
 .sidebar .sidebar-card {
@@ -10622,6 +10622,7 @@ a:focus {
   }
   .sidebar.toggled .sidebar-heading {
     text-align: center;
+    font-size: 0.6rem;
   }
 }
 
@@ -11269,6 +11270,7 @@ form.user .btn-user {
 footer.sticky-footer {
   padding: 2rem 0;
   flex-shrink: 0;
+  
 }
 
 footer.sticky-footer .copyright {
