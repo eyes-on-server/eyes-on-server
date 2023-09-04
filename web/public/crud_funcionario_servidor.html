@@ -35,7 +35,7 @@
                 </li>
             </div>
         </div>
-        <div id="div_cadastrar_servidor">
+        <div class="form" id="div_cadastrar_servidor">
             <h1>Cadastrar servidor</h1>
             <div class="div_input">Nome: <input type="text" id="id_nomeServidorCadastrar"></div>
             <div class="div_input">Tipo: <input type="text" id="id_tipoServidorCadastrar"></div>
@@ -43,12 +43,18 @@
             <div class="div_input">Local: <input type="text" id="id_localServidorCadastrar"></div>
             <button onclick="cadastrar_servidor()" class="btn_cadastrar">Cadastrar</button>
         </div>
-        <div id="div_consultar_servidor">
+        <div class="form" id="div_consultar_servidor">
             <h1>Consultar servidor</h1> 
             <div class="div_input">Nome: <input type="text" id="id_nomeServidorConsultar"></div>
             <button onclick="consultar_servidor()" class="btn_cadastrar">Consultar</button>
+            <table id="exibir_consulta_servidor">
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                </tr>
+            </table>
         </div>
-        <div id="div_atualizar_servidor">
+        <div class="form" id="div_atualizar_servidor">
             <h1>Atualizar servidor</h1>
             <div class="div_input">ID: <input type="text" id="id_idServidorAtualizar"></div>
             <div class="div_input">Nome: <input type="text" id="id_nomeServidorAtualizar"></div>
@@ -57,26 +63,32 @@
             <div class="div_input">Local: <input type="text" id="id_localServidorAtualizar"></div>
             <button onclick="atualizar_servidor()" class="btn_cadastrar">Atualização</button>
         </div>
-        <div id="div_deletar_servidor">
+        <div class="form" id="div_deletar_servidor">
             <h1>Deletar servidor</h1>
             <div class="div_input">ID: <input type="text" id="id_idServidorDeletar"></div>
             <div class="div_input">Nome: <input type="text" id="id_nomeServidorDeletar"></div>
             <button onclick="deletar_servidor()" class="btn_cadastrar">Deletar</button>
         </div>
-        <div id="div_cadastrar_usuario">
+        <div class="form" id="div_cadastrar_usuario">
             <h1>Cadastrar usuário</h1>
             <div class="div_input">Nome: <input type="text" id="id_nomeUsuarioCadastrar"></div>
             <div class="div_input">Senha: <input type="text" id="id_senhaUsuarioCadastrar"></div>
             <div class="div_input">email: <input type="text" id="id_emailUsuarioCadastrar"></div>
             <button onclick="cadastrar_usuario()" class="btn_cadastrar">Cadastrar</button>
         </div>
-        <div id="div_consultar_usuario">
+        <div class="form" id="div_consultar_usuario">
             <h1>Consultar usuário</h1>
             <div class="div_input">ID: <input type="text" id="id_idUsuarioConsultar"></div>
             <div class="div_input">Nome: <input type="text" id="id_nomeUsuarioConsultar"></div>
             <button onclick="consultar_usuario()" class="btn_cadastrar">Consultar</button>
+            <table id="exibir_consulta_usuario">
+                <tr>
+                    <th>Id</th>
+                    <th>Nome</th>
+                </tr>
+            </table>
         </div>
-        <div id="div_atualizar_usuario">
+        <div class="form" id="div_atualizar_usuario">
             <h1>Atualizar usuário</h1>
             <div class="div_input">Digite o id do usuario que deseja atualizar: <input type="text" id="id_idUsuarioAtualizar"></div>
             <div class="div_input">Nome: <input type="text" id="id_nomeUsuarioAtualizar"></div>
@@ -84,7 +96,7 @@
             <div class="div_input">email: <input type="text" id="id_emailUsuarioAtualizar"></div>
             <button onclick="atualizar_usuario()" class="btn_cadastrar">Atualizar</button>
         </div>
-        <div id="div_deletar_usuario">
+        <div class="form" id="div_deletar_usuario">
             <h1>Deletar usuário</h1>
             <div class="div_input">email: <input type="text" id="id_emailUsuarioDeletar"></div>
             <div class="div_input">Senha: <input type="text" id="id_senhaUsuarioDeletar"></div>
@@ -112,42 +124,44 @@
     
     function mostrar_cadastrar_servidor() {
         esconder_div();
-        div_cadastrar_servidor.style.display = 'block';
+        div_cadastrar_servidor.style.display = 'flex';
     }
 
     function mostrar_consultar_servidor() {
         esconder_div();
-        div_consultar_servidor.style.display = 'block';
+        listar_servidor();
+        div_consultar_servidor.style.display = 'flex';
     }
 
     function mostrar_atualizar_servidor() {
         esconder_div();
-        div_atualizar_servidor.style.display = 'block';
+        div_atualizar_servidor.style.display = 'flex';
     }
 
     function mostrar_deletar_servidor() {
         esconder_div();
-        div_deletar_servidor.style.display = 'block';
+        div_deletar_servidor.style.display = 'flex';
     }
 
     function mostrar_cadastrar_usuario() {
         esconder_div();
-        div_cadastrar_usuario.style.display = 'block';
+        div_cadastrar_usuario.style.display = 'flex';
     }
 
     function mostrar_consultar_usuario() {
         esconder_div();
-        div_consultar_usuario.style.display = 'block';
+        listar_usuario();
+        div_consultar_usuario.style.display = 'flex';
     }
 
     function mostrar_atualizar_usuario() {
         esconder_div();
-        div_atualizar_usuario.style.display = 'block';
+        div_atualizar_usuario.style.display = 'flex';
     }
 
     function mostrar_deletar_usuario() {
         esconder_div();
-        div_deletar_usuario.style.display = 'block';
+        div_deletar_usuario.style.display = 'flex';
     }
 
 /*-----------------------------------------------Funções Servidor-----------------------------------------------------------------*/
@@ -277,6 +291,26 @@
         return false;
     }
 
+    function listar_servidor() {
+        fetch("/servidor/listar").then(function (resposta){
+            if (resposta.ok){
+                resposta.json().then(json => {
+                    console.log(JSON.stringify(json))
+                    for (let i = 0; i < json.length; i++) {
+                    console.log("Entrei no for")
+                    var dados = json[i]
+                    exibir_consulta_servidor.innerHTML += `<tr><td>${dados.idServidor}</td><td>${dados.nomeServidor}</td></tr>`
+                } 
+                });
+            } else {
+                throw("Houve um erro ao tentar listar os servidores!");
+            }
+        }).catch(function (resposta){
+            console.log(`#ERRO AO LISTAR: ${resposta}`);
+        });
+        return false;
+    }
+
 /*-----------------------------------------------Funções Usuário-----------------------------------------------------------------*/
     function cadastrar_usuario(){
         alert('teste')
@@ -396,6 +430,26 @@
             }
         }).catch(function (resposta){
             console.log(`#ERRO AO DELETAR: ${resposta}`);
+        });
+        return false;
+    }
+
+    function listar_usuario() {
+        fetch("/user/listar").then(function (resposta){
+            if (resposta.ok){
+                resposta.json().then(json => {
+                    console.log(JSON.stringify(json))
+                    for (let i = 0; i < json.length; i++) {
+                    console.log("Entrei no for")
+                    var dados = json[i]
+                    exibir_consulta_usuario.innerHTML += `<tr><td>${dados.idUsuario}</td><td>${dados.nome}</td></tr>`
+                } 
+                });
+            } else {
+                throw("Houve um erro ao tentar listar os servidores!");
+            }
+        }).catch(function (resposta){
+            console.log(`#ERRO AO LISTAR: ${resposta}`);
         });
         return false;
     }

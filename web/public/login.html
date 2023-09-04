@@ -62,8 +62,18 @@
                     sessionStorage.NOME_USER = json.nome;
                     sessionStorage.EMAIL_USER = json.email;
                     sessionStorage.ID_USER = json.idusuario;
+                    sessionStorage.ROOT_USER = json.root;
 
-                    setTimeout(() => {window.location = "./denied_user/dashboard.html"}, 1000);
+                    if(sessionStorage.ROOT_USER == 0){
+                        setTimeout(() => {window.location = "./denied_user/dashboardUsuario.html"}, 1000);
+                    }else if(sessionStorage.ROOT_USER == 1){
+                        setTimeout(() => {window.location = "./denied_user/dashboardGerente.html"}, 1000);
+                    }else if(sessionStorage.ROOT_USER == 2){
+                        setTimeout(() => {window.location = "./denied_user/telaDev.html"}, 1000);
+                    }else{
+                        alert("Houve erro na validação da seção do usuário");
+                    }
+
                 })
 
             } else {

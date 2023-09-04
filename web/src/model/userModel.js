@@ -24,7 +24,7 @@ function cadastrar(nome, email, senha){
 }
 
 function login(email, senha) {
-    var query = `SELECT idusuario, nome, email, senha FROM usuario WHERE email = "${email}" AND senha = ${senha};`;
+    var query = `SELECT idusuario, nome, email, senha FROM usuario WHERE email = "${email}" AND senha = "${senha}";`;
 
     info("login()", query);
 
