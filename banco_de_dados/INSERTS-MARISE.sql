@@ -65,9 +65,9 @@ INSERT INTO `eye-on-server`.`CPU` (`nomeCPU`, `frequenciaCPU`, `porcentagemUso`,
 ('Intel Core i7-12700K', 5.0, 30, 1, '2023-03-10', '14:00:00');
 
 INSERT INTO `eye-on-server`.`disco` (`nomeDisco`, `velocidadeLeitura`, `velociodadeGravacao`, `fkServidor`, `dataLeitura`, `horaLeitura`) VALUES
-('Samsung 980 Pro NVMe PCIe Gen4', 700.00, 5000, 1, '2023-03-08', '12:00:00'),
-('Samsung 980 Pro NVMe PCIe Gen4', 700.00, 5000, 1, '2023-03-09', '13:00:00'),
-('Samsung 980 Pro NVMe PCIe Gen4', 700.00, 5000, 1, '2023-03-10', '14:00:00');
+('Samsung 980 Pro NVMe PCIe Gen4', 700.00, 500.0, 1, '2023-03-08', '12:00:00'),
+('Samsung 980 Pro NVMe PCIe Gen4', 700.00, 500.0, 1, '2023-03-09', '13:00:00'),
+('Samsung 980 Pro NVMe PCIe Gen4', 700.00, 500.0, 1, '2023-03-10', '14:00:00');
 
 INSERT INTO `eye-on-server`.`memoria` (`nomeMemoria`, `emUso`, `disponivel`, `fkServidor`, `dataLeitura`, `horaLeitura`) VALUES
 ('Kingston HyperX Fury RGB 32GB (2x16GB)', 20, 12, 1, '2023-03-08', '12:00:00'),
