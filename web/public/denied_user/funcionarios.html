@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Eyes on Server | Funcionários</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this page -->
+    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Start of Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="index.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Gerenciamento
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-address-card"></i>
+                    <span>Funcionários</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Opções:</h6>
+                        <a class="collapse-item" href="funcionarios.html">Cadastrar</a>
+                        <a class="collapse-item" href="funcionarios.html#div_consulta_funcionario">Consultar</a>
+                        <a class="collapse-item" href="funcionarios.html#div_atualizacao_funcionario">Atualizar</a>
+                        <a class="collapse-item" href="funcionarios.html#div_exclusao_funcionario">Deletar</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                    aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-server"></i>
+                    <span>Servidores</span>
+                </a>
+                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Opções:</h6>
+                        <a class="collapse-item" href="servidores.html">Cadastrar</a>
+                        <a class="collapse-item" href="servidores.html#div_consulta_servidor">Consultar</a>
+                        <a class="collapse-item" href="servidores.html#div_atualizacao_servidor">Atualizar</a>
+                        <a class="collapse-item" href="servidores.html#div_exclusao_servidor">Deletar</a>
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - Alerts -->
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!-- Counter - Alerts -->
+                                <span class="badge badge-danger badge-counter">3+</span>
+                            </a>
+                            <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    Alertas
+                                </h6>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-file-alt text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">December 12, 2019</div>
+                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-success">
+                                            <i class="fas fa-donate text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">December 7, 2019</div>
+                                        $290.29 has been deposited into your account!
+                                    </div>
+                                </a>
+                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-warning">
+                                            <i class="fas fa-exclamation-triangle text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">December 2, 2019</div>
+                                        Spending Alert: We've noticed unusually high spending for your account.
+                                    </div>
+                                </a>
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                            </div>
+                        </li>
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Funcionários</h1>
+                    </div>
+
+                    <!-- Cadastrar Funcionários -->
+                    <div class="card shadow mb-4" id="div_cadastro_funcionario">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Cadastrar</h6>
+                        </div>
+                        <div class="card-body">
+                            <form class="user">
+                                <div class="form-group">
+                                    <input type="text" class="form-control form-control-user" id="id_nomeUsuarioCadastrar"
+                                        placeholder="Nome">
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="email" class="form-control form-control-user" id="id_emailUsuarioCadastrar"
+                                        placeholder="Email">
+                                    </div>
+                                    <div class="col-sm-6" id="div_radio" style="display: flex; align-items: center; padding: 0rem 1.5rem;">
+                                        <div id="div_radio_titulo" style="width: 30%;">
+                                            Nível de acesso:
+                                        </div>
+                                        <div id="div_radio_opt" style="display: flex; width: 70%; justify-content: space-evenly;">
+                                            <div>
+                                                <input type="radio" id="cargo1" name="cargo" value="0">
+                                                <label for="cargo1" style="margin-bottom: 0;">Gerente</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" id="cargo2" name="cargo" value="1">
+                                                <label for="cargo2" style="margin-bottom: 0;">Analista</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="password" class="form-control form-control-user"
+                                            id="id_senhaUsuarioCadastrar" placeholder="Senha">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="password" class="form-control form-control-user"
+                                            id="id_confSenhaUsuarioCadastrar" placeholder="Repetir Senha">
+                                    </div>
+                                </div>
+                                <a onclick="teste()" class="btn btn-primary btn-user btn-block">
+                                    Cadastrar
+                                </a>
+                            </form>
+                        </div>
+
+                    </div>
+
+                    <!--Consultar Funcionários-->
+                    <div class="card shadow mb-4" id="div_consulta_funcionario">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Consultar</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nome</th>
+                                            <th>Email</th>
+                                            <th>Nível de acesso</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Id</th>
+                                            <th>Nome</th>
+                                            <th>Email</th>
+                                            <th>Nível de acesso</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody id="exibir_consulta_usuario">
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Jonas</td>
+                                            <td>jonas@teste.com</td>
+                                            <td>1</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Cleiton</td>
+                                            <td>cleiton@teste.com</td>
+                                            <td>0</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Atualizar Funcionários-->
+                    <div class="card shadow mb-4" id="div_atualizacao_funcionario">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Atualizar</h6>
+                        </div>
+                        <div class="card-body">
+                            <form class="user">
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="number" class="form-control form-control-user"
+                                            id="id_idUsuarioAtualizar" placeholder="Id">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="text" class="form-control form-control-user" id="id_nomeUsuarioAtualizar"
+                                            placeholder="Nome">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="email" class="form-control form-control-user"
+                                            id="id_emailUsuarioAtualizar" placeholder="Email">
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="password" class="form-control form-control-user"
+                                            id="id_senhaUsuarioAtualizar" placeholder="Senha">
+                                    </div>
+                                </div>
+                                <a onclick="atualizar_usuario()" class="btn btn-primary btn-user btn-block">
+                                    Atualizar
+                                </a>
+                            </form>
+                        </div>
+
+                    </div>
+
+                    <!--Deletar Funcionários-->
+                    <div class="card shadow mb-4" id="div_exclusao_funcionario">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Deletar</h6>
+                        </div>
+                        <div class="card-body">
+                            <form class="user">
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-user" id="id_idUsuarioAtualizar"
+                                        placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control form-control-user" id="id_senhaUsuarioAtualizar"
+                                        placeholder="Senha">
+                                </div>
+                                <a onclick="deletar_usuario()" class="btn btn-primary btn-user btn-block">
+                                    Deletar
+                                </a>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2020</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
+
+
+</body>
+
+</html>
+
+<script>
+    mudar_resolucao();
+    listar_usuario();
+
+    function cadastrar_usuario(){
+        var nome = id_nomeUsuarioCadastrar.value;
+        var email = id_emailUsuarioCadastrar.value;
+        var senha = id_senhaUsuarioCadastrar.value;
+        var conf_senha = id_confSenhaUsuarioCadastrar.value;
+
+        fetch("/user/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nome_html: nome,
+                email_html: email,
+                senha_html: senha,
+                conf_senha_html: conf_senha
+            })
+        }).then(function (resposta) {
+            
+            if (resposta.ok){
+                alert("Cadastrado com sucesso!");
+            }else{
+                throw("Houve um erro ao tentar cadastrar!");
+            }
+        }).catch(function (resposta){
+            console.log(`#ERRO AO CADASTRAR: ${resposta}`);
+        });
+        return false;
+    }
+
+    function consultar_usuario(){
+        var id_user = id_idUsuarioConsultar.value
+        var nome_user = id_nomeUsuarioConsultar.value
+
+        fetch("/user/consultar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id_user_html:id_user,
+                nome_user_html:nome_user 
+            })
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(JSON.stringify(json))
+                    alert(`${json[0].idusuario} ${json[0].nome} ${json[0].root} ${json[0].email}`)
+                });
+            } else {
+                console.log("Houve um erro ao tentar consultar o usuario!!");
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+        return false;
+    }
+
+    function atualizar_usuario(){
+        var id_user = id_idUsuarioAtualizar.value
+        var nome_user = id_nomeUsuarioAtualizar.value
+        var senha_user = id_senhaUsuarioAtualizar.value
+        var email_user = id_emailUsuarioAtualizar.value
+
+        fetch("/user/atualizar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id_html: id_user,
+                nome_html: nome_user,
+                senha_html: senha_user,
+                email_html:email_user
+            })
+        }).then(function (resposta) {
+            
+            if (resposta.ok){
+                alert("Atualização feita!!");
+
+            }else{
+                throw("Houve um erro ao tentar atualizar!");
+            }
+        }).catch(function (resposta){
+            console.log(`#ERRO AO ATUALIZAR: ${resposta}`);
+        });
+        return false;
+    }
+
+    function deletar_usuario(){
+        var senha_user = id_senhaUsuarioDeletar.value
+        var email_user = id_emailUsuarioDeletar.value
+
+        fetch("/user/deletar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                senha_html: senha_user,
+                email_html: email_user
+            })
+        }).then(function (resposta) {
+            
+            if (resposta.ok){
+                alert("Usuario deletado!!");
+
+            }else{
+                throw("Houve um erro ao tentar deletar!");
+            }
+        }).catch(function (resposta){
+            console.log(`#ERRO AO DELETAR: ${resposta}`);
+        });
+        return false;
+    }
+
+    function listar_usuario() {
+        fetch("/user/listar").then(function (resposta){
+            if (resposta.ok){
+                resposta.json().then(json => {
+                    console.log(JSON.stringify(json))
+                    for (let i = 0; i < json.length; i++) {
+                        var dados = json[i]
+                        exibir_consulta_usuario.innerHTML += `
+                        <tr>
+                            <td>${dados.idusuario}</td>
+                            <td>${dados.nome}</td>
+                            <td>${dados.email}</td>
+                            <td>${dados.root}</td>
+                        </tr>`
+                    } 
+                });
+            } else {
+                throw("Houve um erro ao tentar listar os servidores!");
+            }
+        }).catch(function (resposta){
+            console.log(`#ERRO AO LISTAR: ${resposta}`);
+        });
+        return false;
+    }
+
+    function teste() {
+        var radios = document.getElementsByName('cargo');
+
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                console.log(radios[i].value);
+                break;
+            }
+        }    
+    }
+
+    function mudar_resolucao() {
+        if (window.screen.width <= 425) {
+            div_radio.style.flexDirection = "column";
+            div_radio_titulo.style.width = "100%";
+            div_radio_opt.style.width = "100%";
+
+        }
+        console.log(window.screen.width); 
+    }
+</script>
