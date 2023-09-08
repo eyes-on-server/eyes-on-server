@@ -69,12 +69,12 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `eye-on-server`.`CPU` (
   `idCPU` INT NOT NULL AUTO_INCREMENT,
+  `nomeCPU` VARCHAR(60),
   `frequenciaCPU` DECIMAL(5,2) NULL,
   `porcentagemUso` DECIMAL(5,2) NULL,
   `fkServidor` INT NOT NULL,
   `dataLeitura` DATE NULL,
   `horaLeitura` TIME NULL,
-  `CPUcol` VARCHAR(45) NULL,
   PRIMARY KEY (`idCPU`),
   INDEX `fk_CPU_servidor1_idx` (`fkServidor` ASC) VISIBLE,
   CONSTRAINT `fk_CPU_servidor1`
@@ -90,6 +90,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `eye-on-server`.`disco` (
   `idDisco` INT NOT NULL AUTO_INCREMENT,
+  `nomeDisco` VARCHAR(60),
   `velocidadeLeitura` DECIMAL(5,2) NULL,
   `velociodadeGravacao` DECIMAL(5,2) NULL,
   `fkServidor` INT NOT NULL,
@@ -110,6 +111,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `eye-on-server`.`memoria` (
   `idMemoria` INT NOT NULL AUTO_INCREMENT,
+  `nomeMemoria` VARCHAR(60),
   `emUso` DECIMAL(5,2) NULL,
   `disponivel` DECIMAL(5,2) NULL,
   `fkServidor` INT NOT NULL,
