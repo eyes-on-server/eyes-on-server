@@ -22,6 +22,26 @@ function listar(req, res) {
     })
 }
 
+function selecionar(req, res) {
+    info("selecionar()")
+
+    var idEmpresa = req.body.idEmpresa_html;
+    
+    empresaModel.selecionar(idEmpresa).then((resultado)=> {
+        if (resultado.length > 0) {
+            console.log(resultado);
+            res.json(resultado[0]); 
+        }
+        else {
+            res.status(204).send("Não foi possível retornar algum valor.");
+        }
+
+    }).catch((erro) => {
+        console.log(erro);
+        console.log("!! ERRO > EmpresaController: Seleciona()\n", erro.sqlMessage)
+    })
+}
+
 function cadastrar(req, res){
     
     info("cadastrar()");
@@ -110,5 +130,6 @@ module.exports = {
     listar,
     cadastrar,
     atualizar,
-    deletar
+    deletar,
+    selecionar
 };

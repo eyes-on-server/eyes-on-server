@@ -14,6 +14,14 @@ function listar() {
     return bancoDados.consultaBd(query);
 }
 
+function selecionar(id) {
+    var query = `SELECT * FROM empresa WHERE idEmpresa = ${id};`;
+
+    info("selecionar()", query);
+
+    return bancoDados.consultaBd(query);
+}
+
 function cadastrar(nomeFantasia, cnpj, email){
     var query  = `INSERT INTO empresa (nomeFantasia, cnpj, email) VALUES ('${nomeFantasia}', '${cnpj}', '${email}')`;
 
@@ -42,5 +50,6 @@ module.exports = {
     listar,
     cadastrar,
     atualizar,
-    deletar
+    deletar,
+    selecionar
 }

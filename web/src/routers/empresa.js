@@ -12,6 +12,11 @@ rota.get("/listar", (req,res) => {
     empresaController.listar(req, res);
 });
 
+rota.post("/selecionar", (req,res) => {
+    info("selecionar");
+    empresaController.selecionar(req, res);
+});
+
 rota.post("/cadastrar", (req, res) => {
     info("Cadastrar");
     empresaController.cadastrar(req, res);
