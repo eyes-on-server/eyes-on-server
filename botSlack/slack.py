@@ -1,6 +1,8 @@
 import requests
 import json
 
+# !!Integrar a API
+
 mensagem = {
     "text": f"""
         ALERTA:

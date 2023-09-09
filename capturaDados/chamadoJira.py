@@ -13,6 +13,12 @@ headers = {
   "Content-Type": "application/json"
 }
 
+# Erro: Exception has occurred: TypeError
+# Object of type set is not JSON serializable
+#   File "/home/gio/Codigos/EOS/repositorio_central/capturaDados/chamadoJira.py", line 16, in <module>
+#     payload = json.dumps( {
+#               ^^^^^^^^^^^^^
+# TypeError: Object of type set is not JSON serializable
 payload = json.dumps( {
   "fields": {
     "description": {
