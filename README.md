@@ -1,2 +1,5 @@
-# repositorio_central
-É aqui onde o será feito desenvolvimento do projeto principal
+<img src="https://github.com/organizacao-grupo-9/repositorio_central/assets/125617308/488e5dbe-7362-421d-b42e-5297604ce130">
+
+# Sistema Eyes On Server - Repositorio Central
+
+Desenvolvimento do Porjeto de Monitoramento de Hardwwares de Servidores.
