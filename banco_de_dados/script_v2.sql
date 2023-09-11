@@ -2,7 +2,7 @@
 CREATE SCHEMA IF NOT EXISTS `eye-on-server` DEFAULT CHARACTER SET utf8mb3 ;
 USE `eye-on-server`;
 
-drop database `eye-on-server`;
+-- drop database `eye-on-server`;
 
 CREATE TABLE IF NOT EXISTS `eye-on-server`.`empresa` (
   `idEmpresa` INT NOT NULL AUTO_INCREMENT,
