@@ -11,10 +11,9 @@ function validar_sessao() {
 }
 
 function exibirNome(){
-    span_nome_exbir.innerHTML = '';
     span_nome_exbir.innerHTML = sessionStorage.NOME_USER;
     
-    if(sessionStorage.NOME_EMPRESA == ''){
+    if(sessionStorage.NOME_EMPRESA == '' || sessionStorage.NOME_EMPRESA == 'NULL'){
         fetch("/empresa/selecionar", {
             method: "POST",
             headers: {
@@ -38,4 +37,8 @@ function exibirNome(){
         });
         return false;
     }
+    else{
+        span_nomeEmpresa_exbir.innerHTML = sessionStorage.NOME_EMPRESA;
+    }
+    
 }
