@@ -13,7 +13,7 @@
     <div class="header">
         <div class="container">
             <div class="esquerda_header">
-                <img src="./img/icon.png" class="logo">
+                <a href="./index.html"><img src="./img/icon.png" class="logo"></a>
             </div>
             <div class="direita_header">
                 <div class="conta">
@@ -101,7 +101,6 @@
                      e assim perceber como está o seu processamento, 
                     evitando possíveis downtime, e podendo evitar a perda de componentes do seu servidor.</span>
                 <button class="banner2_1">ENTRE EM CONTATO</button>
-                <a href="./login.html"><button class="banner2_2">LIVE PREVIEW</button></a>
             </div>
         </div>
     </div>
@@ -137,30 +136,13 @@
                 <button class="sobre_buttons_1">
                     Torne-se um cliente!
                 </button>
-                <button class="sobre_buttons_2">
+                <button class="sobre_buttons_2" onclick="window.location.href = `https://github.com/organizacao-grupo-9`">
                     SAIBA MAIS!
                 </button>
             </div>
         </div>
     </div>
-    <div id="id_footer" class="footer">
-        <div class="container">
-            <div class="esquerda_footer">
-                <img src="./img/icon_no_bg.png" class="logo">
-            </div>
-            <div class="direita_footer">
-                <div class="contatos">
-                    <img src="./img/github_icon.png">
-                    <img src="./img/linkedin_icon.png">
-                    <img src="./img/num_sei.png">
-                </div>
-                <span>
-                    © 2023 - Eyes On Server. 
-                    Todos os direitos reservados.
-                </span>
-            </div>
-        </div>
-    </div>
+    <script src="js/footer.js"></script>
 </body>
 </html>
 
@@ -170,6 +152,4 @@
     if(nav_agent.indexOf("ANDROID") == -1 && nav_agent.indexOf("IPHONE") == -1 && nav_agent.indexOf("IPAD") == -1){
         Modo.innerHTML = '<link rel="stylesheet" href="./css/style_index.css"><link rel="stylesheet" href="./css/style_footer_header.css">'
     }
-
-    
 </script>

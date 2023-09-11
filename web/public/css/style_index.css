@@ -193,15 +193,7 @@ body{
     background-color: #00A9AF;
 
 }
-.banner2_infocard .banner2_2{
-    font-family: 'Lalezar';
-    font-size: 3.8vh;
-    width: 70%;
-    height: 5vh;
-    border: none;
-    border-radius: 1vh 1vh 1vh;
-    background-color: #13D4DB;
-}
+
 
 .sobre_nos{
     display: flex;

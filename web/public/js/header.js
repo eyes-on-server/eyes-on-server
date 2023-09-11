@@ -4,12 +4,12 @@ header.innerHTML = `
     <div class="header">
         <div class="container">
             <div class="esquerda_header">
-                <img src="./img/icon.png" class="logo">
+                <a href="./index.html"><img src="./img/icon.png" class="logo"></a>
             </div>
             <div class="direita_header">
                 <div class="conta">
                     <img src="./img/user_icon.png" class="imagem_usuario">
-                    <span id="nome_usuario" class="nome_usuario"> Login de cliente</span>
+                    <a href="./login.html" id="login_cliente" class="nome_usuario">Login do cliente</a>
                 </div>
                 <hr>
                 <div class="links_navbar">

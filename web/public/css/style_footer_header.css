@@ -31,15 +31,20 @@ body{
 .esquerda_header{
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .logo{
-    height: 10vw;
+    height: 13vw;
 }
 
 .header .container {
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
+}
+
+.navbar{
+    margin: 2vh;
 }
 
 .direita_header{
@@ -59,7 +64,7 @@ body{
 
 .linka:hover{
     background-color: rgb(111, 167, 167);
-    border-radius: 5vh 5vh 5vh;    
+    border-radius: 5vh 5vh 5vh;
 }
 
 .conta{
@@ -91,6 +96,7 @@ body{
 hr{
     border: 1px solid black;
     width: 38vw;
+    margin: 1vh;
 }
 
 li{
@@ -139,4 +145,8 @@ ul {
     font-family: 'IBM Plex Sans Hebrew';
     font-size: 2.2vh;
     text-align: center;
+}
+
+.logo_footer{
+    height: 7vw;
 }

@@ -4,7 +4,7 @@ footer.innerHTML = `
     <div class="footer">
         <div class="container">
             <div class="esquerda_footer">
-                <img src="./img/icon_no_bg.png" class="logo">
+                <img src="./img/icon_no_bg.png" class="logo_footer">
             </div>
             <div class="direita_footer">
                 <div class="contatos">
