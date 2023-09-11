@@ -79,12 +79,12 @@ CREATE TABLE IF NOT EXISTS `eye-on-server`.`registro` (
   `idRegistro` INT NOT NULL AUTO_INCREMENT,
   `valor` INT NOT NULL,
   `horario` DATETIME NULL,
-  `medida_idMedida` INT NOT NULL,
-  `componente_idComponente` INT NOT NULL,
+  `fkMedida` INT NOT NULL,
+  `fkComponente` INT NOT NULL,
   PRIMARY KEY (`idRegistro`),
-  FOREIGN KEY (`medida_idMedida`)
+  FOREIGN KEY (`fkMedida`)
   REFERENCES `eye-on-server`.`medida` (`idMedida`),
-  FOREIGN KEY (`componente_idComponente`)
+  FOREIGN KEY (`fkComponente`)
   REFERENCES `eye-on-server`.`componente` (`idComponente`)
 );
 
@@ -137,7 +137,23 @@ VALUES (1, 'Memória RAM', 'DDR4-3200', 160.00, '2023-09-11 12:22:26'),
 
 INSERT INTO `medida` (`tipoMedida`) VALUES ('%');
 
-INSERT INTO `registro` (`valor`,`horario`,`medida_idMedida`, `componente_idComponente`) VALUES 
+INSERT INTO `registro` (`valor`,`horario`,`fkMedida`, `fkComponente`) VALUES 
          ( 65,'2023-09-11 12:27:33',1,1),
 		 (72,'2023-09-11 12:27:34',1,2),
          (71,'2023-09-11 12:27:35',1,2);
+
+DROP VIEW `vwtabela-analise`;
+CREATE VIEW `vwtabela-analise` AS
+SELECT registro.valor AS valor, registro.horario AS hora, medida.tipoMedida AS 'Tipo Medida', componente.nomeComponente AS 'componente', servidor.nomeServidor AS  'Nome do Servidor', servidor.idServidor AS 'Id Server' FROM 
+`registro`
+JOIN 
+`medida`
+ON fkMedida = idMedida
+JOIN
+`componente`
+ON fkComponente = idComponente
+JOIN
+`servidor`
+ON fkServidor = idServidor;
+
+SELECT * FROM `vwtabela-analise`;
