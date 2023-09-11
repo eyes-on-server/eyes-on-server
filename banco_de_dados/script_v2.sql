@@ -1,5 +1,6 @@
+-- Active: 1694448677855@@127.0.0.1@3306@central_dados
 CREATE SCHEMA IF NOT EXISTS `eye-on-server` DEFAULT CHARACTER SET utf8mb3 ;
-USE `eye-on-server` ;
+USE `eye-on-server`;
 
 drop database `eye-on-server`;
 
@@ -62,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `eye-on-server`.`medida` (
 
 
 CREATE TABLE IF NOT EXISTS `eye-on-server`.`usuario` (
-  `idusuario` INT NOT NULL AUTO_INCREMENT,
+  `idUsuario` INT NOT NULL AUTO_INCREMENT,
   `fkEmpresa` INT NULL DEFAULT NULL,
   `nome` VARCHAR(120) NULL DEFAULT NULL,
   `root` INT NULL DEFAULT NULL,
@@ -73,8 +74,9 @@ CREATE TABLE IF NOT EXISTS `eye-on-server`.`usuario` (
   REFERENCES `eye-on-server`.`empresa` (`idEmpresa`)
 );
 
+
 CREATE TABLE IF NOT EXISTS `eye-on-server`.`registro` (
-  `idRegistro` INT NOT NULL,
+  `idRegistro` INT NOT NULL AUTO_INCREMENT,
   `valor` INT NOT NULL,
   `horario` DATETIME NULL,
   `medida_idMedida` INT NOT NULL,
@@ -129,7 +131,9 @@ VALUES (1, 'Servidor PIX 1', 'Servidor de aplicação', 'Servidor responsável p
     , (6, 'Servidor PIX 7', 'Servidor de rede', 'Servidor responsável por fornecer conectividade para transações PIX', 'Pátio Servidores 07');
 
 
-INSERT INTO `componente` (`fkServidor`, `nomeComponente`, `modeloComponete`, `valor`, `dataHora`) VALUES (1, 'Memória RAM', 'DDR4-3200', 160.00, '2023-09-11 12:22:26');
+INSERT INTO `componente` (`fkServidor`, `nomeComponente`, `modeloComponete`, `valor`, `dataHora`) 
+VALUES (1, 'Memória RAM', 'DDR4-3200', 160.00, '2023-09-11 12:22:26'),
+(1, 'CPU', 'Ryzen5', 170.00, '2023-09-11 12:22:26');
 
 INSERT INTO `medida` (`tipoMedida`) VALUES ('%');
 
