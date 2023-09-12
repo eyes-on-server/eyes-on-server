@@ -35,7 +35,7 @@ var myLineChart = new Chart(ctx, {
     labels: ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00","6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00", 
     "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00", "23:00",],
     datasets: [{
-      label: "Uso da CPU",
+      label: "Servidor IB-29",
       lineTension: 0.3,
       backgroundColor: "rgba(78, 115, 223, 0.0)",
       borderColor: "rgba(78, 115, 223, 1)",
@@ -49,7 +49,7 @@ var myLineChart = new Chart(ctx, {
       pointBorderWidth: 2,
       data: [20, 10, 25, 31, 45, 71, 67, 58, 83, 70, 61, 56, 35, 20, 25, 31, 45, 71, 67, 58, 83, 70, 61, 56],
     }, {
-      label: "Uso da RAM",
+      label: "Servidor XP-061",
       lineTension: 0.3,
       backgroundColor: "rgba(255, 0, 0, 0.0)",
       borderColor: "rgba(255, 0, 0, 1)",
@@ -63,7 +63,7 @@ var myLineChart = new Chart(ctx, {
       pointBorderWidth: 2,
       data: [40, 30, 25, 56, 41, 61, 63, 74, 79, 82, 73, 63, 56, 41, 39, 47, 58, 60, 55, 61, 73, 79, 74, 80],
     }, {
-      label: "Uso da Disco",
+      label: "Servidor I12",
       lineTension: 0.3,
       backgroundColor: "rgba(0, 255, 0, 0.0)",
       borderColor: "rgba(0, 200, 0, 1)",
