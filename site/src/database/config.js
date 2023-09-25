@@ -1,10 +1,10 @@
 const mysql = require('mysql2');
 
 var configBd = {
-    host: "localhost",
-    database: "eye-on-server",
-    user: "aluno",
-    password: "sptech"
+    host: process.env.DB_HOST,
+    database: process.env.DB_NAME,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD
 };
 
 function consultaBd(pesquisa) {
@@ -32,4 +32,3 @@ function consultaBd(pesquisa) {
 
 
 module.exports = {consultaBd}
-

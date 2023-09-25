@@ -6,7 +6,6 @@ const app = express();
 const porta = 5000;
 
 // Chamada de rotas --------------------
-const desenvolvedorRota = require("./src/routers/desenvolvedor");
 const servidorRota = require("./src/routers/servidor");
 const empresaRota = require("./src/routers/empresa");
 const userRota = require("./src/routers/user");
@@ -25,7 +24,6 @@ app.use("/", indexRota);
 app.use("/user", userRota);
 app.use("/empresa", empresaRota);
 app.use("/servidor", servidorRota);
-app.use("/desenvolvedor", desenvolvedorRota);
 
 
 // Iniciar servidor --------------------
