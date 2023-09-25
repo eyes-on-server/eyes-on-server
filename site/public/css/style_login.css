@@ -61,26 +61,13 @@ main .container{
 .form-area{
     width: 80%;
     height: 85%;
-    border-radius: 3rem;
+    border-radius: .3rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
     background-color: #f0f0f0;
-    box-shadow: -.5rem -.4rem 1rem gray;
-}
-
-.form-title{
-    width: 90%;
-    height: 10%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.form-title h1{
-    font-size: 40px;
-    font-weight: bold;
+    box-shadow: -.4rem -.3rem .5rem gray;
 }
 
 .info-block{
@@ -113,7 +100,8 @@ main .container{
     height: 3rem;
     border-radius: .5rem;
     padding-left: .5rem;
-    border:none;
+    border:1px solid #279487;
+    border-left: 15px solid #279487;
 }
 
 .block-title{
