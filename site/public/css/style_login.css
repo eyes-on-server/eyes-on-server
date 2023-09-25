@@ -1,47 +1,235 @@
-.div_central{
-    background-image: url(../img/fundo_cadastroEmpresa.png);
+*{
+    font-family: 'Arial';
+}
+
+body, html{
+    padding: 0;
+    margin: 0;
     width: 100vw;
-    height: 80vh;
+    height: 100vh;
+}
+
+.container{
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    height: 90%;
+}
+
+/* Header */
+
+header{
+    width: 100%;
+    height: 15%;
+    display: flex;
+    align-items: center;
+    /* background-color: red; */
+}
+
+.navbar{
+    width: 100%;
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
-input{
-    border-radius: 1vh;
-    border: 0.1vh solid black;
-    padding: 0.2vw;
-    padding-left: 0.3vw;
-    
+.nav-logo{
+    width: 23%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.div_cadastro{
+.nav-items{
+    width:40%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-buttons{
+    width: 23%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.nav-logo img{
+    width: 4rem;
+    height: 4rem;
+}
+
+.nav-ul{
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 0;
+    width: 100%;
+}
+
+.nav-ul li{
+    cursor: pointer;
+    transition: .3s;
+}
+
+.nav-ul li:hover{
+    color: #24887c;
+    transition: .3s;
+}
+
+.btn{
+    padding: .4rem;
+    width: 7.5rem;
+    height: 3rem;
+    border-radius: .5rem;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.btn-entrar{
+    background-color: #32BCAD;
+    border: none;
+    color: #f5f5f5;
+    transition: .5s;
+}
+
+.btn-entrar:hover{
+    background-color: #279487;
+    transition: .5s;
+}
+
+/* Main */
+
+main{
+    width: 100%;
+    height: 85%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: #24887c;
+}
+
+main .container{
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+}
+
+.form-area{
+    width: 80%;
+    height: 85%;
+    border-radius: .5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+}
+
+.form-title{
+    width: 90%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-title h1{
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.info-block{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.info-line{
+    display: flex;
+    width: 100%;
+    height: 5rem;
+    justify-content: space-around;
+    align-items: end;
+}
+
+.info-line h4{
+    padding: 0;
+    margin-bottom: .3rem;
+    font-weight: 600;
+}
+
+.input-block{
+    width: 45%;
+}
+
+.input-block input{
+    width: 100%;
+    height: 3rem;
+    border-radius: .5rem;
+    padding-left: .5rem;
+}
+
+.block-title{
+    width: 90%;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.block-title h4{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.enterprise-info-block{
+    border-right: 5px solid #24887c;
+    height:40%;
+}
+
+.admin-info-block{
+    border-right: 5px solid #24887c;
+    height: 25%;
+}
+
+.button-block{
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.btn-enviar{
+    width: 30%;
+    background-color: #32BCAD;
+    border: none;
+    color: #f5f5f5;
+    transition: .5s;
+}
+
+.btn-enviar:hover{
+    background-color: #279487;
+    transition: .5s;
+}
+
+/* Div Mensagem */
+
+.div-message{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 10vh;
-    width: 25vw;
-    height: 50vh;
-    gap: 3vh;
-    border-radius: 4vh 4vh 4vh 4vh;
-    background-color: #9f9f9f52;
+    text-align: center;
+    width: 80%;
 }
 
-.div_cadastro h1{
-    font-weight: 500;
-}
-
-.btn_cadastrar{
-    margin-top: 5vh;
-    font-weight: 600;
-    font-size: 3vh;
-    height: 6vh;
-    width: 11vw;
-    border: none;
-    border-radius: 2vh 2vh 2vh 2vh;
-    background-color: #00FFE0;
-    margin-right: 1vw;
-    margin-left: 1vw;
-    cursor: pointer;
-}
