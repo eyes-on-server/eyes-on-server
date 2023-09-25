@@ -2,4 +2,4 @@
 
 # Sistema Eyes On Server - Repositorio Central
 
-Desenvolvimento do Porjeto de Monitoramento de Hardwwares de Servidores.
+Monitoramento de Hardware de Servidores.
