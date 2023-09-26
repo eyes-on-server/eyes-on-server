@@ -1,0 +1,173 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #32bcad;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  height: 90%;
+}
+
+.btn {
+  padding: 0.4rem;
+  width: 7.5rem;
+  height: 3rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Main */
+
+main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+main .container {
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+}
+
+.form-area {
+  width: 80%;
+  height: 85%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  border-radius: 0.5rem;
+  background-color: #ffffff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.info-block {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.info-line {
+  display: flex;
+  width: 100%;
+  height: 5rem;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.info-line h4 {
+  padding: 0;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+
+.input-block {
+  width: 45%;
+}
+
+.input-block input {
+  width: 100%;
+  height: 1.5rem;
+
+  color: #4b4b4d;
+
+  /* border-radius: 0.5rem; */
+  /* padding-left: 0.5rem; */
+  /* border: 1px solid #279487;*/
+
+  border-left: 15px solid #4b4b4d;
+
+  outline: 0;
+  border: none;
+  border-bottom: 1px solid #4b4b4d;
+}
+
+.block-title {
+  width: 90%;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  margin-left: 1.3rem;
+}
+
+.block-title h4 {
+  font-size: 20px;
+  /* font-weight: bold; */
+}
+
+.enterprise-info-block {
+  height: 40%;
+}
+
+.admin-info-block {
+  height: 25%;
+}
+
+.button-block {
+  height: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.btn-enviar {
+  /* width: 30%;
+  background-color: #279487;
+  border: none;
+  color: #f5f5f5;
+  transition: 0.5s; */
+
+  border: none;
+  border-radius: 0.2rem;
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  width: 100%;
+
+  display: inline-block;
+
+  padding: 10px 28px 11px 28px;
+  transition: 0.5s;
+
+  color: #fff;
+  background: #4b4b4d55;
+}
+
+.btn-enviar:hover {
+  background: #4b4b4d;
+  /* background-color: #217c72;
+  transition: 0.5s; */
+}
+
+/* Div Mensagem */
+
+.div-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 80%;
+}
