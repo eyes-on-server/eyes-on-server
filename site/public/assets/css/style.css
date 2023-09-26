@@ -532,7 +532,7 @@ section {
   margin-bottom: 20px;
   padding-bottom: 20px;
   position: relative;
-  color: #37517e;
+  color: #000000;
 }
 
 .section-title h2::before {
@@ -552,7 +552,7 @@ section {
   display: block;
   width: 40px;
   height: 3px;
-  background: #47b2e4;
+  background: #000000;
   bottom: 0;
   left: calc(50% - 20px);
 }
@@ -1701,7 +1701,7 @@ section {
 
 #footer .footer-top {
   padding: 60px 0 30px 0;
-  background: #fff;
+  background: #f3f5fa;
 }
 
 #footer .footer-top .footer-contact {
