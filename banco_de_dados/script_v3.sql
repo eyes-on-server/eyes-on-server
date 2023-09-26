@@ -255,3 +255,26 @@ DEALLOCATE PREPARE stmt;
 -- ------------------- Procedures -------------------
 
 -- playground do paulo
+
+DELIMITER $$
+CREATE PROCEDURE Cadastrar_Empresa (
+	nome_fantasia VARCHAR(120),
+    cnpj CHAR(18),
+    cep CHAR(9),
+    email_empresa VARCHAR(120),
+    nome_adm VARCHAR(120),
+    email_adm VARCHAR(120),
+    senha VARCHAR (16)
+)
+BEGIN
+
+INSERT INTO Eyes_On_Server.Empresa VALUES
+(NULL, nome_fantasia, cnpj, email_empresa, cep);
+
+INSERT INTO Eyes_On_Server.Usuario VALUES
+(NULL, (SELECT max(id_empresa) from  Eyes_On_Server.Empresa), nome_adm, 1, email_adm);
+
+INSERT INTO Eyes_On_Server.Login VALUES
+(NULL, (SELECT max(id_usuario) from Eyes_On_Server.Usuario), email_adm, senha);
+
+END $$
