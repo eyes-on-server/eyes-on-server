@@ -7,7 +7,7 @@ var sqlConfig = {
   password: process.env.DB_PASSWORD,
 };
 
-function consultaBd(instrucao) {
+function executar(instrucao) {
   return new Promise((resolve, reject) => {
     var conexao = mysql.createConnection(sqlConfig);
     conexao.connect();
@@ -28,4 +28,4 @@ function consultaBd(instrucao) {
   });
 }
 
-module.exports = { consultaBd };
+module.exports = { executar };

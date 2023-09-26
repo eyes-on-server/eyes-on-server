@@ -1,67 +1,55 @@
-const bancoDados = require('../database/config');
+const bancoDados = require("../database/config");
 
 // Funções Locais (Não será exportar)-----------
 function info(nome_funcao, info_query) {
-    console.log(`\n[User Model] ${nome_funcao} => ${info_query}`);
+  console.log(`\n[User Model] ${nome_funcao} => ${info_query}`);
 }
-
 
 // Funções para exportar
 function listar() {
-    var query = 'SELECT * FROM usuario';
+  var query = "SELECT * FROM usuario";
 
-    info("listar()", query);
+  info("listar()", query);
 
-    return bancoDados.consultaBd(query);
+  return bancoDados.executar(query);
 }
 
-function cadastrar(nome, email, senha){
-    var query  = `INSERT INTO usuario (nome, email, senha) VALUES ('${nome}', '${email}', '${senha}')`;
+function cadastrar(nome, email, senha) {
+  var query = `INSERT INTO usuario (nome, email, senha) VALUES ('${nome}', '${email}', '${senha}')`;
 
-    info("cadastrar()", query);
+  info("cadastrar()", query);
 
-    return bancoDados.consultaBd(query);
-}
-
-function login(email, senha) {
-    var query = `SELECT * FROM usuario WHERE email = "${email}" AND senha = "${senha}";`;
-
-    info("login()", query);
-
-    return bancoDados.consultaBd(query);
+  return bancoDados.executar(query);
 }
 
 function consultar(id, nome) {
-    var query = `SELECT * FROM usuario WHERE idusuario = "${id}" AND nome = "${nome}"`;
+  var query = `SELECT * FROM usuario WHERE idusuario = "${id}" AND nome = "${nome}"`;
 
-    info("consultar()", query);
+  info("consultar()", query);
 
-    return bancoDados.consultaBd(query);
+  return bancoDados.executar(query);
 }
 
-function atualizar(id, nome, senha, email){
-    var query = `UPDATE usuario SET nome = "${nome}", senha = "${senha}", email = "${email}" WHERE idusuario = ${id};`
+function atualizar(id, nome, senha, email) {
+  var query = `UPDATE usuario SET nome = "${nome}", senha = "${senha}", email = "${email}" WHERE idusuario = ${id};`;
 
-    info("atualizar()", query);
+  info("atualizar()", query);
 
-    return bancoDados.consultaBd(query);
-
+  return bancoDados.executar(query);
 }
 
-function deletar(senha, email){
-    var query = `DELETE FROM usuario WHERE senha = "${senha}" and email = "${email}"`
+function deletar(senha, email) {
+  var query = `DELETE FROM usuario WHERE senha = "${senha}" and email = "${email}"`;
 
-    info("deletar()", query);
+  info("deletar()", query);
 
-    return bancoDados.consultaBd(query);
+  return bancoDados.executar(query);
 }
 
 module.exports = {
-    listar,
-    cadastrar,
-    login,
-    consultar,
-    atualizar,
-    deletar
-}
-
+  listar,
+  cadastrar,
+  consultar,
+  atualizar,
+  deletar,
+};

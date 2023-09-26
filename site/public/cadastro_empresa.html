@@ -9,7 +9,15 @@
     />
 
     <link rel="stylesheet" href="./css/style_cadastro.css" />
-    <script src="./js/script_login.js"></script>
+    <script src="./js/script_cadastro.js"></script>
+
+    <!-- Link para o toastr -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   </head>
 
   <body>
@@ -26,17 +34,16 @@
                 <input
                   type="text"
                   name=""
-                  id=""
+                  id="ipt_nome_fantasia"
                   placeholder="Nome da Empresa"
                 />
               </div>
               <div class="input-block">
                 <h4>CNPJ</h4>
                 <input
-                  id="ipt_cnpj"
                   type="text"
                   name=""
-                  id=""
+                  id="ipt_cnpj"
                   placeholder="XX.XXX.XXX/0001-XX"
                   maxlength="14"
                   onchange="mascaraCNPJ()"
@@ -47,9 +54,9 @@
               <div class="input-block">
                 <h4>CEP</h4>
                 <input
-                  id="cep"
                   type="text"
                   name=""
+                  id="ipt_cep"
                   placeholder="XXXXX-XXX"
                   maxlength="8"
                   onchange="mascaraCEP()"
@@ -58,9 +65,9 @@
               <div class="input-block">
                 <h4>Email</h4>
                 <input
-                  id="ipt_cep"
                   type="text"
                   name=""
+                  id="ipt_email_empresa"
                   placeholder="Email da Empresa"
                 />
               </div>
@@ -76,7 +83,7 @@
                 <input
                   type="text"
                   name=""
-                  id=""
+                  id="ipt_nome_usuario"
                   placeholder="Nome do Primeiro Usuário"
                 />
               </div>
@@ -85,14 +92,14 @@
                 <input
                   type="text"
                   name=""
-                  id="ipt_email_func"
+                  id="ipt_email_usuario"
                   placeholder="Email do Primeiro Usuário"
                 />
               </div>
             </div>
           </div>
           <div class="button-block info-block">
-            <button class="btn btn-enviar" onclick="gerarSenha()">
+            <button class="btn btn-enviar" onclick="verificarCampos()">
               Confirmar Dados
             </button>
           </div>
