@@ -9,6 +9,15 @@
       href="./assets/img/logo/logo.png"
       type="image/x-icon"
     />
+
+    <!-- Link para o toastr -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     <link rel="stylesheet" href="./assets/css/login.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
@@ -23,7 +32,7 @@
         <div class="box">
           <img src="./assets/img/logo/logo01.png" alt="logo" />
           <input type="text" placeholder="Email" id="ipt_email" />
-          <input type="text" placeholder="Senha" id="ipt_senha" />
+          <input type="password" placeholder="Senha" id="ipt_senha" />
           <button class="btn-get-started scrollto" onclick="entrar()">
             Entrar
           </button>
@@ -31,11 +40,10 @@
             Não possui uma conta?
             <a href="./cadastro_empresa.html">Cadastre-se</a>
           </p>
-          <p></p>
         </div>
       </section>
     </head>
   </body>
 </html>
 
-<script src="/assets/js/login"></script>
+<script src="./js/script_login.js"></script>

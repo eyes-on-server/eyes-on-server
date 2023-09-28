@@ -18,7 +18,6 @@ rota.post("/cadastrar", (req, res) => {
 });
 
 rota.post("/login", (req, res) => {
-  info("Login");
   userController.login(req, res);
 });
 

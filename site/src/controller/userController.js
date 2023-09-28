@@ -50,8 +50,14 @@ function cadastrar(req, res) {
 
 function login(req, res) {
   info("login()");
-  var email = req.body.email_html;
-  var senha = req.body.senha_html;
+
+  var email = req.body.emailServer;
+  var senha = req.body.senhaServer;
+  console.log(req.body);
+
+  console.log("estou na controller");
+  console.log(email);
+  console.log(senha);
 
   if (email == undefined) {
     res.status(400).send("Seu email está indefinido!");
@@ -161,6 +167,7 @@ function deletar(req, res) {
 
 module.exports = {
   listar,
+  login,
   cadastrar,
   login,
   consultar,

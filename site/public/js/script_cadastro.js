@@ -51,27 +51,27 @@ function verificarCampos() {
 
   if (nomeFantasia == "") {
     toastr.error("Campo Nome Fantasia inválido!");
-    erro == true;
+    erro = true;
   }
   if (cnpj == "" || cnpj.length != 18) {
     toastr.error("Campo Cnpj inválido!");
-    erro == true;
+    erro = true;
   }
   if (cep == "" || cep.length != 9) {
     toastr.error("Campo Cep inválido!");
-    erro == true;
+    erro = true;
   }
   if (emailEmpresa == "" || emailEmpresa.indexOf("@") == -1) {
     toastr.error("Campo Email Empresa inválido!");
-    erro == true;
+    erro = true;
   }
   if (nomeUsuario == "") {
     toastr.error("Campo Nome Usuário inválido!");
-    erro == true;
+    erro = true;
   }
   if (emailUsuario == "" || emailUsuario.indexOf("@") == -1) {
     toastr.error("Campo Email Usuário inválido!");
-    erro == true;
+    erro = true;
   }
   if (erro == false) {
     cadastrarEmpresa(

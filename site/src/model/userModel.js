@@ -14,6 +14,29 @@ function listar() {
   return bancoDados.executar(query);
 }
 
+function login(email, senha) {
+  console.log(
+    "ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ",
+    email,
+    senha
+  );
+  var instrucao = `
+  SELECT 
+    id_usuario,
+	  u.nome,
+    u.email,
+    u.cargo,
+    e.nome_fantasia,
+    l.senha
+  FROM Eyes_On_Server.Usuario u 
+	  join Eyes_On_Server.Empresa e on u.fk_empresa = e.id_empresa
+	  join Eyes_On_Server.Login l on l.fk_usuario = u.id_usuario
+    WHERE u.email = "${email}" AND l.senha = "${senha}";  
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return bancoDados.executar(instrucao);
+}
+
 function cadastrar(nome, email, senha) {
   var query = `INSERT INTO usuario (nome, email, senha) VALUES ('${nome}', '${email}', '${senha}')`;
 
@@ -48,6 +71,7 @@ function deletar(senha, email) {
 
 module.exports = {
   listar,
+  login,
   cadastrar,
   consultar,
   atualizar,
