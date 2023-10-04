@@ -8919,6 +8919,9 @@ a.text-dark:hover {
 .text-reset {
   color: inherit !important;
 }
+.text-normal {
+  color: #000000 !important;
+}
 .visible {
   visibility: visible !important;
 }
