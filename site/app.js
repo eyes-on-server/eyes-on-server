@@ -12,11 +12,7 @@ const servidorRota = require("./src/routers/servidor");
 const empresaRota = require("./src/routers/empresa");
 const userRota = require("./src/routers/user");
 const indexRota = require("./src/routers/index");
-<<<<<<< HEAD
-const alertasRota = require("./src/routers/alertas");
-=======
 const graficosRota = require("./src/routers/graficos");
->>>>>>> dc81326e3c157e7308af4830748586a88dd381e4
 
 // Configurações -----------------------
 app.use(express.json());
