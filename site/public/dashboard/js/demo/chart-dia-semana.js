@@ -4,19 +4,18 @@
 Chart.defaults.global.defaultFontColor = "#858796";
 
 // Area Chart Example
-var ctx = document.getElementById("myAreaChart");
+var ctx = document.getElementById("graficoDiasDaSemana");
 var myLineChart = new Chart(ctx, {
-  type: "bar",
+  type: "horizontalBar",
   data: {
     labels: [
-      "03:00",
-      "06:00",
-      "09:00",
-      "12:00",
-      "15:00",
-      "18:00",
-      "21:00",
-      "00:00",
+      "Segunda-Feira",
+      "Terça-Feira",
+      "Quarta-Feira",
+      "Quinta-Feira",
+      "Sexta-Feira",
+      "Sábado",
+      "Domingo",
     ],
     datasets: [
       {
@@ -50,9 +49,11 @@ var myLineChart = new Chart(ctx, {
   },
   options: {
     scales: {
-      y: {
-        beginAtZero: true,
-      },
+        xAxes: [{
+            ticks: {
+              beginAtZero: true,
+            }
+          }],
     },
     maintainAspectRatio: false,
     layout: {

@@ -269,17 +269,15 @@
                         </div>
                     </div>
 
-                    <!-- Content Row -->
-
                     <div class="row">
 
-                        <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
+                        <!-- Gráfico Ranking -->
+                        <div class="col-xl-12 col-lg-12">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Incidentes do mês</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Servidores com mais Problemas</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -287,30 +285,35 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-header">Configurar Gráfico</div>
+                                            <a class="dropdown-item" href="#">Ordenar por Estado Emergência</a>
+                                            <a class="dropdown-item" href="#">Ordenar por Estado Perigo</a>
+                                            <a class="dropdown-item" href="#">Ordenar por Estado Prevenção</a>
+                                            <a class="dropdown-item" href="#">Ordenar por Total de Problemas</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <a class="dropdown-item" href="#">Restaurar</a>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
+                                        <canvas id="graficoRankingServidores"></canvas>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
+                    <div class="row">
+
+                        <!-- Area Chart -->
+                        <div class="col-xl-7 col-lg-7">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Incidentes por servidores</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Alertas por Dia da Semana</h6>
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -318,13 +321,32 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-header">Configurar Gráfico</div>
+                                            <a class="dropdown-item" href="#">Ordenar por Estado Emergência</a>
+                                            <a class="dropdown-item" href="#">Ordenar por Estado Perigo</a>
+                                            <a class="dropdown-item" href="#">Ordenar por Estado Prevenção</a>
+                                            <a class="dropdown-item" href="#">Ordenar por Total de Problemas</a>
                                             <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+                                            <a class="dropdown-item" href="#">Restaurar</a>
                                         </div>
                                     </div>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="graficoDiasDaSemana"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pie Chart -->
+                        <div class="col-xl-5 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Quantidade de Problemas por Tipo</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -333,13 +355,13 @@
                                     </div>
                                     <div class="mt-4 text-center small">
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Maio
+                                            <i class="fas fa-circle text-danger"></i> Emergência
                                         </span>
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Junho
+                                            <i class="fas fa-circle text-hot"></i> Perigo
                                         </span>
                                         <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Julho
+                                            <i class="fas fa-circle text-warning"></i> Prevenção
                                         </span>
                                     </div>
                                 </div>
@@ -410,7 +432,8 @@
     <script src="vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-ranking-servidores.js"></script>
+    <script src="js/demo/chart-dia-semana.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>

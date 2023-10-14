@@ -8855,6 +8855,13 @@ a.text-success:focus,
 a.text-success:hover {
   color: #13855c !important;
 }
+.text-hot {
+  color: #d65524 !important;
+}
+a.text-hot:focus,
+a.text-hot:hover {
+  color: #b3461e !important;
+}
 .text-info {
   color: #36b9cc !important;
 }
