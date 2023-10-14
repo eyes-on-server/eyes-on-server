@@ -12,6 +12,7 @@ const servidorRota = require("./src/routers/servidor");
 const empresaRota = require("./src/routers/empresa");
 const userRota = require("./src/routers/user");
 const indexRota = require("./src/routers/index");
+const alertasRota = require("./src/routers/alertas");
 const graficosRota = require("./src/routers/graficos");
 
 // Configurações -----------------------
