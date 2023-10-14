@@ -8855,6 +8855,34 @@ a.text-success:focus,
 a.text-success:hover {
   color: #13855c !important;
 }
+.text-hot {
+  color: #d65524 !important;
+}
+a.text-hot:focus,
+a.text-hot:hover {
+  color: #b3461e !important;
+}
+.text-emergency {
+  color: #186960 !important;
+}
+a.text-emergency:focus,
+a.text-emergency:hover {
+  color: #04695d !important;
+}
+.text-hazard {
+  color: #2d968a !important;
+}
+a.text-hazard:focus,
+a.text-hazard:hover {
+  color: #069181 !important;
+}
+.text-prevention {
+  color: #3fccbc !important;
+}
+a.text-prevention:focus,
+a.text-prevention:hover {
+  color: #09b8a4 !important;
+}
 .text-info {
   color: #36b9cc !important;
 }
@@ -8918,6 +8946,9 @@ a.text-dark:hover {
 }
 .text-reset {
   color: inherit !important;
+}
+.text-normal {
+  color: #000000 !important;
 }
 .visible {
   visibility: visible !important;
@@ -9222,7 +9253,7 @@ a:focus {
   justify-content: center;
 }
 .border-left-primary {
-  border-left: 0.25rem solid #ff0000 !important;
+  border-left: 0.25rem solid #4e73df !important;
 }
 .border-bottom-primary {
   border-bottom: 0.25rem solid #4e73df !important;
