@@ -199,7 +199,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Quantidade de Alertas CPU</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="idQtdAlertasCpu">14</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="idQtdAlertasCpu">0</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-microchip fa-2x text-gray-300"></i>
@@ -217,7 +217,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                                 Quantidade de Alertas RAM</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="idQtdAlertasMemoria">14</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="idQtdAlertasMemoria">0</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-memory fa-2x text-gray-300"></i>
@@ -238,7 +238,7 @@
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="idQtdAlertasDisco">14%</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="idQtdAlertasDisco">0</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -258,7 +258,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                                 Total de Alertas do Dia</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="idQtdAlertasTotal">5</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="idQtdAlertasTotal">0</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-chart-pie fa-2x text-gray-300"></i>
@@ -467,15 +467,17 @@
         return format.replace(/mm|dd|yy|yyy/gi, matched => map[matched])
     }
 
-    function coletarAlertasComponentes(){
-        fetch(`/alertas/coletarAlertasComponentes`, {
+    function coletarDados(){
+        fetch(`/alertas/coletarDados`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 idEmpresaServer: 3,
-                dataAtualServer: dataSistema
+                dataAtualServer: dataSistema,
+                fkComponenteServer: fkComponente,
+                fkServidorServer: fkServidor
             })
         }).then((resposta) => {
             if(resposta.ok){
@@ -486,6 +488,14 @@
                     document.getElementById('idQtdAlertasMemoria').innerHTML = json[0].totalAlertasMemoria;
                     document.getElementById('idQtdAlertasDisco').innerHTML = json[0].totalAlertasDisco;
                     document.getElementById('idQtdAlertasTotal').innerHTML = json[0].totalAlertas;
+
+                    graficoTipoProblemas.data.datasets[0].data = [
+                        json[0].totalAlertasPrevencao, 
+                        json[0].totalAlertasPerigo, 
+                        json[0].totalAlertasEmergencia
+                    ];
+
+                    graficoTipoProblemas.update();
                 })
             }else{
                 console.log("Erro ao realizar busca!");
@@ -498,28 +508,39 @@
         })
     }
 
-    function coletarAlertasPorTipo(){
-        fetch(`/alertas/coletarAlertasComponentes`, {
+    function realizarRankingServidores(){
+        fetch(`/alertas/realizarRankingServidores`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 idEmpresaServer: 3,
-                dataAtualServer: dataSistema
+                dataAtualServer: dataSistema,
+                fkComponenteServer: fkComponente,
             })
         }).then((resposta) => {
             if(resposta.ok){
                 resposta.json().then(json => {
                     console.log(json)
+                    
+                    console.log(json[0])
 
-                    document.getElementById('idQtdAlertasCpu').innerHTML = json[0].totalAlertasCpu;
-                    document.getElementById('idQtdAlertasMemoria').innerHTML = json[0].totalAlertasMemoria;
-                    document.getElementById('idQtdAlertasDisco').innerHTML = json[0].totalAlertasDisco;
-                    document.getElementById('idQtdAlertasTotal').innerHTML = json[0].totalAlertas;
-
-                    graficoRankingServidores.data.datasets[0].data.shift();
-                    graficoRankingServidores.data.datasets[0].data.push(json[0].totalAlertasDisco);
+                    graficoRankingServidores.data.labels = [
+                        json[0].nome_servidor,
+                        json[1].nome_servidor,
+                        json[2].nome_servidor,
+                        json[3].nome_servidor,
+                        json[4].nome_servidor
+                    ]
+                    graficoRankingServidores.data.datasets[0].data = [
+                        json[0].total_alertas,
+                        json[1].total_alertas,
+                        json[2].total_alertas,
+                        json[3].total_alertas,
+                        json[4].total_alertas
+                    ]
+                    graficoRankingServidores.update();
 
                 })
             }else{
@@ -533,6 +554,9 @@
         })
     }
 
-    coletarAlertasComponentes();
+    setInterval(() => {
+        coletarDados();
+        realizarRankingServidores();
+    }, 5000);
 
 </script>
