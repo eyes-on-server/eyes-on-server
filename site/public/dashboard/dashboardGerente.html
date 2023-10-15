@@ -192,7 +192,7 @@
                     <div class="row">
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-3 col-md-6 mb-4" onclick="filtrarPorComponente(1)">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -210,7 +210,7 @@
                         </div>
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-3 col-md-6 mb-4" onclick="filtrarPorComponente(2)">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -228,7 +228,7 @@
                         </div>
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-3 col-md-6 mb-4" onclick="filtrarPorComponente(3)">
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -251,7 +251,7 @@
                         </div>
 
                         <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-3 col-md-6 mb-4" onclick="filtrarPorComponente(0)">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -467,8 +467,15 @@
         return format.replace(/mm|dd|yy|yyy/gi, matched => map[matched])
     }
 
-    function coletarDados(){
-        fetch(`/alertas/coletarDados`, {
+    function filtrarPorComponente(id){
+        fkComponente = id;
+        coletarDadosCards();
+        realizarRankingServidores();
+        coletarDadosTipoAlerta();
+    }
+
+    function coletarDadosCards(){
+        fetch(`/alertas/coletarDadosCards`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -476,7 +483,6 @@
             body: JSON.stringify({
                 idEmpresaServer: 3,
                 dataAtualServer: dataSistema,
-                fkComponenteServer: fkComponente,
                 fkServidorServer: fkServidor
             })
         }).then((resposta) => {
@@ -488,14 +494,6 @@
                     document.getElementById('idQtdAlertasMemoria').innerHTML = json[0].totalAlertasMemoria;
                     document.getElementById('idQtdAlertasDisco').innerHTML = json[0].totalAlertasDisco;
                     document.getElementById('idQtdAlertasTotal').innerHTML = json[0].totalAlertas;
-
-                    graficoTipoProblemas.data.datasets[0].data = [
-                        json[0].totalAlertasEmergencia,
-                        json[0].totalAlertasPerigo, 
-                        json[0].totalAlertasPrevencao,
-                    ];
-
-                    graficoTipoProblemas.update();
                     
                 })
             }else{
@@ -526,21 +524,17 @@
                     console.log(json)
                     
                     console.log(json[0])
+                    
+                    labels = []
+                    data = []
 
-                    graficoRankingServidores.data.labels = [
-                        json[0].nome_servidor,
-                        json[1].nome_servidor,
-                        json[2].nome_servidor,
-                        json[3].nome_servidor,
-                        json[4].nome_servidor
-                    ]
-                    graficoRankingServidores.data.datasets[0].data = [
-                        json[0].total_alertas,
-                        json[1].total_alertas,
-                        json[2].total_alertas,
-                        json[3].total_alertas,
-                        json[4].total_alertas
-                    ]
+                    for(var i = 0; i < json.length; i++){
+                        labels.push(json[i].nome_servidor)
+                        data.push(json[i].total_alertas)
+                    }
+
+                    graficoRankingServidores.data.labels = labels;
+                    graficoRankingServidores.data.datasets[0].data = data;
                     graficoRankingServidores.update();
 
                 })
@@ -555,9 +549,47 @@
         })
     }
 
+    function coletarDadosTipoAlerta(){
+        fetch(`/alertas/coletarDadosTipoAlerta`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idEmpresaServer: 3,
+                dataAtualServer: dataSistema,
+                fkComponenteServer: fkComponente,
+                fkServidorServer: fkServidor
+            })
+        }).then((resposta) => {
+            if(resposta.ok){
+                resposta.json().then(json => {
+                    console.log(json)
+
+                    graficoTipoProblemas.data.datasets[0].data = [
+                        json[0].totalAlertasEmergencia,
+                        json[0].totalAlertasPerigo, 
+                        json[0].totalAlertasPrevencao,
+                    ];
+
+                    graficoTipoProblemas.update();
+                    
+                })
+            }else{
+                console.log("Erro ao realizar busca!");
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch((erro) => {
+            console.log("Erro ao realizar a busca: " + erro);
+        })
+    }
+
     setInterval(() => {
-        coletarDados();
+        coletarDadosCards();
         realizarRankingServidores();
+        coletarDadosTipoAlerta();
     }, 5000);
 
 </script>
