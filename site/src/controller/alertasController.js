@@ -3,12 +3,12 @@ const alertasModel = require("../model/alertasModel");
 function coletarDadosCards(req, res) {
   const idEmpresa = req.body.idEmpresaServer;
   const dataAtual = req.body.dataAtualServer;
-  const fkServidor = req.body.fkServidorServer;
+  const nomeServidor = req.body.nomeServidorServer;
 
-  if (fkServidor == 0) {
+  if (nomeServidor == "") {
     coletarTodosDadosCards(idEmpresa, dataAtual, res);
   } else {
-    coletarDadosCardsPorId(idEmpresa, dataAtual, fkServidor, res);
+    coletarDadosCardsPorId(idEmpresa, dataAtual, nomeServidor, res);
   }
 }
 
@@ -16,7 +16,7 @@ function coletarDadosTipoAlerta(req, res) {
   const idEmpresa = req.body.idEmpresaServer;
   const dataAtual = req.body.dataAtualServer;
   const fkComponente = req.body.fkComponenteServer;
-  const fkServidor = req.body.fkServidorServer;
+  const nomeServidor = req.body.nomeServidorServer;
 
   if (fkComponente == 0) {
     coletarTodosDadosTipoAlerta(idEmpresa, dataAtual, res);
@@ -29,7 +29,7 @@ function realizarRankingServidores(req, res) {
   const idEmpresa = req.body.idEmpresaServer;
   const dataAtual = req.body.dataAtualServer;
   const fkComponente = req.body.fkComponenteServer;
-  const fkServidor = req.body.fkServidorServer;
+  const nomeServidor = req.body.nomeServidorServer;
 
   if (fkComponente == 0) {
     realizarRankingGeral(idEmpresa, dataAtual, res);

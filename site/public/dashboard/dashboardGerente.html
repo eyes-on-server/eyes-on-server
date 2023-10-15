@@ -182,6 +182,7 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800" id="dataSistema"></h1>
+                        <input type="text" disabled value="Sem Filtro" id="filtroQtdAlertas">
                         <!--
                             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
@@ -278,7 +279,8 @@
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Servidores com mais Problemas</h6>
-                                    <div class="dropdown no-arrow">
+                                    <input type="text" disabled id="filtroAtualRanking" value="Sem Filtro">
+                                    <!-- <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -293,7 +295,7 @@
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="#">Restaurar</a>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -347,6 +349,7 @@
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Quantidade de Problemas por Tipo</h6>
+                                    <input type="text" disabled id="filtroAtualTipoAlerta" value="Sem Filtro">
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -441,9 +444,9 @@
 </html>
 <script>
     
-    var dataSistema = '';
+    var dataSistema = "";
+    var nomeServidor = "";
     var fkComponente = 0;
-    var fkServidor = 0;
 
     (function getDatetime(){
         setInterval(()=>{
@@ -469,6 +472,25 @@
 
     function filtrarPorComponente(id){
         fkComponente = id;
+        var componente = "";
+
+        if(id == 1){
+            componente = "Apenas CPU"
+        }else if(id == 2){
+            componente = "Apenas Memória"
+        }else if(id == 3){
+            componente = "Apenas Disco"
+        }else{
+            componente = "Sem Filtro"
+
+            document.getElementById('filtroQtdAlertas').value = "Sem Filtro";
+            nomeServidor = "";
+            
+        }
+
+        document.getElementById('filtroAtualTipoAlerta').value = componente;
+        document.getElementById('filtroAtualRanking').value = componente;
+
         coletarDadosCards();
         realizarRankingServidores();
         coletarDadosTipoAlerta();
@@ -483,7 +505,7 @@
             body: JSON.stringify({
                 idEmpresaServer: 3,
                 dataAtualServer: dataSistema,
-                fkServidorServer: fkServidor
+                nomeServidorServer: nomeServidor
             })
         }).then((resposta) => {
             if(resposta.ok){
@@ -559,7 +581,7 @@
                 idEmpresaServer: 3,
                 dataAtualServer: dataSistema,
                 fkComponenteServer: fkComponente,
-                fkServidorServer: fkServidor
+                nomeServidorServer: nomeServidor
             })
         }).then((resposta) => {
             if(resposta.ok){
@@ -592,4 +614,27 @@
         coletarDadosTipoAlerta();
     }, 5000);
 
+    function clickHandler(click) {
+        const points = graficoRankingServidores.getElementsAtEventForMode(
+            click,
+            "nearest",
+            { intersect: true },
+            true
+        );
+        if (points.length) {
+            const firstPoint = points[0];
+            const index = firstPoint._index;
+
+            console.log(graficoRankingServidores.data.labels[index]);
+            console.log(graficoRankingServidores.data.datasets[0].data[index]);
+            
+            document.getElementById('filtroQtdAlertas').value = 
+            "Servidor " + graficoRankingServidores.data.labels[index];
+
+            nomeServidor = graficoRankingServidores.data.labels[index];
+
+        }
+    }
+
+    ctxChartRanking.onclick = clickHandler;
 </script>

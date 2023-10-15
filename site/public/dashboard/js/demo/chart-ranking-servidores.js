@@ -4,8 +4,8 @@
 Chart.defaults.global.defaultFontColor = "#858796";
 
 // Area Chart Example
-var ctx = document.getElementById("graficoRankingServidores");
-var graficoRankingServidores = new Chart(ctx, {
+var ctxChartRanking = document.getElementById("graficoRankingServidores");
+var graficoRankingServidores = new Chart(ctxChartRanking, {
   type: "bar",
   data: {
     labels: [
