@@ -3,8 +3,8 @@ const alertasController = require("../controller/alertasController");
 
 const rota = express.Router();
 
-rota.get("/coletarTodosAlertas/:idEmpresa", (req, res) => {
-  alertasController.coletarTodosAlertas(req, res);
+rota.post("/coletarAlertasComponentes", (req, res) => {
+  alertasController.coletarAlertasComponentes(req, res);
 });
 
 module.exports = rota;

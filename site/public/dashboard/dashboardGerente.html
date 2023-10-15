@@ -199,7 +199,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Quantidade de Alertas CPU</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">14</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="idQtdAlertasCpu">14</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-microchip fa-2x text-gray-300"></i>
@@ -217,7 +217,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
                                                 Quantidade de Alertas RAM</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">14</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="idQtdAlertasMemoria">14</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-memory fa-2x text-gray-300"></i>
@@ -238,7 +238,7 @@
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">14%</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="idQtdAlertasDisco">14%</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -257,8 +257,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
-                                                Total de Alertas</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                                                Total de Alertas do Dia</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="idQtdAlertasTotal">5</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-chart-pie fa-2x text-gray-300"></i>
@@ -441,14 +441,98 @@
 </html>
 <script>
     
+    var dataSistema = '';
+    var fkComponente = 0;
+    var fkServidor = 0;
+
     (function getDatetime(){
         setInterval(()=>{
             var now = new Date();
             var dataAtual = now.toLocaleString();
 
             document.getElementById('dataSistema').innerHTML = dataAtual;
+            
+            dataSistema = formatDate(now, 'yy-mm-dd');
 
             }, 1000)
     })()
+
+    function formatDate(date, format) {
+        const map = {
+            mm: date.getMonth() + 1,
+            dd: date.getDate(),
+            yy: date.getFullYear()
+        }
+
+        return format.replace(/mm|dd|yy|yyy/gi, matched => map[matched])
+    }
+
+    function coletarAlertasComponentes(){
+        fetch(`/alertas/coletarAlertasComponentes`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idEmpresaServer: 3,
+                dataAtualServer: dataSistema
+            })
+        }).then((resposta) => {
+            if(resposta.ok){
+                resposta.json().then(json => {
+                    console.log(json)
+
+                    document.getElementById('idQtdAlertasCpu').innerHTML = json[0].totalAlertasCpu;
+                    document.getElementById('idQtdAlertasMemoria').innerHTML = json[0].totalAlertasMemoria;
+                    document.getElementById('idQtdAlertasDisco').innerHTML = json[0].totalAlertasDisco;
+                    document.getElementById('idQtdAlertasTotal').innerHTML = json[0].totalAlertas;
+                })
+            }else{
+                console.log("Erro ao realizar busca!");
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch((erro) => {
+            console.log("Erro ao realizar a busca: " + erro);
+        })
+    }
+
+    function coletarAlertasPorTipo(){
+        fetch(`/alertas/coletarAlertasComponentes`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idEmpresaServer: 3,
+                dataAtualServer: dataSistema
+            })
+        }).then((resposta) => {
+            if(resposta.ok){
+                resposta.json().then(json => {
+                    console.log(json)
+
+                    document.getElementById('idQtdAlertasCpu').innerHTML = json[0].totalAlertasCpu;
+                    document.getElementById('idQtdAlertasMemoria').innerHTML = json[0].totalAlertasMemoria;
+                    document.getElementById('idQtdAlertasDisco').innerHTML = json[0].totalAlertasDisco;
+                    document.getElementById('idQtdAlertasTotal').innerHTML = json[0].totalAlertas;
+
+                    graficoRankingServidores.data.datasets[0].data.shift();
+                    graficoRankingServidores.data.datasets[0].data.push(json[0].totalAlertasDisco);
+
+                })
+            }else{
+                console.log("Erro ao realizar busca!");
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+        }).catch((erro) => {
+            console.log("Erro ao realizar a busca: " + erro);
+        })
+    }
+
+    coletarAlertasComponentes();
 
 </script>

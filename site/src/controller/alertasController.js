@@ -1,11 +1,11 @@
 const alertasModel = require("../model/alertasModel");
 
-function coletarTodosAlertas(req, res) {
-  const idEmpresa = req.params.idEmpresa;
+function coletarAlertasComponentes(req, res) {
+  const idEmpresa = req.body.idEmpresaServer;
   const dataAtual = req.body.dataAtualServer;
 
   alertasModel
-    .coletarTodosAlertas(idEmpresa, dataAtual)
+    .coletarAlertasComponentes(idEmpresa, dataAtual)
     .then((resultado) => {
       if (resultado.length > 0) {
         res.status(200).json(resultado);
@@ -19,5 +19,5 @@ function coletarTodosAlertas(req, res) {
 }
 
 module.exports = {
-  coletarTodosAlertas,
+  coletarAlertasComponentes,
 };

@@ -3,8 +3,8 @@ const mysql = require("mysql2");
 var sqlConfig = {
   host: "localhost",
   database: "Eyes_On_Server",
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
+  user: "root",
+  password: "Anfitras01;!",
 };
 
 function executar(instrucao) {

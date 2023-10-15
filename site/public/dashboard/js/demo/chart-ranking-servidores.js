@@ -5,7 +5,7 @@ Chart.defaults.global.defaultFontColor = "#858796";
 
 // Area Chart Example
 var ctx = document.getElementById("graficoRankingServidores");
-var myLineChart = new Chart(ctx, {
+var graficoRankingServidores = new Chart(ctx, {
   type: "bar",
   data: {
     labels: [
@@ -15,7 +15,6 @@ var myLineChart = new Chart(ctx, {
       "Servidor 3D-FF",
       "Servidor A5-E2",
       "Servidor E1-F2",
-      
     ],
     datasets: [
       {
@@ -41,17 +40,19 @@ var myLineChart = new Chart(ctx, {
           "rgba(78, 115, 223, 1)",
           "rgba(78, 115, 223, 1)",
         ],
-        data: [30,25,20,15,10,5],
+        data: [30, 25, 20, 15, 10, 5],
       },
     ],
   },
   options: {
     scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true,
-        }
-      }],
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
     },
     maintainAspectRatio: false,
     layout: {
@@ -64,7 +65,7 @@ var myLineChart = new Chart(ctx, {
     },
     legend: {
       display: true,
-      position: 'top',
+      position: "top",
     },
     tooltips: {
       backgroundColor: "rgb(255,255,255)",
