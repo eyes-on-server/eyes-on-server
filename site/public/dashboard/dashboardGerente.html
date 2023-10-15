@@ -490,12 +490,13 @@
                     document.getElementById('idQtdAlertasTotal').innerHTML = json[0].totalAlertas;
 
                     graficoTipoProblemas.data.datasets[0].data = [
-                        json[0].totalAlertasPrevencao, 
+                        json[0].totalAlertasEmergencia,
                         json[0].totalAlertasPerigo, 
-                        json[0].totalAlertasEmergencia
+                        json[0].totalAlertasPrevencao,
                     ];
 
                     graficoTipoProblemas.update();
+                    
                 })
             }else{
                 console.log("Erro ao realizar busca!");
