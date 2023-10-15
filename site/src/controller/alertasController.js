@@ -3,12 +3,12 @@ const alertasModel = require("../model/alertasModel");
 function coletarDadosCards(req, res) {
   const idEmpresa = req.body.idEmpresaServer;
   const dataAtual = req.body.dataAtualServer;
-  const nomeServidor = req.body.nomeServidorServer;
+  const fkServidor = req.body.fkServidorServer;
 
-  if (nomeServidor == "") {
+  if (fkServidor == 0) {
     coletarTodosDadosCards(idEmpresa, dataAtual, res);
   } else {
-    coletarDadosCardsPorId(idEmpresa, dataAtual, nomeServidor, res);
+    coletarDadosCardsPorServidor(idEmpresa, dataAtual, fkServidor, res);
   }
 }
 
@@ -16,12 +16,27 @@ function coletarDadosTipoAlerta(req, res) {
   const idEmpresa = req.body.idEmpresaServer;
   const dataAtual = req.body.dataAtualServer;
   const fkComponente = req.body.fkComponenteServer;
-  const nomeServidor = req.body.nomeServidorServer;
+  const fkServidor = req.body.fkServidorServer;
 
-  if (fkComponente == 0) {
+  if (fkComponente == 0 && fkServidor == 0) {
     coletarTodosDadosTipoAlerta(idEmpresa, dataAtual, res);
+  } else if (fkComponente != 0 && fkServidor != 0) {
+    coletarDadosTipoAlertaPorComponenteServidor(
+      idEmpresa,
+      dataAtual,
+      fkComponente,
+      fkServidor,
+      res
+    );
+  } else if (fkComponente != 0) {
+    coletarDadosTipoAlertaPorComponente(
+      idEmpresa,
+      dataAtual,
+      fkComponente,
+      res
+    );
   } else {
-    coletarDadosTipoAlertaPorId(idEmpresa, dataAtual, fkComponente, res);
+    coletarDadosTipoAlertaPorServidor(idEmpresa, dataAtual, fkServidor, res);
   }
 }
 
@@ -29,12 +44,11 @@ function realizarRankingServidores(req, res) {
   const idEmpresa = req.body.idEmpresaServer;
   const dataAtual = req.body.dataAtualServer;
   const fkComponente = req.body.fkComponenteServer;
-  const nomeServidor = req.body.nomeServidorServer;
 
   if (fkComponente == 0) {
     realizarRankingGeral(idEmpresa, dataAtual, res);
   } else {
-    realizarRankingPorId(idEmpresa, dataAtual, fkComponente, res);
+    realizarRankingPorComponente(idEmpresa, dataAtual, fkComponente, res);
   }
 }
 
@@ -83,9 +97,9 @@ function realizarRankingGeral(idEmpresa, dataAtual, res) {
     });
 }
 
-function coletarDadosTipoAlertaPorId(idEmpresa, dataAtual, fkComponente, res) {
+function coletarDadosCardsPorServidor(idEmpresa, dataAtual, fkServidor, res) {
   alertasModel
-    .coletarDadosTipoAlertaPorId(idEmpresa, dataAtual, fkComponente)
+    .coletarDadosCardsPorServidor(idEmpresa, dataAtual, fkServidor)
     .then((resultado) => {
       if (resultado.length > 0) {
         res.status(200).json(resultado);
@@ -98,9 +112,75 @@ function coletarDadosTipoAlertaPorId(idEmpresa, dataAtual, fkComponente, res) {
     });
 }
 
-function realizarRankingPorId(idEmpresa, dataAtual, fkComponente, res) {
+function coletarDadosTipoAlertaPorComponenteServidor(
+  idEmpresa,
+  dataAtual,
+  fkComponente,
+  fkServidor,
+  res
+) {
   alertasModel
-    .realizarRankingServidoresPorId(idEmpresa, dataAtual, fkComponente)
+    .coletarDadosTipoAlertaPorComponenteServidor(
+      idEmpresa,
+      dataAtual,
+      fkComponente,
+      fkServidor
+    )
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(500).send("Nenhum alerta encontrado!");
+      }
+    })
+    .catch((erro) => {
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function coletarDadosTipoAlertaPorComponente(
+  idEmpresa,
+  dataAtual,
+  fkComponente,
+  res
+) {
+  alertasModel
+    .coletarDadosTipoAlertaPorComponente(idEmpresa, dataAtual, fkComponente)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(500).send("Nenhum alerta encontrado!");
+      }
+    })
+    .catch((erro) => {
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function coletarDadosTipoAlertaPorServidor(
+  idEmpresa,
+  dataAtual,
+  fkServidor,
+  res
+) {
+  alertasModel
+    .coletarDadosTipoAlertaPorServidor(idEmpresa, dataAtual, fkServidor)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(500).send("Nenhum alerta encontrado!");
+      }
+    })
+    .catch((erro) => {
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function realizarRankingPorComponente(idEmpresa, dataAtual, fkComponente, res) {
+  alertasModel
+    .realizarRankingServidoresPorComponente(idEmpresa, dataAtual, fkComponente)
     .then((resultado) => {
       if (resultado.length > 0) {
         res.status(200).json(resultado);

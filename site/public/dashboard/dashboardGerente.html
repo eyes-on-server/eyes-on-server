@@ -445,8 +445,10 @@
 <script>
     
     var dataSistema = "";
-    var nomeServidor = "";
+    var fkServidor = 0;
     var fkComponente = 0;
+
+    var ids = [];
 
     (function getDatetime(){
         setInterval(()=>{
@@ -484,8 +486,9 @@
             componente = "Sem Filtro"
 
             document.getElementById('filtroQtdAlertas').value = "Sem Filtro";
-            nomeServidor = "";
-            
+            fkServidor = 0;
+            fkComponente = 0;
+
         }
 
         document.getElementById('filtroAtualTipoAlerta').value = componente;
@@ -505,7 +508,7 @@
             body: JSON.stringify({
                 idEmpresaServer: 3,
                 dataAtualServer: dataSistema,
-                nomeServidorServer: nomeServidor
+                fkServidorServer: fkServidor
             })
         }).then((resposta) => {
             if(resposta.ok){
@@ -549,10 +552,12 @@
                     
                     labels = []
                     data = []
+                    ids = []
 
                     for(var i = 0; i < json.length; i++){
                         labels.push(json[i].nome_servidor)
                         data.push(json[i].total_alertas)
+                        ids.push(json[i].id_servidor)
                     }
 
                     graficoRankingServidores.data.labels = labels;
@@ -581,7 +586,7 @@
                 idEmpresaServer: 3,
                 dataAtualServer: dataSistema,
                 fkComponenteServer: fkComponente,
-                nomeServidorServer: nomeServidor
+                fkServidorServer: fkServidor
             })
         }).then((resposta) => {
             if(resposta.ok){
@@ -631,7 +636,11 @@
             document.getElementById('filtroQtdAlertas').value = 
             "Servidor " + graficoRankingServidores.data.labels[index];
 
-            nomeServidor = graficoRankingServidores.data.labels[index];
+            fkServidor = ids[index];
+
+            coletarDadosCards();
+            realizarRankingServidores();
+            coletarDadosTipoAlerta();
 
         }
     }
