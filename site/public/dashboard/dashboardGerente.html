@@ -23,7 +23,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="executarFuncoes()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -181,12 +181,11 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800" id="dataSistema"></h1>
-                        <input type="text" disabled value="Sem Filtro" id="filtroQtdAlertas">
-                        <!--
-                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-                            -->
+                        <h1 class="h3 mb-1 text-gray-800" id="dataSistema"></h1>
+                        
+                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="limpartFiltros()"><i
+                                class="fas fa-eraser fa-sm text-white-50"></i> Limpar Filtros</a>
+                           
                     </div>
 
                     <!-- Content Row -->
@@ -279,7 +278,6 @@
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Servidores com mais Problemas</h6>
-                                    <input type="text" disabled id="filtroAtualRanking" value="Sem Filtro">
                                     <!-- <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -349,7 +347,6 @@
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Quantidade de Problemas por Tipo</h6>
-                                    <input type="text" disabled id="filtroAtualTipoAlerta" value="Sem Filtro">
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -444,18 +441,31 @@
 </html>
 <script>
     
+    // Variáveis Globais
     var dataSistema = "";
     var fkServidor = 0;
     var fkComponente = 0;
-
     var ids = [];
 
+    // Definindo timer ---------------------------
     (function getDatetime(){
         setInterval(()=>{
             var now = new Date();
             var dataAtual = now.toLocaleString();
+            var dia = now.getDay();
 
-            document.getElementById('dataSistema').innerHTML = dataAtual;
+            const diasSemana = [
+                'Domingo',
+                'Segunda-Feira',
+                'Terça-Feira',
+                'Quarta-Feira',
+                'Quinta-Feira',
+                'Sexta-Feira',
+                'Sábado',
+                'Domingo'
+            ]
+
+            document.getElementById('dataSistema').innerHTML = `${diasSemana[dia]}, ${dataAtual}`;
             
             dataSistema = formatDate(now, 'yy-mm-dd');
 
@@ -472,6 +482,13 @@
         return format.replace(/mm|dd|yy|yyy/gi, matched => map[matched])
     }
 
+    function limpartFiltros(){
+        fkComponente = 0;
+        fkServidor = 0;
+
+        executarFuncoes();
+    }
+
     function filtrarPorComponente(id){
         fkComponente = id;
         var componente = "";
@@ -484,16 +501,10 @@
             componente = "Apenas Disco"
         }else{
             componente = "Sem Filtro"
-
-            document.getElementById('filtroQtdAlertas').value = "Sem Filtro";
-            fkServidor = 0;
             fkComponente = 0;
-
         }
-
-        coletarDadosCards();
-        realizarRankingServidores();
-        coletarDadosTipoAlerta();
+        
+        executarFuncoes();
     }
 
     function coletarDadosCards(){
@@ -609,11 +620,17 @@
             console.log("Erro ao realizar a busca: " + erro);
         })
     }
+    
+    // Definindo loop de buscas ---------------------------------
 
-    setInterval(() => {
+    function executarFuncoes(){
         coletarDadosCards();
         realizarRankingServidores();
         coletarDadosTipoAlerta();
+    }
+
+    setInterval(() => {
+        executarFuncoes();
     }, 5000);
 
     function clickHandler(click) {
@@ -629,15 +646,13 @@
 
             console.log(graficoRankingServidores.data.labels[index]);
             console.log(graficoRankingServidores.data.datasets[0].data[index]);
-            
-            document.getElementById('filtroQtdAlertas').value = 
-            "Servidor " + graficoRankingServidores.data.labels[index];
+
+            console.log(ids[index])
+            console.log(ids)
 
             fkServidor = ids[index];
 
-            coletarDadosCards();
-            realizarRankingServidores();
-            coletarDadosTipoAlerta();
+            executarFuncoes();
 
         }
     }

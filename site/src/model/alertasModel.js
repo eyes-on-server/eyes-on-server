@@ -107,7 +107,8 @@ function realizarRankingServidoresPorComponente(
   var query = `
         SELECT 
           count(id_alertas) total_alertas,
-          nome_servidor
+          nome_servidor,
+          id_servidor
         FROM Eyes_On_Server.Servidor s
           JOIN Eyes_On_Server.Alertas a ON a.fk_servidor = s.id_servidor
         WHERE data_hora_abertura LIKE '${dataAtual}%' AND a.fk_empresa = ${idEmpresa} and a.fk_componente = ${fkComponente}
