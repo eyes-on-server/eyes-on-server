@@ -531,9 +531,16 @@
                 })
             }else{
                 console.log("Erro ao realizar busca!");
+
                 resposta.text().then(texto => {
                     console.error(texto);
                 });
+
+                document.getElementById('idQtdAlertasCpu').innerHTML = 0
+                document.getElementById('idQtdAlertasMemoria').innerHTML = 0
+                document.getElementById('idQtdAlertasDisco').innerHTML = 0
+                document.getElementById('idQtdAlertasTotal').innerHTML = 0
+
             }
         }).catch((erro) => {
             console.log("Erro ao realizar a busca: " + erro);
@@ -575,9 +582,15 @@
                 })
             }else{
                 console.log("Erro ao realizar busca!");
+
                 resposta.text().then(texto => {
                     console.error(texto);
                 });
+                
+                graficoRankingServidores.data.labels = [];
+                graficoRankingServidores.data.datasets[0].data = [];
+                graficoRankingServidores.update();
+
             }
         }).catch((erro) => {
             console.log("Erro ao realizar a busca: " + erro);
@@ -612,9 +625,14 @@
                 })
             }else{
                 console.log("Erro ao realizar busca!");
+
                 resposta.text().then(texto => {
                     console.error(texto);
                 });
+
+                graficoTipoProblemas.data.datasets[0].data = [0,0,0];
+                graficoTipoProblemas.update();
+
             }
         }).catch((erro) => {
             console.log("Erro ao realizar a busca: " + erro);
