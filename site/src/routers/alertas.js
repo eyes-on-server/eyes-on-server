@@ -11,6 +11,10 @@ rota.post("/realizarRankingServidores", (req, res) => {
   alertasController.realizarRankingServidores(req, res);
 });
 
+rota.post("/realizarRankingLocais", (req, res) => {
+  alertasController.realizarRankingLocais(req, res);
+});
+
 rota.post("/coletarDadosTipoAlerta", (req, res) => {
   alertasController.coletarDadosTipoAlerta(req, res);
 });

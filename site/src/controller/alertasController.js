@@ -1,5 +1,6 @@
 const alertasModel = require("../model/alertasModel");
 
+/* ---------------------- DADOS CARDS ---------------------- */
 function coletarDadosCards(req, res) {
   const idEmpresa = req.body.idEmpresaServer;
   const dataAtual = req.body.dataAtualServer;
@@ -12,6 +13,39 @@ function coletarDadosCards(req, res) {
   }
 }
 
+// TODOS DADOS ------------------------>
+function coletarTodosDadosCards(idEmpresa, dataAtual, res) {
+  alertasModel
+    .coletarTodosDadosCards(idEmpresa, dataAtual)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(500).send("Nenhum alerta encontrado!");
+      }
+    })
+    .catch((erro) => {
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+// DADOS POR SERVIDOR ------------------------>
+function coletarDadosCardsPorServidor(idEmpresa, dataAtual, fkServidor, res) {
+  alertasModel
+    .coletarDadosCardsPorServidor(idEmpresa, dataAtual, fkServidor)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(500).send("Nenhum alerta encontrado!");
+      }
+    })
+    .catch((erro) => {
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+/* ---------------------- DADOS TIPO ALERTAS ---------------------- */
 function coletarDadosTipoAlerta(req, res) {
   const idEmpresa = req.body.idEmpresaServer;
   const dataAtual = req.body.dataAtualServer;
@@ -40,66 +74,9 @@ function coletarDadosTipoAlerta(req, res) {
   }
 }
 
-function realizarRankingServidores(req, res) {
-  const idEmpresa = req.body.idEmpresaServer;
-  const dataAtual = req.body.dataAtualServer;
-  const fkComponente = req.body.fkComponenteServer;
-
-  if (fkComponente == 0) {
-    realizarRankingGeral(idEmpresa, dataAtual, res);
-  } else {
-    realizarRankingPorComponente(idEmpresa, dataAtual, fkComponente, res);
-  }
-}
-
-function coletarTodosDadosCards(idEmpresa, dataAtual, res) {
-  alertasModel
-    .coletarTodosDadosCards(idEmpresa, dataAtual)
-    .then((resultado) => {
-      if (resultado.length > 0) {
-        res.status(200).json(resultado);
-      } else {
-        res.status(500).send("Nenhum alerta encontrado!");
-      }
-    })
-    .catch((erro) => {
-      res.status(500).json(erro.sqlMessage);
-    });
-}
-
 function coletarTodosDadosTipoAlerta(idEmpresa, dataAtual, res) {
   alertasModel
     .coletarTodosDadosTipoAlerta(idEmpresa, dataAtual)
-    .then((resultado) => {
-      if (resultado.length > 0) {
-        res.status(200).json(resultado);
-      } else {
-        res.status(500).send("Nenhum alerta encontrado!");
-      }
-    })
-    .catch((erro) => {
-      res.status(500).json(erro.sqlMessage);
-    });
-}
-
-function realizarRankingGeral(idEmpresa, dataAtual, res) {
-  alertasModel
-    .realizarRankingServidores(idEmpresa, dataAtual)
-    .then((resultado) => {
-      if (resultado.length > 0) {
-        res.status(200).json(resultado);
-      } else {
-        res.status(500).send("Nenhum alerta encontrado!");
-      }
-    })
-    .catch((erro) => {
-      res.status(500).json(erro.sqlMessage);
-    });
-}
-
-function coletarDadosCardsPorServidor(idEmpresa, dataAtual, fkServidor, res) {
-  alertasModel
-    .coletarDadosCardsPorServidor(idEmpresa, dataAtual, fkServidor)
     .then((resultado) => {
       if (resultado.length > 0) {
         res.status(200).json(resultado);
@@ -178,6 +155,34 @@ function coletarDadosTipoAlertaPorServidor(
     });
 }
 
+/* ---------------------- RANKING SERVIDORES ---------------------- */
+function realizarRankingServidores(req, res) {
+  const idEmpresa = req.body.idEmpresaServer;
+  const dataAtual = req.body.dataAtualServer;
+  const fkComponente = req.body.fkComponenteServer;
+
+  if (fkComponente == 0) {
+    realizarRankingGeral(idEmpresa, dataAtual, res);
+  } else {
+    realizarRankingPorComponente(idEmpresa, dataAtual, fkComponente, res);
+  }
+}
+
+function realizarRankingGeral(idEmpresa, dataAtual, res) {
+  alertasModel
+    .realizarRankingServidores(idEmpresa, dataAtual)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(500).send("Nenhum alerta encontrado!");
+      }
+    })
+    .catch((erro) => {
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 function realizarRankingPorComponente(idEmpresa, dataAtual, fkComponente, res) {
   alertasModel
     .realizarRankingServidoresPorComponente(idEmpresa, dataAtual, fkComponente)
@@ -192,8 +197,23 @@ function realizarRankingPorComponente(idEmpresa, dataAtual, fkComponente, res) {
       res.status(500).json(erro.sqlMessage);
     });
 }
+
+/* ---------------------- RANKING LOCAIS ---------------------- */
+function realizarRankingLocais(req, res) {
+  const idEmpresa = req.body.idEmpresaServer;
+  const dataAtual = req.body.dataAtualServer;
+  const fkComponente = req.body.fkComponenteServer;
+
+  if (fkComponente == 0) {
+    realizarRankingLocaisGeral(idEmpresa, dataAtual, res);
+  } else {
+    realizarRankingLocaisPorComponente(idEmpresa, dataAtual, fkComponente, res);
+  }
+}
+
 module.exports = {
   coletarDadosCards,
   realizarRankingServidores,
   coletarDadosTipoAlerta,
+  realizarRankingLocais,
 };

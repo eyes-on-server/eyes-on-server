@@ -10384,3 +10384,7 @@ select {
 .company_name {
   color: #fff;
 }
+
+.pointer:hover {
+  cursor: pointer;
+}

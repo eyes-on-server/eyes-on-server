@@ -192,8 +192,8 @@
                     <div class="row">
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4" onclick="filtrarPorComponente(1)">
-                            <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2 pointer" onclick="filtrarPorComponente(1)" id="cardCpu">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
@@ -210,8 +210,8 @@
                         </div>
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4" onclick="filtrarPorComponente(2)">
-                            <div class="card border-left-info shadow h-100 py-2">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2 pointer" onclick="filtrarPorComponente(2)" id="cardMemo">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
@@ -228,8 +228,8 @@
                         </div>
 
                         <!-- Earnings (Monthly) Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4" onclick="filtrarPorComponente(3)">
-                            <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2 pointer" onclick="filtrarPorComponente(3)" id="cardDisco">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
@@ -251,8 +251,8 @@
                         </div>
 
                         <!-- Pending Requests Card Example -->
-                        <div class="col-xl-3 col-md-6 mb-4" onclick="filtrarPorComponente(0)">
-                            <div class="card border-left-info shadow h-100 py-2">
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2 pointer" onclick="filtrarPorComponente(0)" id="cardTodosComponentes">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
@@ -446,6 +446,8 @@
     var fkServidor = 0;
     var fkComponente = 0;
     var ids = [];
+    var rankLock = false;
+    var selectedRankingBarId = null;
 
     // Definindo timer ---------------------------
     (function getDatetime(){
@@ -485,27 +487,62 @@
     function limpartFiltros(){
         fkComponente = 0;
         fkServidor = 0;
+        selectedRankingBarId = null;
+        rankLock = false;
 
+        desativarCards();
+        resetRankingColors();
         executarFuncoes();
     }
 
     function filtrarPorComponente(id){
-        fkComponente = id;
-        var componente = "";
-
-        if(id == 1){
-            componente = "Apenas CPU"
-        }else if(id == 2){
-            componente = "Apenas Memória"
-        }else if(id == 3){
-            componente = "Apenas Disco"
-        }else{
-            componente = "Sem Filtro"
-            fkComponente = 0;
-        }
         
-        executarFuncoes();
+       
+            fkComponente = id;
+            var componente = "";
+
+            if(id == 1){
+                componente = "Apenas CPU"
+                desativarCards()
+                cardCpu.style = 'border: 4px solid royalblue;'
+            }else if(id == 2){
+                componente = "Apenas Memória"
+                desativarCards()
+                cardMemo.style = 'border: 4px solid royalblue;'
+            }else if(id == 3){
+                componente = "Apenas Disco"
+                desativarCards()
+                cardDisco.style = 'border: 4px solid royalblue;'
+            }else{
+                componente = "Sem Filtro"
+                desativarCards()
+                cardTodosComponentes.style = 'border: 4px solid royalblue;'
+                fkComponente = 0;
+            }
+
+            executarFuncoes();
     }
+
+    function desativarCards(){
+        cardCpu.style = 'border:none;';
+        cardDisco.style = 'border:none;';
+        cardMemo.style = 'border:none;';
+        cardTodosComponentes.style = 'border:none;';
+    }
+
+    function resetRankingColors(){
+        graficoRankingServidores.data.datasets[0].backgroundColor = 
+                [
+                    "#32bcad",
+                    "#32bcad",
+                    "#32bcad",
+                    "#32bcad",
+                    "#32bcad",
+                    "#32bcad"
+                ];
+        graficoRankingServidores.update();
+    }
+
 
     function coletarDadosCards(){
         fetch(`/alertas/coletarDadosCards`, {
@@ -549,6 +586,56 @@
 
     function realizarRankingServidores(){
         fetch(`/alertas/realizarRankingServidores`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idEmpresaServer: 3,
+                dataAtualServer: dataSistema,
+                fkComponenteServer: fkComponente,
+            })
+        }).then((resposta) => {
+            if(resposta.ok){
+                resposta.json().then(json => {
+                    console.log(json)
+                    
+                    console.log(json[0])
+                    
+                    labels = []
+                    data = []
+                    ids = []
+
+                    for(var i = 0; i < json.length; i++){
+                        labels.push(json[i].nome_servidor)
+                        data.push(json[i].total_alertas)
+                        ids.push(json[i].id_servidor)
+                    }
+
+                    graficoRankingServidores.data.labels = labels;
+                    graficoRankingServidores.data.datasets[0].data = data;
+                    graficoRankingServidores.update();
+
+                })
+            }else{
+                console.log("Erro ao realizar busca!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+                
+                graficoRankingServidores.data.labels = [];
+                graficoRankingServidores.data.datasets[0].data = [];
+                graficoRankingServidores.update();
+
+            }
+        }).catch((erro) => {
+            console.log("Erro ao realizar a busca: " + erro);
+        })
+    }
+
+    function realizarRankingLocais(){
+        fetch(`/alertas/realizarRankingLocais`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -643,7 +730,11 @@
 
     function executarFuncoes(){
         coletarDadosCards();
-        realizarRankingServidores();
+
+        if(rankLock == false){
+            realizarRankingServidores();
+        }
+
         coletarDadosTipoAlerta();
     }
 
@@ -661,14 +752,22 @@
         if (points.length) {
             const firstPoint = points[0];
             const index = firstPoint._index;
-
-            console.log(graficoRankingServidores.data.labels[index]);
-            console.log(graficoRankingServidores.data.datasets[0].data[index]);
-
-            console.log(ids[index])
-            console.log(ids)
-
-            fkServidor = ids[index];
+            
+            
+            if(index == selectedRankingBarId){
+                fkServidor = 0;
+                rankLock = false;
+                selectedRankingBarId = null;
+                resetRankingColors();
+            }else{
+                fkServidor = ids[index];
+                selectedRankingBarId = index;
+                rankLock = true;
+                resetRankingColors();
+                
+                graficoRankingServidores.data.datasets[0].backgroundColor[index] = "#a2d6ff";
+                graficoRankingServidores.update();
+            }
 
             executarFuncoes();
 
