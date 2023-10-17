@@ -25,15 +25,8 @@ var graficoRankingServidores = new Chart(ctxChartRanking, {
           "#32bcad",
           "#32bcad",
           "#32bcad",
-          "#32bcad",
         ],
         borderColor: [
-          "rgba(78, 115, 223, 1)",
-          "rgba(78, 115, 223, 1)",
-          "rgba(78, 115, 223, 1)",
-          "rgba(78, 115, 223, 1)",
-          "rgba(78, 115, 223, 1)",
-          "rgba(78, 115, 223, 1)",
           "rgba(78, 115, 223, 1)",
           "rgba(78, 115, 223, 1)",
           "rgba(78, 115, 223, 1)",
@@ -49,6 +42,21 @@ var graficoRankingServidores = new Chart(ctxChartRanking, {
       yAxes: [
         {
           ticks: {
+            fontColor: "black",
+            fontStyle: "bold",
+            fontSize: 11,
+            stepSize: 1,
+            beginAtZero: true,
+          },
+        },
+      ],
+      xAxes: [
+        {
+          ticks: {
+            fontColor: "black",
+            fontStyle: "bold",
+            fontSize: 15,
+            stepSize: 1,
             beginAtZero: true,
           },
         },
@@ -64,14 +72,14 @@ var graficoRankingServidores = new Chart(ctxChartRanking, {
       },
     },
     legend: {
-      display: true,
+      display: false,
       position: "top",
     },
     tooltips: {
       backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
+      bodyFontColor: "black",
       titleMarginBottom: 10,
-      titleFontColor: "#6e707e",
+      titleFontColor: "black",
       titleFontSize: 14,
       borderColor: "#dddfeb",
       borderWidth: 1,

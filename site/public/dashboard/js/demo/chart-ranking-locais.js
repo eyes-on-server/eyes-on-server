@@ -35,6 +35,21 @@ var graficoRankingLocais = new Chart(ctxRankingLocais, {
       xAxes: [
         {
           ticks: {
+            fontColor: "black",
+            fontStyle: "bold",
+            fontSize: 11,
+            stepSize: 1,
+            beginAtZero: true,
+          },
+        },
+      ],
+      yAxes: [
+        {
+          ticks: {
+            fontColor: "black",
+            fontStyle: "bold",
+            fontSize: 15,
+            stepSize: 1,
             beginAtZero: true,
           },
         },
@@ -50,7 +65,7 @@ var graficoRankingLocais = new Chart(ctxRankingLocais, {
       },
     },
     legend: {
-      display: true,
+      display: false,
     },
     tooltips: {
       backgroundColor: "rgb(255,255,255)",
