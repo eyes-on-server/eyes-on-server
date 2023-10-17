@@ -314,7 +314,7 @@
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Alertas por Dia da Semana</h6>
-                                    <div class="dropdown no-arrow">
+                                    <!-- <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -329,7 +329,7 @@
                                             <div class="dropdown-divider"></div>
                                             <a class="dropdown-item" href="#">Restaurar</a>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
@@ -447,7 +447,9 @@
     var fkComponente = 0;
     var ids = [];
     var rankLock = false;
-    var selectedRankingBarId = null;
+
+    var selectedRankingServidoresId = null;
+    var selectedRankingLocaisId = null;
 
     // Definindo timer ---------------------------
     (function getDatetime(){
@@ -487,11 +489,11 @@
     function limpartFiltros(){
         fkComponente = 0;
         fkServidor = 0;
-        selectedRankingBarId = null;
+        selectedRankingServidoresId = null;
         rankLock = false;
 
         desativarCards();
-        resetRankingColors();
+        resetRankingServidoresColors();
         executarFuncoes();
     }
 
@@ -530,7 +532,7 @@
         cardTodosComponentes.style = 'border:none;';
     }
 
-    function resetRankingColors(){
+    function resetRankingServidoresColors(){
         graficoRankingServidores.data.datasets[0].backgroundColor = 
                 [
                     "#32bcad",
@@ -541,6 +543,19 @@
                     "#32bcad"
                 ];
         graficoRankingServidores.update();
+    }
+
+    function resetRankingLocaisColors(){
+        graficoRankingLocais.data.datasets[0].backgroundColor = 
+                [
+                    "#32bcad",
+                    "#32bcad",
+                    "#32bcad",
+                    "#32bcad",
+                    "#32bcad",
+                    "#32bcad"
+                ];
+        graficoRankingLocais.update();
     }
 
 
@@ -741,7 +756,7 @@
         executarFuncoes();
     }, 5000);
 
-    function clickHandler(click) {
+    function graficoRankingServidoresClick(click) {
         const points = graficoRankingServidores.getElementsAtEventForMode(
             click,
             "nearest",
@@ -753,18 +768,18 @@
             const index = firstPoint._index;
             
             
-            if(index == selectedRankingBarId){
+            if(index == selectedRankingServidoresId){
                 fkServidor = 0;
                 rankLock = false;
-                selectedRankingBarId = null;
-                resetRankingColors();
+                selectedRankingServidoresId = null;
+                resetRankingServidoresColors();
             }else{
                 fkServidor = ids[index];
-                selectedRankingBarId = index;
+                selectedRankingServidoresId = index;
                 rankLock = true;
-                resetRankingColors();
+                resetRankingServidoresColors();
                 
-                graficoRankingServidores.data.datasets[0].backgroundColor[index] = "#a2d6ff";
+                graficoRankingServidores.data.datasets[0].backgroundColor[index] = "#178e96";
                 graficoRankingServidores.update();
             }
 
@@ -773,5 +788,35 @@
         }
     }
 
-    ctxChartRanking.onclick = clickHandler;
+    ctxChartRanking.onclick = graficoRankingServidoresClick;
+
+    function graficoRankingLocaisClick(click) {
+        const points = graficoRankingLocais.getElementsAtEventForMode(
+            click,
+            "nearest",
+            { intersect: true },
+            true
+        );
+        if (points.length) {
+            const firstPoint = points[0];
+            const index = firstPoint._index;
+            
+            
+            if(index == selectedRankingLocaisId){
+                selectedRankingLocaisId = null;
+                resetRankingLocaisColors();
+            }else{
+                selectedRankingLocaisId = index;
+                resetRankingLocaisColors();
+                
+                graficoRankingLocais.data.datasets[0].backgroundColor[index] = "#178e96";
+                graficoRankingLocais.update();
+            }
+
+            executarFuncoes();
+
+        }
+    }
+
+    ctxRankingLocais.onclick = graficoRankingLocaisClick;
 </script>

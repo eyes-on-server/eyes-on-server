@@ -50,7 +50,7 @@ var graficoRankingLocais = new Chart(ctxRankingLocais, {
       },
     },
     legend: {
-      display: false,
+      display: true,
     },
     tooltips: {
       backgroundColor: "rgb(255,255,255)",
