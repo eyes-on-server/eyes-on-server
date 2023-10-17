@@ -334,7 +334,7 @@
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area">
-                                        <canvas id="graficoDiasDaSemana"></canvas>
+                                        <canvas id="graficoRankingLocais"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -433,7 +433,7 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-ranking-servidores.js"></script>
-    <script src="js/demo/chart-dia-semana.js"></script>
+    <script src="js/demo/chart-ranking-locais.js"></script>
     <script src="js/demo/chart-tipo-problemas.js"></script>
 
 </body>
@@ -654,17 +654,15 @@
                     
                     labels = []
                     data = []
-                    ids = []
 
                     for(var i = 0; i < json.length; i++){
-                        labels.push(json[i].nome_servidor)
+                        labels.push(json[i].local_servidor)
                         data.push(json[i].total_alertas)
-                        ids.push(json[i].id_servidor)
                     }
 
-                    graficoRankingServidores.data.labels = labels;
-                    graficoRankingServidores.data.datasets[0].data = data;
-                    graficoRankingServidores.update();
+                    graficoRankingLocais.data.labels = labels;
+                    graficoRankingLocais.data.datasets[0].data = data;
+                    graficoRankingLocais.update();
 
                 })
             }else{
@@ -674,9 +672,9 @@
                     console.error(texto);
                 });
                 
-                graficoRankingServidores.data.labels = [];
-                graficoRankingServidores.data.datasets[0].data = [];
-                graficoRankingServidores.update();
+                graficoRankingLocais.data.labels = [];
+                graficoRankingLocais.data.datasets[0].data = [];
+                graficoRankingLocais.update();
 
             }
         }).catch((erro) => {
@@ -735,6 +733,7 @@
             realizarRankingServidores();
         }
 
+        realizarRankingLocais();
         coletarDadosTipoAlerta();
     }
 

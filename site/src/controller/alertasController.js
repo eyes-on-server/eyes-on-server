@@ -74,6 +74,7 @@ function coletarDadosTipoAlerta(req, res) {
   }
 }
 
+// TODOS DADOS ------------------------>
 function coletarTodosDadosTipoAlerta(idEmpresa, dataAtual, res) {
   alertasModel
     .coletarTodosDadosTipoAlerta(idEmpresa, dataAtual)
@@ -89,6 +90,7 @@ function coletarTodosDadosTipoAlerta(idEmpresa, dataAtual, res) {
     });
 }
 
+// DADOS POR COMPONENTE E SERVIDOR ------------------------>
 function coletarDadosTipoAlertaPorComponenteServidor(
   idEmpresa,
   dataAtual,
@@ -115,6 +117,7 @@ function coletarDadosTipoAlertaPorComponenteServidor(
     });
 }
 
+// DADOS POR COMPONENTE ------------------------>
 function coletarDadosTipoAlertaPorComponente(
   idEmpresa,
   dataAtual,
@@ -135,6 +138,7 @@ function coletarDadosTipoAlertaPorComponente(
     });
 }
 
+// DADOS POR SERVIDOR ------------------------>
 function coletarDadosTipoAlertaPorServidor(
   idEmpresa,
   dataAtual,
@@ -168,6 +172,7 @@ function realizarRankingServidores(req, res) {
   }
 }
 
+// RANKING GERAL ------------------------>
 function realizarRankingGeral(idEmpresa, dataAtual, res) {
   alertasModel
     .realizarRankingServidores(idEmpresa, dataAtual)
@@ -183,6 +188,7 @@ function realizarRankingGeral(idEmpresa, dataAtual, res) {
     });
 }
 
+// RANKING POR COMPONENTE ------------------------>
 function realizarRankingPorComponente(idEmpresa, dataAtual, fkComponente, res) {
   alertasModel
     .realizarRankingServidoresPorComponente(idEmpresa, dataAtual, fkComponente)
@@ -209,6 +215,43 @@ function realizarRankingLocais(req, res) {
   } else {
     realizarRankingLocaisPorComponente(idEmpresa, dataAtual, fkComponente, res);
   }
+}
+
+// RANKING GERAL ------------------------>
+function realizarRankingLocaisGeral(idEmpresa, dataAtual, res) {
+  alertasModel
+    .realizarRankingLocais(idEmpresa, dataAtual)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(500).send("Nenhum alerta encontrado!");
+      }
+    })
+    .catch((erro) => {
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+// RANKING POR COMPONENTE ------------------------>
+function realizarRankingLocaisPorComponente(
+  idEmpresa,
+  dataAtual,
+  fkComponente,
+  res
+) {
+  alertasModel
+    .realizarRankingLocaisPorComponente(idEmpresa, dataAtual, fkComponente)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(500).send("Nenhum alerta encontrado!");
+      }
+    })
+    .catch((erro) => {
+      res.status(500).json(erro.sqlMessage);
+    });
 }
 
 module.exports = {

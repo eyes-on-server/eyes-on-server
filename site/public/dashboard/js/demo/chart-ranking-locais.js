@@ -4,26 +4,15 @@
 Chart.defaults.global.defaultFontColor = "#858796";
 
 // Area Chart Example
-var ctx = document.getElementById("graficoDiasDaSemana");
-var myLineChart = new Chart(ctx, {
+var ctxRankingLocais = document.getElementById("graficoRankingLocais");
+var graficoRankingLocais = new Chart(ctxRankingLocais, {
   type: "horizontalBar",
   data: {
-    labels: [
-      "Segunda-Feira",
-      "Terça-Feira",
-      "Quarta-Feira",
-      "Quinta-Feira",
-      "Sexta-Feira",
-      "Sábado",
-      "Domingo",
-    ],
+    labels: ["Setor A", "Setor B", "Setor C", "Setor D", "Setor E"],
     datasets: [
       {
-        label: "Incidentes",
+        label: "Quantidade de Incidentes",
         backgroundColor: [
-          "#32bcad",
-          "#32bcad",
-          "#32bcad",
           "#32bcad",
           "#32bcad",
           "#32bcad",
@@ -36,24 +25,20 @@ var myLineChart = new Chart(ctx, {
           "rgba(78, 115, 223, 1)",
           "rgba(78, 115, 223, 1)",
           "rgba(78, 115, 223, 1)",
-          "rgba(78, 115, 223, 1)",
-          "rgba(78, 115, 223, 1)",
-          "rgba(78, 115, 223, 1)",
-          "rgba(78, 115, 223, 1)",
-          "rgba(78, 115, 223, 1)",
-          "rgba(78, 115, 223, 1)",
         ],
-        data: [15, 10, 12, 5, 5, 8, 3, 5],
+        data: [15, 10, 12, 5, 20],
       },
     ],
   },
   options: {
     scales: {
-        xAxes: [{
-            ticks: {
-              beginAtZero: true,
-            }
-          }],
+      xAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
     },
     maintainAspectRatio: false,
     layout: {

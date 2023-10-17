@@ -1,5 +1,6 @@
 const bancoDados = require("../database/config");
 
+/* ---------------------- DADOS CARDS ---------------------- */
 function coletarTodosDadosCards(idEmpresa, dataAtual) {
   var query = `
         SELECT 
@@ -13,6 +14,7 @@ function coletarTodosDadosCards(idEmpresa, dataAtual) {
   return bancoDados.executar(query);
 }
 
+/* ---------------------- DADOS TIPO ALERTA ---------------------- */
 function coletarTodosDadosTipoAlerta(idEmpresa, dataAtual) {
   var query = `
         SELECT 
@@ -25,6 +27,7 @@ function coletarTodosDadosTipoAlerta(idEmpresa, dataAtual) {
   return bancoDados.executar(query);
 }
 
+/* ---------------------- RANKING SERVIDORES ---------------------- */
 function realizarRankingServidores(idEmpresa, dataAtual) {
   var query = `
     SELECT 
@@ -35,6 +38,22 @@ function realizarRankingServidores(idEmpresa, dataAtual) {
       JOIN Eyes_On_Server.Alertas a ON a.fk_servidor = s.id_servidor
     WHERE data_hora_abertura LIKE '${dataAtual}%' AND a.fk_empresa = ${idEmpresa}
     GROUP BY a.fk_servidor
+    ORDER BY total_alertas DESC
+    LIMIT 5;
+  `;
+  return bancoDados.executar(query);
+}
+
+/* ---------------------- RANKING LOCAIS ---------------------- */
+function realizarRankingLocais(idEmpresa, dataAtual) {
+  var query = `
+    SELECT 
+      count(id_alertas) total_alertas,
+      local_servidor
+    FROM Eyes_On_Server.Servidor s
+      JOIN Eyes_On_Server.Alertas a ON a.fk_servidor = s.id_servidor
+    WHERE data_hora_abertura LIKE '${dataAtual}%' AND a.fk_empresa = ${idEmpresa}
+    GROUP BY s.local_servidor
     ORDER BY total_alertas DESC
     LIMIT 5;
   `;
@@ -118,6 +137,7 @@ function realizarRankingServidoresPorComponente(
     `;
   return bancoDados.executar(query);
 }
+
 module.exports = {
   coletarTodosDadosCards,
   coletarTodosDadosTipoAlerta,
@@ -127,4 +147,5 @@ module.exports = {
   realizarRankingServidoresPorComponente,
   coletarDadosTipoAlertaPorServidor,
   coletarDadosTipoAlertaPorComponenteServidor,
+  realizarRankingLocais,
 };
