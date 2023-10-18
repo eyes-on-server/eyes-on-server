@@ -49,7 +49,7 @@ function entrar() {
           if (sessionStorage.CARGO == "Gerente") {
             window.location = "../dashboard/dashboardGerente.html";
           } else {
-            window.location = "../dashboard/dashboardUsuario.html";
+            window.location = "../dashboard/dashboardAnalista.html";
           }
         });
       } else {

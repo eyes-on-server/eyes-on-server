@@ -8835,7 +8835,7 @@ button.bg-dark:hover {
   color: #fff !important;
 }
 .text-primary {
-  color: #4e73df !important;
+  color: #32bcad !important;
 }
 a.text-primary:focus,
 a.text-primary:hover {
@@ -9253,7 +9253,7 @@ a:focus {
   justify-content: center;
 }
 .border-left-primary {
-  border-left: 0.25rem solid #4e73df !important;
+  border-left: 0.25rem solid #32bcad !important;
 }
 .border-bottom-primary {
   border-bottom: 0.25rem solid #4e73df !important;
@@ -10375,6 +10375,8 @@ select {
   font-size: 14px;
   padding: 5px;
   padding-left: 10px;
+
+  margin-left: 25px;
 }
 
 .user_name {
@@ -10387,4 +10389,16 @@ select {
 
 .pointer:hover {
   cursor: pointer;
+}
+
+.tableHeader {
+  font-size: 10px;
+  width: auto;
+  text-align: center;
+}
+
+.tableContent {
+  font-size: 10px;
+  width: auto;
+  text-align: center;
 }
