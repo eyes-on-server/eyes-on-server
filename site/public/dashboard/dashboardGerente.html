@@ -183,7 +183,7 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-1 text-gray-800" id="dataSistema"></h1>
                         
-                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="limpartFiltros()"><i
+                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="limparFiltros()"><i
                                 class="fas fa-eraser fa-sm text-white-50"></i> Limpar Filtros</a>
                            
                     </div>
@@ -445,8 +445,10 @@
     var dataSistema = "";
     var fkServidor = 0;
     var fkComponente = 0;
+    var localServidor = "";
     var ids = [];
-    var rankLock = false;
+    var rankServidoresLock = false;
+    var rankLocaisLock = false;
 
     var selectedRankingServidoresId = null;
     var selectedRankingLocaisId = null;
@@ -486,37 +488,37 @@
         return format.replace(/mm|dd|yy|yyy/gi, matched => map[matched])
     }
 
-    function limpartFiltros(){
+    function limparFiltros(){
         fkComponente = 0;
         fkServidor = 0;
+        localServidor = "";
+
+        selectedRankingLocaisId = null;
         selectedRankingServidoresId = null;
-        rankLock = false;
+
+        rankServidoresLock = false;
+        rankLocaisLock = false;
 
         desativarCards();
         resetRankingServidoresColors();
+        resetRankingLocaisColors();
         executarFuncoes();
     }
 
     function filtrarPorComponente(id){
         
-       
             fkComponente = id;
-            var componente = "";
 
             if(id == 1){
-                componente = "Apenas CPU"
                 desativarCards()
                 cardCpu.style = 'border: 4px solid royalblue;'
             }else if(id == 2){
-                componente = "Apenas Memória"
                 desativarCards()
                 cardMemo.style = 'border: 4px solid royalblue;'
             }else if(id == 3){
-                componente = "Apenas Disco"
                 desativarCards()
                 cardDisco.style = 'border: 4px solid royalblue;'
             }else{
-                componente = "Sem Filtro"
                 desativarCards()
                 cardTodosComponentes.style = 'border: 4px solid royalblue;'
                 fkComponente = 0;
@@ -568,7 +570,8 @@
             body: JSON.stringify({
                 idEmpresaServer: 3,
                 dataAtualServer: dataSistema,
-                fkServidorServer: fkServidor
+                fkServidorServer: fkServidor,
+                localServidorServer: localServidor,
             })
         }).then((resposta) => {
             if(resposta.ok){
@@ -609,6 +612,7 @@
                 idEmpresaServer: 3,
                 dataAtualServer: dataSistema,
                 fkComponenteServer: fkComponente,
+                localServidorServer: localServidor,
             })
         }).then((resposta) => {
             if(resposta.ok){
@@ -744,11 +748,14 @@
     function executarFuncoes(){
         coletarDadosCards();
 
-        if(rankLock == false){
+        if(rankServidoresLock == false){
             realizarRankingServidores();
         }
+        
+        if(rankLocaisLock == false){
+            realizarRankingLocais();
+        }
 
-        realizarRankingLocais();
         coletarDadosTipoAlerta();
     }
 
@@ -770,13 +777,13 @@
             
             if(index == selectedRankingServidoresId){
                 fkServidor = 0;
-                rankLock = false;
+                rankServidoresLock = false;
                 selectedRankingServidoresId = null;
                 resetRankingServidoresColors();
             }else{
                 fkServidor = ids[index];
                 selectedRankingServidoresId = index;
-                rankLock = true;
+                rankServidoresLock = true;
                 resetRankingServidoresColors();
                 
                 graficoRankingServidores.data.datasets[0].backgroundColor[index] = "#178e96";
@@ -804,13 +811,18 @@
             
             if(index == selectedRankingLocaisId){
                 selectedRankingLocaisId = null;
+                rankLocaisLock = false;
+                localServidor = "";
                 resetRankingLocaisColors();
             }else{
                 selectedRankingLocaisId = index;
+                rankLocaisLock = true;
+                localServidor = graficoRankingLocais.data.labels[index];
                 resetRankingLocaisColors();
                 
                 graficoRankingLocais.data.datasets[0].backgroundColor[index] = "#178e96";
                 graficoRankingLocais.update();
+
             }
 
             executarFuncoes();
