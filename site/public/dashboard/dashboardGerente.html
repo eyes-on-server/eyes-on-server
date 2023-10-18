@@ -711,7 +711,8 @@
                 idEmpresaServer: 3,
                 dataAtualServer: dataSistema,
                 fkComponenteServer: fkComponente,
-                fkServidorServer: fkServidor
+                fkServidorServer: fkServidor,
+                localServidorServer: localServidor,
             })
         }).then((resposta) => {
             if(resposta.ok){
@@ -815,13 +816,16 @@
                 localServidor = "";
                 resetRankingLocaisColors();
             }else{
-                selectedRankingLocaisId = index;
-                rankLocaisLock = true;
-                localServidor = graficoRankingLocais.data.labels[index];
-                resetRankingLocaisColors();
-                
-                graficoRankingLocais.data.datasets[0].backgroundColor[index] = "#178e96";
-                graficoRankingLocais.update();
+                if(rankServidoresLock == false){
+
+                    selectedRankingLocaisId = index;
+                    rankLocaisLock = true;
+                    localServidor = graficoRankingLocais.data.labels[index];
+                    resetRankingLocaisColors();
+                    
+                    graficoRankingLocais.data.datasets[0].backgroundColor[index] = "#178e96";
+                    graficoRankingLocais.update();
+                }
 
             }
 

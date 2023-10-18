@@ -29,7 +29,7 @@ function coletarDadosCardsPorServidor(idEmpresa, dataAtual, fkServidor) {
 }
 
 // POR LOCAL
-function coletarDadosCardsPorLocal(idEmpresa, dataAtual, localServidor) {
+function coletarDadosCardsPorLocal(dataAtual, localServidor) {
   var query = `
     SELECT 
       (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas JOIN Eyes_On_Server.Servidor on fk_servidor = id_servidor where data_hora_abertura like '${dataAtual}%' and local_servidor = '${localServidor}') totalAlertas,
@@ -49,6 +49,84 @@ function coletarTodosDadosTipoAlerta(idEmpresa, dataAtual) {
             (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Prevenção') totalAlertasPrevencao,
             (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Perigo') totalAlertasPerigo,
             (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Emergência') totalAlertasEmergencia
+        FROM Eyes_On_Server.Alertas 
+        LIMIT 1;
+    `;
+  return bancoDados.executar(query);
+}
+
+// POR COMPONENTE E SERVIDOR
+function coletarDadosTipoAlertaPorComponenteServidor(
+  idEmpresa,
+  dataAtual,
+  fkComponente,
+  fkServidor
+) {
+  var query = `
+        SELECT 
+            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Prevenção' and fk_componente = ${fkComponente} and fk_servidor = ${fkServidor}) totalAlertasPrevencao,
+            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Perigo' and fk_componente = ${fkComponente} and fk_servidor = ${fkServidor}) totalAlertasPerigo,
+            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Emergência' and fk_componente = ${fkComponente} and fk_servidor = ${fkServidor}) totalAlertasEmergencia
+        FROM Eyes_On_Server.Alertas 
+        LIMIT 1;
+    `;
+  return bancoDados.executar(query);
+}
+
+// POR COMPONENTE E LOCAL
+function coletarDadosTipoAlertaPorComponenteLocal(
+  dataAtual,
+  fkComponente,
+  localServidor
+) {
+  var query = `
+        SELECT 
+            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas JOIN Eyes_On_Server.Servidor on fk_servidor = id_servidor where data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Prevenção' and fk_componente = ${fkComponente} and local_servidor = '${localServidor}') totalAlertasPrevencao,
+            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas JOIN Eyes_On_Server.Servidor on fk_servidor = id_servidor where data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Perigo' and fk_componente = ${fkComponente} and local_servidor = '${localServidor}') totalAlertasPerigo,
+            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas JOIN Eyes_On_Server.Servidor on fk_servidor = id_servidor where data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Emergência' and fk_componente = ${fkComponente} and local_servidor = '${localServidor}') totalAlertasEmergencia
+        FROM Eyes_On_Server.Alertas 
+        LIMIT 1;
+    `;
+  return bancoDados.executar(query);
+}
+
+// POR COMPONENTE
+function coletarDadosTipoAlertaPorComponente(
+  idEmpresa,
+  dataAtual,
+  fkComponente
+) {
+  var query = `
+        SELECT 
+            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Prevenção' and fk_componente = ${fkComponente}) totalAlertasPrevencao,
+            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Perigo' and fk_componente = ${fkComponente}) totalAlertasPerigo,
+            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Emergência' and fk_componente = ${fkComponente}) totalAlertasEmergencia
+        FROM Eyes_On_Server.Alertas 
+        LIMIT 1;
+    `;
+  return bancoDados.executar(query);
+}
+
+// POR SERVIDOR
+function coletarDadosTipoAlertaPorServidor(idEmpresa, dataAtual, fkServidor) {
+  var query = `
+        SELECT 
+            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Prevenção' and fk_servidor = ${fkServidor}) totalAlertasPrevencao,
+            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Perigo' and fk_servidor = ${fkServidor}) totalAlertasPerigo,
+            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Emergência' and fk_servidor = ${fkServidor}) totalAlertasEmergencia
+        FROM Eyes_On_Server.Alertas 
+        LIMIT 1;
+    `;
+  return bancoDados.executar(query);
+}
+
+// POR LOCAL
+function coletarDadosTipoAlertaPorLocal(dataAtual, localServidor) {
+  var query = `
+        SELECT 
+            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas JOIN Eyes_On_Server.Servidor on fk_servidor = id_servidor where data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Prevenção' and local_servidor = '${localServidor}') totalAlertasPrevencao,
+            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas JOIN Eyes_On_Server.Servidor on fk_servidor = id_servidor where data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Perigo' and local_servidor = '${localServidor}') totalAlertasPerigo,
+            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas JOIN Eyes_On_Server.Servidor on fk_servidor = id_servidor where data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Emergência' and local_servidor = '${localServidor}') totalAlertasEmergencia
         FROM Eyes_On_Server.Alertas 
         LIMIT 1;
     `;
@@ -185,51 +263,6 @@ function realizarRankingLocaisPorComponente(
   return bancoDados.executar(query);
 }
 
-function coletarDadosTipoAlertaPorComponenteServidor(
-  idEmpresa,
-  dataAtual,
-  fkComponente,
-  fkServidor
-) {
-  var query = `
-        SELECT 
-            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Prevenção' and fk_componente = ${fkComponente} and fk_servidor = ${fkServidor}) totalAlertasPrevencao,
-            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Perigo' and fk_componente = ${fkComponente} and fk_servidor = ${fkServidor}) totalAlertasPerigo,
-            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Emergência' and fk_componente = ${fkComponente} and fk_servidor = ${fkServidor}) totalAlertasEmergencia
-        FROM Eyes_On_Server.Alertas 
-        LIMIT 1;
-    `;
-  return bancoDados.executar(query);
-}
-
-function coletarDadosTipoAlertaPorComponente(
-  idEmpresa,
-  dataAtual,
-  fkComponente
-) {
-  var query = `
-        SELECT 
-            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Prevenção' and fk_componente = ${fkComponente}) totalAlertasPrevencao,
-            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Perigo' and fk_componente = ${fkComponente}) totalAlertasPerigo,
-            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Emergência' and fk_componente = ${fkComponente}) totalAlertasEmergencia
-        FROM Eyes_On_Server.Alertas 
-        LIMIT 1;
-    `;
-  return bancoDados.executar(query);
-}
-
-function coletarDadosTipoAlertaPorServidor(idEmpresa, dataAtual, fkServidor) {
-  var query = `
-        SELECT 
-            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Prevenção' and fk_servidor = ${fkServidor}) totalAlertasPrevencao,
-            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Perigo' and fk_servidor = ${fkServidor}) totalAlertasPerigo,
-            (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and tipoAlerta = 'Emergência' and fk_servidor = ${fkServidor}) totalAlertasEmergencia
-        FROM Eyes_On_Server.Alertas 
-        LIMIT 1;
-    `;
-  return bancoDados.executar(query);
-}
-
 module.exports = {
   coletarTodosDadosCards,
   coletarDadosCardsPorServidor,
@@ -243,7 +276,9 @@ module.exports = {
   coletarTodosDadosTipoAlerta,
   coletarDadosTipoAlertaPorComponente,
   coletarDadosTipoAlertaPorServidor,
+  coletarDadosTipoAlertaPorLocal,
   coletarDadosTipoAlertaPorComponenteServidor,
+  coletarDadosTipoAlertaPorComponenteLocal,
 
   realizarRankingLocais,
   realizarRankingLocaisPorComponente,

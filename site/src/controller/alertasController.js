@@ -12,7 +12,7 @@ function coletarDadosCards(req, res) {
   } else if (fkServidor != 0 || (fkServidor != 0 && localServidor != "")) {
     coletarDadosCardsPorServidor(idEmpresa, dataAtual, fkServidor, res);
   } else {
-    coletarDadosCardsPorLocal(idEmpresa, dataAtual, localServidor, res);
+    coletarDadosCardsPorLocal(dataAtual, localServidor, res);
   }
 }
 
@@ -49,9 +49,9 @@ function coletarDadosCardsPorServidor(idEmpresa, dataAtual, fkServidor, res) {
 }
 
 // DADOS POR LOCAL ------------------------>
-function coletarDadosCardsPorLocal(idEmpresa, dataAtual, localServidor, res) {
+function coletarDadosCardsPorLocal(dataAtual, localServidor, res) {
   alertasModel
-    .coletarDadosCardsPorLocal(idEmpresa, dataAtual, localServidor)
+    .coletarDadosCardsPorLocal(dataAtual, localServidor)
     .then((resultado) => {
       if (resultado.length > 0) {
         res.status(200).json(resultado);
@@ -70,10 +70,14 @@ function coletarDadosTipoAlerta(req, res) {
   const dataAtual = req.body.dataAtualServer;
   const fkComponente = req.body.fkComponenteServer;
   const fkServidor = req.body.fkServidorServer;
+  const localServidor = req.body.localServidorServer;
 
-  if (fkComponente == 0 && fkServidor == 0) {
+  if (fkComponente == 0 && fkServidor == 0 && localServidor == "") {
     coletarTodosDadosTipoAlerta(idEmpresa, dataAtual, res);
-  } else if (fkComponente != 0 && fkServidor != 0) {
+  } else if (
+    (fkComponente != 0 && fkServidor != 0 && localServidor != "") ||
+    (fkComponente != 0 && fkServidor != 0 && localServidor == "")
+  ) {
     coletarDadosTipoAlertaPorComponenteServidor(
       idEmpresa,
       dataAtual,
@@ -81,6 +85,15 @@ function coletarDadosTipoAlerta(req, res) {
       fkServidor,
       res
     );
+  } else if (fkComponente != 0 && localServidor != "" && fkServidor == 0) {
+    coletarDadosTipoAlertaPorComponenteLocal(
+      dataAtual,
+      fkComponente,
+      localServidor,
+      res
+    );
+  } else if (fkServidor != 0 || (fkServidor != 0 && localServidor != "")) {
+    coletarDadosTipoAlertaPorServidor(idEmpresa, dataAtual, fkServidor, res);
   } else if (fkComponente != 0) {
     coletarDadosTipoAlertaPorComponente(
       idEmpresa,
@@ -89,7 +102,7 @@ function coletarDadosTipoAlerta(req, res) {
       res
     );
   } else {
-    coletarDadosTipoAlertaPorServidor(idEmpresa, dataAtual, fkServidor, res);
+    coletarDadosTipoAlertaPorLocal(dataAtual, localServidor, res);
   }
 }
 
@@ -136,6 +149,31 @@ function coletarDadosTipoAlertaPorComponenteServidor(
     });
 }
 
+// DADOS POR COMPONENTE E LOCAL ------------------------>
+function coletarDadosTipoAlertaPorComponenteLocal(
+  dataAtual,
+  fkComponente,
+  localServidor,
+  res
+) {
+  alertasModel
+    .coletarDadosTipoAlertaPorComponenteLocal(
+      dataAtual,
+      fkComponente,
+      localServidor
+    )
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(500).send("Nenhum alerta encontrado!");
+      }
+    })
+    .catch((erro) => {
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 // DADOS POR COMPONENTE ------------------------>
 function coletarDadosTipoAlertaPorComponente(
   idEmpresa,
@@ -166,6 +204,22 @@ function coletarDadosTipoAlertaPorServidor(
 ) {
   alertasModel
     .coletarDadosTipoAlertaPorServidor(idEmpresa, dataAtual, fkServidor)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(500).send("Nenhum alerta encontrado!");
+      }
+    })
+    .catch((erro) => {
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+// DADOS POR SERVIDOR ------------------------>
+function coletarDadosTipoAlertaPorLocal(dataAtual, localServidor, res) {
+  alertasModel
+    .coletarDadosTipoAlertaPorLocal(dataAtual, localServidor)
     .then((resultado) => {
       if (resultado.length > 0) {
         res.status(200).json(resultado);
