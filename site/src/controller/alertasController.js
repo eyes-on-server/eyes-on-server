@@ -5,11 +5,14 @@ function coletarDadosCards(req, res) {
   const idEmpresa = req.body.idEmpresaServer;
   const dataAtual = req.body.dataAtualServer;
   const fkServidor = req.body.fkServidorServer;
+  const localServidor = req.body.localServidorServer;
 
-  if (fkServidor == 0) {
+  if (fkServidor == 0 && localServidor == "") {
     coletarTodosDadosCards(idEmpresa, dataAtual, res);
-  } else {
+  } else if (fkServidor != 0 || (fkServidor != 0 && localServidor != "")) {
     coletarDadosCardsPorServidor(idEmpresa, dataAtual, fkServidor, res);
+  } else {
+    coletarDadosCardsPorLocal(idEmpresa, dataAtual, localServidor, res);
   }
 }
 
@@ -33,6 +36,22 @@ function coletarTodosDadosCards(idEmpresa, dataAtual, res) {
 function coletarDadosCardsPorServidor(idEmpresa, dataAtual, fkServidor, res) {
   alertasModel
     .coletarDadosCardsPorServidor(idEmpresa, dataAtual, fkServidor)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(500).send("Nenhum alerta encontrado!");
+      }
+    })
+    .catch((erro) => {
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+// DADOS POR LOCAL ------------------------>
+function coletarDadosCardsPorLocal(idEmpresa, dataAtual, localServidor, res) {
+  alertasModel
+    .coletarDadosCardsPorLocal(idEmpresa, dataAtual, localServidor)
     .then((resultado) => {
       if (resultado.length > 0) {
         res.status(200).json(resultado);
@@ -164,9 +183,20 @@ function realizarRankingServidores(req, res) {
   const idEmpresa = req.body.idEmpresaServer;
   const dataAtual = req.body.dataAtualServer;
   const fkComponente = req.body.fkComponenteServer;
+  const localServidor = req.body.localServidorServer;
 
-  if (fkComponente == 0) {
+  if (fkComponente == 0 && localServidor == "") {
     realizarRankingGeral(idEmpresa, dataAtual, res);
+  } else if (localServidor != "" && fkComponente != 0) {
+    realizarRankingLocalComponente(
+      idEmpresa,
+      dataAtual,
+      fkComponente,
+      localServidor,
+      res
+    );
+  } else if (localServidor != "") {
+    realizarRankingPorLocal(idEmpresa, dataAtual, localServidor, res);
   } else {
     realizarRankingPorComponente(idEmpresa, dataAtual, fkComponente, res);
   }
@@ -188,10 +218,53 @@ function realizarRankingGeral(idEmpresa, dataAtual, res) {
     });
 }
 
+// RANKING POR LOCAL E COMPONENTE
+function realizarRankingLocalComponente(
+  idEmpresa,
+  dataAtual,
+  fkComponente,
+  localServidor,
+  res
+) {
+  alertasModel
+    .realizarRankingLocalComponente(
+      idEmpresa,
+      dataAtual,
+      fkComponente,
+      localServidor
+    )
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(500).send("Nenhum alerta encontrado!");
+      }
+    })
+    .catch((erro) => {
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 // RANKING POR COMPONENTE ------------------------>
 function realizarRankingPorComponente(idEmpresa, dataAtual, fkComponente, res) {
   alertasModel
     .realizarRankingServidoresPorComponente(idEmpresa, dataAtual, fkComponente)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(500).send("Nenhum alerta encontrado!");
+      }
+    })
+    .catch((erro) => {
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+// RANKING POR LOCAL ------------------------>
+function realizarRankingPorLocal(idEmpresa, dataAtual, localServidor, res) {
+  alertasModel
+    .realizarRankingServidoresPorLocal(idEmpresa, dataAtual, localServidor)
     .then((resultado) => {
       if (resultado.length > 0) {
         res.status(200).json(resultado);

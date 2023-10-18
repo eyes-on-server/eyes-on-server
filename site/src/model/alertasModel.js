@@ -14,6 +14,34 @@ function coletarTodosDadosCards(idEmpresa, dataAtual) {
   return bancoDados.executar(query);
 }
 
+// POR SERVIDOR
+function coletarDadosCardsPorServidor(idEmpresa, dataAtual, fkServidor) {
+  var query = `
+    SELECT 
+      (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and fk_servidor = ${fkServidor}) totalAlertas,
+      (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and fk_componente = 1 and fk_servidor = ${fkServidor}) totalAlertasCpu,
+      (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and fk_componente = 2 and fk_servidor = ${fkServidor}) totalAlertasMemoria,
+      (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and fk_componente = 3 and fk_servidor = ${fkServidor}) totalAlertasDisco
+    FROM Eyes_On_Server.Alertas
+    LIMIT 1;
+    `;
+  return bancoDados.executar(query);
+}
+
+// POR LOCAL
+function coletarDadosCardsPorLocal(idEmpresa, dataAtual, localServidor) {
+  var query = `
+    SELECT 
+      (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas JOIN Eyes_On_Server.Servidor on fk_servidor = id_servidor where data_hora_abertura like '${dataAtual}%' and local_servidor = '${localServidor}') totalAlertas,
+      (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas JOIN Eyes_On_Server.Servidor on fk_servidor = id_servidor where data_hora_abertura like '${dataAtual}%' and fk_componente = 1 and local_servidor = '${localServidor}') totalAlertasCpu,
+      (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas JOIN Eyes_On_Server.Servidor on fk_servidor = id_servidor where data_hora_abertura like '${dataAtual}%' and fk_componente = 2 and local_servidor = '${localServidor}') totalAlertasMemoria,
+      (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas JOIN Eyes_On_Server.Servidor on fk_servidor = id_servidor where data_hora_abertura like '${dataAtual}%' and fk_componente = 3 and local_servidor = '${localServidor}') totalAlertasDisco
+    FROM Eyes_On_Server.Alertas
+    LIMIT 1;
+    `;
+  return bancoDados.executar(query);
+}
+
 /* ---------------------- DADOS TIPO ALERTA ---------------------- */
 function coletarTodosDadosTipoAlerta(idEmpresa, dataAtual) {
   var query = `
@@ -44,6 +72,80 @@ function realizarRankingServidores(idEmpresa, dataAtual) {
   return bancoDados.executar(query);
 }
 
+// POR COMPONENTE E LOCAL
+function realizarRankingLocalComponente(
+  idEmpresa,
+  dataAtual,
+  fkComponente,
+  localServidor
+) {
+  var query = `
+        SELECT 
+          count(id_alertas) total_alertas,
+          nome_servidor,
+          id_servidor
+        FROM Eyes_On_Server.Servidor s
+          JOIN Eyes_On_Server.Alertas a ON a.fk_servidor = s.id_servidor
+        WHERE 
+          data_hora_abertura LIKE '${dataAtual}%' AND 
+          a.fk_empresa = ${idEmpresa} AND 
+          a.fk_componente = ${fkComponente} AND
+          s.local_servidor = '${localServidor}'
+        GROUP BY a.fk_servidor
+        ORDER BY total_alertas DESC
+        LIMIT 5;
+    `;
+  return bancoDados.executar(query);
+}
+
+// POR COMPONENTE
+function realizarRankingServidoresPorComponente(
+  idEmpresa,
+  dataAtual,
+  fkComponente
+) {
+  var query = `
+        SELECT 
+          count(id_alertas) total_alertas,
+          nome_servidor,
+          id_servidor
+        FROM Eyes_On_Server.Servidor s
+          JOIN Eyes_On_Server.Alertas a ON a.fk_servidor = s.id_servidor
+        WHERE 
+          data_hora_abertura LIKE '${dataAtual}%' AND 
+          a.fk_empresa = ${idEmpresa} AND
+          a.fk_componente = ${fkComponente}
+        GROUP BY a.fk_servidor
+        ORDER BY total_alertas DESC
+        LIMIT 5;
+    `;
+  return bancoDados.executar(query);
+}
+
+// POR LOCAL
+function realizarRankingServidoresPorLocal(
+  idEmpresa,
+  dataAtual,
+  localServidor
+) {
+  var query = `
+        SELECT 
+          count(id_alertas) total_alertas,
+          nome_servidor,
+          id_servidor
+        FROM Eyes_On_Server.Servidor s
+          JOIN Eyes_On_Server.Alertas a ON a.fk_servidor = s.id_servidor
+        WHERE 
+          data_hora_abertura LIKE '${dataAtual}%' AND 
+          a.fk_empresa = ${idEmpresa} AND
+          s.local_servidor = '${localServidor}'
+        GROUP BY a.fk_servidor
+        ORDER BY total_alertas DESC
+        LIMIT 5;
+    `;
+  return bancoDados.executar(query);
+}
+
 /* ---------------------- RANKING LOCAIS ---------------------- */
 function realizarRankingLocais(idEmpresa, dataAtual) {
   var query = `
@@ -60,16 +162,26 @@ function realizarRankingLocais(idEmpresa, dataAtual) {
   return bancoDados.executar(query);
 }
 
-function coletarDadosCardsPorServidor(idEmpresa, dataAtual, fkServidor) {
+// POR COMPONENTE
+function realizarRankingLocaisPorComponente(
+  idEmpresa,
+  dataAtual,
+  fkComponente
+) {
   var query = `
     SELECT 
-      (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and fk_servidor = ${fkServidor}) totalAlertas,
-      (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and fk_componente = 1 and fk_servidor = ${fkServidor}) totalAlertasCpu,
-      (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and fk_componente = 2 and fk_servidor = ${fkServidor}) totalAlertasMemoria,
-      (SELECT count(id_alertas) FROM Eyes_On_Server.Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and fk_componente = 3 and fk_servidor = ${fkServidor}) totalAlertasDisco
-    FROM Eyes_On_Server.Alertas
-    LIMIT 1;
-    `;
+      count(id_alertas) total_alertas,
+      local_servidor
+    FROM Eyes_On_Server.Servidor s
+      JOIN Eyes_On_Server.Alertas a ON a.fk_servidor = s.id_servidor
+    WHERE 
+      data_hora_abertura LIKE '${dataAtual}%' AND 
+      a.fk_empresa = ${idEmpresa} AND
+      a.fk_componente = ${fkComponente}
+    GROUP BY s.local_servidor
+    ORDER BY total_alertas DESC
+    LIMIT 5;
+  `;
   return bancoDados.executar(query);
 }
 
@@ -118,34 +230,21 @@ function coletarDadosTipoAlertaPorServidor(idEmpresa, dataAtual, fkServidor) {
   return bancoDados.executar(query);
 }
 
-function realizarRankingServidoresPorComponente(
-  idEmpresa,
-  dataAtual,
-  fkComponente
-) {
-  var query = `
-        SELECT 
-          count(id_alertas) total_alertas,
-          nome_servidor,
-          id_servidor
-        FROM Eyes_On_Server.Servidor s
-          JOIN Eyes_On_Server.Alertas a ON a.fk_servidor = s.id_servidor
-        WHERE data_hora_abertura LIKE '${dataAtual}%' AND a.fk_empresa = ${idEmpresa} and a.fk_componente = ${fkComponente}
-        GROUP BY a.fk_servidor
-        ORDER BY total_alertas DESC
-        LIMIT 5;
-    `;
-  return bancoDados.executar(query);
-}
-
 module.exports = {
   coletarTodosDadosCards,
-  coletarTodosDadosTipoAlerta,
-  realizarRankingServidores,
   coletarDadosCardsPorServidor,
-  coletarDadosTipoAlertaPorComponente,
+  coletarDadosCardsPorLocal,
+
+  realizarRankingServidores,
+  realizarRankingLocalComponente,
   realizarRankingServidoresPorComponente,
+  realizarRankingServidoresPorLocal,
+
+  coletarTodosDadosTipoAlerta,
+  coletarDadosTipoAlertaPorComponente,
   coletarDadosTipoAlertaPorServidor,
   coletarDadosTipoAlertaPorComponenteServidor,
+
   realizarRankingLocais,
+  realizarRankingLocaisPorComponente,
 };
