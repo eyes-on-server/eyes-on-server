@@ -751,11 +751,13 @@
 
         if(rankServidoresLock == false){
             realizarRankingServidores();
+            
+            if(rankLocaisLock == false) {
+                realizarRankingLocais();
+            }
         }
         
-        if(rankLocaisLock == false){
-            realizarRankingLocais();
-        }
+        
 
         coletarDadosTipoAlerta();
     }
