@@ -618,6 +618,8 @@ select {
   background-color: #45675d;
   /* //Recomenda-se deixar essa linha de fora, porque a formatação a esquerta a justificada nos select fica melhor. */
   padding-left: 40px;
+
+  margin-right: 100px;
 }
 
 @media (min-width: 576px) {
