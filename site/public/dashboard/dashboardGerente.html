@@ -10,6 +10,8 @@
     <meta name="description" content="Sistema de Gerenciamento de Servidores da Eyes On Server">
     <meta name="author" content="Equipe Eyes On Server">
 
+    <link rel="shortcut icon" href="../assets/img/logo/logo.png" type="image/x-icon"/>
+
     <title>Dashboard</title>
 
     <!-- Custom fonts for this template-->
@@ -21,20 +23,42 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+    <!-- Link para o toastr -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 </head>
 
-<body id="page-top" onload="executarFuncoes()">
+<body id="page-top" onload="verificarSession(), executarFuncoes()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="background-image: linear-gradient(180deg,#00A9AF 30%,#13D4DB 80%);">
-
-            <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
-                <div class="sidebar-brand-text mx-3"><span id="span_nomeEmpresa_exbir"></span></div>
-            </a>
+                
+        <!-- Sidebar - Brand -->
+        <a
+        class="sidebar-brand d-flex align-items-center justify-content-center"
+        href="#"
+        >
+        <div class="sidebar-brand-icon rotate-n-15">
+          <i class="fa-solid fa-eye"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3">Dashboard do Gerente</div>
+      </a>
+      <div>
+        <p class="sidebar-brand-text mx-3 user_name" id="user_name">
+          
+        </p>
+        <p class="sidebar-brand-text mx-3 company_name" id="company_name">
+          
+        </p>
+      </div>
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
@@ -43,14 +67,14 @@
             <li class="nav-item active">
                 <a class="nav-link" href="dashboardGerente.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard Gestor</span></a>
+                    <span>Dashboard Gerente</span></a>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading">
+            <div class="sidebar-heading text-light font-weight-bold">
                 Gerenciamento
             </div>
 
@@ -58,8 +82,8 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-address-card"></i>
-                    <span>Funcionários</span>
+                    <i class="fas fa-fw fa-user text-light"></i>
+                    <span class="text-light">Funcionários</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
@@ -102,14 +126,14 @@
 
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
+                            <!-- <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
+                                <!-- <i class="fas fa-bell fa-fw"></i> -->
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
+                                <!-- <span class="badge badge-danger badge-counter">3+</span> -->
+                            <!-- </a> -->
                             <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                            <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
                                     Alertas
@@ -148,7 +172,7 @@
                                     </div>
                                 </a>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
+                            </div> -->
                         </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
@@ -215,7 +239,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Quantidade de Alertas RAM</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800" id="idQtdAlertasMemoria">0</div>
                                         </div>
@@ -256,7 +280,7 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Total de Alertas do Dia</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800" id="idQtdAlertasTotal">0</div>
                                         </div>
@@ -412,7 +436,7 @@
                 <div class="modal-body">Você realmente deseja sair? Você terá que fazer o login novamente</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" href="../login.html">Sair</a>
+                    <a class="btn btn-primary" onclick="destruirSession()">Sair</a>
                 </div>
             </div>
         </div>
@@ -427,6 +451,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script src="js/sessions.js"></script>
 
     <!-- Page level plugins -->
     <script src="vendor/chart.js/Chart.min.js"></script>
@@ -596,12 +621,13 @@
                 document.getElementById('idQtdAlertasDisco').innerHTML = 0
                 document.getElementById('idQtdAlertasTotal').innerHTML = 0
 
+                toastr.success("Não foram encontrados alertas de nenhum servidor! #Winning!");
+
             }
         }).catch((erro) => {
             console.log("Erro ao realizar a busca: " + erro);
         })
     }
-
     function realizarRankingServidores(){
         fetch(`/alertas/realizarRankingServidores`, {
             method: "POST",
@@ -756,15 +782,13 @@
                 realizarRankingLocais();
             }
         }
-        
-        
 
         coletarDadosTipoAlerta();
     }
 
     setInterval(() => {
         executarFuncoes();
-    }, 5000);
+    }, 10000);
 
     function graficoRankingServidoresClick(click) {
         const points = graficoRankingServidores.getElementsAtEventForMode(
@@ -827,6 +851,10 @@
                     
                     graficoRankingLocais.data.datasets[0].backgroundColor[index] = "#178e96";
                     graficoRankingLocais.update();
+                }else {
+                    toastr.error(
+                        "Não é possível selecionar um setor enquanto houver um servidor selecionado!"
+                    );
                 }
 
             }
@@ -837,4 +865,23 @@
     }
 
     ctxRankingLocais.onclick = graficoRankingLocaisClick;
+
+    // Toastr para Alertas mais Visuais
+    toastr.options = {
+        closeButton: false,
+        debug: false,
+        newestOnTop: false,
+        progressBar: false,
+        positionClass: "toast-bottom-right",
+        preventDuplicates: false,
+        onclick: null,
+        showDuration: "300",
+        hideDuration: "1000",
+        timeOut: "5000",
+        extendedTimeOut: "1000",
+        showEasing: "swing",
+        hideEasing: "linear",
+        showMethod: "fadeIn",
+        hideMethod: "fadeOut",
+    };
 </script>
