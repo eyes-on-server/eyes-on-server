@@ -1,7 +1,7 @@
 // Set new default font family and font color to mimic Bootstrap's default styling
 (Chart.defaults.global.defaultFontFamily = "Nunito"),
   '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-Chart.defaults.global.defaultFontColor = "#858796";
+Chart.defaults.global.defaultFontColor = "black";
 
 // Area Chart Example
 var ctxChartRanking = document.getElementById("graficoRankingServidores");
@@ -78,9 +78,10 @@ var graficoRankingServidores = new Chart(ctxChartRanking, {
     tooltips: {
       backgroundColor: "rgb(255,255,255)",
       bodyFontColor: "black",
+      bodyFontSize: 20,
       titleMarginBottom: 10,
       titleFontColor: "black",
-      titleFontSize: 14,
+      titleFontSize: 18,
       borderColor: "#dddfeb",
       borderWidth: 1,
       xPadding: 15,
