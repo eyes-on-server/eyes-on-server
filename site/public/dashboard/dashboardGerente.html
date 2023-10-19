@@ -217,7 +217,7 @@
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2 pointer" onclick="filtrarPorComponente(1)" id="cardCpu">
+                            <div class="card shadow h-100 py-2 pointer" onclick="filtrarPorComponente(1)" id="cardCpu">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
@@ -226,7 +226,7 @@
                                             <div class="h5 mb-0 font-weight-bold text-gray-800" id="idQtdAlertasCpu">0</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-microchip fa-2x text-black-300"></i>
+                                            <i class="fas fa-microchip fa-2x text-black-300" id="iconeAlertasCpu"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -235,7 +235,7 @@
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2 pointer" onclick="filtrarPorComponente(2)" id="cardMemo">
+                            <div class="card shadow h-100 py-2 pointer" onclick="filtrarPorComponente(2)" id="cardMemo">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
@@ -244,7 +244,7 @@
                                             <div class="h5 mb-0 font-weight-bold text-gray-800" id="idQtdAlertasMemoria">0</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-memory fa-2x text-black-300"></i>
+                                            <i class="fas fa-memory fa-2x text-black-300" id="iconeAlertasMemo"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -253,7 +253,7 @@
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2 pointer" onclick="filtrarPorComponente(3)" id="cardDisco">
+                            <div class="card shadow h-100 py-2 pointer" onclick="filtrarPorComponente(3)" id="cardDisco">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
@@ -267,7 +267,7 @@
                                             </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-compact-disc fa-2x text-black-300"></i>
+                                            <i class="fas fa-compact-disc fa-2x text-black-300" id="iconeAlertasDisco"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -276,7 +276,7 @@
 
                         <!-- Pending Requests Card Example -->
                         <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-info shadow h-100 py-2 pointer" onclick="filtrarPorComponente(0)" id="cardTodosComponentes">
+                            <div class="card shadow h-100 py-2 pointer" onclick="filtrarPorComponente(0)" id="cardTodosComponentes">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
@@ -285,7 +285,7 @@
                                             <div class="h5 mb-0 font-weight-bold text-gray-800" id="idQtdAlertasTotal">0</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-chart-pie fa-2x text-black-300"></i>
+                                            <i class="fas fa-chart-pie fa-2x text-black-300" id="iconeTotalAlertas"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -478,6 +478,11 @@
     var selectedRankingServidoresId = null;
     var selectedRankingLocaisId = null;
 
+    var totalAlertas = 0;
+    var alertasCpu = 0;
+    var alertasMemoria = 0;
+    var alertasDisco = 0;
+
     // Definindo timer ---------------------------
     (function getDatetime(){
         setInterval(()=>{
@@ -533,18 +538,15 @@
     function filtrarPorComponente(id){
         
             fkComponente = id;
+            desativarCards()
 
             if(id == 1){
-                desativarCards()
-                cardCpu.style = 'border: 4px solid royalblue;'
+                cardCpu.style = 'box-shadow: 4px 4px 4px royalblue;'
             }else if(id == 2){
-                desativarCards()
                 cardMemo.style = 'border: 4px solid royalblue;'
             }else if(id == 3){
-                desativarCards()
                 cardDisco.style = 'border: 4px solid royalblue;'
             }else{
-                desativarCards()
                 cardTodosComponentes.style = 'border: 4px solid royalblue;'
                 fkComponente = 0;
             }
@@ -557,6 +559,76 @@
         cardDisco.style = 'border:none;';
         cardMemo.style = 'border:none;';
         cardTodosComponentes.style = 'border:none;';
+        alterarCorCards(totalAlertas, alertasCpu, alertasMemoria, alertasDisco);
+    }
+
+    function alterarCorCards(totalAlertas, alertasCpu, alertasMemoria, alertasDisco){
+
+        cardTodosComponentes.style = 'border-left:0.25rem solid var(--primary);';
+        cardCpu.style = 'border-left:0.25rem solid var(--primary);';
+        cardMemo.style = 'border-left:0.25rem solid var(--primary);';
+        cardDisco.style = 'border-left:0.25rem solid var(--primary);';
+
+        iconeTotalAlertas.style = 'color:var(--secondary);';
+        iconeAlertasCpu.style = 'color:var(--secondary);';
+        iconeAlertasMemo.style = 'color:var(--secondary);';
+        iconeAlertasDisco.style = 'color:var(--secondary);';
+
+        if(totalAlertas >= 3000){
+            cardTodosComponentes.style = 'border-left:0.25rem solid var(--danger);';
+            iconeTotalAlertas.style = 'color:var(--danger);';
+        }else if (totalAlertas >= 2500){
+            cardTodosComponentes.style = 'border-left:0.25rem solid var(--hot);';
+            iconeTotalAlertas.style = 'color:var(--hot);';
+        }else if (totalAlertas >= 2000){
+            cardTodosComponentes.style = 'border-left:0.25rem solid var(--orange);';
+            iconeTotalAlertas.style = 'color:var(--orange);';
+        } else if (totalAlertas >= 1500){
+            cardTodosComponentes.style = 'border-left:0.25rem solid var(--warning);';
+            iconeTotalAlertas.style = 'color:var(--warning);';
+        }
+
+        if(alertasCpu >= 1000){
+            cardCpu.style = 'border-left:0.25rem solid var(--danger);';
+            iconeAlertasCpu.style = 'color:var(--danger);';
+        }else if (alertasCpu >= 750){
+            cardCpu.style = 'border-left:0.25rem solid var(--hot);';
+            iconeAlertasCpu.style = 'color:var(--hot);';
+        }else if (alertasCpu >= 500){
+            cardCpu.style = 'border-left:0.25rem solid var(--orange);';
+            iconeAlertasCpu.style = 'color:var(--orange);';
+        }else if (alertasCpu >= 250){
+            cardCpu.style = 'border-left:0.25rem solid var(--warning);';
+            iconeAlertasCpu.style = 'color:var(--warning);';
+        }
+
+        if(alertasMemoria >= 1000){
+            cardMemo.style = 'border-left:0.25rem solid var(--danger);';
+            iconeAlertasMemo.style = 'color:var(--danger);';
+        }else if (alertasMemoria >= 750){
+            cardMemo.style = 'border-left:0.25rem solid var(--hot);';
+            iconeAlertasMemo.style = 'color:var(--hot);';
+        }else if (alertasMemoria >= 500){
+            cardMemo.style = 'border-left:0.25rem solid var(--orange);';
+            iconeAlertasMemo.style = 'color:var(--orange);';
+        }else if (alertasMemoria >= 250){
+            cardMemo.style = 'border-left:0.25rem solid var(--warning);';
+            iconeAlertasMemo.style = 'color:var(--warning);';
+        }
+
+        if(alertasDisco >= 1000){
+            cardDisco.style = 'border-left:0.25rem solid var(--danger);';
+            iconeAlertasDisco.style = 'color:var(--danger);';
+        }else if (alertasDisco >= 750){
+            cardDisco.style = 'border-left:0.25rem solid var(--hot);';
+            iconeAlertasDisco.style = 'color:var(--hot);';
+        }else if (alertasDisco >= 500){
+            cardDisco.style = 'border-left:0.25rem solid var(--orange);';
+            iconeAlertasDisco.style = 'color:var(--orange);';
+        }else if (alertasDisco >= 250){
+            cardDisco.style = 'border-left:0.25rem solid var(--warning);';
+            iconeAlertasDisco.style = 'color:var(--warning);';
+        }
     }
 
     function resetRankingServidoresColors(){
@@ -608,6 +680,12 @@
                     document.getElementById('idQtdAlertasDisco').innerHTML = json[0].totalAlertasDisco;
                     document.getElementById('idQtdAlertasTotal').innerHTML = json[0].totalAlertas;
                     
+                    totalAlertas = json[0].totalAlertas;
+                    alertasCpu = json[0].totalAlertasCpu;
+                    alertasMemoria = json[0].totalAlertasMemoria;
+                    alertasDisco = json[0].totalDisco;
+
+                    alterarCorCards(totalAlertas, alertasCpu, alertasMemoria, alertasDisco);
                 })
             }else{
                 console.log("Erro ao realizar busca!");
@@ -620,9 +698,15 @@
                 document.getElementById('idQtdAlertasMemoria').innerHTML = 0
                 document.getElementById('idQtdAlertasDisco').innerHTML = 0
                 document.getElementById('idQtdAlertasTotal').innerHTML = 0
+                
+                totalAlertas = 0;
+                alertasCpu = 0;
+                alertasMemoria = 0;
+                alertasDisco = 0;
 
                 toastr.success("Não foram encontrados alertas de nenhum servidor! #Winning!");
-
+                
+                alterarCorCards(totalAlertas, alertasCpu, alertasMemoria, alertasDisco);
             }
         }).catch((erro) => {
             console.log("Erro ao realizar a busca: " + erro);
@@ -773,6 +857,7 @@
     // Definindo loop de buscas ---------------------------------
 
     function executarFuncoes(){
+        
         coletarDadosCards();
 
         if(rankServidoresLock == false){
