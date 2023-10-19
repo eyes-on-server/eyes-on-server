@@ -206,9 +206,10 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-1 text-gray-800" id="dataSistema"></h1>
-                        
-                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="limparFiltros()"><i
-                                class="fas fa-eraser fa-sm text-white-50"></i> Limpar Filtros</a>
+                        <h2 class="h2 mb-1 text-gray-800" id="nivelRisco"></h2>
+
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="limparFiltros()">
+                            <i class="fas fa-eraser fa-sm text-white-50"></i> Limpar Filtros</a>
                            
                     </div>
 
@@ -836,6 +837,12 @@
                     ];
 
                     graficoTipoProblemas.update();
+
+                    verificarNivelRisco(
+                        json[0].totalAlertasEmergencia,
+                        json[0].totalAlertasPerigo,
+                        json[0].totalAlertasPrevencao
+                    );
                     
                 })
             }else{
@@ -871,9 +878,53 @@
         coletarDadosTipoAlerta();
     }
 
-    setInterval(() => {
-        executarFuncoes();
-    }, 10000);
+    function verificarNivelRisco(qtdEmergencia, qtdPerigo, qtdPrevenção){
+
+        let risco = "";
+
+        if(totalAlertas >= 3000){
+            if(qtdEmergencia >= totalAlertas * 0.75){
+                risco = "Risco Máximo!";
+            }else if(qtdEmergencia >= totalAlertas * 0.5 || 
+                     qtdPerigo >= totalAlertas * 0.75){
+                risco = "Risco Muito Alto!";
+            }else if(qtdPerigo >= totalAlertas * 0.5 || 
+                     qtdPrevenção >= totalAlertas * 0.75){
+                risco = "Risco Alto!";
+            }else{
+                risco = "Risco Moderado!"
+            }
+        } else if(totalAlertas >= 2000){
+            if(qtdEmergencia >= totalAlertas * 0.75){
+                risco = "Risco Muito Alto!";
+            }else if(qtdEmergencia >= totalAlertas * 0.5 || 
+                     qtdPerigo >= totalAlertas * 0.75){
+                risco = "Risco Alto!";
+            }else if(qtdPerigo >= totalAlertas * 0.5 || 
+                     qtdPrevenção >= totalAlertas * 0.75){
+                risco = "Risco Moderado!";
+            }else{
+                risco = "Risco Baixo!"
+            }
+        } else if(totalAlertas >= 1000){
+            if(qtdEmergencia >= totalAlertas * 0.75){
+                risco = "Risco Alto!";
+            }else if(qtdEmergencia >= totalAlertas * 0.5 || 
+                     qtdPerigo >= totalAlertas * 0.75){
+                risco = "Risco Moderado!";
+            }else if(qtdPerigo >= totalAlertas * 0.5 || 
+                     qtdPrevenção >= totalAlertas * 0.75){
+                risco = "Risco Baixo";
+            }else{
+                risco = "Risco Muito Baixo!"
+            }
+        } else {
+            risco = "Sem riscos!"
+        }
+        
+        document.getElementById('nivelRisco').innerHTML = risco;
+    }
+
 
     function graficoRankingServidoresClick(click) {
         const points = graficoRankingServidores.getElementsAtEventForMode(
@@ -950,6 +1001,10 @@
     }
 
     ctxRankingLocais.onclick = graficoRankingLocaisClick;
+
+    setInterval(() => {
+        executarFuncoes();
+    }, 10000);
 
     // Toastr para Alertas mais Visuais
     toastr.options = {
