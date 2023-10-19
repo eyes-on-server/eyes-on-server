@@ -575,58 +575,58 @@
         iconeAlertasMemo.style = 'color:var(--secondary);';
         iconeAlertasDisco.style = 'color:var(--secondary);';
 
-        if(totalAlertas >= 3000){
+        if(totalAlertas >= 300){
             cardTodosComponentes.style = 'border-left:0.25rem solid var(--danger);';
             iconeTotalAlertas.style = 'color:var(--danger);';
-        }else if (totalAlertas >= 2500){
+        }else if (totalAlertas >= 250){
             cardTodosComponentes.style = 'border-left:0.25rem solid var(--hot);';
             iconeTotalAlertas.style = 'color:var(--hot);';
-        }else if (totalAlertas >= 2000){
+        }else if (totalAlertas >= 200){
             cardTodosComponentes.style = 'border-left:0.25rem solid var(--orange);';
             iconeTotalAlertas.style = 'color:var(--orange);';
-        } else if (totalAlertas >= 1500){
+        } else if (totalAlertas >= 150){
             cardTodosComponentes.style = 'border-left:0.25rem solid var(--warning);';
             iconeTotalAlertas.style = 'color:var(--warning);';
         }
 
-        if(alertasCpu >= 1000){
+        if(alertasCpu >= 100){
             cardCpu.style = 'border-left:0.25rem solid var(--danger);';
             iconeAlertasCpu.style = 'color:var(--danger);';
-        }else if (alertasCpu >= 750){
+        }else if (alertasCpu >= 75){
             cardCpu.style = 'border-left:0.25rem solid var(--hot);';
             iconeAlertasCpu.style = 'color:var(--hot);';
-        }else if (alertasCpu >= 500){
+        }else if (alertasCpu >= 50){
             cardCpu.style = 'border-left:0.25rem solid var(--orange);';
             iconeAlertasCpu.style = 'color:var(--orange);';
-        }else if (alertasCpu >= 250){
+        }else if (alertasCpu >= 25){
             cardCpu.style = 'border-left:0.25rem solid var(--warning);';
             iconeAlertasCpu.style = 'color:var(--warning);';
         }
 
-        if(alertasMemoria >= 1000){
+        if(alertasMemoria >= 100){
             cardMemo.style = 'border-left:0.25rem solid var(--danger);';
             iconeAlertasMemo.style = 'color:var(--danger);';
-        }else if (alertasMemoria >= 750){
+        }else if (alertasMemoria >= 75){
             cardMemo.style = 'border-left:0.25rem solid var(--hot);';
             iconeAlertasMemo.style = 'color:var(--hot);';
-        }else if (alertasMemoria >= 500){
+        }else if (alertasMemoria >= 50){
             cardMemo.style = 'border-left:0.25rem solid var(--orange);';
             iconeAlertasMemo.style = 'color:var(--orange);';
-        }else if (alertasMemoria >= 250){
+        }else if (alertasMemoria >= 25){
             cardMemo.style = 'border-left:0.25rem solid var(--warning);';
             iconeAlertasMemo.style = 'color:var(--warning);';
         }
 
-        if(alertasDisco >= 1000){
+        if(alertasDisco >= 100){
             cardDisco.style = 'border-left:0.25rem solid var(--danger);';
             iconeAlertasDisco.style = 'color:var(--danger);';
-        }else if (alertasDisco >= 750){
+        }else if (alertasDisco >= 75){
             cardDisco.style = 'border-left:0.25rem solid var(--hot);';
             iconeAlertasDisco.style = 'color:var(--hot);';
-        }else if (alertasDisco >= 500){
+        }else if (alertasDisco >= 50){
             cardDisco.style = 'border-left:0.25rem solid var(--orange);';
             iconeAlertasDisco.style = 'color:var(--orange);';
-        }else if (alertasDisco >= 250){
+        }else if (alertasDisco >= 25){
             cardDisco.style = 'border-left:0.25rem solid var(--warning);';
             iconeAlertasDisco.style = 'color:var(--warning);';
         }
@@ -882,7 +882,7 @@
 
         let risco = "";
 
-        if(totalAlertas >= 3000){
+        if(totalAlertas >= 30){
             if(qtdEmergencia >= totalAlertas * 0.75){
                 risco = "Risco Máximo!";
             }else if(qtdEmergencia >= totalAlertas * 0.5 || 
@@ -894,7 +894,7 @@
             }else{
                 risco = "Risco Moderado!"
             }
-        } else if(totalAlertas >= 2000){
+        } else if(totalAlertas >= 20){
             if(qtdEmergencia >= totalAlertas * 0.75){
                 risco = "Risco Muito Alto!";
             }else if(qtdEmergencia >= totalAlertas * 0.5 || 
@@ -906,7 +906,7 @@
             }else{
                 risco = "Risco Baixo!"
             }
-        } else if(totalAlertas >= 1000){
+        } else if(totalAlertas >= 10){
             if(qtdEmergencia >= totalAlertas * 0.75){
                 risco = "Risco Alto!";
             }else if(qtdEmergencia >= totalAlertas * 0.5 || 
