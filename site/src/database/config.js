@@ -2,9 +2,11 @@ const mysql = require("mysql2");
 
 var sqlConfig = {
   host: "localhost",
-  database: "Eyes_On_Server",
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
+  database: "eyes_on_server",
+  user:'root' ,
+  //user: process.env.DB_USER,
+  password: '1234',
+  //password: process.env.DB_PASSWORD,
 };
 
 function executar(instrucao) {

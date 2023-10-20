@@ -27,16 +27,23 @@ function listar(req, res) {
 
 function cadastrar(req, res) {
   info("cadastrar()");
+  var nome = req.body.nome_html;
+  var email = req.body.email_html;
+  var cargo = req.body.cargo_html;
+  var senha = req.body.senha_html;
+  var fk_empresa = req.body.fk_empresa;
 
-  if (nomeAdm == undefined) {
-    res.status(400).send("Nome do administrador indefinido!");
-  } else if (emailAdm == undefined) {
-    res.status(400).send("Email do administrador indefinido!");
+  if (nome == undefined) {
+    res.status(400).send("Nome do funcionario indefinido!");
+  } else if (email == undefined) {
+    res.status(400).send("Email do funcionario indefinido!");
   } else if (senha == undefined) {
     res.status(400).send("Senha indefinida!");
-  } else {
+  }else if(cargo == undefined){
+    res.status(400).send("Cargo do funcionario indefinido")
+  } else  {
     userModel
-      .primeiroCadastro(nomeAdm, emailAdm, senha)
+      .cadastrar(nome, email, senha, cargo, fk_empresa)
       .then(function (resultado) {
         res.json(resultado);
       })
@@ -47,6 +54,8 @@ function cadastrar(req, res) {
       });
   }
 }
+
+
 
 function login(req, res) {
   info("login()");
