@@ -25,6 +25,26 @@ function listar(req, res) {
     });
 }
 
+function listarPorFuncionario(req, res) {
+  info("listarFuncionario()");
+  var idUsuario = req.params.id
+  userModel
+    .listarPorFuncionario(idUsuario)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res
+          .status(204)
+          .send("NAO ACHOU NADA NESSA BRINCADEIRA DE MAL GOSTO!!!");
+      }
+    })
+    .catch((erro) => {
+      console.log(erro);
+      console.log("!! ERRO > UserController: Listar()\n", erro.sqlMessage);
+    });
+}
+
 function cadastrar(req, res) {
   info("cadastrar()");
   var nome = req.body.nome_html;
@@ -176,6 +196,7 @@ function deletar(req, res) {
 
 module.exports = {
   listar,
+  listarPorFuncionario,
   login,
   cadastrar,
   login,

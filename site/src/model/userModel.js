@@ -7,9 +7,18 @@ function info(nome_funcao, info_query) {
 
 // Funções para exportar
 function listar() {
-  var query = "SELECT * FROM usuario";
+  var query = "SELECT * FROM Usuario";
 
   info("listar()", query);
+
+  return bancoDados.executar(query);
+}
+
+function listarPorFuncionario(idUsuario) {
+  var query = `SELECT * FROM Usuario WHERE id_usuario = ${idUsuario}` ;
+
+  info("listar()", query);
+  
 
   return bancoDados.executar(query);
 }
@@ -75,6 +84,7 @@ function deletar(senha, email) {
 
 module.exports = {
   listar,
+  listarPorFuncionario,
   login,
   cadastrar,
   consultar,

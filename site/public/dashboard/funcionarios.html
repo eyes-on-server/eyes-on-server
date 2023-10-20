@@ -211,7 +211,7 @@
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Cadastrar</h6>
                         </div>
-                        <!--babidi-->
+                        
                         <div class="card-body">
                             <form class="user">
                                 <div class="form-group">
@@ -283,17 +283,12 @@
                                     </tfoot>
                                     <tbody id="exibir_consulta_usuario">
                                         <tr>
-                                            <td>1</td>
-                                            <td>Jonas</td>
-                                            <td>jonas@teste.com</td>
-                                            <td>1</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                         </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Cleiton</td>
-                                            <td>cleiton@teste.com</td>
-                                            <td>0</td>
-                                        </tr>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -430,6 +425,7 @@
 <script>
     mudar_resolucao();
     listar_usuario();
+    
 
     function cadastrarFuncionario(){
         var nome = id_nomeUsuarioCadastrar.value;
@@ -460,7 +456,14 @@
         }).then(function (resposta) {
             
             if (resposta.ok){
-               alert("Cadastrado com sucesso!");
+                alert("Cadastrado com sucesso!");
+                id_nomeUsuarioCadastrar.value = "";
+                id_emailUsuarioCadastrar.value = "";
+                id_senhaUsuarioCadastrar.value = "";
+                id_confSenhaUsuarioCadastrar.value = "";
+                cargo1.checked ? cargo1.checked=false : cargo2.checked = false;
+                listar_usuario();
+                
             }else{
                 throw("Houve um erro ao tentar cadastrar!");
             }
@@ -570,10 +573,10 @@
                         var dados = json[i]
                         exibir_consulta_usuario.innerHTML += `
                         <tr>
-                            <td>${dados.idusuario}</td>
-                            <td>${dados.nome}</td>
-                            <td>${dados.email}</td>
-                            <td>${dados.root}</td>
+                            <td onclick="moverDados(${dados.id_usuario})">${dados.id_usuario}</td>
+                            <td onclick="moverDados(${dados.id_usuario})">${dados.nome}</td>
+                            <td onclick="moverDados(${dados.id_usuario})">${dados.email}</td>
+                            <td onclick="moverDados(${dados.id_usuario})">${dados.cargo}</td>
                         </tr>`
                     } 
                 });
@@ -586,15 +589,22 @@
         return false;
     }
 
-    function teste() {
-        var radios = document.getElementsByName('cargo');
-
-        for (var i = 0; i < radios.length; i++) {
-            if (radios[i].checked) {
-                console.log(radios[i].value);
-                break;
+    function moverDados(id) {
+        fetch(`/user/listar/${id}`).then(function (resposta){
+            if (resposta.ok){
+                resposta.json().then(json => {
+                    console.log(JSON.stringify(json))
+                    var dadosFuncionario = resposta.json;
+                     
+                });
+            } else {
+                throw("Houve um erro ao tentar listar os servidores!");
             }
-        }    
+        }).catch(function (resposta){
+            console.log(`#ERRO AO LISTAR: ${resposta}`);
+        });
+        return false;
+
     }
 
     function mudar_resolucao() {
