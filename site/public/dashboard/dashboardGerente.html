@@ -206,7 +206,6 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-1 text-gray-800" id="dataSistema"></h1>
-                        <h2 class="h2 mb-1 text-gray-800" id="nivelRisco"></h2>
 
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="limparFiltros()">
                             <i class="fas fa-eraser fa-sm text-white-50"></i> Limpar Filtros</a>
@@ -297,7 +296,7 @@
                     <div class="row">
 
                         <!-- Gráfico Ranking -->
-                        <div class="col-xl-12 col-lg-12">
+                        <div class="col-xl-8 col-lg-12">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -324,6 +323,39 @@
                                 <div class="card-body">
                                     <div class="chart-area">
                                         <canvas id="graficoRankingServidores"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Gráfico Riscos -->
+                        <div class="col-xl-4 col-lg-12">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Quantidade de Servidores por Risco</h6>
+                                    <!-- <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Configurar Gráfico</div>
+                                            <a class="dropdown-item" href="#">Ordenar por Estado Emergência</a>
+                                            <a class="dropdown-item" href="#">Ordenar por Estado Perigo</a>
+                                            <a class="dropdown-item" href="#">Ordenar por Estado Prevenção</a>
+                                            <a class="dropdown-item" href="#">Ordenar por Total de Problemas</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Restaurar</a>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="graficoRiscos"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -461,6 +493,7 @@
     <script src="js/demo/chart-ranking-servidores.js"></script>
     <script src="js/demo/chart-ranking-locais.js"></script>
     <script src="js/demo/chart-tipo-problemas.js"></script>
+    <script src="js/demo/chart-riscos.js"></script>
 
 </body>
 
@@ -469,15 +502,19 @@
     
     // Variáveis Globais
     var dataSistema = "";
+
     var fkServidor = 0;
     var fkComponente = 0;
     var localServidor = "";
+    var risco = "";
+
     var ids = [];
     var rankServidoresLock = false;
     var rankLocaisLock = false;
 
     var selectedRankingServidoresId = null;
     var selectedRankingLocaisId = null;
+    var selectedRiscoId = null;
 
     var totalAlertas = 0;
     var alertasCpu = 0;
@@ -523,9 +560,11 @@
         fkComponente = 0;
         fkServidor = 0;
         localServidor = "";
+        risco = "";
 
         selectedRankingLocaisId = null;
         selectedRankingServidoresId = null;
+        selectedRiscoId = null;
 
         rankServidoresLock = false;
         rankLocaisLock = false;
@@ -533,6 +572,7 @@
         desativarCards();
         resetRankingServidoresColors();
         resetRankingLocaisColors();
+        resetRiscosColors();
         executarFuncoes();
     }
 
@@ -658,6 +698,20 @@
         graficoRankingLocais.update();
     }
 
+    function resetRiscosColors(){
+        graficoRiscos.data.datasets[0].backgroundColor = 
+                [
+                    "#32bcad",
+                    "#32bcad",
+                    "#32bcad",
+                    "#32bcad",
+                    "#32bcad",
+                    "#32bcad",
+                    "#32bcad",
+                ];
+        graficoRiscos.update();
+    }
+
 
     function coletarDadosCards(){
         fetch(`/alertas/coletarDadosCards`, {
@@ -670,6 +724,7 @@
                 dataAtualServer: dataSistema,
                 fkServidorServer: fkServidor,
                 localServidorServer: localServidor,
+                riscoServer: risco,
             })
         }).then((resposta) => {
             if(resposta.ok){
@@ -684,7 +739,7 @@
                     totalAlertas = json[0].totalAlertas;
                     alertasCpu = json[0].totalAlertasCpu;
                     alertasMemoria = json[0].totalAlertasMemoria;
-                    alertasDisco = json[0].totalDisco;
+                    alertasDisco = json[0].totalAlertasDisco;
 
                     alterarCorCards(totalAlertas, alertasCpu, alertasMemoria, alertasDisco);
                 })
@@ -724,6 +779,7 @@
                 dataAtualServer: dataSistema,
                 fkComponenteServer: fkComponente,
                 localServidorServer: localServidor,
+                riscoServer: risco,
             })
         }).then((resposta) => {
             if(resposta.ok){
@@ -757,6 +813,55 @@
                 graficoRankingServidores.data.labels = [];
                 graficoRankingServidores.data.datasets[0].data = [];
                 graficoRankingServidores.update();
+
+            }
+        }).catch((erro) => {
+            console.log("Erro ao realizar a busca: " + erro);
+        })
+    }
+
+    function obterServidoresPorRisco(){
+        fetch(`/alertas/obterServidoresPorRisco`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idEmpresaServer: 3,
+                dataAtualServer: dataSistema,
+                fkComponenteServer: fkComponente,
+                localServidorServer: localServidor,
+            })
+        }).then((resposta) => {
+            if(resposta.ok){
+                resposta.json().then(json => {
+                    console.log(json)
+                    
+                    console.log(json[0])
+                    
+                    var totalServidores = json[0].totalServidores;
+
+                    graficoRiscos.data.datasets[0].data = [
+                        (json[0].qtdRiscoMaximo / totalServidores) * 100,
+                        (json[0].qtdRiscoMuitoAlto / totalServidores) * 100,
+                        (json[0].qtdRiscoAlto / totalServidores) * 100,
+                        (json[0].qtdRiscoModerado / totalServidores) * 100,
+                        (json[0].qtdRiscoBaixo / totalServidores) * 100,
+                        (json[0].qtdRiscoMuitoBaixo / totalServidores) * 100,
+                        (json[0].qtdSemRiscos / totalServidores) * 100,
+                    ];
+                    graficoRiscos.update();
+
+                })
+            }else{
+                console.log("Erro ao realizar busca!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+                
+                graficoRiscos.data.datasets[0].data = [0,0,0,0,0,0,0];
+                graficoRiscos.update();
 
             }
         }).catch((erro) => {
@@ -824,6 +929,7 @@
                 fkComponenteServer: fkComponente,
                 fkServidorServer: fkServidor,
                 localServidorServer: localServidor,
+                riscoServer: risco,
             })
         }).then((resposta) => {
             if(resposta.ok){
@@ -837,12 +943,6 @@
                     ];
 
                     graficoTipoProblemas.update();
-
-                    verificarNivelRisco(
-                        json[0].totalAlertasEmergencia,
-                        json[0].totalAlertasPerigo,
-                        json[0].totalAlertasPrevencao
-                    );
                     
                 })
             }else{
@@ -875,56 +975,10 @@
             }
         }
 
+        obterServidoresPorRisco();
+
         coletarDadosTipoAlerta();
     }
-
-    function verificarNivelRisco(qtdEmergencia, qtdPerigo, qtdPrevenção){
-
-        let risco = "";
-
-        if(totalAlertas >= 30){
-            if(qtdEmergencia >= totalAlertas * 0.75){
-                risco = "Risco Máximo!";
-            }else if(qtdEmergencia >= totalAlertas * 0.5 || 
-                     qtdPerigo >= totalAlertas * 0.75){
-                risco = "Risco Muito Alto!";
-            }else if(qtdPerigo >= totalAlertas * 0.5 || 
-                     qtdPrevenção >= totalAlertas * 0.75){
-                risco = "Risco Alto!";
-            }else{
-                risco = "Risco Moderado!"
-            }
-        } else if(totalAlertas >= 20){
-            if(qtdEmergencia >= totalAlertas * 0.75){
-                risco = "Risco Muito Alto!";
-            }else if(qtdEmergencia >= totalAlertas * 0.5 || 
-                     qtdPerigo >= totalAlertas * 0.75){
-                risco = "Risco Alto!";
-            }else if(qtdPerigo >= totalAlertas * 0.5 || 
-                     qtdPrevenção >= totalAlertas * 0.75){
-                risco = "Risco Moderado!";
-            }else{
-                risco = "Risco Baixo!"
-            }
-        } else if(totalAlertas >= 10){
-            if(qtdEmergencia >= totalAlertas * 0.75){
-                risco = "Risco Alto!";
-            }else if(qtdEmergencia >= totalAlertas * 0.5 || 
-                     qtdPerigo >= totalAlertas * 0.75){
-                risco = "Risco Moderado!";
-            }else if(qtdPerigo >= totalAlertas * 0.5 || 
-                     qtdPrevenção >= totalAlertas * 0.75){
-                risco = "Risco Baixo";
-            }else{
-                risco = "Risco Muito Baixo!"
-            }
-        } else {
-            risco = "Sem riscos!"
-        }
-        
-        document.getElementById('nivelRisco').innerHTML = risco;
-    }
-
 
     function graficoRankingServidoresClick(click) {
         const points = graficoRankingServidores.getElementsAtEventForMode(
@@ -1001,6 +1055,46 @@
     }
 
     ctxRankingLocais.onclick = graficoRankingLocaisClick;
+
+    function graficoRiscosClick(click) {
+        const points = graficoRiscos.getElementsAtEventForMode(
+            click,
+            "nearest",
+            { intersect: true },
+            true
+        );
+        if (points.length) {
+            const firstPoint = points[0];
+            const index = firstPoint._index;
+            
+            
+            if(index == selectedRiscoId){
+                selectedRiscoId = null;
+                risco = "";
+                resetRiscosColors();
+            }else{
+                if(rankServidoresLock == false){
+
+                    selectedRiscoId = index;
+                    risco = graficoRiscos.data.labels[index];
+                    resetRiscosColors();
+
+                    graficoRiscos.data.datasets[0].backgroundColor[index] = "#178e96";
+                    graficoRiscos.update();
+                }else {
+                    toastr.error(
+                        "Não é possível selecionar um risco enquanto houver um servidor selecionado!"
+                    );
+                }
+
+            }
+
+            executarFuncoes();
+
+        }
+    }
+
+    ctxChartRiscos.onclick = graficoRiscosClick;
 
     setInterval(() => {
         executarFuncoes();

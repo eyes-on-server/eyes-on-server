@@ -7,9 +7,26 @@ function info(nome_funcao, info_query) {
 
 // Funções para exportar
 function listar() {
-  var query = "SELECT * FROM usuario";
+  var query = "SELECT * FROM Usuario";
 
   info("listar()", query);
+
+  return bancoDados.executar(query);
+}
+
+function listarPorFuncionario(idUsuario) {
+  var query = `
+  SELECT 
+  u.id_usuario,
+  u.nome,
+  u.email,
+  l.senha 
+  FROM Usuario u 
+  join Login l on fk_usuario = id_usuario 
+  WHERE u.id_usuario = ${idUsuario}` ;
+
+  info("listar()", query);
+  
 
   return bancoDados.executar(query);
 }
@@ -23,6 +40,7 @@ function login(email, senha) {
   var instrucao = `
   SELECT 
     id_usuario,
+    u.fk_empresa,
 	  u.nome,
     u.email,
     u.cargo,
@@ -37,12 +55,15 @@ function login(email, senha) {
   return bancoDados.executar(instrucao);
 }
 
-function cadastrar(nome, email, senha) {
-  var query = `INSERT INTO usuario (nome, email, senha) VALUES ('${nome}', '${email}', '${senha}')`;
+function cadastrar(nome, email, senha, cargo, fk_empresa) {
 
-  info("cadastrar()", query);
+  var query2 = `INSERT INTO Usuario (fk_empresa, nome, cargo, email) VALUES ('${fk_empresa}', '${nome}', '${cargo}','${email}')`;
+  bancoDados.executar(query2);
 
-  return bancoDados.executar(query);
+  var query4 = `INSERT INTO Login(fk_usuario, login, senha) VALUES ((SELECT id_usuario FROM Usuario WHERE fk_empresa = ${fk_empresa} ORDER BY id_usuario DESC limit 1), '${email}', ${senha})`
+  info("cadastrar()", query4);
+
+  return bancoDados.executar(query4);
 }
 
 function consultar(id, nome) {
@@ -54,11 +75,12 @@ function consultar(id, nome) {
 }
 
 function atualizar(id, nome, senha, email) {
-  var query = `UPDATE usuario SET nome = "${nome}", senha = "${senha}", email = "${email}" WHERE idusuario = ${id};`;
+  var query = `UPDATE Usuario SET nome = "${nome}", email = "${senha}" WHERE id_usuario = ${id};`;
+  var query2 = `UPDATE Login SET senha = "${email}" WHERE id_login = ${id};`
 
   info("atualizar()", query);
 
-  return bancoDados.executar(query);
+  return bancoDados.executar(query), bancoDados.executar(query2);
 }
 
 function deletar(senha, email) {
@@ -71,6 +93,7 @@ function deletar(senha, email) {
 
 module.exports = {
   listar,
+  listarPorFuncionario,
   login,
   cadastrar,
   consultar,

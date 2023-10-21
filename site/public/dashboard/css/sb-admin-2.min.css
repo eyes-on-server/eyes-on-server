@@ -212,7 +212,7 @@ th {
   text-align: -webkit-match-parent;
 }
 label {
-  display: inline-block;
+  display: none;
   margin-bottom: 0.5rem;
 }
 button {
@@ -4387,7 +4387,11 @@ input[type="submit"].btn-block {
   }
 }
 .accordion {
+  
   overflow-anchor: none;
+}
+#accordionSidebar{
+  
 }
 .accordion > .card {
   overflow: hidden;
@@ -9479,6 +9483,7 @@ a:focus {
   color: #858796;
 }
 .sidebar {
+
   width: 6.5rem;
   min-height: 100vh;
 }
