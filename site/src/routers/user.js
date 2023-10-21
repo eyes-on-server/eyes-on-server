@@ -12,10 +12,17 @@ rota.get("/listar", (req, res) => {
   userController.listar(req, res);
 });
 
+rota.get("/listar/:id", (req, res) => {
+  info("ListarID");
+  userController.listarPorFuncionario(req, res);
+});
+
 rota.post("/cadastrar", (req, res) => {
   info("Cadastrar");
   userController.cadastrar(req, res);
 });
+
+
 
 rota.post("/login", (req, res) => {
   userController.login(req, res);
