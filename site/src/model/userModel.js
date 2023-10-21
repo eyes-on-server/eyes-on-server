@@ -15,7 +15,15 @@ function listar() {
 }
 
 function listarPorFuncionario(idUsuario) {
-  var query = `SELECT * FROM Usuario WHERE id_usuario = ${idUsuario}` ;
+  var query = `
+  SELECT 
+  u.id_usuario,
+  u.nome,
+  u.email,
+  l.senha 
+  FROM Usuario u 
+  join Login l on fk_usuario = id_usuario 
+  WHERE u.id_usuario = ${idUsuario}` ;
 
   info("listar()", query);
   
@@ -67,11 +75,12 @@ function consultar(id, nome) {
 }
 
 function atualizar(id, nome, senha, email) {
-  var query = `UPDATE usuario SET nome = "${nome}", senha = "${senha}", email = "${email}" WHERE idusuario = ${id};`;
+  var query = `UPDATE Usuario SET nome = "${nome}", email = "${senha}" WHERE id_usuario = ${id};`;
+  var query2 = `UPDATE Login SET senha = "${email}" WHERE id_login = ${id};`
 
   info("atualizar()", query);
 
-  return bancoDados.executar(query);
+  return bancoDados.executar(query), bancoDados.executar(query2);
 }
 
 function deletar(senha, email) {
