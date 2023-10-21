@@ -297,7 +297,7 @@
                     <div class="row">
 
                         <!-- Gráfico Ranking -->
-                        <div class="col-xl-12 col-lg-12">
+                        <div class="col-xl-8 col-lg-12">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -324,6 +324,39 @@
                                 <div class="card-body">
                                     <div class="chart-area">
                                         <canvas id="graficoRankingServidores"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Gráfico Riscos -->
+                        <div class="col-xl-4 col-lg-12">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Quantidade de Servidores por Risco</h6>
+                                    <!-- <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Configurar Gráfico</div>
+                                            <a class="dropdown-item" href="#">Ordenar por Estado Emergência</a>
+                                            <a class="dropdown-item" href="#">Ordenar por Estado Perigo</a>
+                                            <a class="dropdown-item" href="#">Ordenar por Estado Prevenção</a>
+                                            <a class="dropdown-item" href="#">Ordenar por Total de Problemas</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Restaurar</a>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="graficoRiscos"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -461,6 +494,7 @@
     <script src="js/demo/chart-ranking-servidores.js"></script>
     <script src="js/demo/chart-ranking-locais.js"></script>
     <script src="js/demo/chart-tipo-problemas.js"></script>
+    <script src="js/demo/chart-riscos.js"></script>
 
 </body>
 
@@ -757,6 +791,53 @@
                 graficoRankingServidores.data.labels = [];
                 graficoRankingServidores.data.datasets[0].data = [];
                 graficoRankingServidores.update();
+
+            }
+        }).catch((erro) => {
+            console.log("Erro ao realizar a busca: " + erro);
+        })
+    }
+
+    function obterServidoresPorRisco(){
+        fetch(`/alertas/obterServidoresPorRisco`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idEmpresaServer: 3,
+                dataAtualServer: dataSistema,
+                fkComponenteServer: fkComponente,
+                localServidorServer: localServidor,
+            })
+        }).then((resposta) => {
+            if(resposta.ok){
+                resposta.json().then(json => {
+                    console.log(json)
+                    
+                    console.log(json[0])
+
+                    graficoRiscos.data.datasets[0].data = [
+                        json[0].qtdRiscoMaximo,
+                        json[0].qtdRiscoMuitoAlto, 
+                        json[0].qtdRiscoAlto,
+                        json[0].qtdRiscoMedio,
+                        json[0].qtdRiscoBaixo, 
+                        json[0].qtdRiscoMuitoBaixo,
+                        json[0].qtdSemRiscos,
+                    ];
+                    graficoRiscos.update();
+
+                })
+            }else{
+                console.log("Erro ao realizar busca!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+                
+                graficoRiscos.data.datasets[0].data = [0,0,0,0,0,0,0];
+                graficoRiscos.update();
 
             }
         }).catch((erro) => {

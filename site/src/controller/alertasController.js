@@ -331,6 +331,46 @@ function realizarRankingPorLocal(idEmpresa, dataAtual, localServidor, res) {
     });
 }
 
+/* ---------------------- OBTER RISCOS ---------------------- */
+function obterServidoresPorRisco(req, res) {
+  const idEmpresa = req.body.idEmpresaServer;
+  const dataAtual = req.body.dataAtualServer;
+  const fkComponente = req.body.fkComponenteServer;
+  const localServidor = req.body.localServidorServer;
+
+  if (fkComponente == 0 && localServidor == "") {
+    obterRiscosGeral(idEmpresa, dataAtual, res);
+  } else if (fkComponente != 0 && localServidor != "") {
+    obterRiscosPorComponenteLocal(
+      idEmpresa,
+      dataAtual,
+      fkComponente,
+      localServidor,
+      res
+    );
+  } else if (fkComponente != 0) {
+    obterRiscosPorComponente(idEmpresa, dataAtual, fkComponente, res);
+  } else {
+    obterRiscosPorLocal(idEmpresa, dataAtual, localServidor, res);
+  }
+}
+
+// TODOS OS RISCOS
+function obterRiscosGeral(idEmpresa, dataAtual, res) {
+  alertasModel
+    .obterRiscosGeral(idEmpresa, dataAtual)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(500).send("Nenhum alerta encontrado!");
+      }
+    })
+    .catch((erro) => {
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 /* ---------------------- RANKING LOCAIS ---------------------- */
 function realizarRankingLocais(req, res) {
   const idEmpresa = req.body.idEmpresaServer;
@@ -384,6 +424,7 @@ function realizarRankingLocaisPorComponente(
 module.exports = {
   coletarDadosCards,
   realizarRankingServidores,
+  obterServidoresPorRisco,
   coletarDadosTipoAlerta,
   realizarRankingLocais,
 };
