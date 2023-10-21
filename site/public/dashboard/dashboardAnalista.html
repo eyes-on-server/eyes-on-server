@@ -18,6 +18,9 @@
       type="image/x-icon"
     />
 
+    <!-- Link chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!-- Custom fonts for this template-->
     <link
       href="vendor/fontawesome-free/css/all.min.css"
@@ -31,7 +34,6 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet" />
-    <script src="../js/index.js"></script>
   </head>
 
   <body id="page-top">
@@ -54,12 +56,8 @@
           <div class="sidebar-brand-text mx-3">Analista</div>
         </a>
         <div>
-          <p class="sidebar-brand-text mx-3 user_name" id="user_name">
-            Paulo Reis de Marcena
-          </p>
-          <p class="sidebar-brand-text mx-3 company_name" id="company_name">
-            Santander
-          </p>
+          <p class="sidebar-brand-text mx-3 user_name" id="user_name"></p>
+          <p class="sidebar-brand-text mx-3 company_name" id="company_name"></p>
         </div>
 
         <!-- Divider -->
@@ -108,11 +106,7 @@
               >
             </div>
             <div class="bg-white py-2 collapse-inner rounded">
-              <a
-                class="collapse-item"
-                href="consulta.html"
-                >Consultar</a
-              >
+              <a class="collapse-item" href="consulta.html">Consultar</a>
             </div>
           </div>
         </li>
@@ -198,15 +192,21 @@
               class="header-dash align-items-center justify-content-between mb-4"
             >
               <h1 class="h3 mb-0 text-gray-800">Servidor:</h1>
-              <select name="server" id="serverSelect" class="select">
-                <option value="01">F34AD</option>
-                <option value="02">A27FF</option>
-                <option value="03">95OAA</option>
+              <select
+                name="server"
+                id="localServerSelect"
+                class="select"
+                onchange="selectSetor(this.value)"
+              >
+                <option value="Local">Local</option>
               </select>
-              <select name="server" id="serverSelect" class="select">
-                <option value="01">F34AD</option>
-                <option value="02">A27FF</option>
-                <option value="03">95OAA</option>
+              <select
+                name="server"
+                id="nameServerSelect"
+                class="select"
+                onclick="graficoIncidentesPorDia(this.value)"
+              >
+                <option value="Servidor">Servidor</option>
               </select>
               <!--
                             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
@@ -227,9 +227,10 @@
                         >
                           Servidores críticos
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                          70%
-                        </div>
+                        <div
+                          class="h5 mb-0 font-weight-bold text-gray-800"
+                          id="criticos"
+                        ></div>
                       </div>
                       <div class="col-auto">
                         <!-- <i class="fas fa-microchip fa-2x text-gray-300"></i> -->
@@ -250,9 +251,10 @@
                         >
                           Servidores em alerta
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                          67%
-                        </div>
+                        <div
+                          class="h5 mb-0 font-weight-bold text-gray-800"
+                          id="alertasDiv"
+                        ></div>
                       </div>
                       <div class="col-auto">
                         <!-- <i class="fas fa-memory fa-2x text-gray-300"></i> -->
@@ -271,15 +273,14 @@
                         <div
                           class="text-xs font-weight-bold text-primary text-uppercase mb-1"
                         >
-                          Porcentagem de erro
+                          Máquina com mais alertas
                         </div>
                         <div class="row no-gutters align-items-center">
                           <div class="col-auto">
                             <div
                               class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
-                            >
-                              1TB
-                            </div>
+                              id="maquinaDestaque"
+                            ></div>
                           </div>
                           <div class="col"></div>
                         </div>
@@ -301,11 +302,12 @@
                         <div
                           class="text-xs font-weight-bold text-primary text-uppercase mb-1"
                         >
-                          Chamados abertos
+                          Alertas
                         </div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                          5
-                        </div>
+                        <div
+                          class="h5 mb-0 font-weight-bold text-gray-800"
+                          id="alertas"
+                        ></div>
                       </div>
                       <div class="col-auto">
                         <!-- <i class="fas fa-comments fa-2x text-gray-300"></i> -->
@@ -329,37 +331,10 @@
                     <h6 class="m-0 font-weight-bold text-primary">
                       Incidentes do dia
                     </h6>
-                    <div class="dropdown no-arrow">
-                      <!-- <a
-                        class="dropdown-toggle"
-                        href="#"
-                        role="button"
-                        id="dropdownMenuLink"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        <i
-                          class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"
-                        ></i>
-                      </a> -->
-                      <div
-                        class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                        aria-labelledby="dropdownMenuLink"
-                      >
-                        <div class="dropdown-header">Dropdown Header:</div>
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#"
-                          >Something else here</a
-                        >
-                      </div>
-                    </div>
                   </div>
                   <!-- Card Body -->
                   <div class="card-body">
-                    <div class="chart-area">
+                    <div class="chart-area" id="chartArea">
                       <canvas id="myAreaChart"></canvas>
                     </div>
                   </div>
@@ -374,52 +349,15 @@
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                   >
                     <h6 class="m-0 font-weight-bold text-primary">
-                      Incidentes por servidor
+                      Incidentes por componente
                     </h6>
-                    <div class="dropdown no-arrow">
-                      <a
-                        class="dropdown-toggle"
-                        href="#"
-                        role="button"
-                        id="dropdownMenuLink"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                      >
-                        <i
-                          class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"
-                        ></i>
-                      </a>
-                      <div
-                        class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                        aria-labelledby="dropdownMenuLink"
-                      >
-                        <div class="dropdown-header">Dropdown Header:</div>
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#"
-                          >Something else here</a
-                        >
-                      </div>
-                    </div>
                   </div>
                   <!-- Card Body -->
                   <div class="card-body">
-                    <div class="chart-pie pt-4 pb-2">
+                    <div class="chart-pie pt-4 pb-2 doughnut" id="doughnut">
                       <canvas id="myPieChart"></canvas>
                     </div>
-                    <div class="mt-4 text-center small">
-                      <span class="mr-2">
-                        <i class="fas fa-circle text-primary"></i> RAM
-                      </span>
-                      <span class="mr-2">
-                        <i class="fas fa-circle text-success"></i> CPU
-                      </span>
-                      <span class="mr-2">
-                        <i class="fas fa-circle text-info"></i> Disco
-                      </span>
-                    </div>
+                    <div class="mt-4 text-center small"></div>
                   </div>
                 </div>
               </div>
@@ -454,14 +392,14 @@
                     </thead>
                     <tbody id="exibir_consulta_servidor">
                       <tr>
-                        <td class="tableContent"></td>
-                        <td class="tableContent"></td>
-                        <td class="tableContent"></td>
-                        <td class="tableContent"></td>
-                        <td class="tableContent"></td>
-                        <td class="tableContent"></td>
-                        <td class="tableContent"></td>
-                        <td class="tableContent"></td>
+                        <td class="tableContent" id="celulaServidor"></td>
+                        <td class="tableContent" id="celulaHorario"></td>
+                        <td class="tableContent" id="celulaFrequenciaCPU"></td>
+                        <td class="tableContent" id="celulaUsoCPU"></td>
+                        <td class="tableContent" id="celulaUsoDisco"></td>
+                        <td class="tableContent" id="celulaUsoMemoria"></td>
+                        <td class="tableContent" id="celulaBytesEnviados"></td>
+                        <td class="tableContent" id="celulaBytesRecebidos"></td>
                       </tr>
                     </tbody>
                   </table>
@@ -529,7 +467,7 @@
             >
               Cancelar
             </button>
-            <a class="btn btn-primary" href="login.html">Sair</a>
+            <a class="btn btn-primary" href="../login.html">Sair</a>
           </div>
         </div>
       </div>
@@ -548,8 +486,6 @@
     <!-- Page level plugins -->
     <script src="vendor/chart.js/Chart.min.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+    <script src="../js/dashboardAnalista.js" defer></script>
   </body>
 </html>

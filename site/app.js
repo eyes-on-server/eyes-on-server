@@ -14,6 +14,7 @@ const userRota = require("./src/routers/user");
 const indexRota = require("./src/routers/index");
 const alertasRota = require("./src/routers/alertas");
 const graficosRota = require("./src/routers/graficos");
+const graficosAnalistaRota = require("./src/routers/graficosAnalista");
 
 // Configurações -----------------------
 app.use(express.json());
@@ -27,6 +28,7 @@ app.use("/user", userRota);
 app.use("/empresa", empresaRota);
 app.use("/servidor", servidorRota);
 app.use("/alertas", alertasRota);
+app.use("/graficosAnalista", graficosAnalistaRota);
 
 // Iniciar servidor --------------------
 app.listen(porta, () => {

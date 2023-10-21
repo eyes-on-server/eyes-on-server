@@ -10403,3 +10403,12 @@ select {
   width: auto;
   text-align: center;
 }
+
+.doughnut {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#myPieChart {
+  min-height: 80%;
+}
