@@ -144,8 +144,7 @@ function realizarRankingServidores(idEmpresa, dataAtual) {
       JOIN Eyes_On_Server.Alertas a ON a.fk_servidor = s.id_servidor
     WHERE data_hora_abertura LIKE '${dataAtual}%' AND a.fk_empresa = ${idEmpresa}
     GROUP BY a.fk_servidor
-    ORDER BY total_alertas DESC
-    LIMIT 5;
+    ORDER BY total_alertas DESC;
   `;
   return bancoDados.executar(query);
 }
@@ -170,8 +169,7 @@ function realizarRankingLocalComponente(
           a.fk_componente = ${fkComponente} AND
           s.local_servidor = '${localServidor}'
         GROUP BY a.fk_servidor
-        ORDER BY total_alertas DESC
-        LIMIT 5;
+        ORDER BY total_alertas DESC;
     `;
   return bancoDados.executar(query);
 }
@@ -194,8 +192,7 @@ function realizarRankingServidoresPorComponente(
           a.fk_empresa = ${idEmpresa} AND
           a.fk_componente = ${fkComponente}
         GROUP BY a.fk_servidor
-        ORDER BY total_alertas DESC
-        LIMIT 5;
+        ORDER BY total_alertas DESC;
     `;
   return bancoDados.executar(query);
 }
@@ -218,8 +215,25 @@ function realizarRankingServidoresPorLocal(
           a.fk_empresa = ${idEmpresa} AND
           s.local_servidor = '${localServidor}'
         GROUP BY a.fk_servidor
-        ORDER BY total_alertas DESC
-        LIMIT 5;
+        ORDER BY total_alertas DESC;
+    `;
+  return bancoDados.executar(query);
+}
+
+/* ---------------------- OBTER RISCOS ---------------------- */
+function obterRiscosGeral(idEmpresa) {
+  var query = `
+        SELECT 
+          (SELECT count(nivel_de_risco) FROM Eyes_On_Server.view_riscos_servidores WHERE nivel_de_risco COLLATE utf8mb4_unicode_ci = "Sem riscos") qtdSemRiscos,
+          (SELECT count(nivel_de_risco) FROM Eyes_On_Server.view_riscos_servidores WHERE nivel_de_risco COLLATE utf8mb4_unicode_ci = "Risco Muito Baixo") qtdRiscoMuitoBaixo,
+          (SELECT count(nivel_de_risco) FROM Eyes_On_Server.view_riscos_servidores WHERE nivel_de_risco COLLATE utf8mb4_unicode_ci = "Risco Baixo") qtdRiscoBaixo,
+          (SELECT count(nivel_de_risco) FROM Eyes_On_Server.view_riscos_servidores WHERE nivel_de_risco COLLATE utf8mb4_unicode_ci = "Risco Moderado") qtdRiscoModerado,
+          (SELECT count(nivel_de_risco) FROM Eyes_On_Server.view_riscos_servidores WHERE nivel_de_risco COLLATE utf8mb4_unicode_ci = "Risco Alto") qtdRiscoAlto,
+          (SELECT count(nivel_de_risco) FROM Eyes_On_Server.view_riscos_servidores WHERE nivel_de_risco COLLATE utf8mb4_unicode_ci = "Risco Muito Alto") qtdRiscoMuitoAlto,
+          (SELECT count(nivel_de_risco) FROM Eyes_On_Server.view_riscos_servidores WHERE nivel_de_risco COLLATE utf8mb4_unicode_ci = "Risco Máximo") qtdRiscoMaximo,
+          (SELECT count(id_servidor) FROM Eyes_On_Server.view_riscos_servidores) totalServidores
+        FROM Eyes_On_Server.view_riscos_servidores WHERE fk_empresa = ${idEmpresa}
+        LIMIT 1; 
     `;
   return bancoDados.executar(query);
 }
@@ -234,8 +248,7 @@ function realizarRankingLocais(idEmpresa, dataAtual) {
       JOIN Eyes_On_Server.Alertas a ON a.fk_servidor = s.id_servidor
     WHERE data_hora_abertura LIKE '${dataAtual}%' AND a.fk_empresa = ${idEmpresa}
     GROUP BY s.local_servidor
-    ORDER BY total_alertas DESC
-    LIMIT 5;
+    ORDER BY total_alertas DESC;
   `;
   return bancoDados.executar(query);
 }
@@ -257,8 +270,7 @@ function realizarRankingLocaisPorComponente(
       a.fk_empresa = ${idEmpresa} AND
       a.fk_componente = ${fkComponente}
     GROUP BY s.local_servidor
-    ORDER BY total_alertas DESC
-    LIMIT 5;
+    ORDER BY total_alertas DESC;
   `;
   return bancoDados.executar(query);
 }
@@ -272,6 +284,8 @@ module.exports = {
   realizarRankingLocalComponente,
   realizarRankingServidoresPorComponente,
   realizarRankingServidoresPorLocal,
+
+  obterRiscosGeral,
 
   coletarTodosDadosTipoAlerta,
   coletarDadosTipoAlertaPorComponente,

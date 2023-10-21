@@ -206,7 +206,6 @@
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-1 text-gray-800" id="dataSistema"></h1>
-                        <h2 class="h2 mb-1 text-gray-800" id="nivelRisco"></h2>
 
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="limparFiltros()">
                             <i class="fas fa-eraser fa-sm text-white-50"></i> Limpar Filtros</a>
@@ -503,15 +502,19 @@
     
     // Variáveis Globais
     var dataSistema = "";
+
     var fkServidor = 0;
     var fkComponente = 0;
     var localServidor = "";
+    var risco = "";
+
     var ids = [];
     var rankServidoresLock = false;
     var rankLocaisLock = false;
 
     var selectedRankingServidoresId = null;
     var selectedRankingLocaisId = null;
+    var selectedRiscoId = null;
 
     var totalAlertas = 0;
     var alertasCpu = 0;
@@ -557,9 +560,11 @@
         fkComponente = 0;
         fkServidor = 0;
         localServidor = "";
+        risco = "";
 
         selectedRankingLocaisId = null;
         selectedRankingServidoresId = null;
+        selectedRiscoId = null;
 
         rankServidoresLock = false;
         rankLocaisLock = false;
@@ -567,6 +572,7 @@
         desativarCards();
         resetRankingServidoresColors();
         resetRankingLocaisColors();
+        resetRiscosColors();
         executarFuncoes();
     }
 
@@ -690,6 +696,20 @@
                     "#32bcad"
                 ];
         graficoRankingLocais.update();
+    }
+
+    function resetRiscosColors(){
+        graficoRiscos.data.datasets[0].backgroundColor = 
+                [
+                    "#32bcad",
+                    "#32bcad",
+                    "#32bcad",
+                    "#32bcad",
+                    "#32bcad",
+                    "#32bcad",
+                    "#32bcad",
+                ];
+        graficoRiscos.update();
     }
 
 
@@ -816,13 +836,15 @@
                     console.log(json)
                     
                     console.log(json[0])
+                    
+                    var totalServidores = json[0].totalServidores;
 
                     graficoRiscos.data.datasets[0].data = [
                         json[0].qtdRiscoMaximo,
-                        json[0].qtdRiscoMuitoAlto, 
+                        json[0].qtdRiscoMuitoAlto,
                         json[0].qtdRiscoAlto,
-                        json[0].qtdRiscoMedio,
-                        json[0].qtdRiscoBaixo, 
+                        json[0].qtdRiscoModerado,
+                        json[0].qtdRiscoBaixo,
                         json[0].qtdRiscoMuitoBaixo,
                         json[0].qtdSemRiscos,
                     ];
@@ -918,12 +940,6 @@
                     ];
 
                     graficoTipoProblemas.update();
-
-                    verificarNivelRisco(
-                        json[0].totalAlertasEmergencia,
-                        json[0].totalAlertasPerigo,
-                        json[0].totalAlertasPrevencao
-                    );
                     
                 })
             }else{
@@ -956,56 +972,10 @@
             }
         }
 
+        obterServidoresPorRisco();
+
         coletarDadosTipoAlerta();
     }
-
-    function verificarNivelRisco(qtdEmergencia, qtdPerigo, qtdPrevenção){
-
-        let risco = "";
-
-        if(totalAlertas >= 30){
-            if(qtdEmergencia >= totalAlertas * 0.75){
-                risco = "Risco Máximo!";
-            }else if(qtdEmergencia >= totalAlertas * 0.5 || 
-                     qtdPerigo >= totalAlertas * 0.75){
-                risco = "Risco Muito Alto!";
-            }else if(qtdPerigo >= totalAlertas * 0.5 || 
-                     qtdPrevenção >= totalAlertas * 0.75){
-                risco = "Risco Alto!";
-            }else{
-                risco = "Risco Moderado!"
-            }
-        } else if(totalAlertas >= 20){
-            if(qtdEmergencia >= totalAlertas * 0.75){
-                risco = "Risco Muito Alto!";
-            }else if(qtdEmergencia >= totalAlertas * 0.5 || 
-                     qtdPerigo >= totalAlertas * 0.75){
-                risco = "Risco Alto!";
-            }else if(qtdPerigo >= totalAlertas * 0.5 || 
-                     qtdPrevenção >= totalAlertas * 0.75){
-                risco = "Risco Moderado!";
-            }else{
-                risco = "Risco Baixo!"
-            }
-        } else if(totalAlertas >= 10){
-            if(qtdEmergencia >= totalAlertas * 0.75){
-                risco = "Risco Alto!";
-            }else if(qtdEmergencia >= totalAlertas * 0.5 || 
-                     qtdPerigo >= totalAlertas * 0.75){
-                risco = "Risco Moderado!";
-            }else if(qtdPerigo >= totalAlertas * 0.5 || 
-                     qtdPrevenção >= totalAlertas * 0.75){
-                risco = "Risco Baixo";
-            }else{
-                risco = "Risco Muito Baixo!"
-            }
-        } else {
-            risco = "Sem riscos!"
-        }
-        
-        document.getElementById('nivelRisco').innerHTML = risco;
-    }
-
 
     function graficoRankingServidoresClick(click) {
         const points = graficoRankingServidores.getElementsAtEventForMode(
@@ -1082,6 +1052,46 @@
     }
 
     ctxRankingLocais.onclick = graficoRankingLocaisClick;
+
+    function graficoRiscosClick(click) {
+        const points = graficoRiscos.getElementsAtEventForMode(
+            click,
+            "nearest",
+            { intersect: true },
+            true
+        );
+        if (points.length) {
+            const firstPoint = points[0];
+            const index = firstPoint._index;
+            
+            
+            if(index == selectedRiscoId){
+                selectedRiscoId = null;
+                risco = "";
+                resetRiscosColors();
+            }else{
+                if(rankServidoresLock == false){
+
+                    selectedRiscoId = index;
+                    risco = graficoRiscos.data.labels[index];
+                    resetRiscosColors();
+
+                    graficoRiscos.data.datasets[0].backgroundColor[index] = "#178e96";
+                    graficoRiscos.update();
+                }else {
+                    toastr.error(
+                        "Não é possível selecionar um risco enquanto houver um servidor selecionado!"
+                    );
+                }
+
+            }
+
+            executarFuncoes();
+
+        }
+    }
+
+    ctxChartRiscos.onclick = graficoRiscosClick;
 
     setInterval(() => {
         executarFuncoes();

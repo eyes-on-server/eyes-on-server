@@ -339,7 +339,7 @@ function obterServidoresPorRisco(req, res) {
   const localServidor = req.body.localServidorServer;
 
   if (fkComponente == 0 && localServidor == "") {
-    obterRiscosGeral(idEmpresa, dataAtual, res);
+    obterRiscosGeral(idEmpresa, res);
   } else if (fkComponente != 0 && localServidor != "") {
     obterRiscosPorComponenteLocal(
       idEmpresa,
@@ -356,9 +356,9 @@ function obterServidoresPorRisco(req, res) {
 }
 
 // TODOS OS RISCOS
-function obterRiscosGeral(idEmpresa, dataAtual, res) {
+function obterRiscosGeral(idEmpresa, res) {
   alertasModel
-    .obterRiscosGeral(idEmpresa, dataAtual)
+    .obterRiscosGeral(idEmpresa)
     .then((resultado) => {
       if (resultado.length > 0) {
         res.status(200).json(resultado);

@@ -12,7 +12,7 @@ var graficoRiscos = new Chart(ctxChartRiscos, {
       "Risco Máximo",
       "Risco Muito Alto",
       "Risco Alto",
-      "Risco Médio",
+      "Risco Moderado",
       "Risco Baixo",
       "Risco Muito Baixo",
       "Sem Riscos",
