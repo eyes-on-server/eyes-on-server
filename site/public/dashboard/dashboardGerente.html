@@ -724,6 +724,7 @@
                 dataAtualServer: dataSistema,
                 fkServidorServer: fkServidor,
                 localServidorServer: localServidor,
+                riscoServer: risco,
             })
         }).then((resposta) => {
             if(resposta.ok){
@@ -738,7 +739,7 @@
                     totalAlertas = json[0].totalAlertas;
                     alertasCpu = json[0].totalAlertasCpu;
                     alertasMemoria = json[0].totalAlertasMemoria;
-                    alertasDisco = json[0].totalDisco;
+                    alertasDisco = json[0].totalAlertasDisco;
 
                     alterarCorCards(totalAlertas, alertasCpu, alertasMemoria, alertasDisco);
                 })
@@ -778,6 +779,7 @@
                 dataAtualServer: dataSistema,
                 fkComponenteServer: fkComponente,
                 localServidorServer: localServidor,
+                riscoServer: risco,
             })
         }).then((resposta) => {
             if(resposta.ok){
@@ -840,13 +842,13 @@
                     var totalServidores = json[0].totalServidores;
 
                     graficoRiscos.data.datasets[0].data = [
-                        json[0].qtdRiscoMaximo,
-                        json[0].qtdRiscoMuitoAlto,
-                        json[0].qtdRiscoAlto,
-                        json[0].qtdRiscoModerado,
-                        json[0].qtdRiscoBaixo,
-                        json[0].qtdRiscoMuitoBaixo,
-                        json[0].qtdSemRiscos,
+                        (json[0].qtdRiscoMaximo / totalServidores) * 100,
+                        (json[0].qtdRiscoMuitoAlto / totalServidores) * 100,
+                        (json[0].qtdRiscoAlto / totalServidores) * 100,
+                        (json[0].qtdRiscoModerado / totalServidores) * 100,
+                        (json[0].qtdRiscoBaixo / totalServidores) * 100,
+                        (json[0].qtdRiscoMuitoBaixo / totalServidores) * 100,
+                        (json[0].qtdSemRiscos / totalServidores) * 100,
                     ];
                     graficoRiscos.update();
 
@@ -927,6 +929,7 @@
                 fkComponenteServer: fkComponente,
                 fkServidorServer: fkServidor,
                 localServidorServer: localServidor,
+                riscoServer: risco,
             })
         }).then((resposta) => {
             if(resposta.ok){

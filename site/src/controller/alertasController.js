@@ -6,13 +6,19 @@ function coletarDadosCards(req, res) {
   const dataAtual = req.body.dataAtualServer;
   const fkServidor = req.body.fkServidorServer;
   const localServidor = req.body.localServidorServer;
+  const risco = req.body.riscoServer;
 
-  if (fkServidor == 0 && localServidor == "") {
+  if (fkServidor == 0 && localServidor == "" && risco == "") {
     coletarTodosDadosCards(idEmpresa, dataAtual, res);
-  } else if (fkServidor != 0 || (fkServidor != 0 && localServidor != "")) {
+  } else if (
+    fkServidor != 0 ||
+    (fkServidor != 0 && (localServidor != "" || risco != ""))
+  ) {
     coletarDadosCardsPorServidor(idEmpresa, dataAtual, fkServidor, res);
-  } else {
+  } else if (localServidor != "" && risco == "") {
     coletarDadosCardsPorLocal(dataAtual, localServidor, res);
+  } else {
+    coletarDadosCardsPorRisco(idEmpresa, dataAtual, risco, res);
   }
 }
 
@@ -64,6 +70,21 @@ function coletarDadosCardsPorLocal(dataAtual, localServidor, res) {
     });
 }
 
+function coletarDadosCardsPorRisco(idEmpresa, dataAtual, risco, res) {
+  alertasModel
+    .coletarDadosCardsPorRisco(idEmpresa, dataAtual, risco)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(500).send("Nenhum alerta encontrado!");
+      }
+    })
+    .catch((erro) => {
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 /* ---------------------- DADOS TIPO ALERTAS ---------------------- */
 function coletarDadosTipoAlerta(req, res) {
   const idEmpresa = req.body.idEmpresaServer;
@@ -71,12 +92,21 @@ function coletarDadosTipoAlerta(req, res) {
   const fkComponente = req.body.fkComponenteServer;
   const fkServidor = req.body.fkServidorServer;
   const localServidor = req.body.localServidorServer;
+  const risco = req.body.riscoServer;
 
-  if (fkComponente == 0 && fkServidor == 0 && localServidor == "") {
+  if (
+    fkComponente == 0 &&
+    fkServidor == 0 &&
+    localServidor == "" &&
+    risco == ""
+  ) {
     coletarTodosDadosTipoAlerta(idEmpresa, dataAtual, res);
   } else if (
-    (fkComponente != 0 && fkServidor != 0 && localServidor != "") ||
-    (fkComponente != 0 && fkServidor != 0 && localServidor == "")
+    (fkComponente != 0 &&
+      fkServidor != 0 &&
+      localServidor != "" &&
+      risco == "") ||
+    (fkComponente != 0 && fkServidor != 0 && localServidor == "" && risco != "")
   ) {
     coletarDadosTipoAlertaPorComponenteServidor(
       idEmpresa,
@@ -85,14 +115,22 @@ function coletarDadosTipoAlerta(req, res) {
       fkServidor,
       res
     );
-  } else if (fkComponente != 0 && localServidor != "" && fkServidor == 0) {
+  } else if (
+    fkComponente != 0 &&
+    localServidor != "" &&
+    fkServidor == 0 &&
+    risco == ""
+  ) {
     coletarDadosTipoAlertaPorComponenteLocal(
       dataAtual,
       fkComponente,
       localServidor,
       res
     );
-  } else if (fkServidor != 0 || (fkServidor != 0 && localServidor != "")) {
+  } else if (
+    fkServidor != 0 ||
+    (fkServidor != 0 && (localServidor != "" || risco != ""))
+  ) {
     coletarDadosTipoAlertaPorServidor(idEmpresa, dataAtual, fkServidor, res);
   } else if (fkComponente != 0) {
     coletarDadosTipoAlertaPorComponente(
@@ -101,6 +139,8 @@ function coletarDadosTipoAlerta(req, res) {
       fkComponente,
       res
     );
+  } else if (risco != "") {
+    coletarDadosTipoAlertaPorRisco(idEmpresa, risco, res);
   } else {
     coletarDadosTipoAlertaPorLocal(dataAtual, localServidor, res);
   }
@@ -195,6 +235,22 @@ function coletarDadosTipoAlertaPorComponente(
     });
 }
 
+// DADOS POR RISCO
+function coletarDadosTipoAlertaPorRisco(idEmpresa, risco, res) {
+  alertasModel
+    .coletarDadosTipoAlertaPorRisco(idEmpresa, risco)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(500).send("Nenhum alerta encontrado!");
+      }
+    })
+    .catch((erro) => {
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 // DADOS POR SERVIDOR ------------------------>
 function coletarDadosTipoAlertaPorServidor(
   idEmpresa,
@@ -238,8 +294,9 @@ function realizarRankingServidores(req, res) {
   const dataAtual = req.body.dataAtualServer;
   const fkComponente = req.body.fkComponenteServer;
   const localServidor = req.body.localServidorServer;
+  const risco = req.body.riscoServer;
 
-  if (fkComponente == 0 && localServidor == "") {
+  if (fkComponente == 0 && localServidor == "" && risco == "") {
     realizarRankingGeral(idEmpresa, dataAtual, res);
   } else if (localServidor != "" && fkComponente != 0) {
     realizarRankingLocalComponente(
@@ -251,6 +308,8 @@ function realizarRankingServidores(req, res) {
     );
   } else if (localServidor != "") {
     realizarRankingPorLocal(idEmpresa, dataAtual, localServidor, res);
+  } else if (risco != "") {
+    realizarRankingPorRisco(idEmpresa, risco, res);
   } else {
     realizarRankingPorComponente(idEmpresa, dataAtual, fkComponente, res);
   }
@@ -331,27 +390,31 @@ function realizarRankingPorLocal(idEmpresa, dataAtual, localServidor, res) {
     });
 }
 
+// RANKING POR RISCO ------------------------>
+function realizarRankingPorRisco(idEmpresa, risco, res) {
+  alertasModel
+    .realizarRankingServidoresPorRisco(idEmpresa, risco)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(500).send("Nenhum alerta encontrado!");
+      }
+    })
+    .catch((erro) => {
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
 /* ---------------------- OBTER RISCOS ---------------------- */
 function obterServidoresPorRisco(req, res) {
   const idEmpresa = req.body.idEmpresaServer;
-  const dataAtual = req.body.dataAtualServer;
-  const fkComponente = req.body.fkComponenteServer;
   const localServidor = req.body.localServidorServer;
 
-  if (fkComponente == 0 && localServidor == "") {
+  if (localServidor == "") {
     obterRiscosGeral(idEmpresa, res);
-  } else if (fkComponente != 0 && localServidor != "") {
-    obterRiscosPorComponenteLocal(
-      idEmpresa,
-      dataAtual,
-      fkComponente,
-      localServidor,
-      res
-    );
-  } else if (fkComponente != 0) {
-    obterRiscosPorComponente(idEmpresa, dataAtual, fkComponente, res);
   } else {
-    obterRiscosPorLocal(idEmpresa, dataAtual, localServidor, res);
+    obterRiscosPorLocal(idEmpresa, localServidor, res);
   }
 }
 
@@ -359,6 +422,22 @@ function obterServidoresPorRisco(req, res) {
 function obterRiscosGeral(idEmpresa, res) {
   alertasModel
     .obterRiscosGeral(idEmpresa)
+    .then((resultado) => {
+      if (resultado.length > 0) {
+        res.status(200).json(resultado);
+      } else {
+        res.status(500).send("Nenhum alerta encontrado!");
+      }
+    })
+    .catch((erro) => {
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+// Riscos por Local
+function obterRiscosPorLocal(idEmpresa, localServidor, res) {
+  alertasModel
+    .obterRiscosPorLocal(idEmpresa, localServidor)
     .then((resultado) => {
       if (resultado.length > 0) {
         res.status(200).json(resultado);
