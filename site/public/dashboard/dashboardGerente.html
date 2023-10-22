@@ -33,7 +33,7 @@
 
 </head>
 
-<body id="page-top" onload="verificarSession(), executarFuncoes()">
+<body id="page-top" onload="executarFuncoes()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -582,13 +582,13 @@
             desativarCards()
 
             if(id == 1){
-                cardCpu.style = 'box-shadow: 4px 4px 4px royalblue;'
+                cardCpu.style.border = '4px solid royalblue'
             }else if(id == 2){
-                cardMemo.style = 'border: 4px solid royalblue;'
+                cardMemo.style.border = '4px solid royalblue'
             }else if(id == 3){
-                cardDisco.style = 'border: 4px solid royalblue;'
+                cardDisco.style.border = '4px solid royalblue'
             }else{
-                cardTodosComponentes.style = 'border: 4px solid royalblue;'
+                cardTodosComponentes.style.border = '4px solid royalblue'
                 fkComponente = 0;
             }
 
@@ -596,79 +596,79 @@
     }
 
     function desativarCards(){
-        cardCpu.style = 'border:none;';
-        cardDisco.style = 'border:none;';
-        cardMemo.style = 'border:none;';
-        cardTodosComponentes.style = 'border:none;';
+        cardCpu.style.border = 'none';
+        cardDisco.style.border = 'none';
+        cardMemo.style.border = 'none';
+        cardTodosComponentes.style.border = 'none';
         alterarCorCards(totalAlertas, alertasCpu, alertasMemoria, alertasDisco);
     }
 
     function alterarCorCards(totalAlertas, alertasCpu, alertasMemoria, alertasDisco){
 
-        cardTodosComponentes.style = 'border-left:0.25rem solid var(--primary);';
-        cardCpu.style = 'border-left:0.25rem solid var(--primary);';
-        cardMemo.style = 'border-left:0.25rem solid var(--primary);';
-        cardDisco.style = 'border-left:0.25rem solid var(--primary);';
+        cardTodosComponentes.style.borderLeft = '0.25rem solid var(--primary)';
+        cardCpu.style.borderLeft = '0.25rem solid var(--primary)';
+        cardMemo.style.borderLeft = '0.25rem solid var(--primary)';
+        cardDisco.style.borderLeft = '0.25rem solid var(--primary)';
 
-        iconeTotalAlertas.style = 'color:var(--secondary);';
-        iconeAlertasCpu.style = 'color:var(--secondary);';
-        iconeAlertasMemo.style = 'color:var(--secondary);';
-        iconeAlertasDisco.style = 'color:var(--secondary);';
+        iconeTotalAlertas.style.color = 'var(--secondary)';
+        iconeAlertasCpu.style.color = 'var(--secondary)';
+        iconeAlertasMemo.style.color = 'var(--secondary)';
+        iconeAlertasDisco.style.color = 'var(--secondary)';
 
         if(totalAlertas >= 300){
-            cardTodosComponentes.style = 'border-left:0.25rem solid var(--danger);';
-            iconeTotalAlertas.style = 'color:var(--danger);';
+            cardTodosComponentes.style.borderLeft = '0.25rem solid var(--danger)';
+            iconeTotalAlertas.style.color = 'var(--danger)';
         }else if (totalAlertas >= 250){
-            cardTodosComponentes.style = 'border-left:0.25rem solid var(--hot);';
-            iconeTotalAlertas.style = 'color:var(--hot);';
+            cardTodosComponentes.style.borderLeft = '0.25rem solid var(--hot)';
+            iconeTotalAlertas.style.color = 'var(--hot)';
         }else if (totalAlertas >= 200){
-            cardTodosComponentes.style = 'border-left:0.25rem solid var(--orange);';
-            iconeTotalAlertas.style = 'color:var(--orange);';
+            cardTodosComponentes.style.borderLeft = '0.25rem solid var(--orange)';
+            iconeTotalAlertas.style.color = 'var(--orange)';
         } else if (totalAlertas >= 150){
-            cardTodosComponentes.style = 'border-left:0.25rem solid var(--warning);';
-            iconeTotalAlertas.style = 'color:var(--warning);';
+            cardTodosComponentes.style.borderLeft = '0.25rem solid var(--warning)';
+            iconeTotalAlertas.style.color = 'var(--warning)';
         }
 
         if(alertasCpu >= 100){
-            cardCpu.style = 'border-left:0.25rem solid var(--danger);';
-            iconeAlertasCpu.style = 'color:var(--danger);';
+            cardCpu.style.borderLeft = '0.25rem solid var(--danger)';
+            iconeAlertasCpu.style.color = 'var(--danger)';
         }else if (alertasCpu >= 75){
-            cardCpu.style = 'border-left:0.25rem solid var(--hot);';
-            iconeAlertasCpu.style = 'color:var(--hot);';
+            cardCpu.style.borderLeft = '0.25rem solid var(--hot)';
+            iconeAlertasCpu.style.color = 'var(--hot)';
         }else if (alertasCpu >= 50){
-            cardCpu.style = 'border-left:0.25rem solid var(--orange);';
-            iconeAlertasCpu.style = 'color:var(--orange);';
+            cardCpu.style.borderLeft = '0.25rem solid var(--orange)';
+            iconeAlertasCpu.style.color = 'var(--orange)';
         }else if (alertasCpu >= 25){
-            cardCpu.style = 'border-left:0.25rem solid var(--warning);';
-            iconeAlertasCpu.style = 'color:var(--warning);';
+            cardCpu.style.borderLeft = '0.25rem solid var(--warning)';
+            iconeAlertasCpu.style.color = 'var(--warning).borderLeft';
         }
 
         if(alertasMemoria >= 100){
-            cardMemo.style = 'border-left:0.25rem solid var(--danger);';
-            iconeAlertasMemo.style = 'color:var(--danger);';
+            cardMemo.style.borderLeft = '0.25rem solid var(--danger)';
+            iconeAlertasMemo.style.color = 'var(--danger)';
         }else if (alertasMemoria >= 75){
-            cardMemo.style = 'border-left:0.25rem solid var(--hot);';
-            iconeAlertasMemo.style = 'color:var(--hot);';
+            cardMemo.style.borderLeft = '0.25rem solid var(--hot)';
+            iconeAlertasMemo.style.color = 'var(--hot)';
         }else if (alertasMemoria >= 50){
-            cardMemo.style = 'border-left:0.25rem solid var(--orange);';
-            iconeAlertasMemo.style = 'color:var(--orange);';
+            cardMemo.style.borderLeft = '0.25rem solid var(--orange)';
+            iconeAlertasMemo.style.color = 'var(--orange)';
         }else if (alertasMemoria >= 25){
-            cardMemo.style = 'border-left:0.25rem solid var(--warning);';
-            iconeAlertasMemo.style = 'color:var(--warning);';
+            cardMemo.style.borderLeft = '0.25rem solid var(--warning)';
+            iconeAlertasMemo.style.color = 'var(--warning)';
         }
 
         if(alertasDisco >= 100){
-            cardDisco.style = 'border-left:0.25rem solid var(--danger);';
-            iconeAlertasDisco.style = 'color:var(--danger);';
+            cardDisco.style.borderLeft = '0.25rem solid var(--danger)';
+            iconeAlertasDisco.style.color = 'var(--danger)';
         }else if (alertasDisco >= 75){
-            cardDisco.style = 'border-left:0.25rem solid var(--hot);';
-            iconeAlertasDisco.style = 'color:var(--hot);';
+            cardDisco.style.borderLeft = '0.25rem solid var(--hot)';
+            iconeAlertasDisco.style.color = 'var(--hot)';
         }else if (alertasDisco >= 50){
-            cardDisco.style = 'border-left:0.25rem solid var(--orange);';
-            iconeAlertasDisco.style = 'color:var(--orange);';
+            cardDisco.style.borderLeft = '0.25rem solid var(--orange)';
+            iconeAlertasDisco.style.color = 'var(--orange)';
         }else if (alertasDisco >= 25){
-            cardDisco.style = 'border-left:0.25rem solid var(--warning);';
-            iconeAlertasDisco.style = 'color:var(--warning);';
+            cardDisco.style.borderLeft = '0.25rem solid var(--warning)';
+            iconeAlertasDisco.style.color = 'var(--warning)';
         }
     }
 
