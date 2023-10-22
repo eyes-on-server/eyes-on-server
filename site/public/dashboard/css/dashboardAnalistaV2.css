@@ -1,0 +1,51 @@
+.row {
+  margin-bottom: 30px;
+}
+
+.row01 {
+  padding-right: 15px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+select {
+  width: 15rem;
+
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid black;
+  outline: 0;
+
+  background-color: transparent;
+
+  height: 30px;
+  font-size: 14px;
+  padding: 5px;
+  padding-left: 10px;
+
+  margin-left: 25px;
+}
+
+.btnLimparFiltros {
+  border: none;
+  border-radius: 5px;
+  padding: 0px 15px 0px 15px;
+
+  cursor: pointer;
+
+  background-color: #32bcad;
+}
+
+.cards_da_linha_02 {
+  height: 140px;
+}
+
+.card_da_linha03 {
+  height: 80px;
+}
+
+.card_da_linha04 {
+  height: 360px;
+}

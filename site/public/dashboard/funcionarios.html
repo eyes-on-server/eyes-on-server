@@ -531,8 +531,15 @@
             
             if (resposta.ok){
                 alert("Atualização feita!!");
+                exibir_consulta_usuario.innerHTML = ""
                 listar_usuario();
-                id_user, nome_user, email_user, senha_user, id_idUsuarioDeletar.value, id_senhaUsuarioDeletar.value, id_emailUsuarioDeletar.value = ""
+                id_idUsuarioAtualizar.value= ''
+                id_nomeUsuarioAtualizar.value= ''
+                id_senhaUsuarioAtualizar.value= ''
+                id_emailUsuarioAtualizar.value= '' 
+                id_idUsuarioDeletar.value= '' 
+                id_senhaUsuarioDeletar.value= '' 
+                id_emailUsuarioDeletar.value = ''
 
             }else{
                 throw("Houve um erro ao tentar atualizar!");
@@ -562,11 +569,15 @@
             
             if (resposta.ok){
                 alert("Usuario deletado!!");
-                exibir_consulta_usuario.innerHTML = "";
+                exibir_consulta_usuario.innerHTML = ""
                 listar_usuario();
-                id_user.value, senha_user.value, email_user.value = ""
-                id_idUsuarioAtualizar.value, id_nomeUsuarioAtualizar.value,id_senhaUsuarioAtualizar.value, id_emailUsuarioAtualizar.value = "";
-
+                id_idUsuarioAtualizar.value= ''
+                id_nomeUsuarioAtualizar.value= ''
+                id_senhaUsuarioAtualizar.value= ''
+                id_emailUsuarioAtualizar.value= '' 
+                id_idUsuarioDeletar.value= '' 
+                id_senhaUsuarioDeletar.value= '' 
+                id_emailUsuarioDeletar.value = ''
             }else{
                 throw("Houve um erro ao tentar deletar!");
             }
