@@ -83,8 +83,10 @@ function atualizar(id, nome, senha, email) {
   return bancoDados.executar(query), bancoDados.executar(query2);
 }
 
-function deletar(senha, email) {
-  var query = `DELETE FROM usuario WHERE senha = "${senha}" and email = "${email}"`;
+function deletar(id, senha, email) {
+  var query1 = `DELETE FROM Login WHERE fk_usuario = ${id}`
+  bancoDados.executar(query1);
+  var query = `DELETE FROM Usuario WHERE id_usuario = ${id}`;
 
   info("deletar()", query);
 

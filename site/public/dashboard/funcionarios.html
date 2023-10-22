@@ -305,7 +305,7 @@
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
                                         <input type="number" class="form-control form-control-user"
-                                            id="id_idUsuarioAtualizar" placeholder="Id">
+                                            id="id_idUsuarioAtualizar" placeholder="Id" readonly >
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control form-control-user" id="id_nomeUsuarioAtualizar"
@@ -338,7 +338,11 @@
                         <div class="card-body">
                             <form class="user">
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="id_idUsuarioDeletar"
+                                    <input type="number" class="form-control form-control-user"
+                                        id="id_idUsuarioDeletar" placeholder="Id" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control form-control-user" id="id_emailUsuarioDeletar"
                                         placeholder="Email">
                                 </div>
                                 <div class="form-group">
@@ -528,6 +532,7 @@
             if (resposta.ok){
                 alert("Atualização feita!!");
                 listar_usuario();
+                id_user, nome_user, email_user, senha_user, id_idUsuarioDeletar.value, id_senhaUsuarioDeletar.value, id_emailUsuarioDeletar.value = ""
 
             }else{
                 throw("Houve um erro ao tentar atualizar!");
@@ -539,6 +544,7 @@
     }
 
     function deletar_usuario(){
+        var id_user = id_idUsuarioDeletar.value
         var senha_user = id_senhaUsuarioDeletar.value
         var email_user = id_emailUsuarioDeletar.value
 
@@ -548,6 +554,7 @@
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
+                id_html : id_user,
                 senha_html: senha_user,
                 email_html: email_user
             })
@@ -555,6 +562,10 @@
             
             if (resposta.ok){
                 alert("Usuario deletado!!");
+                exibir_consulta_usuario.innerHTML = "";
+                listar_usuario();
+                id_user.value, senha_user.value, email_user.value = ""
+                id_idUsuarioAtualizar.value, id_nomeUsuarioAtualizar.value,id_senhaUsuarioAtualizar.value, id_emailUsuarioAtualizar.value = "";
 
             }else{
                 throw("Houve um erro ao tentar deletar!");
@@ -603,6 +614,7 @@
                         id_nomeUsuarioAtualizar.value = dados.nome;
                         id_emailUsuarioAtualizar.value = dados.email;
                         id_senhaUsuarioAtualizar.value = dados.senha;
+                        id_idUsuarioDeletar.value = dados.id_usuario;
                         id_emailUsuarioDeletar.value = dados.email;
                         id_senhaUsuarioDeletar.value = dados.senha;
                     }

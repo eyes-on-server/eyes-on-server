@@ -4,9 +4,9 @@ var sqlConfig = {
   host: "localhost",
   database: "Eyes_On_Server",
   // user:'aluno' ,
-  user: process.env.DB_USER,
+  user: "root",
   // password: 'sptech',
-  password: process.env.DB_PASSWORD,
+  password: "1234",
 };
 
 function executar(instrucao) {

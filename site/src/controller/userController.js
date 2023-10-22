@@ -173,6 +173,7 @@ function atualizar(req, res) {
 
 function deletar(req, res) {
   info("deletar()");
+  var id_server = req.body.id_html;
   var email_server = req.body.email_html;
   var senha_server = req.body.senha_html;
 
@@ -182,7 +183,7 @@ function deletar(req, res) {
     res.status(400).send("Sua senha está indefinido!");
   } else {
     userModel
-      .deletar(senha_server, email_server)
+      .deletar(id_server, senha_server, email_server)
       .then(function (resultado) {
         res.json(resultado);
       })
