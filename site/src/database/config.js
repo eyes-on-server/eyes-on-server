@@ -6,7 +6,7 @@ var sqlConfig = {
   // user:'aluno' ,
   user: "root",
   // password: 'sptech',
-  password: "1234",
+  password: "sptech",
 };
 
 function executar(instrucao) {

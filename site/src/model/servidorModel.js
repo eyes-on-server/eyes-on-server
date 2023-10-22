@@ -7,7 +7,21 @@ function info(nome_funcao, info_query) {
 
 //Funções para exportar
 function listar() {
-  var query = "SELECT * FROM servidor";
+
+  var query = `
+  SELECT
+      s.id_servidor AS id,
+      s.nome_servidor AS Nome_Servidor,
+      s.so_servidor AS Sistema_Operacional,
+      s.descricao AS Descricao,
+      s.local_servidor AS Local,
+      GROUP_CONCAT(c.nome_componente ORDER BY c.id_componente) AS Componentes
+  FROM Eyes_On_Server.Servidor AS s
+  LEFT JOIN Eyes_On_Server.Componente AS c
+  ON FIND_IN_SET(c.id_componente, REPLACE(s.componentes, ' ', ''))
+  WHERE s.fk_empresa = 3
+  GROUP BY s.id_servidor, s.nome_servidor, s.so_servidor, s.descricao, s.local_servidor;
+  `;
 
   info("listar()", query);
 
