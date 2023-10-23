@@ -26,6 +26,14 @@ header img {
   height: auto;
 }
 
+.campos-login{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: baseline;
+  width: 25rem;
+}
+
 .section {
   flex-grow: 1;
   display: flex;
