@@ -14,9 +14,9 @@
       type="image/x-icon"
     />
 
-    <link rel="stylesheet" href="./assets/css/style_cadastro.css" />
-    <link rel="stylesheet" href="./assets/css/login.css" />
-    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="./css/style_cadastro.css" />
+    <link rel="stylesheet" href="./css/login.css" />
+    <link rel="stylesheet" href="./css/style.css" />
     <script src="./js/script_cadastro.js" defer></script>
 
     <!-- Link para o toastr -->
@@ -36,14 +36,16 @@
             ><img src="./assets/img/login/home.png" alt="logo_img"
           /></a>
         </header>
-        <div class="form-area" id="form">
-          <div class="enterprise-info-block info-block">
+        <div class="form-area" id="form" >
+          <h1>Cadastro</h1>
+          <img src="./assets/img/logo/logo.png" alt="Logo" />
+          <div class="enterprise-info-block info-block" id="ParteEmpresa">
             <div class="block-title">
               <h4>Informações da Empresa</h4>
             </div>
             <div class="info-line">
               <div class="input-block">
-                <h4>Nome Fantasia</h4>
+                <h5>Nome Fantasia</h5>
                 <input
                   type="text"
                   name=""
@@ -52,7 +54,7 @@
                 />
               </div>
               <div class="input-block">
-                <h4>CNPJ</h4>
+                <h5>CNPJ</h5>
                 <input
                   type="text"
                   name=""
@@ -65,7 +67,7 @@
             </div>
             <div class="info-line">
               <div class="input-block">
-                <h4>CEP</h4>
+                <h5>CEP</h5>
                 <input
                   type="text"
                   name=""
@@ -76,7 +78,7 @@
                 />
               </div>
               <div class="input-block">
-                <h4>Email</h4>
+                <h5>Email</h5>
                 <input
                   type="text"
                   name=""
@@ -86,38 +88,74 @@
               </div>
             </div>
           </div>
-          <div class="admin-info-block info-block">
+          <!-- style="display: none;" -->
+          <!-- Informações do Cadastro do Representante -->
+          <div class="admin-info-block info-block"  id="cadastroFuncionario">
             <div class="block-title">
               <h4>Informações do Primeiro Usuário</h4>
             </div>
             <div class="info-line">
               <div class="input-block">
-                <h4>Nome Usuário</h4>
+                <h5>Nome Usuário</h5>
                 <input
-                  type="text"
-                  name=""
+                type="text"
+                name=""
                   id="ipt_nome_usuario"
                   placeholder="Nome do Primeiro Usuário"
                 />
               </div>
               <div class="input-block">
-                <h4>Email Usuário</h4>
+                <h5>Email Usuário</h5>
                 <input
-                  type="text"
-                  name=""
+                type="text"
+                name=""
                   id="ipt_email_usuario"
                   placeholder="Email do Primeiro Usuário"
-                />
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div class="button-block info-block">
+            <div class="button-block info-block"  id="btn_cadastroFuncionario">
             <button class="btn btn-enviar" onclick="verificarCampos()">
-              Confirmar Dados
+              Cadastrar
             </button>
           </div>
+          <p id="caminho_login">
+            Já possui uma conta?
+            <a href="./login.html">Logue</a>
+          </p>
         </div>
       </div>
     </main>
   </body>
 </html>
+<script>
+
+// function Prosseguir(){
+
+//   var nome_empresa = ipt_nome_fantasia.value;
+//   var cnpj = ipt_cnpj.value;
+//   var cep = ipt_cep.value;
+//   var email_empresa = ipt_email_empresa.value;
+
+//   if(nome_empresa != "" && cnpj != "" && cep != "" && email_empresa != ""){
+//     var parteEmpresa = document.getElementById("ParteEmpresa");
+//     parteEmpresa.style.display = "none";
+
+//     var btnParteEmpresa = document.getElementById("btn_ParteEmpresa");
+//     btnParteEmpresa.style.display = "none";
+
+//     var pParteEmpresa = document.getElementById("caminho_login");
+//     pParteEmpresa.style.display = "none";
+    
+
+//     var cadastroFuncionario = document.getElementById("cadastroFuncionario");
+//     cadastroFuncionario.style.display = "flex";
+
+
+//     var btncadastroFuncionario = document.getElementById("btn_cadastroFuncionario");
+//     btncadastroFuncionario.style.display = "flex";
+//   }
+// }
+
+</script>
