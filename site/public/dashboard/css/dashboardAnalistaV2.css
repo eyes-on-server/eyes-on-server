@@ -12,6 +12,7 @@
 
 select {
   width: 15rem;
+  min-width: 10rem;
 
   border: none;
   border-radius: 0;
@@ -39,7 +40,11 @@ select {
 }
 
 .cards_da_linha_02 {
-  height: 140px;
+  height: 80px;
+}
+
+#recomendacoesHTML {
+  height: 200px;
 }
 
 .card_da_linha03 {

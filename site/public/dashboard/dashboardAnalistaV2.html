@@ -155,10 +155,14 @@
             <div class="row row01">
               <!-- Segundo header da página -->
               <div class="header-dash align-items-center justify-content-between">
-                <select class="col-xl-7 col-lg-7" name="" id=""></select>
-                <select class="col-xl-7 col-lg-7" name="" id=""></select>
+                <select class="col-xl-7 col-lg-7" name="" id="select_setores" onchange="buscarServidores(this.value)">
+                  <option value="null">Setores</option>
+                </select>
+                <select class="col-xl-7 col-lg-7" name="" id="select_servidores" onchange="setarDados(this.value)" >
+                  <option value="null">Servidor</option>
+                </select>
               </div>
-              <button class="btnLimparFiltros">Limpar filtros</button>
+              <button class="btnLimparFiltros" onclick="limparFiltros()">Limpar filtros</button>
             </div>
 
             <!-- Primeira linha de gráficos -->
@@ -171,7 +175,7 @@
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                   >
                     <h6 class="m-0 font-weight-bold text-primary">
-                      Desempenho de componentes
+                      Desempenho de componentes (%)
                     </h6>
                   </div>
                   <!-- Div para o gráfico de linha -->
@@ -196,7 +200,7 @@
                       </h6>
                     </div>
                   <div class="card-body cards_da_linha_02">
-                    teste
+                    <h1 id="quantidadeDeAlertas"></h1>
                   </div>                 
                 </div>
 
@@ -209,8 +213,10 @@
                         Recomendação
                       </h6>
                     </div>
-                  <div class="card-body cards_da_linha_02">
-                    teste
+                  <div class="card-body cards_da_linha_02" id="recomendacoesHTML">
+                    <p id="recomendacaoCPU"></p>
+                    <p id="recomendacaoDisco"></p>
+                    <p id="recomendacaoMemoria"></p>
                   </div>
                 </div>
 
@@ -229,7 +235,10 @@
                       Previsão de falha
                     </h6>
                   </div>
-                  <div class="card-body card_da_linha03">
+                  <div class="card-body card_da_linha03" id="previsao">
+                    <p id="previsaoCPU"></p>
+                    <p id="previsaoDisco"></p>
+                    <p id="previsaoMemoria"></p>
                   </div>
                 </div>
               </div>
@@ -239,26 +248,35 @@
             <div class="row">
 
                 <!-- Div para o gráfico de linhas -->
-                <div class="col-xl-7 col-lg-7">
+                <div class="col-xl-5 col-lg-7">
                   <div class="card shadow mb-4">
                     <div
                       class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                     >
                       <h6 class="m-0 font-weight-bold text-primary">
-                        Componentes
+                        Componentes em tempo real
                       </h6>
                     </div>
                     <!-- Div para o gráfico de linha -->
-                    <div class="card-body">
-                      <div class="chart-area" id="chartArea">
-                        <canvas id="GraficoDeLinha"></canvas>
-                      </div>
+                    <div class="card-body" id="dadosAoVivoHTML">
+                           <p id="aoVivoCPU">Uso da CPU:</p>
+                        <hr>
+                           <p id="aoVivoCPUfrequencia">Frequência da CPU:</p>
+                        <hr>
+                           <p id="aoVivoMemoria">Uso da memória:</p>
+                        <hr>
+                           <p id="aoVivoDisco">Uso do disco: </p>
+                        <hr>
+                           <p id="aoVivoRedeRecebidos">bytes recebidos:</p>
+                        <hr>
+                           <p id="aoVivoRedeEnviados">bytes enviados:</p>
+                        <hr>
                     </div>
                   </div>
                 </div>
 
                 <!-- Div para Exibir os alertas e aviso -->
-                <div class="col-xl-5 col-lg-5">
+                <div class="col-xl-7 col-lg-5">
 
                   <!-- Div para os alertas  -->
                   <div class="card shadow mb-4">
@@ -269,7 +287,18 @@
                         Informações do servidor
                       </h6>
                     </div>
-                    <div class="card-body card_da_linha04"></div>                 
+                    <div class="card-body card_da_linha04" id="informacoesServidorHTML">
+                      <p id="nomeServidor">Nome do servidor: </p>
+                      <hr>
+                         <p id="nomeSetor">Setor do servidor: </p>
+                      <hr>
+                         <p id="ipv6Servidor">IPV6 do servidor: </p>
+                      <hr>
+                         <p id="macAddressServidor">Mac address: </p>
+                      <hr>
+                         <p id="soServidor">Sistema operacional: </p>
+                      <hr>
+                    </div>                 
                   </div>
                 </div>
               </div>
@@ -341,5 +370,6 @@
     <script src="vendor/jquery/jquery.min.js" defer></script>
     <script src="../js/backendDashboardAnalista.js"></script>
     <script src="vendor/chart.js/Chart.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="vendor/jquery-easing/jquery.easing.min.js" defer></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>

@@ -50,7 +50,7 @@ function entrar() {
           if (sessionStorage.CARGO == "Gerente") {
             window.location = "../dashboard/dashboardGerente.html";
           } else {
-            window.location = "../dashboard/dashboardAnalista.html";
+            window.location = "../dashboard/dashboardAnalistaV2.html";
           }
         });
       } else {
