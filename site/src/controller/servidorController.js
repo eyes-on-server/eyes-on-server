@@ -8,7 +8,14 @@ function info(nome_funcao) {
 // Funções para exportar
 function listar(req, res) {
     info("listar()")
-    servidorModel.listar().then((resultado) => {
+    var fkEmpresa = req.body.fkEmpresa_html;
+    console.log(req.body.fkEmpresa_html)
+
+    if(fkEmpresa == undefined){
+        res.status(400).send("O nome do Servidor está indefinido")
+    } else
+
+    servidorModel.listar(fkEmpresa).then((resultado) => {
         if (resultado.length > 0){
             res.status(200).json(resultado);
         }
