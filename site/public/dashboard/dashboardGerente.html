@@ -12,7 +12,7 @@
 
     <link rel="shortcut icon" href="../assets/img/logo/logo.png" type="image/x-icon"/>
 
-    <title>Dashboard</title>
+    <title>Dashboard Gerente</title>
     
   <link rel="shortcut icon" href="../assets/img/logo/logo.png" type="image/x-icon" />
 
@@ -35,13 +35,13 @@
 
 </head>
 
-<body id="page-top" onload="executarFuncoes()">
+<body id="page-top" onload="verificarSession(), executarFuncoes()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="background-image: linear-gradient(180deg,#00A9AF 30%,#13D4DB 80%);">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
                 
         <!-- Sidebar - Brand -->
         <a
@@ -70,14 +70,14 @@
             <li class="nav-item active">
                 <a class="nav-link" href="dashboardGerente.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard Gerente</span></a>
+                    <span>Dashboard</span></a>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading text-light font-weight-bold">
+            <div class="sidebar-heading text-light font-weight-bolder">
                 Gerenciamento
             </div>
 
@@ -224,9 +224,9 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            <div class="text-xs font-weight-bolder text-cold text-uppercase mb-1">
                                                 Quantidade de Alertas CPU</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="idQtdAlertasCpu">0</div>
+                                            <div class="h5 mb-0 font-weight-bolder text-gray-800" id="idQtdAlertasCpu">0</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-microchip fa-2x text-black-300" id="iconeAlertasCpu"></i>
@@ -242,9 +242,9 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            <div class="text-xs font-weight-bolder text-cold text-uppercase mb-1">
                                                 Quantidade de Alertas RAM</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="idQtdAlertasMemoria">0</div>
+                                            <div class="h5 mb-0 font-weight-bolder text-gray-800" id="idQtdAlertasMemoria">0</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-memory fa-2x text-black-300" id="iconeAlertasMemo"></i>
@@ -260,12 +260,12 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            <div class="text-xs font-weight-bolder text-cold text-uppercase mb-1">
                                                 Quantidade de Alertas Disco
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="idQtdAlertasDisco">0</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bolder text-gray-800" id="idQtdAlertasDisco">0</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -283,9 +283,9 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            <div class="text-xs font-weight-bolder text-cold text-uppercase mb-1">
                                                 Total de Alertas do Dia</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="idQtdAlertasTotal">0</div>
+                                            <div class="h5 mb-0 font-weight-bolder text-gray-800" id="idQtdAlertasTotal">0</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-chart-pie fa-2x text-black-300" id="iconeTotalAlertas"></i>
@@ -304,7 +304,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Servidores com mais Problemas</h6>
+                                    <h6 class="m-0 font-weight-bolder text-cold">Servidores com mais Problemas</h6>
                                     <!-- <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -337,7 +337,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Quantidade de Servidores por Risco</h6>
+                                    <h6 class="m-0 font-weight-bolder text-cold">Quantidade de Servidores por Risco</h6>
                                     <!-- <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -373,7 +373,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Alertas por Setor</h6>
+                                    <h6 class="m-0 font-weight-bolder text-cold">Alertas por Setor</h6>
                                     <!-- <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -406,7 +406,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Quantidade de Problemas por Tipo</h6>
+                                    <h6 class="m-0 font-weight-bolder text-cold">Quantidade de Problemas por Tipo</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">

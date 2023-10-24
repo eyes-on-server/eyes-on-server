@@ -8846,6 +8846,13 @@ a.text-primary:focus,
 a.text-primary:hover {
   color: #224abe !important;
 }
+.text-cold {
+  color: #13235e !important;
+}
+a.text-cold:focus,
+a.text-cold:hover {
+  color: #13235e !important;
+}
 .text-secondary {
   color: #858796 !important;
 }
@@ -8868,25 +8875,25 @@ a.text-hot:hover {
   color: #b3461e !important;
 }
 .text-emergency {
-  color: #186960 !important;
+  color: #722f37 !important;
 }
 a.text-emergency:focus,
 a.text-emergency:hover {
-  color: #04695d !important;
+  color: #722f37 !important;
 }
 .text-hazard {
-  color: #2d968a !important;
+  color: #d16f2e !important;
 }
 a.text-hazard:focus,
 a.text-hazard:hover {
-  color: #069181 !important;
+  color: #d16f2e !important;
 }
 .text-prevention {
-  color: #3fccbc !important;
+  color: #c29836 !important;
 }
 a.text-prevention:focus,
 a.text-prevention:hover {
-  color: #09b8a4 !important;
+  color: #c29836 !important;
 }
 .text-info {
   color: #36b9cc !important;
