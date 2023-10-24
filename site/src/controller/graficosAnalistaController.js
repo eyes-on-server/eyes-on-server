@@ -28,7 +28,7 @@ function buscarInfo(req, res) {
       console.log(error);
       console.log(
         "Erro na Graficos Analista Controller: /buscarservidores\n",
-        erro.sqlMessage
+        error.sqlMessage
       );
     });
 }

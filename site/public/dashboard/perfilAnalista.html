@@ -10,9 +10,9 @@
     <meta name="author" content="">
 
     <title>Gestão de Funcionários</title>
-    
-  <link rel="shortcut icon" href="../assets/img/logo/logo.png" type="image/x-icon" />
 
+    <link rel="shortcut icon" href="../assets/img/logo/logo.png" type="image/x-icon" />
+    
     <script src="../js/index.js"></script>
 
     <!-- Custom fonts for this template-->
@@ -203,15 +203,10 @@
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
-                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Funcionários</h1>
-                    </div>
-
                     <!-- Cadastrar Funcionários -->
                     <div class="card shadow mb-4" id="div_cadastro_funcionario">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Cadastrar</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Perfil do usuário</h6>
                         </div>
                         
                         <div class="card-body">
@@ -231,13 +226,13 @@
                                         </div>
                                         <div id="div_radio_opt" style="display: flex; width: 70%; justify-content: space-evenly;">
                                             <div>
-                                                <input type="radio" id="cargo1" name="cargo" value="1">
+                                                <!-- <input type="radio" id="cargo1" name="cargo" value="0"> -->
                                                 <label for="cargo1" style="margin-bottom: 0;">Gerente</label>
                                             </div>
-                                            <div>
-                                                <input type="radio" id="cargo2" name="cargo" value="0">
+                                            <!-- <div>
+                                                <input type="radio" id="cargo2" name="cargo" value="1">
                                                 <label for="cargo2" style="margin-bottom: 0;">Analista</label>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -246,116 +241,42 @@
                                         <input type="password" class="form-control form-control-user"
                                             id="id_senhaUsuarioCadastrar" placeholder="Senha">
                                     </div>
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="id_confSenhaUsuarioCadastrar" placeholder="Repetir Senha">
-                                    </div>
+                                    
                                 </div>
-                                <a onclick="cadastrarFuncionario()" class="btn btn-primary btn-user btn-block">
-                                    Cadastrar
-                                </a>
                             </form>
                         </div>
+                    </div>  
 
-                    </div>
-
-                    <!--Consultar Funcionários-->
-                    <div class="card shadow mb-4" id="div_consulta_funcionario">
+                    <div class="card shadow mb-4" id="div_cadastro_funcionario">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Consultar</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Alterar dados do perfil</h6>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Nome</th>
-                                            <th>Email</th>
-                                            <th>Nível de acesso</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Nome</th>
-                                            <th>Email</th>
-                                            <th>Nível de acesso</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody id="exibir_consulta_usuario">
-                                        <tr>
-                                        
-                                        </tr>
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--Atualizar Funcionários-->
-                    <div class="card shadow mb-4" id="div_atualizacao_funcionario">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Atualizar</h6>
-                        </div>
-                        <div class="card-body">
-                            <form class="user">
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="number" class="form-control form-control-user"
-                                            id="id_idUsuarioAtualizar" placeholder="Id" readonly >
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="id_nomeUsuarioAtualizar"
-                                            placeholder="Nome">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="email" class="form-control form-control-user"
-                                            id="id_emailUsuarioAtualizar" placeholder="Email">
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="id_senhaUsuarioAtualizar" placeholder="Senha">
-                                    </div>
-                                </div>
-                                <a onclick="atualizar_usuario()" class="btn btn-primary btn-user btn-block">
-                                    Atualizar
-                                </a>
-                            </form>
-                        </div>
-
-                    </div>
-
-                    <!--Deletar Funcionários-->
-                    <div class="card shadow mb-4" id="div_exclusao_funcionario">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Deletar</h6>
-                        </div>
+                        
                         <div class="card-body">
                             <form class="user">
                                 <div class="form-group">
-                                    <input type="number" class="form-control form-control-user"
-                                        id="id_idUsuarioDeletar" placeholder="Id" readonly>
+                                    <input type="text" class="form-control form-control-user" id="id_nomeUsuarioCadastrar"
+                                        placeholder="Nome">
                                 </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="id_emailUsuarioDeletar"
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="email" class="form-control form-control-user" id="id_emailUsuarioCadastrar"
                                         placeholder="Email">
+                                    </div>
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="password" class="form-control form-control-user"
+                                            id="id_senhaUsuarioCadastrar" placeholder="Senha">
+                                    </div>
+                                  
                                 </div>
-                                <div class="form-group">
-                                    <input type="password" class="form-control form-control-user" id="id_senhaUsuarioDeletar"
-                                        placeholder="Senha">
-                                </div>
-                                <a onclick="deletar_usuario()" class="btn btn-primary btn-user btn-block">
-                                    Deletar
-                                </a>
+                                
+                                    <a onclick="atualizar_usuario()" class="btn btn-primary btn-user btn-block">
+                                        Alterar dados
+                                    </a>
+                            
                             </form>
                         </div>
-
                     </div>
-
                 </div>
                 <!-- /.container-fluid -->
 
@@ -366,7 +287,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Eyes On Server 2023</span>
+                        <span>Copyright &copy; Eyes On Server 2020</span>
                     </div>
                 </div>
             </footer>
@@ -424,234 +345,3 @@
 </body>
 
 </html>
-
-<script>
-    mudar_resolucao();
-    listar_usuario();
-    
-
-    function cadastrarFuncionario(){
-        var nome = id_nomeUsuarioCadastrar.value;
-        var email = id_emailUsuarioCadastrar.value;
-        var senha = id_senhaUsuarioCadastrar.value;
-        var conf_senha = id_confSenhaUsuarioCadastrar.value;
-        var fkEmpresa = sessionStorage.FK_EMPRESA;
-        var cargo;
-        if(cargo1.checked){
-            cargo = cargo1.value;
-        }else if(cargo2.checked){
-            cargo = cargo2.value;
-        }
-        console.log(nome, email,senha, conf_senha, cargo, fkEmpresa)
-        fetch("/user/cadastrar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                nome_html: nome,
-                email_html: email,
-                senha_html: senha,
-                conf_senha_html: conf_senha,
-                fk_empresa: fkEmpresa,
-                cargo_html: cargo
-            })
-        }).then(function (resposta) {
-            
-            if (resposta.ok){
-                alert("Cadastrado com sucesso!");
-                id_nomeUsuarioCadastrar.value = "";
-                id_emailUsuarioCadastrar.value = "";
-                id_senhaUsuarioCadastrar.value = "";
-                id_confSenhaUsuarioCadastrar.value = "";
-                cargo1.checked ? cargo1.checked=false : cargo2.checked = false;
-                exibir_consulta_usuario.innerHTML = "";
-                listar_usuario();
-                
-            }else{
-                throw("Houve um erro ao tentar cadastrar!");
-            }
-        }).catch(function (resposta){
-            console.log(`#ERRO AO CADASTRAR: ${resposta}`);
-        });
-        return false;
-    } 
-
-    function consultar_usuario(){
-        var id_user = id_idUsuarioConsultar.value
-        var nome_user = id_nomeUsuarioConsultar.value
-
-        fetch("/user/consultar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                id_user_html:id_user,
-                nome_user_html:nome_user 
-            })
-        }).then(function (resposta) {
-            if (resposta.ok) {
-                console.log(resposta);
-
-                resposta.json().then(json => {
-                    console.log(JSON.stringify(json))
-                    alert(`${json[0].idusuario} ${json[0].nome} ${json[0].root} ${json[0].email}`)
-                });
-            } else {
-                console.log("Houve um erro ao tentar consultar o usuario!!");
-                resposta.text().then(texto => {
-                    console.error(texto);
-                });
-            }
-        }).catch(function (erro) {
-            console.log(erro);
-        })
-        return false;
-    }
-
-    function atualizar_usuario(){
-        var id_user = id_idUsuarioAtualizar.value
-        var nome_user = id_nomeUsuarioAtualizar.value
-        var senha_user = id_senhaUsuarioAtualizar.value
-        var email_user = id_emailUsuarioAtualizar.value
-
-        fetch("/user/atualizar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                id_html: id_user,
-                nome_html: nome_user,
-                senha_html: senha_user,
-                email_html:email_user
-            })
-        }).then(function (resposta) {
-            
-            if (resposta.ok){
-                alert("Atualização feita!!");
-                exibir_consulta_usuario.innerHTML = ""
-                listar_usuario();
-                id_idUsuarioAtualizar.value= ''
-                id_nomeUsuarioAtualizar.value= ''
-                id_senhaUsuarioAtualizar.value= ''
-                id_emailUsuarioAtualizar.value= '' 
-                id_idUsuarioDeletar.value= '' 
-                id_senhaUsuarioDeletar.value= '' 
-                id_emailUsuarioDeletar.value = ''
-
-            }else{
-                throw("Houve um erro ao tentar atualizar!");
-            }
-        }).catch(function (resposta){
-            console.log(`#ERRO AO ATUALIZAR: ${resposta}`);
-        });
-        return false;
-    }
-
-    function deletar_usuario(){
-        var id_user = id_idUsuarioDeletar.value
-        var senha_user = id_senhaUsuarioDeletar.value
-        var email_user = id_emailUsuarioDeletar.value
-
-        fetch("/user/deletar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                id_html : id_user,
-                senha_html: senha_user,
-                email_html: email_user
-            })
-        }).then(function (resposta) {
-            
-            if (resposta.ok){
-                alert("Usuario deletado!!");
-                exibir_consulta_usuario.innerHTML = ""
-                listar_usuario();
-                id_idUsuarioAtualizar.value= ''
-                id_nomeUsuarioAtualizar.value= ''
-                id_senhaUsuarioAtualizar.value= ''
-                id_emailUsuarioAtualizar.value= '' 
-                id_idUsuarioDeletar.value= '' 
-                id_senhaUsuarioDeletar.value= '' 
-                id_emailUsuarioDeletar.value = ''
-            }else{
-                throw("Houve um erro ao tentar deletar!");
-            }
-        }).catch(function (resposta){
-            console.log(`#ERRO AO DELETAR: ${resposta}`);
-        });
-        return false;
-    }
-
-    function listar_usuario() {
-        fetch("/user/listar").then(function (resposta){
-            if (resposta.ok){
-                resposta.json().then(json => {
-                    console.log(JSON.stringify(json))
-                    for (let i = 0; i < json.length; i++) {
-                        var dados = json[i]
-               
-                        exibir_consulta_usuario.innerHTML += `
-                        <tr>
-                            <td onclick="moverDados(${dados.id_usuario})">${dados.id_usuario}</td>
-                            <td onclick="moverDados(${dados.id_usuario})">${dados.nome}</td>
-                            <td onclick="moverDados(${dados.id_usuario})">${dados.email}</td>
-                            <td onclick="moverDados(${dados.id_usuario})">${dados.cargo}</td>
-                        </tr>`
-                    } 
-                });
-            } else {
-                throw("Houve um erro ao tentar listar os servidores!");
-            }
-        }).catch(function (resposta){
-            console.log(`#ERRO AO LISTAR: ${resposta}`);
-        });
-        return false;
-    }
-
-    function moverDados(id) {
-        fetch(`/user/listar/${id}`).then(function (resposta){
-            if (resposta.ok){
-                resposta.json().then(json => {
-                    console.log(JSON.stringify(json))
-                    for (let i = 0; i < json.length; i++) {
-                        var dados = json[i]
-                        console.log(dados)
-                        id_idUsuarioAtualizar.value = dados.id_usuario;
-                        id_nomeUsuarioAtualizar.value = dados.nome;
-                        id_emailUsuarioAtualizar.value = dados.email;
-                        id_senhaUsuarioAtualizar.value = dados.senha;
-                        id_idUsuarioDeletar.value = dados.id_usuario;
-                        id_emailUsuarioDeletar.value = dados.email;
-                        id_senhaUsuarioDeletar.value = dados.senha;
-                    }
-                });
-            } else {
-                throw("Houve um erro ao tentar listar os servidores!");
-            }
-        }).catch(function (resposta){
-            console.log(`#ERRO AO LISTAR: ${resposta}`);
-        });
-        return false;
-
-    }
-
-    function mudar_resolucao() {
-        if (window.screen.width <= 425) {
-            div_radio.style.flexDirection = "column";
-            div_radio_titulo.style.width = "100%";
-            div_radio_opt.style.width = "100%";
-
-        }
-        console.log(window.screen.width); 
-    }
-</script>
-
-<script>
-    validar_sessao();
-    exibirNome();
-</script>

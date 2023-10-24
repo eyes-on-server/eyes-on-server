@@ -119,6 +119,7 @@ function cadastrarEmpresa(
           console.log(json);
           console.log(JSON.stringify(json));
           console.log(emailUsuario);
+
           form.innerHTML = `
             <div class='div-message'>
                 <h1> 
@@ -131,6 +132,8 @@ function cadastrarEmpresa(
                 <button class='btn btn-enviar'>Login</button>
             </div>`;
         });
+
+        enviarEmail(emailUsuario, senha);
       } else {
         console.log("Houve um erro ao realizar o cadastro!");
         toastr.error(
@@ -146,6 +149,36 @@ function cadastrarEmpresa(
       console.log(erro);
     });
   return false;
+}
+
+function enviarEmail(email, senha) {
+  fetch("/mailer/enviarEmail", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      mailerEmail: email,
+      mailerPassword: senha,
+    }),
+  })
+    .then(function (resposta) {
+      if (resposta.ok) {
+        resposta.json().then((json) => {
+          console.log(JSON.stringify(json));
+        });
+      } else {
+        console.log("Houve um erro ao enviar o email!");
+        toastr.error("Infelizmente, não conseguimos enviar o email!");
+
+        resposta.text().then((texto) => {
+          console.error(texto);
+        });
+      }
+    })
+    .catch(function (erro) {
+      console.log(erro);
+    });
 }
 
 toastr.options = {

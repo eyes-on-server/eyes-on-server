@@ -7,7 +7,7 @@ function info(nome_rota){
     console.log(`\n[Servidor Rota] ${nome_rota}`)
 };
 
-rota.get("/listar", (req, res) => {
+rota.post("/listar", (req, res) => {
     info("Listar");
     servidorController.listar(req, res);
 });

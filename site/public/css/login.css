@@ -18,11 +18,20 @@ header {
   padding: 1rem 3rem 1rem 1rem;
   display: flex;
   justify-content: end;
+  height: 0%;
 }
 
 header img {
   width: 2rem;
   height: auto;
+}
+
+.campos-login{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: baseline;
+  width: 25rem;
 }
 
 .section {
@@ -34,8 +43,8 @@ header img {
 }
 
 .box {
-  width: 20rem;
-  height: auto;
+  width: 30rem;
+  height: 35rem;
 
   padding: 3rem;
 
@@ -66,14 +75,19 @@ header img {
   border-bottom: 1px solid #4b4b4d;
 }
 
+.box h1{
+  font-size: 2rem;
+}
+
 button {
   border: none;
   border-radius: 0.2rem;
   letter-spacing: 1px;
+  font-size: 1.3rem;
 
   cursor: pointer;
 
-  width: 100%;
+  width: 24rem;
   display: inline-block;
 
   padding: 10px 28px 11px 28px;
@@ -89,9 +103,6 @@ button:hover {
   background: #4b4b4d;
 }
 
-.box p {
-  font-size: 10px;
-}
 
 /* Responsividade */
 

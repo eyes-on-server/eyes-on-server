@@ -26,22 +26,21 @@
 
 </head>
 
-<body id="page-top" onLoad="listar_servidor();">
+
+<body id="page-top" onLoad="nomes(), listar_servidor();">
   <!-- Page Wrapper -->
   <div id="wrapper">
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar"
       style="background-image: #32bcad">
+
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboardAnalista.html">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fa-solid fa-eye"></i>
-        </div>
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="./dashboardAnalistaV2.html">
         <div class="sidebar-brand-text mx-3">Analista</div>
       </a>
       <div>
-        <p class="sidebar-brand-text mx-3 user_name" id="user_name"></p>
-        <p class="sidebar-brand-text mx-3 company_name" id="company_name"></p>
+        <p class="sidebar-brand-text mx-3 user_name" id="nome_do_usuario"></p>
+        <p class="sidebar-brand-text mx-3 company_name" id="nome_da_empresa"></p>
       </div>
 
       <!-- Divider -->
@@ -49,7 +48,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="dashboardAnalista.html">
+        <a class="nav-link" href="dashboardAnalistaV2.html">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -125,7 +124,6 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
           <!-- Page Heading -->
-
 
           <!--Consultar Servidores-->
           <div class="card shadow mb-4" id="div_consulta_servidor">
@@ -225,12 +223,25 @@
 
         <script>
 
-          var nomePessoa = sessionStorage.NOME_USER
-          var nomeEmpresa = sessionStorage.NOME_FANTASIA
+          var fk = sessionStorage.FK_EMPRESA
 
+          function nomes() {
+            nome_do_usuario.innerHTML = sessionStorage.NOME_USER;
+            nome_da_empresa.innerHTML = sessionStorage.NOME_FANTASIA;
+
+          }
 
           function listar_servidor() {
-            fetch("/servidor/listar").then(function (resposta) {
+            fetch("/servidor/listar", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                fkEmpresa_html: fk,
+              })
+            }).then(function (resposta) {
+
               if (resposta.ok) {
                 resposta.json().then(json => {
                   console.log(JSON.stringify(json))
@@ -257,22 +268,7 @@
             return false;
           }
 
-
-
         </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         <!-- /.container-fluid -->
       </div>
@@ -317,7 +313,7 @@
           <button class="btn btn-secondary" type="button" data-dismiss="modal">
             Cancelar
           </button>
-          <a class="btn btn-primary" href="login.html">Sair</a>
+          <a class="btn btn-primary" href="../login.html">Sair</a>
         </div>
       </div>
     </div>

@@ -6,7 +6,8 @@ function info(nome_funcao, info_query) {
 }
 
 //Funções para exportar
-function listar() {
+function listar(fkEmpresa) {
+
 
   var query = `
   SELECT
@@ -19,7 +20,7 @@ function listar() {
   FROM Eyes_On_Server.Servidor AS s
   LEFT JOIN Eyes_On_Server.Componente AS c
   ON FIND_IN_SET(c.id_componente, REPLACE(s.componentes, ' ', ''))
-  WHERE s.fk_empresa = 3
+  WHERE s.fk_empresa = ${fkEmpresa}
   GROUP BY s.id_servidor, s.nome_servidor, s.so_servidor, s.descricao, s.local_servidor;
   `;
 
