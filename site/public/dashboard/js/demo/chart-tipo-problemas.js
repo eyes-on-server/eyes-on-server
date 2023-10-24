@@ -12,8 +12,8 @@ var graficoTipoProblemas = new Chart(ctx, {
     datasets: [
       {
         data: [55, 30, 15],
-        backgroundColor: ["#186960", "#2d968a", "#3fccbc"],
-        hoverBackgroundColor: ["#04695d", "#069181", "#09b8a4"],
+        backgroundColor: ["#722f37", "#d16f2e", "#c29836"],
+        hoverBackgroundColor: ["#963e48", "#f78336", "#f0ba3e"],
         hoverBorderColor: "rgba(234, 236, 244, 1)",
       },
     ],
