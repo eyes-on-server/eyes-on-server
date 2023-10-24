@@ -2,6 +2,8 @@
 nome_do_usuario.innerHTML = sessionStorage.NOME_USER;
 nome_da_empresa.innerHTML = sessionStorage.NOME_FANTASIA;
 
+var atualizacao;
+
 // Variáveis para receber os dados do gráfico
 var valoresUsoCPU = [];
 var valoresUsoDisco = [];
@@ -141,6 +143,16 @@ function limparFiltros() {
 function setarDados(id_servidor) {
   // Verificação para que o id_server não passe para outras funções como null
   if (id_servidor != "null") {
+    if (atualizacao) {
+      clearInterval(atualizacao);
+    }
+
+    // inserir set time out
+    atualizacao = setInterval(() => {
+      graficoDeLinha(id_servidor);
+      console.log("atualizou");
+    }, 5000);
+
     graficoDeLinha(id_servidor);
     dadosAoVivo(id_servidor);
     informacoesServidor(id_servidor);
@@ -186,18 +198,36 @@ function graficoDeLinha(id_servidor) {
             }
 
             if (json[i].nome_componente == "Cpu") {
-              valoresUsoCPU.unshift(parseFloat(json[i].valor_registro));
-              recomendacoes(parseFloat(json[i].valor_registro), "CPU");
+              if (parseFloat(json[i].valor_registro) > 100.0) {
+                var valorRegistro = 100;
+                valoresUsoCPU.unshift(valorRegistro);
+                recomendacoes(parseFloat(json[i].valor_registro), "CPU");
+              } else {
+                valoresUsoCPU.unshift(parseFloat(json[i].valor_registro));
+                recomendacoes(parseFloat(json[i].valor_registro), "CPU");
+              }
             }
 
             if (json[i].nome_componente == "Disco") {
-              valoresUsoDisco.unshift(parseFloat(json[i].valor_registro));
-              recomendacoes(parseFloat(json[i].valor_registro), "Disco");
+              if (parseFloat(json[i].valor_registro) > 100.0) {
+                var valorRegistro = 100;
+                valoresUsoDisco.unshift(valorRegistro);
+                recomendacoes(parseFloat(json[i].valor_registro), "Disco");
+              } else {
+                valoresUsoDisco.unshift(parseFloat(json[i].valor_registro));
+                recomendacoes(parseFloat(json[i].valor_registro), "Disco");
+              }
             }
 
             if (json[i].nome_componente == "Memoria") {
-              valoresUsoMemoria.unshift(parseFloat(json[i].valor_registro));
-              recomendacoes(parseFloat(json[i].valor_registro), "Memoria");
+              if (parseFloat(json[i].valor_registro) > 100.0) {
+                var valorRegistro = 100;
+                valoresUsoMemoria.unshift(valorRegistro);
+                recomendacoes(parseFloat(json[i].valor_registro), "Memoria");
+              } else {
+                valoresUsoMemoria.unshift(parseFloat(json[i].valor_registro));
+                recomendacoes(parseFloat(json[i].valor_registro), "Memoria");
+              }
             }
           }
         });
@@ -309,25 +339,25 @@ function recomendacoes(valor, componente) {
   // Verificações da CPU
   if (valor > 90.0 && componente == "CPU") {
     recomendacaoCPU.innerHTML =
-      "Sobre sua CPU, notamos um uso maior que 90%, recomendamos que ela seja melhorada!";
+      "<b>Sobre sua CPU, notamos um uso maior que 90%, recomendamos que ela seja melhorada!</b>";
     previsaoCPU.innerHTML =
-      "Com o percentual de mais de 90% de uso da sua CPU, estimamos que uma falha poderá ocorrer em 1 semana!";
+      "<b>Com o percentual de mais de 90% de uso da sua CPU, estimamos que uma falha poderá ocorrer em 1 semana!</b>";
   }
 
   // Verificações do Disco
   if (valor > 90.0 && componente == "Disco") {
     recomendacaoDisco.innerHTML =
-      "Sobre seu Disco, notamos um uso maior que 90%, recomendamos que ele seja melhorado";
+      "<b>Sobre seu Disco, notamos um uso maior que 90%, recomendamos que ele seja melhorado</b>";
     previsaoCPU.innerHTML =
-      "Com o percentual de mais de 90% de uso do seu Disco, estimamos que uma falha poderá ocorrer em 1 semana!";
+      "<b>Com o percentual de mais de 90% de uso do seu Disco, estimamos que uma falha poderá ocorrer em 1 semana!</b>";
   }
 
   // Verificações da memória
   if (valor > 90.0 && componente == "Memoria") {
     recomendacaoMemoria.innerHTML =
-      "Sobre sua Memoria, notamos um uso maior que 90%, recomendamos que ela seja melhorada";
+      "<b>Sobre sua Memoria, notamos um uso maior que 90%, recomendamos que ela seja melhorada</b>";
     previsaoCPU.innerHTML =
-      "Com o percentual de mais de 90% de uso da sua Memória, estimamos que uma falha poderá ocorrer em 1 semana!";
+      "<b>Com o percentual de mais de 90% de uso da sua Memória, estimamos que uma falha poderá ocorrer em 1 semana!</b>";
   }
 }
 
