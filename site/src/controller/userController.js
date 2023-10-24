@@ -25,6 +25,7 @@ function listar(req, res) {
     });
 }
 
+
 function listarPorFuncionario(req, res) {
   info("listarFuncionario()");
   var idUsuario = req.params.id
@@ -96,6 +97,36 @@ function login(req, res) {
 
   userModel
     .login(email, senha)
+    .then(function (resultado) {
+      if (resultado.length == 1) {
+        console.log(resultado);
+        res.json(resultado[0]);
+      } else if (resultado.length == 0) {
+        res.status(403).send("Email e/ou senha inválido(s)");
+      } else {
+        res.status(403).send("Mais de um usuário com o mesmo login");
+      }
+    })
+    .catch(function (erro) {
+      console.log(erro);
+      console.log(erro.sqlMessage);
+      res.status(500).json(erro.sqlMessage);
+    });
+}
+
+function exibirFuncionario(req, res){
+  info("exibirFuncionario()");
+  var email = req.body.emailServer;
+  var senha = req.body.senhaServer;
+
+  if (email == undefined) {
+    res.status(400).send("Seu email está indefinido!");
+  } else if (senha == undefined) {
+    res.status(400).send("Sua senha está indefinida!");
+  }
+
+  userModel
+    .exibirFuncionario(email, senha)
     .then(function (resultado) {
       if (resultado.length == 1) {
         console.log(resultado);

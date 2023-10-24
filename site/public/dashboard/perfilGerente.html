@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Gestão de Funcionários</title>
+    <title>Perfil de Usuário</title>
 
     <link rel="shortcut icon" href="../assets/img/logo/logo.png" type="image/x-icon" />
     
@@ -39,7 +39,7 @@
             <!-- Sidebar - Brand -->
             <a
             class="sidebar-brand d-flex align-items-center justify-content-center"
-            href="#"
+            href="./perfilGerente.html"
             >
             <div class="sidebar-brand-icon rotate-n-15">
               <i class="fa-solid fa-eye"></i>
@@ -207,42 +207,30 @@
                         <div class="card-body">
                             <form class="user">
                                 <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="id_nomeUsuarioCadastrar"
-                                        placeholder="Nome">
+                                    <label for="">Nome</label>
+                                    <div id="nomeEmpresa" style="color: #2273B5;"></div>
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="email" class="form-control form-control-user" id="id_emailUsuarioCadastrar"
-                                        placeholder="Email">
+                                        <label for="">Email</label>
+                                        <div id="emailEmpresa" style="color: #2273B5;"></div>
+                                        
                                     </div>
-                                    <div class="col-sm-6" id="div_radio" style="display: flex; align-items: center; padding: 0rem 1.5rem;">
-                                        <div id="div_radio_titulo" style="width: 30%;">
-                                            Nível de acesso:
-                                        </div>
-                                        <div id="div_radio_opt" style="display: flex; width: 70%; justify-content: space-evenly;">
-                                            <div>
-                                                <!-- <input type="radio" id="cargo1" name="cargo" value="0"> -->
-                                                <label for="cargo1" style="margin-bottom: 0;">Gerente</label>
-                                            </div>
-                                            <!-- <div>
-                                                <input type="radio" id="cargo2" name="cargo" value="1">
-                                                <label for="cargo2" style="margin-bottom: 0;">Analista</label>
-                                            </div> -->
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="">Nível de acesso</label>
+                                        <div id="nivelAcesso" style="color: #2273B5;"></div>
                                     </div>
+                                   
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="id_senhaUsuarioCadastrar" placeholder="Senha">
-                                    </div>
-                                    
+                                <div class="form-group">
+                                    <label for="">Senha</label>
+                                    <div id="senhaUsario" style="color: #2273B5;"></div>
                                 </div>
                             </form>
                         </div>
                     </div>  
 
-                    <div class="card shadow mb-4" id="div_cadastro_funcionario">
+                    <!-- <div class="card shadow mb-4" id="div_cadastro_funcionario">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Alterar dados do perfil</h6>
                         </div>
@@ -271,7 +259,7 @@
                             
                             </form>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- /.container-fluid -->
 
@@ -337,6 +325,12 @@
     <script src="js/demo/datatables-demo.js"></script>
 
 
+    <script>
+        nomeEmpresa.innerHTML = sessionStorage.getItem('NOME_USER');
+        emailEmpresa.innerHTML = sessionStorage.getItem('EMAIL_USER');
+        senhaUsario.innerHTML = sessionStorage.getItem('SENHA_USUARIO');
+        nivelAcesso.innerHTML = sessionStorage.getItem('CARGO');
+    </script>
 </body>
 
 </html>

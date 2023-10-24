@@ -46,12 +46,13 @@
         <!-- Sidebar - Brand -->
         <a
         class="sidebar-brand d-flex align-items-center justify-content-center"
-        href="#"
+        href="./perfilGerente.html"
         >
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fa-solid fa-eye"></i>
+         
         </div>
-        <div class="sidebar-brand-text mx-3">Dashboard do Gerente</div>
+        <div class="sidebar-brand-text mx-3"> Gerente</div>
       </a>
       <div>
         <p class="sidebar-brand-text mx-3 user_name" id="user_name">
@@ -501,6 +502,10 @@
 
 </html>
 <script>
+
+user_name.innerHTML = sessionStorage.NOME_USER;
+company_name.innerHTML = sessionStorage.NOME_FANTASIA;
+
     
     // Variáveis Globais
     var dataSistema = "";

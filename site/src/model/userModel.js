@@ -93,6 +93,23 @@ function deletar(id, senha, email) {
   return bancoDados.executar(query);
 }
 
+function exibirFuncionario(email, senha){
+  var instrucao = `
+  SELECT 
+    id_usuario,
+	  u.nome,
+    u.email,
+    u.cargo,
+    l.senha
+  FROM Eyes_On_Server.Usuario u 
+	  join Eyes_On_Server.Empresa e on u.fk_empresa = e.id_empresa
+	  join Eyes_On_Server.Login l on l.fk_usuario = u.id_usuario
+    WHERE u.email = "${email}" AND l.senha = "${senha}";  
+    `;
+    return bancoDados.executar(instrucao);
+  
+}
+
 module.exports = {
   listar,
   listarPorFuncionario,
@@ -101,4 +118,5 @@ module.exports = {
   consultar,
   atualizar,
   deletar,
+  exibirFuncionario
 };

@@ -22,10 +22,12 @@ rota.post("/cadastrar", (req, res) => {
   userController.cadastrar(req, res);
 });
 
-
-
 rota.post("/login", (req, res) => {
   userController.login(req, res);
+});
+
+rota.post("/exibirFuncionario", (req, res) => {
+  userController.exibirFuncionario(req, res);
 });
 
 rota.post("/consultar", (req, res) => {

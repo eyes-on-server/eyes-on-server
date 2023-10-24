@@ -40,6 +40,7 @@ function entrar() {
 
           sessionStorage.ID_LOGIN = json.id_usuario;
           sessionStorage.NOME_USER = json.nome;
+          sessionStorage.SENHA_USUARIO = json.senha;  
           sessionStorage.EMAIL_USER = json.email;
           sessionStorage.CARGO = json.cargo == 1 ? "Gerente" : "Analista";
           sessionStorage.NOME_FANTASIA = json.nome_fantasia;
