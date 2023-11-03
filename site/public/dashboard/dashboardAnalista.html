@@ -236,7 +236,7 @@
             <!-- Segunda linha da dashboard -->
             <div class="row">
               <div class="col-xl-20 col-lg-12">
-                <div class="card shadow mb-4">
+                <div class="card shadow mb-4 falha" >
                   <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                   >
@@ -245,9 +245,47 @@
                     </h6>
                   </div>
                   <div class="card-body card_da_linha03" id="previsao" style="color: #000">
-                    <p id="previsaoCPU"></p>
-                    <p id="previsaoDisco"></p>
-                    <p id="previsaoMemoria"></p>
+                    <div class="calendario">
+                      <div class="mes">
+                        <h5>Mês: <span id="mesAtual">Novembro</span></h5>
+                      </div>
+                      <div class="diasDaSemana">
+                        <span>Dom</span>
+                        <span>Seg</span>
+                        <span>Ter</span>
+                        <span>Qua</span>
+                        <span>Qui</span>
+                        <span>Sex</span>
+                        <span>Sab</span>
+                      </div>
+                      <div class="dias">
+
+                      </div>
+                    </div>
+
+                    <div class="texto_card_l3">
+                      <div class="icone">
+                        <h5>Futuros picos de transações</h5>  
+                        <div class="futurasTransacoes"></div>
+                       
+                      </div>
+                      <div class="icone">
+                        <h5>Possiveis dias de queda: </h5>
+                        <div class="futurasQuedas"></div>
+                       
+                      </div>
+
+                      <div>
+                        <h5>Recomendações:</h5>
+                        <p id="previsaoCPU"></p>
+                        <hr>
+                        <p id="previsaoDisco"></p>
+                        <hr>
+                        <p id="previsaoMemoria"></p>
+                        <hr>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
               </div>

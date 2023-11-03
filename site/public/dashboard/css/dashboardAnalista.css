@@ -42,6 +42,50 @@
   background-color: #32bcad;
 }
 
+.falha {
+  min-height: 40vh;
+}
+.calendario {
+  display: flex;
+  flex-direction: column;
+
+  width: 50%;
+}
+
+.diasDaSemana {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #000;
+  border-bottom: #32bcad;
+  border-radius: 10px 10px 0px 0px;
+  justify-content: space-around;
+}
+
+.diaDoCalendario {
+  min-width: 14.2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 0px 10px 0px;
+
+  border-radius: 50px;
+}
+
+.dias {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 0 0 10px 10px;
+  border: 1px solid #000;
+  border-top: #32bcad;
+}
+.mes {
+  padding-left: 10px;
+}
+
+.vazio {
+  background-color: transparent;
+}
 /*  Da v2 */
 
 .row {
@@ -77,6 +121,39 @@ select {
 
 .card_da_linha03 {
   height: 80px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.texto_card_l3 {
+  width: 50%;
+
+  padding: 30px;
+}
+
+.icone {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+
+  text-align: center;
+
+  background-color: aqua;
+}
+
+.futurasTransacoes {
+  background-color: #32bcad;
+  width: 30px;
+  height: 30px;
+  border-radius: 50px;
+}
+
+.futurasQuedas {
+  background-color: #ff6a00;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }
 
 .card_da_linha04 {
