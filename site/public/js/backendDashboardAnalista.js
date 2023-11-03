@@ -22,7 +22,7 @@ function buscarSetores() {
   var query = `SELECT local_servidor, nome_fantasia FROM Servidor AS s JOIN Empresa AS e ON e.id_Empresa = ${sessionStorage.FK_EMPRESA};`;
 
   // Limpar as options quando a função limpar for acionada
-  select_setores.innerHTML = `<option value="null">Setores</option>`;
+  select_setores.innerHTML = `<option value="" selected disabled>Setores</option>`;
 
   fetch("/graficosAnalista/buscarInformacoes", {
     method: "POST",
@@ -65,7 +65,7 @@ function buscarServidores(valueSelectHTML) {
   var query = `SELECT id_servidor, nome_servidor FROM Servidor WHERE local_servidor = "${valueSelectHTML}";`;
 
   // Limpar as options quando trocar de setor
-  select_servidores.innerHTML = `<option value="null">Servidor</option>`;
+  select_servidores.innerHTML = `<option value="" selected disabled>Servidores</option>`;
 
   fetch("/graficosAnalista/buscarInformacoes", {
     method: "POST",

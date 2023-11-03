@@ -1,5 +1,7 @@
+<!-- Dashboard pessoal: Paulo Reis de Marcena -->
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -42,10 +44,10 @@
         </a>
         <div>
           <p class="sidebar-brand-text mx-3 user_name" id="nome_do_usuario">
-            Tetse
+
           </p>
           <p class="sidebar-brand-text mx-3 company_name" id="nome_da_empresa">
-            Teste
+
           </p>
         </div>
 
@@ -156,13 +158,20 @@
               <!-- Segundo header da página -->
               <div class="header-dash align-items-center justify-content-between">
                 <select class="col-xl-7 col-lg-7" name="" id="select_setores" onchange="buscarServidores(this.value)">
-                  <option value="null">Setores</option>
+                  <option value="" selected disabled>Setores</option>
                 </select>
                 <select class="col-xl-7 col-lg-7" name="" id="select_servidores" onchange="setarDados(this.value)" >
-                  <option value="null">Servidor</option>
+                  <option value="" selected disabled>Servidores</option>
                 </select>
               </div>
-              <button class="btnLimparFiltros" onclick="limparFiltros()">Limpar filtros</button>
+
+              <div class="buttons-row01 row">
+                <div>
+                  <label for="alertas">Ativar alertas</label>
+                  <input type="checkbox" name="alertas" id="alertas" value="on">
+                </div>
+                <button class="btnLimparFiltros" onclick="limparFiltros()">Limpar filtros</button>
+              </div>
             </div>
 
             <!-- Primeira linha de gráficos -->
