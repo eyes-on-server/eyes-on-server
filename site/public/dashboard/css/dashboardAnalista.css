@@ -136,8 +136,13 @@ select {
   height: 80px;
 }
 
+<<<<<<< HEAD
 .alertas-laterais {
   background-color: #000;
+=======
+#recomendacoesHTML {
+  height: 200px;
+>>>>>>> d6fa0c5da09b78e956180f3cfec1e5530f872619
 }
 
 .texto_card_l3 {
