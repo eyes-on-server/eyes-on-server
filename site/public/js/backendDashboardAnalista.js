@@ -490,33 +490,23 @@ function converterHorario(horario) {
   return dataHoraBrasil;
 }
 
-// Funções iniciais
-buscarSetores();
-
 function calendario() {
   var el = document.querySelector(".dias");
   var now = new Date();
-  var dataAtual = now.toLocaleString();
   var dia = now.getDay();
   var mes = now.getMonth();
 
-  // Criando a string da data
-  // let data = `2023-${mes + 1}-01T00:00:00`;
   for (let i = 1; i <= 30; i++) {
     if (i < 10) {
       let data = `2023-${mes + 1}-0${i}T00:00:00`;
       var now = new Date(data);
-      // console.log(data);
     } else {
       let data = `2023-${mes + 1}-${i}T00:00:00`;
       var now = new Date(data);
-      // console.log(data);
     }
 
-    var dataAtual = now.toLocaleString();
     var dia = now.getDay();
     var mes = now.getMonth();
-    console.log(i);
 
     if (i == 1) {
       if (dia == 6) {
@@ -555,4 +545,6 @@ function calendario() {
   }
 }
 
+// Funções iniciais
+buscarSetores();
 calendario();
