@@ -546,5 +546,6 @@ function calendario() {
 }
 
 // Funções iniciais
+atualizarGraficoDeLinha();
 buscarSetores();
 calendario();
