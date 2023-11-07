@@ -1,10 +1,11 @@
 .row01 {
-  margin-bottom: 30px;
-  padding-right: 25px;
+  padding: 25px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  flex-wrap: wrap;
 }
 
 .buttons-row01 {
@@ -17,7 +18,7 @@
 
 .buttons-row01 label {
   color: black;
-  font-size: 20px;
+  font-size: 15px;
   cursor: pointer;
 }
 
@@ -43,13 +44,14 @@
 }
 
 .falha {
-  min-height: 40vh;
+  height: 60vh;
 }
 .calendario {
   display: flex;
   flex-direction: column;
 
-  width: 50%;
+  height: 50%;
+  height: 40vh;
 }
 
 .diasDaSemana {
@@ -86,6 +88,12 @@
 .vazio {
   background-color: transparent;
 }
+
+.card_da_linha03 {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 /*  Da v2 */
 
 .row {
@@ -119,17 +127,8 @@ select {
   height: 200px;
 }
 
-.card_da_linha03 {
-  height: 80px;
-
-  display: flex;
-  justify-content: space-between;
-}
-
 .texto_card_l3 {
-  width: 50%;
-
-  padding: 30px;
+  width: auto;
 }
 
 .icone {
@@ -138,12 +137,11 @@ select {
   margin-bottom: 25px;
 
   text-align: center;
-
-  background-color: aqua;
 }
 
 .futurasTransacoes {
   background-color: #32bcad;
+
   width: 30px;
   height: 30px;
   border-radius: 50px;
@@ -158,4 +156,33 @@ select {
 
 .card_da_linha04 {
   height: 360px;
+}
+
+@media (max-width: 990px) {
+  .row01 {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .buttons-row01 {
+    width: 100%;
+    margin-top: 15px;
+    flex-wrap: nowrap;
+    padding: 25px;
+  }
+
+  .header-dash {
+    width: 100%;
+  }
+}
+
+@media (max-width: 545px) {
+  .header-dash {
+    flex-wrap: wrap;
+  }
+
+  .header-dash select {
+    margin-bottom: 15px;
+  }
 }
