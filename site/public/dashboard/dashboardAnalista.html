@@ -178,8 +178,8 @@
             <div class="row">
 
               <!-- Div para o gráfico de linhas -->
-              <div class="col-xl-7 col-lg-7 ">
-                <div class="card shadow mb-4">
+              <div class="col-xl-7 col-lg-7">
+                <div class="card shadow mb-4 grafico-de-linha">
                   <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                   >
@@ -197,10 +197,10 @@
               </div>
 
               <!-- Div para Exibir os alertas e aviso -->
-              <div class="col-xl-5 col-lg-5 alertas-laterais">
+              <div class="col-xl-5 col-lg-5">
 
                 <!-- Div para os alertas  -->
-                <div class="card shadow mb-4 ">
+                <div class="card shadow mb-4 alertas" >
                     <div
                       class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                     >
@@ -209,12 +209,12 @@
                       </h6>
                     </div>
                   <div class="card-body cards_da_linha_02">
-                    <h1 id="quantidadeDeAlertas"></h1>
+                    <h1 id="quantidadeDeAlertas">99</h1>
                   </div>                 
                 </div>
 
                 <!-- Div para a recomendação -->
-                <div class="card shadow mb-4">
+                <div class="card shadow mb-4 recomendacoes">
                     <div
                       class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                     >
@@ -222,10 +222,10 @@
                         Recomendações
                       </h6>
                     </div>
-                  <div class="card-body cards_da_linha_02" id="recomendacoesHTML" style="color: #000">
-                    <p id="recomendacaoCPU"></p>
-                    <p id="recomendacaoDisco"></p>
-                    <p id="recomendacaoMemoria"></p>
+                  <div class="card-body card_recomendacao" id="recomendacoesHTML" style="color: #000">
+                    <p id="recomendacaoCPU">CPU: </p>
+                    <p id="recomendacaoDisco">Disco:</p>
+                    <p id="recomendacaoMemoria" class="recomendacaoMemoria">Memoria: </p>
                   </div>
                 </div>
 
@@ -423,9 +423,8 @@
     <script src="vendor/jquery/jquery.min.js" defer></script>
     <!-- <script src="../js/backendDashboardAnalista.js"></script> -->
     <script src="vendor/jquery-easing/jquery.easing.min.js" defer></script>
-<<<<<<< HEAD
+
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
     <script src="../js/script_Dash_Analista.js" defer></script>
-=======
+
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
->>>>>>> d6fa0c5da09b78e956180f3cfec1e5530f872619

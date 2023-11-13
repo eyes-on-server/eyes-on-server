@@ -133,16 +133,22 @@ select {
 }
 
 .cards_da_linha_02 {
-  height: 80px;
+  max-height: auto;
+  min-height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-<<<<<<< HEAD
-.alertas-laterais {
-  background-color: #000;
-=======
-#recomendacoesHTML {
-  height: 200px;
->>>>>>> d6fa0c5da09b78e956180f3cfec1e5530f872619
+.card_recomendacao {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.recomendacaoMemoria {
+  border-bottom: 10px !important;
 }
 
 .texto_card_l3 {
@@ -174,6 +180,18 @@ select {
 
 .card_da_linha04 {
   height: 360px;
+}
+
+.alertas {
+  height: 44%;
+}
+
+.recomendacoes {
+  height: 50%;
+}
+
+.grafico-de-linha {
+  height: 100%;
 }
 
 @media (max-width: 990px) {
