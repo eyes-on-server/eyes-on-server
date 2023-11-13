@@ -228,75 +228,58 @@
                     <p id="recomendacaoMemoria" class="recomendacaoMemoria">Memoria: </p>
                   </div>
                 </div>
-
-
               </div>
             </div>
 
             <!-- Segunda linha da dashboard -->
-            <!-- <div class="row">
-              <div class="col-xl-20 col-lg-12">
-                <div class="card shadow mb-4 falha" >
+            <div class="row">
+              <div class="col-xl-12 col-lg-10">
+                <div class="card shadow mb-12">
                   <div
-                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
-                  >
-                    <h6 class="m-0 font-weight-bold text-primary">
-                      Previsão de falha
-                    </h6>
-                  </div>
-                  <div class="card-body card_da_linha03" id="previsao" style="color: #000">
+                      class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+                    >
+                      <h6 class="m-0 font-weight-bold text-primary">
+                        Alertas:
+                      </h6>
+                    </div>
+                    <div class="card-body carrosel-de-alertas">
 
+                    
+                      <div class="testeDiv">
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">CPU:</h6>
+                        </div>
+                        <p></p>
 
-                    <div class="calendario">
-                      <div class="mes">
-                        <h5>Mês: <span id="mesAtual">Novembro</span></h5>
+                    </div>
+                    
+                      <div class="testeDiv">
+                        <div
+                      class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+                    >
+                      <h6 class="m-0 font-weight-bold text-primary">
+                        Memória:
+                      </h6>
+                    </div>
+                    <p></p>
                       </div>
-                      <div class="diasDaSemana">
-                        <span>Dom</span>
-                        <span>Seg</span>
-                        <span>Ter</span>
-                        <span>Qua</span>
-                        <span>Qui</span>
-                        <span>Sex</span>
-                        <span>Sab</span>
-                      </div>
-                      <div class="dias">
-
+                      <div class="testeDiv">
+                        <div
+                      class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
+                    >
+                      <h6 class="m-0 font-weight-bold text-primary">
+                        Disco:
+                      </h6>
+                    </div>
+                    <p></p>
                       </div>
                     </div>
-
-                    <div class="texto_card_l3">
-                      <div class="icone">
-                        <h5>Futuros picos de transações</h5>  
-                        <div class="futurasTransacoes"></div>
-                       
-                      </div>
-                      <div class="icone">
-                        <h5>Possiveis dias de queda: </h5>
-                        <div class="futurasQuedas"></div>
-                       
-                      </div>
-
-                      <div>
-                        <h5>Recomendações:</h5>
-                        <p id="previsaoCPU"></p>
-                        <hr>
-                        <p id="previsaoDisco"></p>
-                        <hr>
-                        <p id="previsaoMemoria"></p>
-                        <hr>
-                      </div>
-                    </div>
-
-                  </div>
                 </div>
               </div>
-            </div> -->
+            </div>
 
             <!-- Terceira linha da dashboard -->
             <div class="row">
-
-                <!-- Div para o gráfico de linhas -->
                 <div class="col-xl-5 col-lg-7">
                   <div class="card shadow mb-4">
                     <div
@@ -417,14 +400,9 @@
     <!-- Aqui a função defer não se faz tão necessária, mas é bom ter -->
     <script src="vendor/chart.js/Chart.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-
+    <script src="../js/script_Dash_Analista.js" defer></script>
     <script src="js/sb-admin-2.min.js" defer></script>
     <script src="vendor/jquery/jquery.min.js" defer></script>
-    <!-- <script src="../js/backendDashboardAnalista.js"></script> -->
     <script src="vendor/jquery-easing/jquery.easing.min.js" defer></script>
-
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
-    <script src="../js/script_Dash_Analista.js" defer></script>
-
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
