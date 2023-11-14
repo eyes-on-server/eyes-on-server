@@ -50,41 +50,35 @@
   display: flex;
   flex-direction: column;
   height: auto;
-}
 
-.diasDaSemana {
-  height: 40px;
-  display: flex;
+  gap: 20px;
   align-items: center;
-  border: 1px solid #000;
-  border-bottom: #32bcad;
-  border-radius: 10px 10px 0px 0px;
-  justify-content: space-around;
 }
 
-.diaDoCalendario {
-  min-width: 14.2%;
+.calendario p {
+  color: #000;
+  padding-top: 1px;
+}
+
+.calendario-desc {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 10px 0px 10px 0px;
-
-  border-radius: 50px;
 }
 
-.dias {
-  display: flex;
-  flex-wrap: wrap;
-  border-radius: 0 0 10px 10px;
-  border: 1px solid #000;
-  border-top: #32bcad;
-}
-.mes {
-  padding-left: 10px;
+.icone {
+  background-color: #ffe6005d;
+  border: #ffe600 solid 1px;
+
+  height: 25px;
+  width: 25px;
+
+  border-radius: 50%;
+
+  margin-right: 5px;
 }
 
-.vazio {
-  background-color: transparent;
+.jsCalendar-selected {
+  border-color: #ffe600 !important;
+  background-color: #ffe6005d !important;
 }
 
 .card_da_linha03 {

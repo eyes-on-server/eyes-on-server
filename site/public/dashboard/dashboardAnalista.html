@@ -26,6 +26,25 @@
     />
     <link href="css/sb-admin-2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="./css/dashboardAnalista.css">
+
+
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.4/source/jsCalendar.min.js"
+      integrity="sha384-0LaRLH/U5g8eCAwewLGQRyC/O+g0kXh8P+5pWpzijxwYczD3nKETIqUyhuA8B/UB"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.4/source/jsCalendar.min.css"
+      integrity="sha384-44GnAqZy9yUojzFPjdcUpP822DGm1ebORKY8pe6TkHuqJ038FANyfBYBpRvw8O9w"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.4/source/jsCalendar.lang.pt.js"
+      integrity="sha384-NF3X/E9s0p9PqeJxs+kx2xFHOAfiuNlGpIiwzLBET1Y0pejnfmOm5DJhn6ioTpCr"
+      crossorigin="anonymous"
+    ></script>
   </head>
 
   <body id="page-top">
@@ -279,17 +298,27 @@
             </div>
 
             <div class="row">
-              <div class="col-xl-12 col-lg-7">
+              <div class="col-xl-5 col-lg-7">
                 <div class="card shadow mb-4">
                   <div
                       class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                     >
                       <h6 class="m-0 font-weight-bold text-primary">
-                        Previsão de picos:
+                        Fator externo:
                       </h6>
                     </div>
 
-                    <div class="card-body calendario"></div>
+                    <div class="card-body calendario">
+                      <div id="my-calendar" data-language="pt"></div>
+                      <div class="calendario-desc">
+
+                        <div class="icone"></div>
+                        <p>
+                          Dias de pagamento
+                        </p>
+                      </div>
+
+                    </div>
 
 
                 </div>
@@ -425,3 +454,81 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js" defer></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+
+    <script type="text/javascript">
+      // Get the element
+      var element = document.getElementById("my-calendar");
+      // Create the calendar
+      var myCalendar = jsCalendar.new(element);
+      // Get the buttons
+
+      function diasDePagamento(){
+
+      myCalendar.select(["02/10/2023"]);
+      myCalendar.select(["03/10/2023"]);
+      myCalendar.select(["04/10/2023"]);
+      myCalendar.select(["05/10/2023"]);
+      myCalendar.select(["06/10/2023"]);
+    
+      myCalendar.select(["16/10/2023"]);
+      myCalendar.select(["17/10/2023"]);
+      myCalendar.select(["18/10/2023"]);
+      myCalendar.select(["19/10/2023"]);
+      myCalendar.select(["20/10/2023"]);
+    
+      myCalendar.select(["01/11/2023"]);
+      myCalendar.select(["02/11/2023"]);
+      myCalendar.select(["03/11/2023"]);
+      myCalendar.select(["06/11/2023"]);
+      myCalendar.select(["07/11/2023"]);
+    
+      myCalendar.select(["15/11/2023"]);
+      myCalendar.select(["16/11/2023"]);
+      myCalendar.select(["17/11/2023"]);
+      myCalendar.select(["20/11/2023"]);
+      myCalendar.select(["21/11/2023"]);
+    
+      myCalendar.select(["01/12/2023"]);
+      myCalendar.select(["04/12/2023"]);
+      myCalendar.select(["05/12/2023"]);
+      myCalendar.select(["06/12/2023"]);
+      myCalendar.select(["07/12/2023"]);
+    
+      myCalendar.select(["15/12/2023"]);
+      myCalendar.select(["18/12/2023"]);
+      myCalendar.select(["19/12/2023"]);
+      myCalendar.select(["20/12/2023"]);
+      myCalendar.select(["21/12/2023"]);
+    
+      myCalendar.select(["01/01/2024"]);
+      myCalendar.select(["02/01/2024"]);
+      myCalendar.select(["03/01/2024"]);
+      myCalendar.select(["04/01/2024"]);
+      myCalendar.select(["05/01/2024"]);
+    
+      myCalendar.select(["15/01/2024"]);
+      myCalendar.select(["16/01/2024"]);
+      myCalendar.select(["17/01/2024"]);
+      myCalendar.select(["18/01/2024"]);
+      myCalendar.select(["19/01/2024"]);
+    
+      myCalendar.select(["01/02/2024"]);
+      myCalendar.select(["02/02/2024"]);
+      myCalendar.select(["05/02/2024"]);
+      myCalendar.select(["06/02/2024"]);
+      myCalendar.select(["07/02/2024"]);
+    
+      myCalendar.select(["19/02/2024"]);
+      myCalendar.select(["20/02/2024"]);
+      myCalendar.select(["21/02/2024"]);
+      myCalendar.select(["22/02/2024"]);
+      myCalendar.select(["23/02/2024"]);
+
+      }
+      
+      function feriados(){
+
+      }
+      diasDePagamento();
+      myCalendar.refresh();
+    </script>
