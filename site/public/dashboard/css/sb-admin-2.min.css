@@ -1719,6 +1719,7 @@ pre code {
   display: block;
   width: 100%;
   overflow-x: auto;
+  overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 .table-responsive > .table-bordered {
@@ -9957,7 +9958,7 @@ a:focus {
     height: 20rem;
   }
 }
-.chart-pie {
+.chart-pie, .chart-pie-big {
   position: relative;
   height: 15rem;
   width: 100%;
@@ -9966,6 +9967,10 @@ a:focus {
   .chart-pie {
     height: calc(20rem - 43px) !important;
   }
+  .chart-pie-big {
+    height: calc(50rem - 43px) !important;
+  }
+
 }
 .bg-login-image {
   background: url(https://source.unsplash.com/K4mSJ7kc0As/600x800);
