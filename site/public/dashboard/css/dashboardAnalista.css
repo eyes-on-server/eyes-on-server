@@ -212,6 +212,37 @@ select {
   margin-top: 15px;
 }
 
+.jsCalendar-current {
+  color: #ffd500 !important;
+  font-weight: 900 !important;
+}
+
+.new-row {
+  display: flex;
+}
+
+.graph2 {
+  height: auto;
+  display: flex;
+}
+
+#chartArea2 {
+  height: 100%;
+
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.cardGraph2 {
+  min-height: 95%;
+  display: flex;
+  justify-content: center;
+}
+
+#GraficoDeLinha2 {
+  height: 100vh;
+}
+
 @media (max-width: 990px) {
   .row01 {
     align-items: flex-start;
