@@ -41,7 +41,8 @@ var graficoPrejuizoSetores = new Chart(ctx, {
       caretPadding: 10,
     },
     legend: {
-      display: false,
+      display: true,
+      position: "left",
     },
     cutoutPercentage: 80,
   },

@@ -49,7 +49,7 @@ function popularCards() {
           console.log(JSON.stringify(json));
 
           document.getElementById("idTempoTotalDowntime").innerHTML =
-            Math.round(json[0].total_downtime / 3600) + " Horas";
+            (json[0].total_downtime / 3600).toFixed(2) + " Horas";
           document.getElementById("idPrejuizoTotal").innerHTML =
             "R$" + Intl.NumberFormat().format(json[0].prejuizo_total);
         });
@@ -65,8 +65,72 @@ function popularCards() {
     });
 }
 
+function popularTabela() {
+  document.getElementById("tabela_downtime_servidores").innerHTML = "";
+
+  fetch(`/downtime/popularTabela/${fkEmpresa}`)
+    .then((resposta) => {
+      if (resposta.ok) {
+        console.log(JSON.stringify(resposta));
+        resposta.json().then((json) => {
+          for (var i = 0; i < json.length; i++) {
+            document.getElementById("tabela_downtime_servidores").innerHTML += `
+                <tr>
+                    <td>${json[i].id_servidor}</td>
+                    <td>${json[i].nome_servidor}</td>
+                    <td>${(json[i].total_downtime / 3600).toFixed(2)}</td>
+                    <td>R$${Intl.NumberFormat().format(
+                      json[i].total_prejuizo
+                    )}</td>
+                </tr>
+            `;
+          }
+        });
+      } else {
+        console.error(
+          "Não foram encontrados registros para a tabela dos servidores!"
+        );
+      }
+    })
+    .catch((erro) => {
+      console.log(erro);
+    });
+}
+
+function downtimePorLocal() {
+  let dados = [];
+  let labels = [];
+
+  fetch(`/downtime/downtimePorLocal/${fkEmpresa}`)
+    .then((resultado) => {
+      if (resultado.ok) {
+        console.log(JSON.stringify(resultado));
+
+        resultado.json().then((json) => {
+          for (var i = 0; i < json.length; i++) {
+            dados.push((json[i].total_prejuizo * Math.pow(10, -9)).toFixed(2));
+            labels.push(json[i].local_servidor);
+          }
+
+          graficoPrejuizoSetores.data.labels = labels;
+          graficoPrejuizoSetores.data.datasets[0].data = dados;
+
+          graficoPrejuizoSetores.update();
+        });
+      } else {
+        console.error("Nao foram encontrados registros!");
+      }
+    })
+    .catch((erro) => {
+      console.log("Erro no fetch!");
+      console.log(erro);
+    });
+}
+
 function executarFuncoes() {
   popularCards();
+  popularTabela();
+  downtimePorLocal();
 }
 
 // Toastr para Alertas mais Visuais
