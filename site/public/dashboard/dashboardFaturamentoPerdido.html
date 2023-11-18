@@ -35,7 +35,7 @@
 
 </head>
 
-<body id="page-top" onload="verificarSession()">
+<body id="page-top" onload="verificarSession(), executarFuncoes()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -134,57 +134,6 @@
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <!-- <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
-                                <!-- <i class="fas fa-bell fa-fw"></i> -->
-                                <!-- Counter - Alerts -->
-                                <!-- <span class="badge badge-danger badge-counter">3+</span> -->
-                            <!-- </a> -->
-                            <!-- Dropdown - Alerts -->
-                            <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alertas
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">Setember 12, 2023</div>
-                                        <span class="font-weight-bold">Chamado aberto para o servidor XPTO</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">Setember 11, 2023</div>
-                                        Pedido de peças para o servidor XPTO aberto
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">Setember 11, 2023</div>
-                                        Possivel queda do servidor XPTO
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div> -->
-                        </li>
-
                         <div class="topbar-divider d-none d-sm-block"></div>
 
                         <!-- Nav Item - User Information -->
@@ -217,7 +166,7 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-1 text-gray-800" id="dataSistema"></h1>
 
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="limparFiltros()">
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
                             <i class="fas fa-eraser fa-sm text-white-50"></i> Limpar Filtros</a>
                            
                     </div>
@@ -227,16 +176,16 @@
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-6 col-md-6 mb-4">
-                            <div class="card shadow h-100 py-2 pointer" onclick="filtrarPorComponente(1)" id="cardCpu">
+                            <div class="card shadow h-100 py-2 pointer" id="cardCpu">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bolder text-cold text-uppercase mb-1">
                                                 Tempo total de Dowtime (Em Horas)</div>
-                                            <div class="h5 mb-0 font-weight-bolder text-gray-800" id="idQtdAlertasCpu">0</div>
+                                            <div class="h5 mb-0 font-weight-bolder text-gray-800" id="idTempoTotalDowntime">0</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-clock fa-2x text-black-300" id="iconeAlertasCpu"></i>
+                                            <i class="fas fa-clock fa-2x text-black-300" id="iconeTempoTotalDowntime"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -245,16 +194,16 @@
 
                         <!-- Earnings (Monthly) Card Example -->
                         <div class="col-xl-6 col-md-6 mb-4">
-                            <div class="card shadow h-100 py-2 pointer" onclick="filtrarPorComponente(2)" id="cardMemo">
+                            <div class="card shadow h-100 py-2 pointer" id="cardMemo">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bolder text-cold text-uppercase mb-1">
-                                                Prejuízo Total (em R$)</div>
-                                            <div class="h5 mb-0 font-weight-bolder text-gray-800" id="idQtdAlertasMemoria">0</div>
+                                                Prejuízo Total (em Bilhões de R$)</div>
+                                            <div class="h5 mb-0 font-weight-bolder text-gray-800" id="idPrejuizoTotal">0</div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-coins fa-2x text-black-300" id="iconeAlertasMemo"></i>
+                                            <i class="fas fa-coins fa-2x text-black-300" id="iconePrejuizoTotal"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -446,6 +395,7 @@
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
     <script src="js/sessions.js"></script>
+    <script src="js/dashboardFaturamentoPerdido.js"></script>
 
     <!-- Page level plugins -->
     <script src="vendor/chart.js/Chart.min.js"></script>
@@ -458,66 +408,3 @@
 </body>
 
 </html>
-<script>
-
-user_name.innerHTML = sessionStorage.NOME_USER;
-company_name.innerHTML = sessionStorage.NOME_FANTASIA;
-
-    
-    // Variáveis Globais
-    var dataSistema = "";
-
-    // Definindo timer ---------------------------
-    (function getDatetime(){
-        setInterval(()=>{
-            var now = new Date();
-            var dataAtual = now.toLocaleString();
-            var dia = now.getDay();
-
-            const diasSemana = [
-                'Domingo',
-                'Segunda-Feira',
-                'Terça-Feira',
-                'Quarta-Feira',
-                'Quinta-Feira',
-                'Sexta-Feira',
-                'Sábado',
-                'Domingo'
-            ]
-
-            document.getElementById('dataSistema').innerHTML = `${diasSemana[dia]}, ${dataAtual}`;
-            
-            dataSistema = formatDate(now, 'yy-mm-dd');
-
-            }, 1000)
-    })()
-
-    function formatDate(date, format) {
-        const map = {
-            mm: date.getMonth() + 1,
-            dd: date.getDate(),
-            yy: date.getFullYear()
-        }
-
-        return format.replace(/mm|dd|yy|yyy/gi, matched => map[matched])
-    }
-
-    // Toastr para Alertas mais Visuais
-    toastr.options = {
-        closeButton: false,
-        debug: false,
-        newestOnTop: false,
-        progressBar: false,
-        positionClass: "toast-bottom-right",
-        preventDuplicates: false,
-        onclick: null,
-        showDuration: "300",
-        hideDuration: "1000",
-        timeOut: "5000",
-        extendedTimeOut: "1000",
-        showEasing: "swing",
-        hideEasing: "linear",
-        showMethod: "fadeIn",
-        hideMethod: "fadeOut",
-    };
-</script>

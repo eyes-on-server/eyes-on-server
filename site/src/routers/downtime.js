@@ -3,7 +3,7 @@ const rota = express.Router();
 
 const downtimeController = require("../controller/downtimeController");
 
-rota.get("/poupularCards", (req, res) => {
+rota.get("/popularCards/:fkEmpresa", (req, res) => {
   downtimeController.popularCards(req, res);
 });
 

@@ -1,7 +1,7 @@
 const downtimeModel = require("../model/downtimeModel");
 
 function popularCards(req, res) {
-  const fkEmpresa = req.body.fkEmpresaServer;
+  const fkEmpresa = req.params.fkEmpresa;
 
   downtimeModel
     .popularCards(fkEmpresa)
