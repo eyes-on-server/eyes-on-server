@@ -38,8 +38,24 @@ function downtimePorLocal(fkEmpresa) {
   return database.executar(query);
 }
 
+function downtimePorDia(fkEmpresa) {
+  const query = `
+    SELECT 
+      SUM(prejuizo) total_prejuizo, 
+      DATE(momento) data_downtime 
+    FROM View_Downtime_Servidores
+    WHERE tempo_downtime != 0 AND id_empresa = ${fkEmpresa}
+    GROUP by data_downtime
+    ORDER by data_downtime DESC
+    LIMIT 7;
+  `;
+
+  return database.executar(query);
+}
+
 module.exports = {
   popularCards,
   popularTabela,
   downtimePorLocal,
+  downtimePorDia,
 };

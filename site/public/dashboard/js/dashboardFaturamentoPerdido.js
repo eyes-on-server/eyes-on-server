@@ -41,6 +41,15 @@ function formatDate(date, format) {
   return format.replace(/mm|dd|yy|yyy/gi, (matched) => map[matched]);
 }
 
+function formatDatabaseDate(date) {
+  let dataObtida = date.slice(0, 10);
+  let splitList = dataObtida.split("-");
+  let reversedList = splitList.reverse();
+  let newDate = reversedList.join("/");
+
+  return newDate;
+}
+
 function popularCards() {
   fetch(`/downtime/popularCards/${fkEmpresa}`)
     .then((resposta) => {
@@ -127,10 +136,41 @@ function downtimePorLocal() {
     });
 }
 
+function downtimePorDia() {
+  let dados = [];
+  let labels = [];
+
+  fetch(`/downtime/downtimePorDia/${fkEmpresa}`)
+    .then((resultado) => {
+      if (resultado.ok) {
+        console.log(JSON.stringify(resultado));
+
+        resultado.json().then((json) => {
+          for (var i = 0; i < json.length; i++) {
+            dados.push((json[i].total_prejuizo * Math.pow(10, -9)).toFixed(2));
+            labels.push(formatDatabaseDate(json[i].data_downtime));
+          }
+
+          graficoMonetarioDiario.data.labels = labels.reverse();
+          graficoMonetarioDiario.data.datasets[0].data = dados.reverse();
+
+          graficoMonetarioDiario.update();
+        });
+      } else {
+        console.error("Nao foram encontrados registros!");
+      }
+    })
+    .catch((erro) => {
+      console.log("Erro no fetch!");
+      console.log(erro);
+    });
+}
+
 function executarFuncoes() {
   popularCards();
   popularTabela();
   downtimePorLocal();
+  downtimePorDia();
 }
 
 // Toastr para Alertas mais Visuais

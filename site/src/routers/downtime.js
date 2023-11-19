@@ -15,4 +15,8 @@ rota.get("/downtimePorLocal/:fkEmpresa", (req, res) => {
   downtimeController.downtimePorLocal(req, res);
 });
 
+rota.get("/downtimePorDia/:fkEmpresa", (req, res) => {
+  downtimeController.downtimePorDia(req, res);
+});
+
 module.exports = rota;

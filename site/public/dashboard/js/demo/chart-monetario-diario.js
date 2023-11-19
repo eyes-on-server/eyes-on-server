@@ -19,7 +19,7 @@ var graficoMonetarioDiario = new Chart(ctxChartMonetarioDiario, {
     ],
     datasets: [
       {
-        label: "Quantidade de Incidentes",
+        label: "Prejuízo em Bilhões de R$",
         backgroundColor: [
           "#32bcad",
           "#32bcad",
