@@ -68,9 +68,27 @@ function downtimePorDia(req, res) {
     });
 }
 
+function correlacaoDowntimePrejuizo(req, res) {
+  const idServidor = req.params.idServidor;
+
+  downtimeModel
+    .correlacaoDowntimePrejuizo(idServidor)
+    .then((result) => {
+      if (result.length > 0) {
+        res.status(200).json(result);
+      } else {
+        res.status(500).send("Não foram encontrados registros!");
+      }
+    })
+    .catch((erro) => {
+      console.error(erro);
+    });
+}
+
 module.exports = {
   popularCards,
   popularTabela,
   downtimePorLocal,
   downtimePorDia,
+  correlacaoDowntimePrejuizo,
 };

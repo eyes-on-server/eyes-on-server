@@ -11,7 +11,7 @@ var graficoCorrelacao = new Chart(ctxChartCorrelacao, {
     labels: ["0.0", "0.2", "0.4", "0.6", "0.8", "1.0"],
     datasets: [
       {
-        label: "Quantidade de Incidentes",
+        label: "Prejuízo em Bilhões de R$",
         borderColor: [
           "rgba(78, 115, 223, 1)",
           "rgba(78, 115, 223, 1)",

@@ -10429,3 +10429,20 @@ select {
 #myPieChart {
   min-height: 80%;
 }
+
+.no-component-selected {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.linha-tabela {
+  cursor: pointer;
+  transition: .5s ease;
+}
+
+.linha-tabela:hover {
+  background-color: lightblue;
+  transition: .5s ease;
+}

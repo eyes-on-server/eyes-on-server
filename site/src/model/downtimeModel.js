@@ -53,9 +53,25 @@ function downtimePorDia(fkEmpresa) {
   return database.executar(query);
 }
 
+function correlacaoDowntimePrejuizo(idServidor) {
+  const query = `
+    SELECT 
+      SUM(prejuizo) total_prejuizo,
+      SUM(tempo_downtime) total_downtime, 
+      DATE(momento) data_downtime 
+    FROM View_Downtime_Servidores
+    WHERE tempo_downtime != 0 AND id_servidor = ${idServidor}
+    GROUP by data_downtime
+    ORDER by data_downtime DESC;
+  `;
+
+  return database.executar(query);
+}
+
 module.exports = {
   popularCards,
   popularTabela,
   downtimePorLocal,
   downtimePorDia,
+  correlacaoDowntimePrejuizo,
 };

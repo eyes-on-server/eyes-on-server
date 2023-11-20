@@ -19,4 +19,8 @@ rota.get("/downtimePorDia/:fkEmpresa", (req, res) => {
   downtimeController.downtimePorDia(req, res);
 });
 
+rota.get("/correlacaoDowntimePrejuizo/:idServidor", (req, res) => {
+  downtimeController.correlacaoDowntimePrejuizo(req, res);
+});
+
 module.exports = rota;

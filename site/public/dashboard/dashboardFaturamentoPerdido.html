@@ -241,6 +241,14 @@
                                 <div class="card-body">
                                     <div class="chart-area">
                                         <canvas id="graficoMonetarioDiario"></canvas>
+                                        <div id="divAguardandoDadosDowntime" class="no-component-selected text-dark font-weight-bolder">
+                                            <h1>Nenhum Downtime registrado até o momento
+                                                <br>
+                                                <center>
+                                                    <i>#Winning</i>
+                                                </center>
+                                            </h1>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -254,21 +262,21 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bolder text-cold">Prejuízo por Servidor (Milhões R$)</h6>
+                                    <h6 class="m-0 font-weight-bolder text-cold">Downtime Por Servidores</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area table-responsive">
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
-                                                <tr>
+                                                <tr class="text-dark font-weight-bolder">
                                                     <th>Id</th>
                                                     <th>Servidor</th>
                                                     <th>Downtime (Hrs)</th>
                                                     <th>Prejuízo Total (R$)</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="tabela_downtime_servidores"></tbody>
+                                            <tbody id="tabela_downtime_servidores" class="text-dark font-weight-bold"></tbody>
                                         </table>
                                     </div>  
                                 </div>
@@ -281,12 +289,15 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bolder text-cold">Correlação Tempo x Dinheiro</h6>
+                                    <h6 class="m-0 font-weight-bolder text-cold">Prejuízo por Servidor</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area">
                                         <canvas id="graficoCorrelacao"></canvas>
+                                        <div id="divAguardandoSelecaoServidor" class="no-component-selected text-dark font-weight-bolder">
+                                            <h1>Nenhuma máquina selecionada!</h1>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -299,12 +310,20 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bolder text-cold">Prejuízo por Setores (Milhões R$)</h6>
+                                    <h6 class="m-0 font-weight-bolder text-cold">Prejuízo por Setores (Bilhões R$)</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-pie-big pt-4 pb-2">
                                         <canvas id="graficoPrejuizoSetores"></canvas>
+                                        <div id="divAguardandoDadosSetores" class="no-component-selected text-dark font-weight-bolder">
+                                            <h1>Nenhum Downtime registrado até o momento
+                                                <br>
+                                                <center>
+                                                    <i>#Winning</i>
+                                                </center>
+                                            </h1>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
