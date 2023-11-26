@@ -17,6 +17,7 @@ const graficosRota = require("./src/routers/graficos");
 const graficosAnalistaRota = require("./src/routers/graficosAnalista");
 const mailerRota = require("./src/routers/mailer");
 const downtimeRota = require("./src/routers/downtime");
+const otavioRota = require("./src/routers/otavioRoute")
 
 // Configurações -----------------------
 app.use(express.json());
@@ -33,6 +34,7 @@ app.use("/alertas", alertasRota);
 app.use("/graficosAnalista", graficosAnalistaRota);
 app.use("/mailer", mailerRota);
 app.use("/downtime", downtimeRota);
+app.use("/otavioRoute", otavioRota)
 
 // Iniciar servidor --------------------
 app.listen(porta, () => {
