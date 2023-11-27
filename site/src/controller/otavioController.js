@@ -46,7 +46,7 @@ function buscarInfo(req, res) {
       .catch((error) => {
         console.log(error);
         console.log(
-          "Erro na Controller: /buscarservidores\n",
+          "Erro na Controller: /otavio\n",
           error.sqlMessage
         );
       });

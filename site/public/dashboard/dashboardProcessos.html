@@ -182,10 +182,10 @@
                             </div>
                         </div>
                         <br>
-                        <div class="row">
+                        <div class="row" style="display: flex; justify-content: center;">
 
                             <!-- Earnings (Monthly) Card Example -->
-                            <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="col-xl-3 col-md-6 mb-4" id="kpiCpu">
                                 <abbr id="abbrCpu" style="text-decoration: none;">
                                     <div class="card shadow h-100 py-2 pointer" id="cardCpu">
                                         <div class="card-body">
@@ -208,7 +208,7 @@
                             </div>
 
                             <!-- Earnings (Monthly) Card Example -->
-                            <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="col-xl-3 col-md-6 mb-4" id="kpiRam">
                                 <abbr id="abbrRam" style="text-decoration: none;">
                                     <div class="card shadow h-100 py-2 pointer" id="cardMemo">
                                         <div class="card-body">
@@ -231,7 +231,7 @@
                             </div>
 
                             <!-- Earnings (Monthly) Card Example -->
-                            <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="col-xl-3 col-md-6 mb-4" id="kpiDisco">
                                 <abbr id="abbrDisco" style="text-decoration: none;">
                                     <div class="card shadow h-100 py-2 pointer" id="cardDisco">
                                         <div class="card-body">
@@ -320,7 +320,7 @@
 
 
                         <!-- Area Chart -->
-                        <div class="card shadow mb-4">
+                        <!-- <div class="card shadow mb-4">
                             <div class="card-header py-3">
                                 <h6 class="m-0 font-weight-bolder text-cold">Dados da semana com linha média</h6>
                             </div>
@@ -333,7 +333,7 @@
 
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
 
 
@@ -351,59 +351,6 @@
                                 <div id="container" style="width: 100%; height: 500px;"></div>
                             </div>
                         </div>
-
-
-
-
-                        <!-- <script>
-
-                            var fk = sessionStorage.FK_EMPRESA
-
-                            function nomes() {
-                                nome_do_usuario.innerHTML = sessionStorage.NOME_USER;
-                                nome_da_empresa.innerHTML = sessionStorage.NOME_FANTASIA;
-
-                            }
-
-                            function listar_servidor() {
-                                fetch("/servidor/listar", {
-                                    method: "POST",
-                                    headers: {
-                                        "Content-Type": "application/json"
-                                    },
-                                    body: JSON.stringify({
-                                        fkEmpresa_html: fk,
-                                    })
-                                }).then(function (resposta) {
-
-                                    if (resposta.ok) {
-                                        resposta.json().then(json => {
-                                            console.log(JSON.stringify(json))
-                                            for (let i = 0; i < json.length; i++) {
-                                                var dados = json[i]
-                                                exibir_consulta_servidor.innerHTML +=
-                                                    `<tr class="even">
-                                <td>${dados.id}</td>
-                                <td>${dados.Nome_Servidor}</td>
-                                <td>${dados.Sistema_Operacional}</td>
-                                <td>${dados.Descricao}</td>
-                                <td>${dados.Local}</td>
-                                <td>${dados.Componentes}</td>
-                            </tr>`
-                                                console.log(dados)
-                                            }
-                                        });
-                                    } else {
-                                        throw ("Houve um erro ao tentar listar os servidores!");
-                                    }
-                                }).catch(function (resposta) {
-                                    console.log(`#ERRO AO LISTAR: ${resposta}`);
-                                });
-                                return false;
-                            }
-
-                        </script> -->
-
 
 
 
@@ -480,208 +427,7 @@
             <!-- <script src="js/demo/chart-area-demo.js"></script> -->
             <!-- <script src="js/demo/chart-pie-demo.js"></script> -->
 
-
-            <script>
-
-                var cpuData = [10, 30, 50, 70, 40, 20, 60, 80, 90, 45];
-                var memoryData = [30, 50, 90, 40, 60, 70, 80, 10, 55, 20];
-                var diskData = [65, 35, 5, 45, 55, 15, 25, 75, 95, 70];
-                var valorPosicaoVetorCpu = cpuData[cpuData.length - 1];
-                var valorPosicaoVetorRam = memoryData[memoryData.length - 1];
-                var valorPosicaoVetorDisco = diskData[diskData.length - 1];
-
-                // Variável para armazenar o título e descrição
-                var tituloCpu;
-                var descricaocpu;
-                var div = document.getElementById("situacaocpu");
-                var div2 = document.getElementById("abbrCpu");
-
-                // Verifica a condição
-                if (valorPosicaoVetorCpu < 75) {
-
-                    tituloCpu = "Ideal";
-                    descricaoCpu = "Registro abaixo de 75%"
-
-                    div.innerHTML = `${tituloCpu}`;
-                    div2.title = `${descricaoCpu}`;
-
-                } else if (valorPosicaoVetorCpu >= 75 && valorPosicaoVetorCpu < 85) {
-
-                    tituloCpu = "Prevenção";
-                    descricaoCpu = "Registro entre 75% e 85%"
-
-                    div.innerHTML = `${tituloCpu}`;
-                    div2.title = `${descricaoCpu}`;
-
-                } else if (valorPosicaoVetorCpu >= 75 && valorPosicaoVetorCpu < 85) {
-
-                    tituloCpu = "Prevenção";
-                    descricaoCpu = "Registro entre 75% e 84%"
-
-                    div.innerHTML = `${tituloCpu}`;
-                    div2.title = `${descricaoCpu}`;
-
-                } else if (valorPosicaoVetorCpu >= 85 && valorPosicaoVetorCpu < 95) {
-
-                    tituloCpu = "Perigo";
-                    descricaoCpu = "Registro entre 85% e 94%"
-
-                    div.innerHTML = `${tituloCpu}`;
-                    div2.title = `${descricaoCpu}`;
-
-                } else if (valorPosicaoVetorCpu >= 95) {
-
-                    tituloCpu = "Emergência";
-                    descricaoCpu = "Registro entre 75% e 85%"
-
-                    div.innerHTML = `${tituloCpu}`;
-                    div2.title = `${descricaoCpu}`;
-
-                }
-
-            </script>
-
-
-            <script>
-
-                var servidorAtual;
-
-                function buscarServidores() {
-
-                    var fk = sessionStorage.FK_EMPRESA
-
-
-                    // Comando a ser realizado no banco de dados
-                    var query = `SELECT id_servidor, nome_servidor FROM eyes_on_server.servidor WHERE fk_empresa = "${fk}";`;
-
-                    // Limpar as options quando trocar de setor
-                    select_servidores.innerHTML = `<option value="" selected disabled>Servidores</option>`;
-
-                    fetch("/otavioRoute/buscarInformacoes", {
-                        method: "POST",
-                        headers: {
-                            "Content-type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            selectServer: query,
-                        }),
-                    })
-                        .then(function (resposta) {
-                            if (resposta.status == 200) {
-                                console.log(`chegou no feach`)
-                                resposta.json().then((json) => {
-                                    // Criamos um vetor para conferir se aquele servidor já foi inserido no HTML
-                                    var servidores = [];
-                                    // Esse for roda todo o json de resposta da query e insere o nome dos setores no select do HTML
-                                    select_servidores.innerHTML = `<option value="">Selecionar Servidor</option>`;
-                                    for (var i = 0; i < json.length; i++) {
-                                        if (!servidores.includes(json[i].nome_servidor)) {
-                                            var id_servidor = json[i].id_servidor;
-                                            var servidor = json[i].nome_servidor;
-
-                                            select_servidores.innerHTML += `<option value="${id_servidor}">${servidor}</option>`;
-
-                                            console.log(`esse é ${id_servidor} e o ${servidor}`)
-
-                                        }
-                                    }
-                                });
-                            } else {
-                                console.log(
-                                    "Erro ao realizar a busca dos servidores <function buscarServidores>"
-                                );
-                                resposta.text().then((texto) => {
-                                    console.log(resposta);
-                                });
-                            }
-                        })
-                        .catch((erro) => {
-                            console.log("Erro ao realizar a busca: " + erro);
-                        });
-                }
-
-
-
-
-                function setDados() {
-                    console.log(select_servidores.options[select_servidores.selectedIndex].text)
-                    servidorAtual = select_servidores.options[select_servidores.selectedIndex].text
-
-
-                    // Comando a ser realizado no banco de dados
-                    var query = `select tipo, servidor from Eyes_On_Server.view_componentes_servidores
-                     where servidor = "${servidorAtual}";`;
-
-                    // Limpar as options quando trocar de setor
-                    // select_servidores.innerHTML = `<option value="" selected disabled>Servidores</option>`;
-
-                    fetch("/otavioRoute/setDados", {
-                        method: "POST",
-                        headers: {
-                            "Content-type": "application/json",
-                        },
-                        body: JSON.stringify({
-                            selectServer: query,
-                        }),
-                    })
-                        .then(function (resposta) {
-                            if (resposta.status == 200) {
-                                console.log(`chegou no feach`)
-                                resposta.json().then((json) => {
-
-                                    for (var i = 0; i < json.length; i++) {
-
-                                        var dados = json[i];
-
-                                        // ifs com esses parametros
-                                        // USO_PORCENTAGEM_CPU
-                                        // USO_MEMORIA_PORCENTAGEM
-                                        // USO_DISCO_PORCENTAGEM
-
-
-                                        // console.log(dados.servidor)
-                                        console.log(dados.Tipo)
-
-                                    }
-                                });
-                            } else {
-                                console.log(
-                                    "Erro ao realizar a busca dos servidores <function buscarServidores>"
-                                );
-                                resposta.text().then((texto) => {
-                                    console.log(resposta);
-                                });
-                            }
-                        })
-                        .catch((erro) => {
-                            console.log("Erro ao realizar a busca: " + erro);
-                        });
-                }
-
-
-
-
-
-            </script>
-
-
-
-
-
-
-            <script>
-
-                function nomes() {
-
-                    var fk = sessionStorage.FK_EMPRESA
-                    nome_do_usuario.innerHTML = sessionStorage.NOME_USER;
-                    nome_da_empresa.innerHTML = sessionStorage.NOME_FANTASIA;
-
-                }
-
-            </script>
-
-
+            <script src="js/dashProcessos.js"></script>
 
 
 
@@ -978,7 +724,7 @@
 
 
             <!-- Grafico de dispersão com linha média -->
-            <script>
+            <!-- <script>
 
                 var cpuData = [10, 30, 50, 70, 40, 20, 60, 80, 90, 45];
                 var memoryData = [30, 50, 90, 40, 60, 70, 80, 10, 55, 20];
@@ -1076,7 +822,7 @@
                     return data.reduce((sum, value) => sum + value, 0) / data.length;
                 }
 
-            </script>
+            </script> -->
 
 
 </body>
