@@ -2,295 +2,216 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard de Temperatura</title>
 
-    <!-- Icone da aba -->
-    <link
-      rel="shortcut icon"
-      href="../assets/img/logo/logo.png"
-      type="image/x-icon"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard de Temperatura</title>
 
-    <!-- Links de estilização da página -->
-    <link
-      href="vendor/fontawesome-free/css/all.min.css"
-      rel="stylesheet"
-      type="text/css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-      rel="stylesheet"
-    />
-    <link href="css/sb-admin-2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="./css/dashboardAnalista.css">
+  <!-- Icone da aba -->
+  <link rel="shortcut icon" href="../assets/img/logo/logo.png" type="image/x-icon" />
+
+  <!-- Links de estilização da página -->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
+  <link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet" />
+  <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/dashboardAnalista.css">
 
 
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.4/source/jsCalendar.min.js"
-      integrity="sha384-0LaRLH/U5g8eCAwewLGQRyC/O+g0kXh8P+5pWpzijxwYczD3nKETIqUyhuA8B/UB"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.4/source/jsCalendar.min.css"
-      integrity="sha384-44GnAqZy9yUojzFPjdcUpP822DGm1ebORKY8pe6TkHuqJ038FANyfBYBpRvw8O9w"
-      crossorigin="anonymous"
-    />
-    <script
-      src="https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.4/source/jsCalendar.lang.pt.js"
-      integrity="sha384-NF3X/E9s0p9PqeJxs+kx2xFHOAfiuNlGpIiwzLBET1Y0pejnfmOm5DJhn6ioTpCr"
-      crossorigin="anonymous"
-    ></script>
-  </head>
+  <script src="https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.4/source/jsCalendar.min.js"
+    integrity="sha384-0LaRLH/U5g8eCAwewLGQRyC/O+g0kXh8P+5pWpzijxwYczD3nKETIqUyhuA8B/UB"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.4/source/jsCalendar.min.css"
+    integrity="sha384-44GnAqZy9yUojzFPjdcUpP822DGm1ebORKY8pe6TkHuqJ038FANyfBYBpRvw8O9w" crossorigin="anonymous" />
+  <script src="https://cdn.jsdelivr.net/npm/simple-jscalendar@1.4.4/source/jsCalendar.lang.pt.js"
+    integrity="sha384-NF3X/E9s0p9PqeJxs+kx2xFHOAfiuNlGpIiwzLBET1Y0pejnfmOm5DJhn6ioTpCr"
+    crossorigin="anonymous"></script>
+</head>
 
-  <body id="page-top">
-    <div id="wrapper">
-      <!-- Início da sidebar -->
-      <ul
-        class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-        id="accordionSidebar"
-      >
-        <!-- Sidebar - Brand -->
-        <a
-          class="sidebar-brand d-flex align-items-center justify-content-center"
-          href="./dashboardAnalista.html"
-        >
-          <div class="sidebar-brand-text mx-3">Analista</div>
+<body id="page-top">
+  <div id="wrapper">
+    <!-- Início da sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="./dashboardAnalista.html">
+        <div class="sidebar-brand-text mx-3">Analista</div>
+      </a>
+      <div>
+        <p class="sidebar-brand-text mx-3 user_name" id="nome_do_usuario">
+
+        </p>
+        <p class="sidebar-brand-text mx-3 company_name" id="nome_da_empresa">
+
+        </p>
+      </div>
+
+      <hr class="sidebar-divider my-0" />
+
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="./dashboardAnalista.html">
+          <i class="fas fa-fw fa-tachometer-alt"></i>
+          <span>Dashboard</span></a>
+      </li>
+
+      <hr class="sidebar-divider" />
+
+      <!-- Heading -->
+      <div class="sidebar-heading">Gerenciamento</div>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+          aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-fw fa-server"></i>
+          <span>Servidores</span>
         </a>
-        <div>
-          <p class="sidebar-brand-text mx-3 user_name" id="nome_do_usuario">
-
-          </p>
-          <p class="sidebar-brand-text mx-3 company_name" id="nome_da_empresa">
-
-          </p>
-        </div>
-
-        <hr class="sidebar-divider my-0" />
-
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item active">
-          <a class="nav-link" href="./dashboardAnalista.html">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a
-          >
-        </li>
-
-        <hr class="sidebar-divider" />
-
-        <!-- Heading -->
-        <div class="sidebar-heading">Gerenciamento</div>
-
-        <li class="nav-item">
-          <a
-            class="nav-link collapsed"
-            href="#"
-            data-toggle="collapse"
-            data-target="#collapseUtilities"
-            aria-expanded="true"
-            aria-controls="collapseUtilities"
-          >
-            <i class="fas fa-fw fa-server"></i>
-            <span>Servidores</span>
-          </a>
-          <div
-            id="collapseUtilities"
-            class="collapse"
-            aria-labelledby="headingUtilities"
-            data-parent="#accordionSidebar"
-          >
-            <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="consulta.html">Consultar</a>
-            </div>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="consulta.html">Consultar</a>
           </div>
-        </li>
-
-        <hr class="sidebar-divider" />
-
-        <div class="text-center d-none d-md-inline">
-          <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
-      </ul>
-      <!-- Final da sidebar -->
+      </li>
+
+      <hr class="sidebar-divider" />
+
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+    </ul>
+    <!-- Final da sidebar -->
 
 
-      <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content-wrapper" class="d-flex flex-column">
 
-        <div id="content">
+      <div id="content">
 
-          <!-- Início do header -->
-          <nav
-            class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
-          >
-  
-            <ul class="navbar-nav ml-auto">
+        <!-- Início do header -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-              <li class="nav-item dropdown no-arrow">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="userDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <span
-                    class="mr-2 d-none d-lg-inline text-gray-600 small"
-                    id="span_nome_exbir"
-                  ></span>
-                  <img
-                    class="img-profile rounded-circle"
-                    src="img/undraw_profile.svg"
-                  />
+          <ul class="navbar-nav ml-auto">
+
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small" id="span_nome_exbir"></span>
+                <img class="img-profile rounded-circle" src="img/undraw_profile.svg" />
+              </a>
+              <!-- Menu ao clicar no user -->
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Sair
                 </a>
-                <!-- Menu ao clicar no user -->
-                <div
-                  class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                  aria-labelledby="userDropdown"
-                >
-                  <a
-                    class="dropdown-item"
-                    href="#"
-                    data-toggle="modal"
-                    data-target="#logoutModal"
-                  >
-                    <i
-                      class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
-                    ></i>
-                    Sair
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </nav>
-          <!-- Final do header -->
-
-          <!-- Início do conteúdo principal da página -->
-          <div class="container-fluid">
-
-            <div class="row row01">
-              <!-- Segundo header da página -->
-              <div class="header-dash align-items-center justify-content-between">
-                <select class="col-xl-7 col-lg-7" name="" id="select_setores" onchange="buscarServidores(this.value)">
-                  <option value="" selected disabled>Setores</option>
-                </select>
-                <select class="col-xl-7 col-lg-7" name="" id="select_servidores" onchange="setarDados(this.value)" >
-                  <option value="" selected disabled>Servidores</option>
-                </select>
               </div>
+            </li>
+          </ul>
+        </nav>
+        <!-- Final do header -->
 
-              <div class="buttons-row01">
-                <!-- <div>
+        <!-- Início do conteúdo principal da página -->
+        <div class="container-fluid">
+
+          <div class="row row01">
+            <!-- Segundo header da página -->
+            <div class="header-dash align-items-center justify-content-between">
+              <select class="col-xl-7 col-lg-7" name="" id="select_servidores" onchange="setarDados(this.value)">
+                <option value="" selected disabled>Servidores</option>
+              </select>
+            </div>
+
+            <div class="buttons-row01">
+              <!-- <div>
                   <label for="alertas">Ativar alertas</label>
                   <input type="checkbox" name="alertas" id="alertas" value="on">
                 </div> -->
-                <button class="btnLimparFiltros" onclick="limparFiltros()">Limpar filtros</button>
-              </div>
+              <button class="btnLimparFiltros" onclick="limparFiltros()">Limpar filtros</button>
             </div>
-
-            <!-- Primeira linha de gráficos -->
-            <div class="row">
-
-              <!-- Div para o gráfico de linhas -->
-              <div class="col-xl-7 col-lg-7">
-                <div class="card shadow mb-4 grafico-de-linha">
-                  <div
-                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
-                  >
-                    <h6 class="m-0 font-weight-bold text-primary">
-                      Temperatura x CPU (%)
-                    </h6>
-                  </div>
-                  <!-- Div para o gráfico de linha -->
-                  <div class="card-body card-body-grafico">
-                    <div class="chart-area" id="chartArea">
-                      <canvas id="GraficoDeLinha"></canvas>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Div para Exibir os alertas e aviso -->
-              <div class="col-xl-5 col-lg-5">
-
-                <!-- Div para os alertas  -->
-                <div class="card shadow mb-4 alertas" >
-                    <div
-                      class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
-                    >
-                      <h6 class="m-0 font-weight-bold text-primary">
-                        Alertas de Temperatura
-                      </h6>
-                    </div>
-                  <div class="card-body cards_da_linha_02">
-                    <h1 id="quantidadeDeAlertas">99</h1>
-                  </div>                 
-                </div>
-
-                <!-- Div para a recomendação -->
-                <div class="card shadow mb-4 recomendacoes">
-                    <div
-                      class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
-                    >
-                      <h6 class="m-0 font-weight-bold text-primary">
-                        Correlações
-                      </h6>
-                    </div>
-                  <div class="card-body card_recomendacao" id="recomendacoesHTML" style="color: #000">
-                    <p id="recomendacaoCPU">CPU: </p>
-                    <p id="recomendacaoDisco">Disco:</p>
-                    <p id="recomendacaoMemoria" class="recomendacaoMemoria">Memoria: </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            
-
-            <footer class="sticky-footer bg-white">
-              <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                  <span>Copyright &copy; Eyes On Server 2023</span>
-                </div>
-              </div>
-            </footer>
-          
           </div>
-          
-    </div>
+
+          <!-- Primeira linha de gráficos -->
+          <div class="row">
+
+            <!-- Div para o gráfico de linhas -->
+            <div class="col-xl-7 col-lg-7">
+              <div class="card shadow mb-4 grafico-de-linha">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">
+                    Temperatura x CPU (%)
+                  </h6>
+                </div>
+                <!-- Div para o gráfico de linha -->
+                <div class="card-body card-body-grafico">
+                  <div class="chart-area" id="chartArea">
+                    <canvas id="graficoCpu"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Div para Exibir os alertas e aviso -->
+            <div class="col-xl-5 col-lg-5">
+
+              <!-- Div para os alertas  -->
+              <div class="card shadow mb-4 alertas">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">
+                    Alertas de Temperatura
+                  </h6>
+                </div>
+                <div class="card-body cards_da_linha_02">
+                  <h1 id="quantidadeDeAlertas">99</h1>
+                </div>
+              </div>
+
+              <!-- Div para a recomendação -->
+              <div class="card shadow mb-4 recomendacoes">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">
+                    Correlações
+                  </h6>
+                </div>
+                <div class="card-body card_recomendacao" id="recomendacoesHTML" style="color: #000">
+                  <p id="recomendacaoCPU">CPU: </p>
+                  <p id="recomendacaoDisco">Disco:</p>
+                  <p id="recomendacaoMemoria" class="recomendacaoMemoria">Memoria: </p>
+                </div>
+              </div>
+            </div>
+          </div>
 
 
-       <!-- Botão para retornar ao topo-->
-       <a class="scroll-to-top rounded" href="#page-top">
+
+          <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+              <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Eyes On Server 2023</span>
+              </div>
+            </div>
+          </footer>
+
+        </div>
+
+      </div>
+
+
+      <!-- Botão para retornar ao topo-->
+      <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
       </a>
-  
+
       <!-- Modal para sair-->
-      <div
-        class="modal fade"
-        id="logoutModal"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
+      <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">
                 Desejar mesmo sair?
               </h5>
-              <button
-                class="close"
-                type="button"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
               </button>
             </div>
@@ -298,11 +219,7 @@
               Selecione "Sair" se você estiver pronto para encerrar sua sessão.
             </div>
             <div class="modal-footer">
-              <button
-                class="btn btn-secondary"
-                type="button"
-                data-dismiss="modal"
-              >
+              <button class="btn btn-secondary" type="button" data-dismiss="modal">
                 Cancelar
               </button>
               <a class="btn btn-primary" href="../login.html">Sair</a>
@@ -310,93 +227,20 @@
           </div>
         </div>
       </div>
-    </body>
-    </html>
-    
-    <!-- Aqui a função defer não se faz tão necessária, mas é bom ter -->
-    <script src="vendor/chart.js/Chart.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="../js/script_Dash_Analista.js" defer></script>
-    <script src="js/sb-admin-2.min.js" defer></script>
-    <script src="vendor/jquery/jquery.min.js" defer></script>
-    <script src="vendor/jquery-easing/jquery.easing.min.js" defer></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+</body>
 
-    <script type="text/javascript">
-      // Get the element
-      var element = document.getElementById("my-calendar");
-      // Create the calendar
-      var myCalendar = jsCalendar.new(element);
-      // Get the buttons
+</html>
 
-      function diasDePagamento(){
+<!-- Aqui a função defer não se faz tão necessária, mas é bom ter -->
+<script src="vendor/chart.js/Chart.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="../js/dashboardTemperatura.js" defer></script>
+<script src="js/sb-admin-2.min.js" defer></script>
+<script src="vendor/jquery/jquery.min.js" defer></script>
+<script src="vendor/jquery-easing/jquery.easing.min.js" defer></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js" defer></script>
 
-      myCalendar.select(["02/10/2023"]);
-      myCalendar.select(["03/10/2023"]);
-      myCalendar.select(["04/10/2023"]);
-      myCalendar.select(["05/10/2023"]);
-      myCalendar.select(["06/10/2023"]);
-    
-      myCalendar.select(["16/10/2023"]);
-      myCalendar.select(["17/10/2023"]);
-      myCalendar.select(["18/10/2023"]);
-      myCalendar.select(["19/10/2023"]);
-      myCalendar.select(["20/10/2023"]);
-    
-      myCalendar.select(["01/11/2023"]);
-      myCalendar.select(["02/11/2023"]);
-      myCalendar.select(["03/11/2023"]);
-      myCalendar.select(["06/11/2023"]);
-      myCalendar.select(["07/11/2023"]);
-    
-      myCalendar.select(["15/11/2023"]);
-      myCalendar.select(["16/11/2023"]);
-      myCalendar.select(["17/11/2023"]);
-      myCalendar.select(["20/11/2023"]);
-      myCalendar.select(["21/11/2023"]);
-    
-      myCalendar.select(["01/12/2023"]);
-      myCalendar.select(["04/12/2023"]);
-      myCalendar.select(["05/12/2023"]);
-      myCalendar.select(["06/12/2023"]);
-      myCalendar.select(["07/12/2023"]);
-    
-      myCalendar.select(["15/12/2023"]);
-      myCalendar.select(["18/12/2023"]);
-      myCalendar.select(["19/12/2023"]);
-      myCalendar.select(["20/12/2023"]);
-      myCalendar.select(["21/12/2023"]);
-    
-      myCalendar.select(["01/01/2024"]);
-      myCalendar.select(["02/01/2024"]);
-      myCalendar.select(["03/01/2024"]);
-      myCalendar.select(["04/01/2024"]);
-      myCalendar.select(["05/01/2024"]);
-    
-      myCalendar.select(["15/01/2024"]);
-      myCalendar.select(["16/01/2024"]);
-      myCalendar.select(["17/01/2024"]);
-      myCalendar.select(["18/01/2024"]);
-      myCalendar.select(["19/01/2024"]);
-    
-      myCalendar.select(["01/02/2024"]);
-      myCalendar.select(["02/02/2024"]);
-      myCalendar.select(["05/02/2024"]);
-      myCalendar.select(["06/02/2024"]);
-      myCalendar.select(["07/02/2024"]);
-    
-      myCalendar.select(["19/02/2024"]);
-      myCalendar.select(["20/02/2024"]);
-      myCalendar.select(["21/02/2024"]);
-      myCalendar.select(["22/02/2024"]);
-      myCalendar.select(["23/02/2024"]);
+<script type="text/javascript">
 
-      }
-      
-      function feriados(){
-
-      }
-      diasDePagamento();
-      myCalendar.refresh();
-    </script>
+</script>
