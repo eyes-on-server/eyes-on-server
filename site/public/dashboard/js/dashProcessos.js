@@ -68,7 +68,7 @@ function setDados() {
 
 
     // Comando a ser realizado no banco de dados
-    var query = `select tipo, servidor from Eyes_On_Server.view_componentes_servidores
+    var query = `select Tipo, servidor from Eyes_On_Server.view_componentes_servidores  
                      where servidor = "${servidorAtual}";`;
 
     fetch("/otavioRoute/setDados", {
@@ -318,9 +318,18 @@ function corelacao() {
     var resultados = calcularCorrelacoes(cpuData, memoryData, diskData, temCPU, temRAM, temDisco);
 
     console.log('Correlações:');
-    for (var key in resultados) {
-        console.log(`${key}: ${resultados[key].toFixed(2)}%`);
-    }
+    
+
+    var div = document.getElementById("correlacao");
+    div.innerHTML = `<h5>CPU para RAM</h5>
+    ${resultados['cpuData para memoryData'].toFixed(2)}%<br/><br/>
+    <h5>RAM para Disco</h5>
+    ${resultados['memoryData para diskData'].toFixed(2)}%<br/><br/>
+    <h5>CPU para Disco</h5>
+    ${resultados['cpuData para diskData'].toFixed(2)}%<br/><br/>`;
+
+    //  console.log(`${key}: ${resultados[key].toFixed(2)}%`);
+  
 
 }
 
@@ -380,9 +389,25 @@ function calcularCorrelacoes(cpuData, memoryData, diskData, temCPU, temRAM, temD
     }
 
     return resultados;
+
+
 }
 
+// function escreverCorrelacao(titulo, vetor) {
 
+//     var div = document.getElementById("correlacao");
+//     div.innerHTML += `<h5>${titulo}</h5>
+// Mínimo: ${encontrarMinimo(vetor)}%&nbsp&nbsp&nbsp&nbsp Máximo: ${encontrarMaximo(vetor)}%<br/>
+// Média : ${fazerMedia(vetor)}%<br/><br/>`;
+
+
+  
+
+// }
+
+//   escreverCorrelacao('cpuData para memoryData', resultados[]);
+//     escreverCorrelacao('Dados da Memória', 'da Memória', memoryData);
+//     escreverCorrelacao('Dados do Disco', 'do Disco', diskData);
 
 
 
