@@ -307,3 +307,83 @@ function situacao() {
         }
     }
 }
+
+
+
+
+
+
+
+function corelacao() {
+    var resultados = calcularCorrelacoes(cpuData, memoryData, diskData, temCPU, temRAM, temDisco);
+
+    console.log('Correlações:');
+    for (var key in resultados) {
+        console.log(`${key}: ${resultados[key].toFixed(2)}%`);
+    }
+
+}
+
+
+function calculateCorrelation(vetor1, vetor2) {
+    if (vetor1.length !== vetor2.length) {
+        throw new Error('Os vetores devem ter o mesmo comprimento');
+    }
+
+    var n = vetor1.length;
+
+    // Calcula a média dos elementos nos vetores
+    var meanVetor1 = vetor1.reduce(function (acc, val) {
+        return acc + val;
+    }, 0) / n;
+
+    var meanVetor2 = vetor2.reduce(function (acc, val) {
+        return acc + val;
+    }, 0) / n;
+
+    // Calcula os termos necessários para o coeficiente de correlação de Pearson
+    var numerator = 0;
+    var denominatorVetor1 = 0;
+    var denominatorVetor2 = 0;
+
+    for (var i = 0; i < n; i++) {
+        var diffVetor1 = vetor1[i] - meanVetor1;
+        var diffVetor2 = vetor2[i] - meanVetor2;
+
+        numerator += diffVetor1 * diffVetor2;
+        denominatorVetor1 += diffVetor1 ** 2;
+        denominatorVetor2 += diffVetor2 ** 2;
+    }
+
+    // Calcula o coeficiente de correlação de Pearson
+    var correlation = (numerator / Math.sqrt(denominatorVetor1 * denominatorVetor2)) * 100;
+
+    // Garante que o resultado esteja dentro do intervalo [-100, 100]
+    correlation = Math.min(100, Math.max(-100, correlation));
+
+    return Math.abs(correlation); // Retorna o valor absoluto do resultado
+}
+
+function calcularCorrelacoes(cpuData, memoryData, diskData, temCPU, temRAM, temDisco) {
+    var resultados = {};
+
+    if (temCPU && temRAM) {
+        resultados['cpuData para memoryData'] = calculateCorrelation(cpuData, memoryData);
+    }
+
+    if (temRAM && temDisco) {
+        resultados['memoryData para diskData'] = calculateCorrelation(memoryData, diskData);
+    }
+
+    if (temCPU && temDisco) {
+        resultados['cpuData para diskData'] = calculateCorrelation(cpuData, diskData);
+    }
+
+    return resultados;
+}
+
+
+
+
+
+

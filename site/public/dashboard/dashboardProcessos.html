@@ -33,7 +33,6 @@
             height: 100%;
             margin: 0;
             padding: 0;
-            /* Adicione outros estilos conforme necessário */
         }
     </style>
 
@@ -147,11 +146,7 @@
 
                         <!-- Nav Item - Alerts -->
 
-
-
-
                         <!-- Nav Item - User Information -->
-
 
                     </ul>
 
@@ -161,20 +156,9 @@
                     <!-- Begin Page Content -->
                     <div class="container-fluid">
 
-                        <!-- Page Heading -->
-                        <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-1 text-gray-800" id="dataSistema"></h1>
 
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="limparFiltros()">
-                <i class="fas fa-eraser fa-sm text-white-50"></i> Limpar Filtros</a>
-               
-        </div> -->
                         <div class="row">
                             <div class="header-dash align-items-center justify-content-between">
-                                <!-- <select class="col-xl-7 col-lg-7" name="" id="select_setores"
-                                    onchange="buscarServidores(this.value)">
-                                    <option value="" selected disabled>Setores</option>
-                                </select> -->
                                 <select class="col-xl-7 col-lg-7" name="" id="select_servidores"
                                     onchange="setDados(this.value)">
                                     <option value="" selected disabled>Selecionar servidor</option>
@@ -307,38 +291,20 @@
                                     <!-- Card Header - Dropdown -->
                                     <div
                                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bolder text-cold">Registros minimos e máximos</h6>
+                                        <h6 class="m-0 font-weight-bolder text-cold" id="texto"></h6>
+                                        <div><button onclick="trocarCards()"
+                                                style="border: none;background-color: #f8f9fc;"><img src="img/setas.png"
+                                                    alt="" style="height: 20px;"></button></div>
                                     </div>
                                     <!-- Card Body -->
                                     <div class="card-body">
-                                        <div id="analysis" style="font-size: 14.8px;"></div>
+                                        <div id="analysis" style="font-size: 14.8px; color: black; display: block;">
+                                        </div>
+                                        <div id="correlacao" style="display: none;"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
-
-                        <!-- Area Chart -->
-                        <!-- <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bolder text-cold">Dados da semana com linha média</h6>
-                            </div>
-                            <div class="card-body">
-                                <div>
-                                    <button onclick="loadData(1)">CPU</button>
-                                    <button onclick="loadData(2)">Memória</button>
-                                    <button onclick="loadData(3)">Disco</button>
-                                    <canvas id="chartSemana"></canvas>
-
-                                </div>
-                            </div>
-                        </div> -->
-
-
-
-
-
 
 
 
@@ -352,16 +318,9 @@
                             </div>
                         </div>
 
-
-
-
-
                         <!-- /.container-fluid -->
                     </div>
                     <!-- End of Main Content -->
-
-
-
 
 
 
@@ -581,12 +540,21 @@
                     return Math.max.apply(null, vetor);
                 }
 
+                function fazerMedia(vetor) {
+                    var soma = 0;
+                    for (let i = 0; i < vetor.length; i++) {
+                        soma += vetor[i];
+                    }
+                    return soma / vetor.length;
+
+                }
+
                 // Função para imprimir o mínimo e máximo de um vetor em uma div
                 function imprimirMinEMax(titulo, id, vetor) {
                     var div = document.getElementById("analysis");
                     div.innerHTML += `<h5>${titulo}</h5>
-                Uso Mínimo ${id}: ${encontrarMinimo(vetor)}%<br/>
-                Uso Máximo ${id}: ${encontrarMaximo(vetor)}%<br/><br/>`;
+                Mínimo: ${encontrarMinimo(vetor)}%&nbsp&nbsp&nbsp&nbsp Máximo: ${encontrarMaximo(vetor)}%<br/>
+                Média ${id}: ${fazerMedia(vetor)}%<br/><br/>`;
                 }
 
                 // Chamando a função para cada vetor
@@ -622,6 +590,37 @@
 
                 // Chamando a função para o vetor de datas
                 imprimirMenorEMaior('result', datas);
+
+                var controle = 1
+                document.getElementById("texto").innerHTML = "Resumo dos dados do gráfico"
+
+                function trocarCards() {
+
+                    if (controle == 1) {
+                        var analysis = document.getElementById("analysis");
+                        analysis.style.display = "none";
+
+                        var correlacao = document.getElementById("correlacao");
+                        correlacao.style.display = "block";
+
+                        document.getElementById("texto").innerHTML = "Corelação entre os dados do gráfico"
+                        controle++
+                        corelacao()
+
+
+
+                    } else {
+                        var correlacao = document.getElementById("correlacao");
+                        correlacao.style.display = "none";
+
+                        var analysis = document.getElementById("analysis");
+                        analysis.style.display = "block";
+
+                        document.getElementById("texto").innerHTML = "Resumo dos dados do gráfico"
+                        controle--
+
+                    }
+                }
 
             </script>
 
