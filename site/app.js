@@ -14,7 +14,7 @@ const userRota = require("./src/routers/user");
 const indexRota = require("./src/routers/index");
 const alertasRota = require("./src/routers/alertas");
 const graficosRota = require("./src/routers/graficos");
-const graficosAnalistaRota = require("./src/routers/graficosAnalista");
+const analystGraphRouter = require("./src/routers/analystGraph");
 const mailerRota = require("./src/routers/mailer");
 const downtimeRota = require("./src/routers/downtime");
 
@@ -30,7 +30,7 @@ app.use("/user", userRota);
 app.use("/empresa", empresaRota);
 app.use("/servidor", servidorRota);
 app.use("/alertas", alertasRota);
-app.use("/graficosAnalista", graficosAnalistaRota);
+app.use("/analystGraph", analystGraphRouter);
 app.use("/mailer", mailerRota);
 app.use("/downtime", downtimeRota);
 
