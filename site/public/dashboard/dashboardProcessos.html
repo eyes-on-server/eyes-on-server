@@ -42,7 +42,7 @@
 
 <!--  -->
 
-<body id="page-top" onLoad="nomes(), graficoReal(), buscarServidores();">
+<body id="page-top" onLoad="nomes(), buscarServidores();">
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- Sidebar -->
@@ -160,7 +160,7 @@
                         <div class="row">
                             <div class="header-dash align-items-center justify-content-between">
                                 <select class="col-xl-7 col-lg-7" name="" id="select_servidores"
-                                    onchange="setDados(this.value)">
+                                    onchange="setDados(this.value), graficoReal()">
                                     <option value="" selected disabled>Selecionar servidor</option>
                                 </select>
                             </div>
@@ -300,7 +300,10 @@
                                     <div class="card-body">
                                         <div id="analysis" style="font-size: 14.8px; color: black; display: block;">
                                         </div>
-                                        <div id="correlacao" style="display: none;font-size: 15px; color: black;">
+                                        <div id="correlacao" style="display: none;font-size: 16px; color: black;">
+                                            <div id="div1"></div>
+                                            <div id="div2"></div>
+                                            <div id="div3"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -412,16 +415,25 @@
                             resposta.json().then(json => {
                                 console.log(JSON.stringify(json))
 
+                                // var cpuData = []
+                                var memoryData = []
+                                // var diskData = []
+
+
                                 for (let i = 0; i < json.length; i++) {
                                     var dados = json[i]
 
-                                    console.log(dados)
+                                    console.log(dados.Valor)
+                                    // console.log(dados.Valor)
+
+                                    memoryData.push(dados.Valor)
 
 
 
-
-                                    // console.log(`Ta funcionando`)
                                 }
+
+
+                                console.log(memoryData)
                             });
                         } else {
                             throw ("Houve um erro ao tentar listar os servidores!");
@@ -714,115 +726,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-            <!-- Grafico de dispersão com linha média -->
-            <!-- <script>
-
-                var cpuData = [10, 30, 50, 70, 40, 20, 60, 80, 90, 45];
-                var memoryData = [30, 50, 90, 40, 60, 70, 80, 10, 55, 20];
-                var diskData = [65, 35, 5, 45, 55, 15, 25, 75, 95, 70];
-
-                var horas = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
-
-                // Configuração inicial do gráfico
-                var ctx = document.getElementById('chartSemana').getContext('2d');
-                var chartSemana = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: horas,
-                        datasets: [{
-                            label: 'Uso da CPU (%)',
-                            data: cpuData,
-                            borderColor: 'transparent',
-                            backgroundColor: 'rgba(75, 192, 192, 1)',
-                            borderWidth: 2,
-                            pointRadius: 4,
-                            fill: false,
-                            lineTension: 0
-                        },
-                        {
-                            label: 'Média',
-                            data: Array(cpuData.length).fill(calculateAverage(cpuData)),
-                            borderColor: 'rgba(255, 0, 0, 1)',
-                            borderWidth: 2,
-                            pointRadius: 0,
-                            fill: false,
-                            lineTension: 0
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            x: [{
-                                type: 'linear',
-                                position: 'bottom'
-                            }],
-                            y: [{
-                                ticks: {
-                                    beginAtZero: true,
-                                    max: 100
-                                }
-                            }]
-                        }
-                    }
-                });
-
-                function loadData(index) {
-                    var data;
-                    var label;
-
-                    // Remove a linha média anterior, se existir
-                    chartSemana.data.datasets = chartSemana.data.datasets.filter(dataset => dataset.label !== 'Média');
-
-                    switch (index) {
-                        case 1:
-                            data = cpuData;
-                            label = 'Uso da CPU (%)';
-                            addAverageLine(data);
-                            break;
-                        case 2:
-                            data = memoryData;
-                            label = 'Uso da Memória (%)';
-                            addAverageLine(data);
-                            break;
-                        case 3:
-                            data = diskData;
-                            label = 'Uso do Disco (%)';
-                            addAverageLine(data);
-                            break;
-                        default:
-                            break;
-                    }
-
-                    chartSemana.data.datasets[0].data = data;
-                    chartSemana.data.datasets[0].label = label;
-                    chartSemana.update();
-                }
-
-                function addAverageLine(data) {
-                    chartSemana.data.datasets.push({
-                        label: 'Média',
-                        data: Array(data.length).fill(calculateAverage(data)),
-                        borderColor: 'rgba(255, 0, 0, 1)',
-                        borderWidth: 2,
-                        pointRadius: 0,
-                        fill: false,
-                        lineTension: 0
-                    });
-                }
-
-                function calculateAverage(data) {
-                    return data.reduce((sum, value) => sum + value, 0) / data.length;
-                }
-
-            </script> -->
 
 
 </body>

@@ -321,14 +321,37 @@ function corelacao() {
     
 
     var div = document.getElementById("correlacao");
-    div.innerHTML = `<h5>CPU para RAM</h5>
-    ${resultados['cpuData para memoryData'].toFixed(2)}%<br/><br/>
-    <h5>RAM para Disco</h5>
-    ${resultados['memoryData para diskData'].toFixed(2)}%<br/><br/>
-    <h5>CPU para Disco</h5>
-    ${resultados['cpuData para diskData'].toFixed(2)}%<br/><br/>`;
+    var div1 = document.getElementById("div1");
+    var div2 = document.getElementById("div2");
+    var div3 = document.getElementById("div3");
 
-    //  console.log(`${key}: ${resultados[key].toFixed(2)}%`);
+    div1.innerHTML =``
+    div2.innerHTML =``
+    div3.innerHTML =``
+    
+    if (temCPU && temRAM) {
+
+        div1.innerHTML = `<h5>Correlação entre CPU e RAM</h5>
+    ${resultados['cpuData para memoryData'].toFixed(2)}%<br/><br/>`
+    }
+
+    if (temRAM && temDisco) {
+
+        div2.innerHTML = `<h5>Correlação entre RAM e Disco</h5>
+    ${resultados['memoryData para diskData'].toFixed(2)}%<br/><br/>`
+    }
+
+    if (temCPU && temDisco) {
+
+        div3.innerHTML = `<h5>Correlação entre CPU e Disco</h5>
+    ${resultados['cpuData para diskData'].toFixed(2)}%<br/><br/>`;
+    }
+
+    
+    
+    
+
+    // console.log(`${key}: ${resultados[key].toFixed(2)}%`);
   
 
 }
@@ -393,21 +416,7 @@ function calcularCorrelacoes(cpuData, memoryData, diskData, temCPU, temRAM, temD
 
 }
 
-// function escreverCorrelacao(titulo, vetor) {
 
-//     var div = document.getElementById("correlacao");
-//     div.innerHTML += `<h5>${titulo}</h5>
-// Mínimo: ${encontrarMinimo(vetor)}%&nbsp&nbsp&nbsp&nbsp Máximo: ${encontrarMaximo(vetor)}%<br/>
-// Média : ${fazerMedia(vetor)}%<br/><br/>`;
-
-
-  
-
-// }
-
-//   escreverCorrelacao('cpuData para memoryData', resultados[]);
-//     escreverCorrelacao('Dados da Memória', 'da Memória', memoryData);
-//     escreverCorrelacao('Dados do Disco', 'do Disco', diskData);
 
 
 
