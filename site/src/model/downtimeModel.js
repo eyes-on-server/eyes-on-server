@@ -14,13 +14,13 @@ function popularCards(fkEmpresa) {
 function popularTabela(fkEmpresa) {
   const query = `
     SELECT 
-      id_servidor, 
+      fk_servidor, 
       nome_servidor, 
       SUM(tempo_downtime) total_downtime, 
       SUM(prejuizo) total_prejuizo 
     FROM View_Downtime_Servidores 
     WHERE id_empresa = ${fkEmpresa}
-    GROUP BY id_servidor
+    GROUP BY fk_servidor
     ORDER BY total_prejuizo DESC`;
 
   return database.executar(query);
@@ -60,7 +60,7 @@ function correlacaoDowntimePrejuizo(idServidor) {
       SUM(tempo_downtime) total_downtime, 
       DATE(momento) data_downtime 
     FROM View_Downtime_Servidores
-    WHERE tempo_downtime != 0 AND id_servidor = ${idServidor}
+    WHERE tempo_downtime != 0 AND fk_servidor = ${idServidor}
     GROUP by data_downtime
     ORDER by data_downtime DESC;
   `;
