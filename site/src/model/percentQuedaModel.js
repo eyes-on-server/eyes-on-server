@@ -14,6 +14,20 @@ function popularTabelaQueda() {
   return database.executar(query);
 }
 
+function popularTabelaQuedaPrevisao() {
+  const query = `
+	SELECT 
+        id_servidor, 
+        local_servidor,
+        nome_servidor, 
+        chancePrevisto
+      FROM View_PercentQueda_Servidores 
+      WHERE id_empresa = 3 AND dataRegistro = '2023-11-02'
+      ORDER BY chancePrevisto DESC;`;
+
+  return database.executar(query);
+}
+
 function carregarDadosServidorInicio() {
 
   
@@ -47,6 +61,7 @@ function carregarDadosServidor(idServidor) {
 module.exports = {
 
   popularTabelaQueda,
+  popularTabelaQuedaPrevisao,
   carregarDadosServidorInicio,
   carregarDadosServidor
 

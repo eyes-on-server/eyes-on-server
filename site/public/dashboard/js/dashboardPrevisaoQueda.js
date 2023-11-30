@@ -85,6 +85,41 @@ function popularTabelaQueda() {
     });
 }
 
+function popularTabelaQuedaPrevisao() {
+  document.getElementById("tabela_previsao_queda_servidores").innerHTML = "";
+
+  fetch(`/percentQueda/popularTabelaQuedaPrevisao`)
+    .then((resposta) => {
+      if (resposta.ok) {
+        console.log(JSON.stringify(resposta));
+
+        resposta.json().then((json) => {
+          for (var i = 0; i < json.length; i++) {
+            document.getElementById("tabela_previsao_queda_servidores").innerHTML += `
+                  <tr id='item${json[i].id_servidor
+              }' class='linha-tabela' onclick='popularGrafico(${json[i].id_servidor
+              })'>
+                      <td>${json[i].id_servidor}</td>
+                      <td>${json[i].local_servidor}</td>
+                      <td>${json[i].nome_servidor}</td>
+                      <td>${(json[i].chancePrevisto).toFixed(2)}</td>
+                     
+                  </tr>
+              `;
+          }
+        });
+      } else {
+        console.error(
+          "Não foram encontrados registros para a tabela dos servidores!"
+        );
+      }
+    })
+    .catch((erro) => {
+      console.log(erro);
+    });
+}
+
+
 function popularPrimeiroGrafico(){
   let dados = [];
   let labels = [];
@@ -222,6 +257,7 @@ function popularGrafico(idServidor) {
 function executarFuncoesPrevisao() {
 
   popularTabelaQueda(),
+  popularTabelaQuedaPrevisao(),
   popularPrimeiroGrafico()
   // downtimePorDia();
 }
