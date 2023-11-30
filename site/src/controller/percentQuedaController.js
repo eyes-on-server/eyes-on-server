@@ -18,6 +18,24 @@ function popularTabelaQueda(req, res) {
     });
 }
 
+function carregarDadosServidorInicio(req, res) {
+
+
+  percentQuedaModel
+    .carregarDadosServidor()
+    .then((result) => {
+      if (result.length > 0) {
+        res.status(200).json(result);
+      } else {
+        res.status(500).send("Não foram encontrados registros!");
+      }
+    })
+    .catch((erro) => {
+      console.error(erro);
+    });
+}
+
+
 function carregarDadosServidor(req, res) {
   const idServidor = req.params.idServidor;
 
@@ -37,6 +55,7 @@ function carregarDadosServidor(req, res) {
 
 module.exports = {
   popularTabelaQueda,
+  carregarDadosServidorInicio,
   carregarDadosServidor
 
 
