@@ -3,7 +3,7 @@ var OtavioModel = require('../model/otavioModel');
 function grafico(req, res) {
     // info("grafico()")
     var fkEmpresa = req.body.fkEmpresa_html;
-    console.log(req.body.fkEmpresa_html)
+    // console.log(req.body.fkEmpresa_html)
 
     if(fkEmpresa == undefined){
         res.status(400).send("O nome do Servidor está indefinido")

@@ -85,6 +85,53 @@ function popularTabelaQueda() {
     });
 }
 
+function popularPrimeiroGrafico(){
+  let dados = [];
+  let labels = [];
+
+  document.getElementById("graficoChanceDeQueda").style.display = "none";
+
+  fetch(`/percentQueda/carregarDadosServidor`)
+    .then((resultado) => {
+      if (resultado.ok) {
+        console.log(JSON.stringify(resultado));
+        
+        resultado.json().then(
+          function(json) {
+        console.log(json);
+
+          for (var i = 0; i < json.length; i++) {
+
+            dados.push(json[i].chanceDiaria.toFixed(2));
+            labels.push(formatDatabaseDate(json[i].dataRegistro));
+          }
+
+          graficoChanceDeQueda.data.labels = labels;
+          graficoChanceDeQueda.data.datasets[0].data = dados;
+
+          graficoChanceDeQueda.update();
+
+          document.getElementById("graficoChanceDeQueda").style.display =
+            "flex";
+          document.getElementById("divAguardandoDadosChanceDeQueda").style.display =
+            "none";
+        });
+      } else {
+        console.error("Nao foram encontrados registros!");
+
+        document.getElementById("graficoChanceDeQueda").style.display =
+          "none";
+        document.getElementById("divAguardandoDadosDowntime").style.display =
+          "flex";
+      }
+    })
+    .catch((erro) => {
+      console.log("Erro no fetch!");
+      console.log(erro);
+    });
+}
+
+
 function popularGrafico(idServidor) {
   let dados = [];
   let labels = [];
@@ -174,6 +221,7 @@ function popularGrafico(idServidor) {
 // }
 function executarFuncoesPrevisao() {
 
-  popularTabelaQueda()
+  popularTabelaQueda(),
+  popularPrimeiroGrafico()
   // downtimePorDia();
 }
