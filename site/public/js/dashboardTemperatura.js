@@ -1,145 +1,117 @@
-const ctxGraficoCpu = document.getElementById("graficoCpu");
+// Dados de exemplo (substitua pelos seus próprios dados)
+const temperatura = [25.0, 28.0, 30.0, 22.0, 27.0];
+const usoCpu = [0.1, 0.2, 0.3, 0.1, 0.25];
 
-function gerarGrafico(ctx, dados) {
-  return new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: ["21/11", "22/11", "23/11", "24/11", "25/11", "26/11", "27/11"],
-      datasets: [
-        {
-          label: "Temperatura",
-          data: [12, 19, 3, 5, 2, 3, 90],
-          borderWidth: 1,
+// Calcule a correlação entre os dados
+const correlation = calculateCorrelation(temperatura, usoCpu);
+console.log("Correlação entre Temperatura e Uso de CPU:", correlation);
+
+// Obtendo o contexto do canvas
+const ctx = document.getElementById("graficoCpu").getContext("2d");
+
+// Configurações do gráfico
+const config = {
+  type: "scatter",
+  data: {
+    datasets: [
+      {
+        label: "Correlação",
+        data: temperatura.map((value, index) => ({
+          x: value,
+          y: usoCpu[index],
+        })),
+        backgroundColor: "rgba(75, 192, 192, 0.5)", // Cor de fundo
+      },
+    ],
+  },
+  options: {
+    scales: {
+      x: {
+        type: "linear",
+        position: "bottom",
+        title: {
+          display: true,
+          text: "Temperatura",
         },
-      ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
+      },
+      y: {
+        type: "linear",
+        position: "left",
+        title: {
+          display: true,
+          text: "Uso de CPU",
         },
       },
     },
-  });
-}
-
-function calcularRegressaoLinear(dadosDataHora, temperatura) {
-  dadosDataHora = dadosDataHora.map(function (valor) {
-    return parseFloat(valor);
-  });
-
-  temperatura = temperatura.map(function (valor1) {
-    return parseFloat(valor1);
-  });
-
-  // Calcular a média de x e y
-  var xSum = 0;
-  var ySum = 0;
-  for (var i = 0; i < dadosDataHora.length; i++) {
-    xSum += dadosDataHora[i];
-    ySum += temperatura[i];
-  }
-  console.log(xSum, ySum);
-  var xMean = xSum / dadosDataHora.length;
-  var yMean = ySum / dadosDataHora.length;
-  console.log(xMean, ySum);
-
-  // Calcular os coeficientes da regressão:
-  // O numerador é a soma dos produtos dos desvios de X em relação à média de X e dos desvios de Y em relação à média de Y
-  // para cada par de dados (X - X̄) * (Y - Ȳ)
-  // A variável denominator é usada para calcular a soma dos quadrados dos desvios de x em relação à sua média.
-  // X (X - X̄)^2
-  //CALCULAR A INCLINAÇÃO a = Σ((X - X̄)(Y - Ȳ)) / Σ((X - X̄)²)
-
-  var numerator = 0;
-  var denominator = 0;
-  for (var i = 0; i < dadosDataHora.length; i++) {
-    numerator += (dadosDataHora[i] - xMean) * (temperatura[i] - yMean);
-    denominator += ((dadosDataHora[i] - xMean) * (dadosDataHora[i] - xMean)) ^ 2;
-    console.log(numerator, denominator);
-  }
-  //Inclinação (Beta)
-  var a = numerator / denominator;
-  //var a = 0.04
-  //Interceptação (Alfa)
-  var b = yMean - a * xMean;
-  //var b = 91.7
-
-  console.log(a, b);
-
-  var r = RSquared(yMean, a, b, dadosDataHora, temperatura);
-  var Rsq = r.Rsq;
-  console.log("R");
-  console.log(Rsq);
-
-  return { a, b, Rsq };
-}
-
-function criarGraficoLinha(ctx, dadosDataHora, temperatura) {
-  // Calcula os coeficientes da regressão linear
-  var coeficientes = calcularRegressaoLinear(dadosDataHora, temperatura);
-  var a = coeficientes.a;
-  var b = coeficientes.b;
-  var Rsq = coeficientes.Rsq;
-
-  // Pega o valor de a e b do calcularRegressaoLinear e faz o calculo
-  //com base no x (dados do dadosDataHora)
-  // filtrar por máquina e no filtro mostrar o tipo dela
-  var labels = dadosDataHora;
-  var valoresRegressao = dadosDataHora.map(function (x) {
-    // alfa + beta * x formula da regressão linear
-    // b + x * a seguindo as variaveis da função calcularRegressaoLinear
-    return b + x * a;
-  });
-
-  var ctx = document.getElementById("graficoCpu").getContext("2d");
-  var chart = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: temperatura,
-      datasets: [
-        {
-          label: "temperatura Original",
-          data: temperatura,
-          backgroundColor: "blue",
-          borderColor: "transparent",
-          fill: false,
-        },
-        {
-          label: "Regressão Linear",
-          data: valoresRegressao,
-          borderColor: "red",
-          backgroundColor: "red",
-          pointRadius: 0,
-          fill: false,
-        },
-      ],
+    plugins: {
+      title: {
+        display: true,
+        text: "Gráfico de Correlação",
+      },
     },
-  });
+  },
+};
 
-  regressaoLinear.innerHTML = `${Rsq.toFixed(2)}%`;
-}
+// Crie o gráfico
+const chart = new Chart(ctx, config);
 
-function RSquared(yMean, a, b, dadosDataHora, temperatura) {
-  // formula: Rsq = 1 - (SSE / SSTO)
+// Adicione a linha de regressão linear
+const regressionData = calculateLinearRegression(temperatura, usoCpu);
+const regressionLine = regressionData.equation;
+chart.data.datasets.push({
+  label: "Linha de Regressão",
+  data: [
+    { x: Math.min(...temperatura), y: regressionLine(temperatura[0]) },
+    {
+      x: Math.max(...temperatura),
+      y: regressionLine(Math.max(...temperatura)),
+    },
+  ],
+  borderColor: "red", // Cor da linha
+  borderWidth: 2, // Largura da linha
+  fill: false, // Não preencher a área sob a linha
+});
+chart.update();
 
-  // Calcular a soma dos quadrados totais (SSTO)
-  var SSTO = 0;
-  for (var i = 0; i < dadosDataHora.length; i++) {
-    SSTO += Math.pow(temperatura[i] - yMean, 2);
+// Função para calcular a correlação
+function calculateCorrelation(x, y) {
+  if (x.length !== y.length) {
+    throw new Error("Os arrays devem ter o mesmo comprimento");
   }
 
-  // Calcular a soma dos quadrados dos erros (SSE)
-  var SSE = 0;
-  for (var i = 0; i < dadosDataHora.length; i++) {
-    SSE += Math.pow(temperatura[i] - (a * dadosDataHora[i] + b), 2);
+  const n = x.length;
+  const meanX = calculateMean(x);
+  const meanY = calculateMean(y);
+
+  let numerator = 0.0;
+  let sumSquaredXDiff = 0.0;
+  let sumSquaredYDiff = 0.0;
+
+  for (let i = 0; i < n; i++) {
+    const xDiff = x[i] - meanX;
+    const yDiff = y[i] - meanY;
+
+    numerator += xDiff * yDiff;
+    sumSquaredXDiff += xDiff * xDiff;
+    sumSquaredYDiff += yDiff * yDiff;
   }
 
-  // Calcular o R-quadrado múltiplo
-  var Rsq = 1 - SSE / SSTO;
-  Rsq = Rsq * 100;
-
-  return { Rsq };
+  const denominator = Math.sqrt(sumSquaredXDiff * sumSquaredYDiff);
+  return numerator / denominator;
 }
 
-criarGraficoLinha(ctxGraficoCpu, [1, 2, 3, 4, 5, 6, 7], [10, 20, 30, 40, 50, 60, 70]);
+function calculateMean(array) {
+  const sum = array.reduce((acc, value) => acc + value, 0);
+  return sum / array.length;
+}
+
+// Função para calcular a linha de regressão linear usando a biblioteca regression-js
+function calculateLinearRegression(x, y) {
+  if (x.length !== y.length) {
+    throw new Error("Os arrays devem ter o mesmo comprimento");
+  }
+
+  const data = x.map((value, index) => [value, y[index]]);
+  const result = regression.linear(data);
+  return result;
+}

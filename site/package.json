@@ -18,6 +18,7 @@
         "nodemailer": "^6.9.7",
         "nodemon": "^2.0.22",
         "path": "^0.12.7",
+        "regression": "^2.0.1",
         "serialport": "^10.4.0"
     }
 }
