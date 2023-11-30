@@ -22,7 +22,7 @@ function carregarDadosServidorInicio(req, res) {
 
 
   percentQuedaModel
-    .carregarDadosServidor()
+    .carregarDadosServidorInicio()
     .then((result) => {
       if (result.length > 0) {
         res.status(200).json(result);
