@@ -33,7 +33,6 @@
             height: 100%;
             margin: 0;
             padding: 0;
-            /* Adicione outros estilos conforme necessário */
         }
     </style>
 
@@ -41,8 +40,9 @@
 
 </head>
 
+<!--  -->
 
-<body id="page-top" onLoad="nomes(), listar_servidor();">
+<body id="page-top" onLoad="nomes(), buscarServidores();">
     <!-- Page Wrapper -->
     <div id="wrapper">
         <!-- Sidebar -->
@@ -146,11 +146,7 @@
 
                         <!-- Nav Item - Alerts -->
 
-
-
-
                         <!-- Nav Item - User Information -->
-
 
                     </ul>
 
@@ -160,19 +156,20 @@
                     <!-- Begin Page Content -->
                     <div class="container-fluid">
 
-                        <!-- Page Heading -->
-                        <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-1 text-gray-800" id="dataSistema"></h1>
-
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="limparFiltros()">
-                <i class="fas fa-eraser fa-sm text-white-50"></i> Limpar Filtros</a>
-               
-        </div> -->
 
                         <div class="row">
+                            <div class="header-dash align-items-center justify-content-between">
+                                <select class="col-xl-7 col-lg-7" name="" id="select_servidores"
+                                    onchange="setDados(this.value), graficoReal()">
+                                    <option value="" selected disabled>Selecionar servidor</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row" style="display: flex; justify-content: center;">
 
                             <!-- Earnings (Monthly) Card Example -->
-                            <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="col-xl-3 col-md-6 mb-4" id="kpiCpu">
                                 <abbr id="abbrCpu" style="text-decoration: none;">
                                     <div class="card shadow h-100 py-2 pointer" id="cardCpu">
                                         <div class="card-body">
@@ -195,7 +192,7 @@
                             </div>
 
                             <!-- Earnings (Monthly) Card Example -->
-                            <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="col-xl-3 col-md-6 mb-4" id="kpiRam">
                                 <abbr id="abbrRam" style="text-decoration: none;">
                                     <div class="card shadow h-100 py-2 pointer" id="cardMemo">
                                         <div class="card-body">
@@ -218,10 +215,9 @@
                             </div>
 
                             <!-- Earnings (Monthly) Card Example -->
-                            <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="col-xl-3 col-md-6 mb-4" id="kpiDisco">
                                 <abbr id="abbrDisco" style="text-decoration: none;">
-                                    <div class="card shadow h-100 py-2 pointer"
-                                        id="cardDisco">
+                                    <div class="card shadow h-100 py-2 pointer" id="cardDisco">
                                         <div class="card-body">
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col mr-2">
@@ -276,7 +272,8 @@
                                     <!-- Card Header - Dropdown -->
                                     <div
                                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bolder text-cold">Dados em tempo real</h6>
+                                        <h6 class="m-0 font-weight-bolder text-cold">Porcentagem de uso dos Componentes
+                                        </h6>
                                     </div>
 
                                     <!-- Card Body -->
@@ -294,38 +291,24 @@
                                     <!-- Card Header - Dropdown -->
                                     <div
                                         class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                        <h6 class="m-0 font-weight-bolder text-cold">Registros minimos e máximos</h6>
+                                        <h6 class="m-0 font-weight-bolder text-cold" id="texto"></h6>
+                                        <div><button onclick="trocarCards()"
+                                                style="border: none;background-color: #f8f9fc;"><img src="img/setas.png"
+                                                    alt="" style="height: 20px;"></button></div>
                                     </div>
                                     <!-- Card Body -->
                                     <div class="card-body">
-                                        <div id="analysis" style="font-size: 14.8px;"></div>
+                                        <div id="analysis" style="font-size: 14.8px; color: black; display: block;">
+                                        </div>
+                                        <div id="correlacao" style="display: none;font-size: 16px; color: black;">
+                                            <div id="div1"></div>
+                                            <div id="div2"></div>
+                                            <div id="div3"></div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
-
-                        <!-- Area Chart -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bolder text-cold">Dados da semana com linha média</h6>
-                            </div>
-                            <div class="card-body">
-                                <div>
-                                    <button onclick="loadData(1)">CPU</button>
-                                    <button onclick="loadData(2)">Memória</button>
-                                    <button onclick="loadData(3)">Disco</button>
-                                    <canvas id="chartSemana"></canvas>
-
-                                </div>
-                            </div>
-                        </div>
-
-
-
-
-
 
 
 
@@ -339,69 +322,9 @@
                             </div>
                         </div>
 
-
-
-
-                        <script>
-
-                            var fk = sessionStorage.FK_EMPRESA
-
-                            function nomes() {
-                                nome_do_usuario.innerHTML = sessionStorage.NOME_USER;
-                                nome_da_empresa.innerHTML = sessionStorage.NOME_FANTASIA;
-
-                            }
-
-                            function listar_servidor() {
-                                fetch("/servidor/listar", {
-                                    method: "POST",
-                                    headers: {
-                                        "Content-Type": "application/json"
-                                    },
-                                    body: JSON.stringify({
-                                        fkEmpresa_html: fk,
-                                    })
-                                }).then(function (resposta) {
-
-                                    if (resposta.ok) {
-                                        resposta.json().then(json => {
-                                            console.log(JSON.stringify(json))
-                                            for (let i = 0; i < json.length; i++) {
-                                                var dados = json[i]
-                                                exibir_consulta_servidor.innerHTML +=
-                                                    `<tr class="even">
-                                <td>${dados.id}</td>
-                                <td>${dados.Nome_Servidor}</td>
-                                <td>${dados.Sistema_Operacional}</td>
-                                <td>${dados.Descricao}</td>
-                                <td>${dados.Local}</td>
-                                <td>${dados.Componentes}</td>
-                            </tr>`
-                                                console.log(dados)
-                                            }
-                                        });
-                                    } else {
-                                        throw ("Houve um erro ao tentar listar os servidores!");
-                                    }
-                                }).catch(function (resposta) {
-                                    console.log(`#ERRO AO LISTAR: ${resposta}`);
-                                });
-                                return false;
-                            }
-
-                        </script>
-
-
-
-
-
-
                         <!-- /.container-fluid -->
                     </div>
                     <!-- End of Main Content -->
-
-
-
 
 
 
@@ -464,73 +387,68 @@
             <script src="vendor/chart.js/Chart.min.js"></script>
 
             <!-- Page level custom scripts -->
-            <script src="js/demo/chart-area-demo.js"></script>
-            <script src="js/demo/chart-pie-demo.js"></script>
+            <!-- <script src="js/demo/chart-area-demo.js"></script> -->
+            <!-- <script src="js/demo/chart-pie-demo.js"></script> -->
+
+            <script src="js/dashProcessos.js"></script>
 
 
-            <script>
-
-                var cpuData = [10, 30, 50, 70, 40, 20, 60, 80, 90, 45];
-                var memoryData = [30, 50, 90, 40, 60, 70, 80, 10, 55, 20];
-                var diskData = [65, 35, 5, 45, 55, 15, 25, 75, 95, 70];
-                var valorPosicaoVetorCpu = cpuData[cpuData.length - 1];
-                var valorPosicaoVetorRam = memoryData[memoryData.length - 1];
-                var valorPosicaoVetorDisco = diskData[diskData.length - 1];
-
-                // Variável para armazenar o título e descrição
-                var tituloCpu;
-                var descricaocpu;
-                var div = document.getElementById("situacaocpu");
-                var div2 = document.getElementById("abbrCpu");
-
-                // Verifica a condição
-                if (valorPosicaoVetorCpu < 75) {
-
-                    tituloCpu = "Ideal";
-                    descricaoCpu = "Registro abaixo de 75%"
-
-                    div.innerHTML = `${tituloCpu}`;
-                    div2.title = `${descricaoCpu}`;
-
-                } else if (valorPosicaoVetorCpu >= 75 && valorPosicaoVetorCpu < 85) {
-
-                    tituloCpu = "Prevenção";
-                    descricaoCpu = "Registro entre 75% e 85%"
-
-                    div.innerHTML = `${tituloCpu}`;
-                    div2.title = `${descricaoCpu}`;
-
-                } else if (valorPosicaoVetorCpu >= 75 && valorPosicaoVetorCpu < 85) {
-
-                    tituloCpu = "Prevenção";
-                    descricaoCpu = "Registro entre 75% e 84%"
-
-                    div.innerHTML = `${tituloCpu}`;
-                    div2.title = `${descricaoCpu}`;
-
-                } else if (valorPosicaoVetorCpu >= 85 && valorPosicaoVetorCpu < 95) {
-
-                    tituloCpu = "Perigo";
-                    descricaoCpu = "Registro entre 85% e 94%"
-
-                    div.innerHTML = `${tituloCpu}`;
-                    div2.title = `${descricaoCpu}`;
-
-                } else if (valorPosicaoVetorCpu >= 95) {
-
-                    tituloCpu = "Emergência";
-                    descricaoCpu = "Registro entre 75% e 85%"
-
-                    div.innerHTML = `${tituloCpu}`;
-                    div2.title = `${descricaoCpu}`;
-
-                }
-
-            </script>
 
 
             <!-- Grafico de linha em tempo real -->
             <script>
+
+                var fk = sessionStorage.FK_EMPRESA
+
+                function graficoReal() {
+                    fetch("/otavioRoute/grafico", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            fkEmpresa_html: fk,
+                        })
+                    }).then(function (resposta) {
+
+                        if (resposta.ok) {
+                            resposta.json().then(json => {
+                                console.log(JSON.stringify(json))
+
+                                // var cpuData = []
+                                var memoryData = []
+                                // var diskData = []
+
+
+                                for (let i = 0; i < json.length; i++) {
+                                    var dados = json[i]
+
+                                    console.log(dados.Valor)
+                                    // console.log(dados.Valor)
+
+                                    memoryData.push(dados.Valor)
+
+
+
+                                }
+
+
+                                console.log(memoryData)
+                            });
+                        } else {
+                            throw ("Houve um erro ao tentar listar os servidores!");
+                        }
+                    }).catch(function (resposta) {
+                        console.log(`#ERRO AO LISTAR: ${resposta}`);
+                    });
+                    return false;
+                }
+
+
+
+
+
+
                 // Seus dados para os conjuntos de dados
                 var cpuData = [10, 30, 50, 70, 40, 20, 60, 80, 90, 45];
                 var memoryData = [30, 50, 90, 40, 60, 70, 80, 10, 55, 20];
@@ -635,12 +553,21 @@
                     return Math.max.apply(null, vetor);
                 }
 
+                function fazerMedia(vetor) {
+                    var soma = 0;
+                    for (let i = 0; i < vetor.length; i++) {
+                        soma += vetor[i];
+                    }
+                    return soma / vetor.length;
+
+                }
+
                 // Função para imprimir o mínimo e máximo de um vetor em uma div
                 function imprimirMinEMax(titulo, id, vetor) {
                     var div = document.getElementById("analysis");
                     div.innerHTML += `<h5>${titulo}</h5>
-                Uso Mínimo ${id}: ${encontrarMinimo(vetor)}%<br/>
-                Uso Máximo ${id}: ${encontrarMaximo(vetor)}%<br/><br/>`;
+                Mínimo: ${encontrarMinimo(vetor)}%&nbsp&nbsp&nbsp&nbsp Máximo: ${encontrarMaximo(vetor)}%<br/>
+                Média ${id}: ${fazerMedia(vetor)}%<br/><br/>`;
                 }
 
                 // Chamando a função para cada vetor
@@ -676,6 +603,37 @@
 
                 // Chamando a função para o vetor de datas
                 imprimirMenorEMaior('result', datas);
+
+                var controle = 1
+                document.getElementById("texto").innerHTML = "Resumo dos dados do gráfico"
+
+                function trocarCards() {
+
+                    if (controle == 1) {
+                        var analysis = document.getElementById("analysis");
+                        analysis.style.display = "none";
+
+                        var correlacao = document.getElementById("correlacao");
+                        correlacao.style.display = "block";
+
+                        document.getElementById("texto").innerHTML = "Corelação entre os dados do gráfico"
+                        controle++
+                        corelacao()
+
+
+
+                    } else {
+                        var correlacao = document.getElementById("correlacao");
+                        correlacao.style.display = "none";
+
+                        var analysis = document.getElementById("analysis");
+                        analysis.style.display = "block";
+
+                        document.getElementById("texto").innerHTML = "Resumo dos dados do gráfico"
+                        controle--
+
+                    }
+                }
 
             </script>
 
@@ -768,115 +726,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-            <!-- Grafico de dispersão com linha média -->
-            <script>
-
-                var cpuData = [10, 30, 50, 70, 40, 20, 60, 80, 90, 45];
-                var memoryData = [30, 50, 90, 40, 60, 70, 80, 10, 55, 20];
-                var diskData = [65, 35, 5, 45, 55, 15, 25, 75, 95, 70];
-
-                var horas = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
-
-                // Configuração inicial do gráfico
-                var ctx = document.getElementById('chartSemana').getContext('2d');
-                var chartSemana = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: horas,
-                        datasets: [{
-                            label: 'Uso da CPU (%)',
-                            data: cpuData,
-                            borderColor: 'transparent',
-                            backgroundColor: 'rgba(75, 192, 192, 1)',
-                            borderWidth: 2,
-                            pointRadius: 4,
-                            fill: false,
-                            lineTension: 0
-                        },
-                        {
-                            label: 'Média',
-                            data: Array(cpuData.length).fill(calculateAverage(cpuData)),
-                            borderColor: 'rgba(255, 0, 0, 1)',
-                            borderWidth: 2,
-                            pointRadius: 0,
-                            fill: false,
-                            lineTension: 0
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            x: [{
-                                type: 'linear',
-                                position: 'bottom'
-                            }],
-                            y: [{
-                                ticks: {
-                                    beginAtZero: true,
-                                    max: 100
-                                }
-                            }]
-                        }
-                    }
-                });
-
-                function loadData(index) {
-                    var data;
-                    var label;
-
-                    // Remove a linha média anterior, se existir
-                    chartSemana.data.datasets = chartSemana.data.datasets.filter(dataset => dataset.label !== 'Média');
-
-                    switch (index) {
-                        case 1:
-                            data = cpuData;
-                            label = 'Uso da CPU (%)';
-                            addAverageLine(data);
-                            break;
-                        case 2:
-                            data = memoryData;
-                            label = 'Uso da Memória (%)';
-                            addAverageLine(data);
-                            break;
-                        case 3:
-                            data = diskData;
-                            label = 'Uso do Disco (%)';
-                            addAverageLine(data);
-                            break;
-                        default:
-                            break;
-                    }
-
-                    chartSemana.data.datasets[0].data = data;
-                    chartSemana.data.datasets[0].label = label;
-                    chartSemana.update();
-                }
-
-                function addAverageLine(data) {
-                    chartSemana.data.datasets.push({
-                        label: 'Média',
-                        data: Array(data.length).fill(calculateAverage(data)),
-                        borderColor: 'rgba(255, 0, 0, 1)',
-                        borderWidth: 2,
-                        pointRadius: 0,
-                        fill: false,
-                        lineTension: 0
-                    });
-                }
-
-                function calculateAverage(data) {
-                    return data.reduce((sum, value) => sum + value, 0) / data.length;
-                }
-
-            </script>
 
 
 </body>
