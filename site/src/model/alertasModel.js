@@ -3,13 +3,15 @@ const bancoDados = require("../database/config");
 /* ---------------------- DADOS CARDS ---------------------- */
 function coletarTodosDadosCards(idEmpresa, dataAtual) {
   var query = `
-        SELECT 
-            (SELECT count(id_alertas) FROM View_Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%') totalAlertas,
-            (SELECT count(id_alertas) FROM View_Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and fk_componente = 1) totalAlertasCpu,
-            (SELECT count(id_alertas) FROM View_Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and fk_componente = 2) totalAlertasMemoria,
-            (SELECT count(id_alertas) FROM View_Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and fk_componente = 3) totalAlertasDisco
-        FROM View_Alertas
-        LIMIT 1;
+    SELECT 
+      COUNT(id_alertas) totalAlertas,
+      COALESCE(SUM(alerta_cpu),0) totalAlertasCpu,
+      COALESCE(SUM(alerta_memoria),0) totalAlertasMemoria,
+      COALESCE(SUM(alerta_disco),0) totalAlertasDisco
+    FROM View_Tipo_Alerta 
+    WHERE 
+	    fk_empresa = ${idEmpresa} AND 
+      data_hora_abertura LIKE '${dataAtual}%';
     `;
   return bancoDados.executar(query);
 }
@@ -17,28 +19,33 @@ function coletarTodosDadosCards(idEmpresa, dataAtual) {
 // POR SERVIDOR
 function coletarDadosCardsPorServidor(idEmpresa, dataAtual, fkServidor) {
   var query = `
-    SELECT 
-      (SELECT count(id_alertas) FROM View_Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and fk_servidor = ${fkServidor}) totalAlertas,
-      (SELECT count(id_alertas) FROM View_Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and fk_componente = 1 and fk_servidor = ${fkServidor}) totalAlertasCpu,
-      (SELECT count(id_alertas) FROM View_Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and fk_componente = 2 and fk_servidor = ${fkServidor}) totalAlertasMemoria,
-      (SELECT count(id_alertas) FROM View_Alertas where fk_empresa = ${idEmpresa} and data_hora_abertura like '${dataAtual}%' and fk_componente = 3 and fk_servidor = ${fkServidor}) totalAlertasDisco
-    FROM View_Alertas
-    LIMIT 1;
-    `;
+  SELECT 
+    COUNT(id_alertas) totalAlertas,
+    COALESCE(SUM(alerta_cpu),0) totalAlertasCpu,
+    COALESCE(SUM(alerta_memoria),0) totalAlertasMemoria,
+    COALESCE(SUM(alerta_disco),0) totalAlertasDisco
+  FROM View_Tipo_Alerta 
+  WHERE 
+    fk_empresa = ${idEmpresa} AND 
+    data_hora_abertura LIKE '${dataAtual}%' AND
+    fk_servidor = ${fkServidor};
+  `;
   return bancoDados.executar(query);
 }
 
 // POR LOCAL
 function coletarDadosCardsPorLocal(dataAtual, localServidor) {
   var query = `
-    SELECT 
-      (SELECT count(id_alertas) FROM View_Alertas JOIN Eyes_On_Server.Servidor on fk_servidor = id_servidor where data_hora_abertura like '${dataAtual}%' and local_servidor = '${localServidor}') totalAlertas,
-      (SELECT count(id_alertas) FROM View_Alertas JOIN Eyes_On_Server.Servidor on fk_servidor = id_servidor where data_hora_abertura like '${dataAtual}%' and fk_componente = 1 and local_servidor = '${localServidor}') totalAlertasCpu,
-      (SELECT count(id_alertas) FROM View_Alertas JOIN Eyes_On_Server.Servidor on fk_servidor = id_servidor where data_hora_abertura like '${dataAtual}%' and fk_componente = 2 and local_servidor = '${localServidor}') totalAlertasMemoria,
-      (SELECT count(id_alertas) FROM View_Alertas JOIN Eyes_On_Server.Servidor on fk_servidor = id_servidor where data_hora_abertura like '${dataAtual}%' and fk_componente = 3 and local_servidor = '${localServidor}') totalAlertasDisco
-    FROM View_Alertas
-    LIMIT 1;
-    `;
+  SELECT 
+    COUNT(id_alertas) totalAlertas,
+    COALESCE(SUM(alerta_cpu),0) totalAlertasCpu,
+    COALESCE(SUM(alerta_memoria),0) totalAlertasMemoria,
+    COALESCE(SUM(alerta_disco),0) totalAlertasDisco
+  FROM View_Tipo_Alerta 
+  WHERE 
+    data_hora_abertura LIKE '${dataAtual}%' AND
+    local_servidor = '${localServidor}';
+  `;
   return bancoDados.executar(query);
 }
 
