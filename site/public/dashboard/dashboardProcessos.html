@@ -160,7 +160,7 @@
                         <div class="row">
                             <div class="header-dash align-items-center justify-content-between">
                                 <select class="col-xl-7 col-lg-7" name="" id="select_servidores"
-                                    onchange="setDados(this.value), graficoReal()">
+                                    onchange="setDados(this.value)">
                                     <option value="" selected disabled>Selecionar servidor</option>
                                 </select>
                             </div>
@@ -398,242 +398,242 @@
             <!-- Grafico de linha em tempo real -->
             <script>
 
-                var fk = sessionStorage.FK_EMPRESA
+                // var fk = sessionStorage.FK_EMPRESA
 
-                function graficoReal() {
-                    fetch("/otavioRoute/grafico", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify({
-                            fkEmpresa_html: fk,
-                        })
-                    }).then(function (resposta) {
+                // function graficoReal() {
+                //     fetch("/otavioRoute/grafico", {
+                //         method: "POST",
+                //         headers: {
+                //             "Content-Type": "application/json"
+                //         },
+                //         body: JSON.stringify({
+                //             fkEmpresa_html: fk,
+                //         })
+                //     }).then(function (resposta) {
 
-                        if (resposta.ok) {
-                            resposta.json().then(json => {
-                                console.log(JSON.stringify(json))
+                //         if (resposta.ok) {
+                //             resposta.json().then(json => {
+                //                 console.log(JSON.stringify(json))
 
-                                // var cpuData = []
-                                var memoryData = []
-                                // var diskData = []
-
-
-                                for (let i = 0; i < json.length; i++) {
-                                    var dados = json[i]
-
-                                    console.log(dados.Valor)
-                                    // console.log(dados.Valor)
-
-                                    memoryData.push(dados.Valor)
+                //                 // var cpuData = []
+                //                 var memoryData = []
+                //                 // var diskData = []
 
 
+                //                 for (let i = 0; i < json.length; i++) {
+                //                     var dados = json[i]
 
-                                }
+                //                     console.log(dados.Valor)
+                //                     // console.log(dados.Valor)
 
-
-                                console.log(memoryData)
-                            });
-                        } else {
-                            throw ("Houve um erro ao tentar listar os servidores!");
-                        }
-                    }).catch(function (resposta) {
-                        console.log(`#ERRO AO LISTAR: ${resposta}`);
-                    });
-                    return false;
-                }
+                //                     memoryData.push(dados.Valor)
 
 
+
+                //                 }
+
+
+                //                 console.log(memoryData)
+                //             });
+                //         } else {
+                //             throw ("Houve um erro ao tentar listar os servidores!");
+                //         }
+                //     }).catch(function (resposta) {
+                //         console.log(`#ERRO AO LISTAR: ${resposta}`);
+                //     });
+                //     return false;
+                // }
 
 
 
 
-                // Seus dados para os conjuntos de dados
-                var cpuData = [10, 30, 50, 70, 40, 20, 60, 80, 90, 45];
-                var memoryData = [30, 50, 90, 40, 60, 70, 80, 10, 55, 20];
-                var diskData = [65, 35, 5, 45, 55, 15, 25, 75, 95, 70];
-                var dataRegistro = [
-                    '08:15:30',
-                    '08:15:31',
-                    '08:15:32',
-                    '08:15:33',
-                    '08:15:34',
-                    '08:15:35',
-                    '08:15:36',
-                    '08:15:37',
-                    '08:15:38',
-                    '08:15:39'
-                ]
 
 
-                // Função para carregar dados no gráfico
-                function loadData(index) {
-                    var data;
-                    var label;
-
-                    switch (index) {
-                        case 0:
-                            data = cpuData;
-                            label = 'Uso da CPU';
-                            break;
-                        case 1:
-                            data = memoryData;
-                            label = 'Uso da Memória';
-                            break;
-                        case 2:
-                            data = diskData;
-                            label = 'Uso do Disco';
-                            break;
-                        default:
-                            break;
-                    }
-
-                    chartReal.data.datasets[0].data = data;
-                    chartReal.data.datasets[0].label = label;
-                    chartReal.update();
+                // // Seus dados para os conjuntos de dados
+                // var cpuData = [10, 30, 50, 70, 40, 20, 60, 80, 90, 45];
+                // var memoryData = [30, 50, 90, 40, 60, 70, 80, 10, 55, 20];
+                // var diskData = [65, 35, 5, 45, 55, 15, 25, 75, 95, 70];
+                // var dataRegistro = [
+                //     '08:15:30',
+                //     '08:15:31',
+                //     '08:15:32',
+                //     '08:15:33',
+                //     '08:15:34',
+                //     '08:15:35',
+                //     '08:15:36',
+                //     '08:15:37',
+                //     '08:15:38',
+                //     '08:15:39'
+                // ]
 
 
-                }
+                // // Função para carregar dados no gráfico
+                // function loadData(index) {
+                //     var data;
+                //     var label;
+
+                //     switch (index) {
+                //         case 0:
+                //             data = cpuData;
+                //             label = 'Uso da CPU';
+                //             break;
+                //         case 1:
+                //             data = memoryData;
+                //             label = 'Uso da Memória';
+                //             break;
+                //         case 2:
+                //             data = diskData;
+                //             label = 'Uso do Disco';
+                //             break;
+                //         default:
+                //             break;
+                //     }
+
+                //     chartReal.data.datasets[0].data = data;
+                //     chartReal.data.datasets[0].label = label;
+                //     chartReal.update();
 
 
-                // Configuração inicial do gráfico
-                var ctx = document.getElementById('chartReal').getContext('2d');
-                var chartReal = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: dataRegistro,
-                        datasets: [{
-                            label: 'Uso da CPU (%)',
-                            data: cpuData,
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            borderWidth: 2,
-                            fill: false,
-                            lineTension: 0
-                        }, {
-                            label: 'Uso da Memória (%)',
-                            data: memoryData,
-                            borderColor: 'rgba(128, 0, 128, 1)',
-                            borderWidth: 2,
-                            fill: false,
-                            lineTension: 0
-                        }, {
-                            label: 'Uso do Disco (%)',
-                            data: diskData,
-                            borderColor: 'rgba(255, 0, 0, 1)',
-                            borderWidth: 2,
-                            fill: false,
-                            lineTension: 0
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            x: [{
-                                type: 'linear',
-                                position: 'bottom'
-                            }],
-                            y: [{
-                                ticks: {
-                                    beginAtZero: true,
-                                    max: 100
-                                }
-                            }]
-                        }
-                    }
-                });
+                // }
 
 
-                // Função para encontrar o valor mínimo em um vetor
-                function encontrarMinimo(vetor) {
-                    return Math.min.apply(null, vetor);
-                }
+                // // Configuração inicial do gráfico
+                // var ctx = document.getElementById('chartReal').getContext('2d');
+                // var chartReal = new Chart(ctx, {
+                //     type: 'line',
+                //     data: {
+                //         labels: dataRegistro,
+                //         datasets: [{
+                //             label: 'Uso da CPU (%)',
+                //             data: cpuData,
+                //             borderColor: 'rgba(75, 192, 192, 1)',
+                //             borderWidth: 2,
+                //             fill: false,
+                //             lineTension: 0
+                //         }, {
+                //             label: 'Uso da Memória (%)',
+                //             data: memoryData,
+                //             borderColor: 'rgba(128, 0, 128, 1)',
+                //             borderWidth: 2,
+                //             fill: false,
+                //             lineTension: 0
+                //         }, {
+                //             label: 'Uso do Disco (%)',
+                //             data: diskData,
+                //             borderColor: 'rgba(255, 0, 0, 1)',
+                //             borderWidth: 2,
+                //             fill: false,
+                //             lineTension: 0
+                //         }]
+                //     },
+                //     options: {
+                //         scales: {
+                //             x: [{
+                //                 type: 'linear',
+                //                 position: 'bottom'
+                //             }],
+                //             y: [{
+                //                 ticks: {
+                //                     beginAtZero: true,
+                //                     max: 100
+                //                 }
+                //             }]
+                //         }
+                //     }
+                // });
 
-                // Função para encontrar o valor máximo em um vetor
-                function encontrarMaximo(vetor) {
-                    return Math.max.apply(null, vetor);
-                }
 
-                function fazerMedia(vetor) {
-                    var soma = 0;
-                    for (let i = 0; i < vetor.length; i++) {
-                        soma += vetor[i];
-                    }
-                    return soma / vetor.length;
+                // // Função para encontrar o valor mínimo em um vetor
+                // function encontrarMinimo(vetor) {
+                //     return Math.min.apply(null, vetor);
+                // }
 
-                }
+                // // Função para encontrar o valor máximo em um vetor
+                // function encontrarMaximo(vetor) {
+                //     return Math.max.apply(null, vetor);
+                // }
 
-                // Função para imprimir o mínimo e máximo de um vetor em uma div
-                function imprimirMinEMax(titulo, id, vetor) {
-                    var div = document.getElementById("analysis");
-                    div.innerHTML += `<h5>${titulo}</h5>
-                Mínimo: ${encontrarMinimo(vetor)}%&nbsp&nbsp&nbsp&nbsp Máximo: ${encontrarMaximo(vetor)}%<br/>
-                Média ${id}: ${fazerMedia(vetor)}%<br/><br/>`;
-                }
+                // function fazerMedia(vetor) {
+                //     var soma = 0;
+                //     for (let i = 0; i < vetor.length; i++) {
+                //         soma += vetor[i];
+                //     }
+                //     return soma / vetor.length;
 
-                // Chamando a função para cada vetor
-                imprimirMinEMax('Dados da CPU', 'da CPU', cpuData);
-                imprimirMinEMax('Dados da Memória', 'da Memória', memoryData);
-                imprimirMinEMax('Dados do Disco', 'do Disco', diskData);
+                // }
 
+                // // Função para imprimir o mínimo e máximo de um vetor em uma div
+                // function imprimirMinEMax(titulo, id, vetor) {
+                //     var div = document.getElementById("analysis");
+                //     div.innerHTML += `<h5>${titulo}</h5>
+                // Mínimo: ${encontrarMinimo(vetor)}%&nbsp&nbsp&nbsp&nbsp Máximo: ${encontrarMaximo(vetor)}%<br/>
+                // Média ${id}: ${fazerMedia(vetor)}%<br/><br/>`;
+                // }
 
-
-                function converterParaData(horario) {
-                    var partes = horario.split(':');
-                    return new Date(2000, 0, 1, partes[0], partes[1], partes[2]);
-                }
-
-                // Função para encontrar o menor valor em um vetor de datas
-                function encontrarMenor(data) {
-                    return new Date(Math.min.apply(null, data));
-                }
-
-                // Função para encontrar o maior valor em um vetor de datas
-                function encontrarMaior(data) {
-                    return new Date(Math.max.apply(null, data));
-                }
-
-                // Função para imprimir o menor e o maior valor em uma div
-                function imprimirMenorEMaior(id, data) {
-                    var div = document.getElementById("analysis");
-                    div.innerHTML += `Horário contemplado: ${encontrarMenor(data).toLocaleTimeString()} a ${encontrarMaior(data).toLocaleTimeString()}`;
-                }
-
-                // Convertendo strings para objetos de data
-                var datas = dataRegistro.map(converterParaData);
-
-                // Chamando a função para o vetor de datas
-                imprimirMenorEMaior('result', datas);
-
-                var controle = 1
-                document.getElementById("texto").innerHTML = "Resumo dos dados do gráfico"
-
-                function trocarCards() {
-
-                    if (controle == 1) {
-                        var analysis = document.getElementById("analysis");
-                        analysis.style.display = "none";
-
-                        var correlacao = document.getElementById("correlacao");
-                        correlacao.style.display = "block";
-
-                        document.getElementById("texto").innerHTML = "Corelação entre os dados do gráfico"
-                        controle++
-                        corelacao()
+                // // Chamando a função para cada vetor
+                // imprimirMinEMax('Dados da CPU', 'da CPU', cpuData);
+                // imprimirMinEMax('Dados da Memória', 'da Memória', memoryData);
+                // imprimirMinEMax('Dados do Disco', 'do Disco', diskData);
 
 
 
-                    } else {
-                        var correlacao = document.getElementById("correlacao");
-                        correlacao.style.display = "none";
+                // function converterParaData(horario) {
+                //     var partes = horario.split(':');
+                //     return new Date(2000, 0, 1, partes[0], partes[1], partes[2]);
+                // }
 
-                        var analysis = document.getElementById("analysis");
-                        analysis.style.display = "block";
+                // // Função para encontrar o menor valor em um vetor de datas
+                // function encontrarMenor(data) {
+                //     return new Date(Math.min.apply(null, data));
+                // }
 
-                        document.getElementById("texto").innerHTML = "Resumo dos dados do gráfico"
-                        controle--
+                // // Função para encontrar o maior valor em um vetor de datas
+                // function encontrarMaior(data) {
+                //     return new Date(Math.max.apply(null, data));
+                // }
 
-                    }
-                }
+                // // Função para imprimir o menor e o maior valor em uma div
+                // function imprimirMenorEMaior(id, data) {
+                //     var div = document.getElementById("analysis");
+                //     div.innerHTML += `Horário contemplado: ${encontrarMenor(data).toLocaleTimeString()} a ${encontrarMaior(data).toLocaleTimeString()}`;
+                // }
+
+                // // Convertendo strings para objetos de data
+                // var datas = dataRegistro.map(converterParaData);
+
+                // // Chamando a função para o vetor de datas
+                // imprimirMenorEMaior('result', datas);
+
+                // var controle = 1
+                // document.getElementById("texto").innerHTML = "Resumo dos dados do gráfico"
+
+                // function trocarCards() {
+
+                //     if (controle == 1) {
+                //         var analysis = document.getElementById("analysis");
+                //         analysis.style.display = "none";
+
+                //         var correlacao = document.getElementById("correlacao");
+                //         correlacao.style.display = "block";
+
+                //         document.getElementById("texto").innerHTML = "Corelação entre os dados do gráfico"
+                //         controle++
+                //         corelacao()
+
+
+
+                //     } else {
+                //         var correlacao = document.getElementById("correlacao");
+                //         correlacao.style.display = "none";
+
+                //         var analysis = document.getElementById("analysis");
+                //         analysis.style.display = "block";
+
+                //         document.getElementById("texto").innerHTML = "Resumo dos dados do gráfico"
+                //         controle--
+
+                //     }
+                // }
 
             </script>
 

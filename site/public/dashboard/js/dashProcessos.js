@@ -4,6 +4,12 @@ var temCPU;
 var temRAM;
 var temDisco;
 var servidorAtual;
+var memoryData = []
+// Seus dados para os conjuntos de dados
+var cpuData = [];
+// var memoryData = [30, 50, 90, 40, 60, 70, 80, 10, 55, 20];
+var diskData = [65, 35, 5, 45, 55, 15, 25, 75, 95, 70];
+var dataRegistro = []
 
 function buscarServidores() {
 
@@ -63,9 +69,14 @@ function buscarServidores() {
 
 
 function setDados() {
+
+    var intervaloEmMilissegundos = 10000; // Por exemplo, a cada 60 segundos
     console.log(select_servidores.options[select_servidores.selectedIndex].text)
     servidorAtual = select_servidores.options[select_servidores.selectedIndex].text
 
+    clearInterval(setInterval(graficoReal, intervaloEmMilissegundos))
+    clearInterval(setInterval(graficoRealCPU, intervaloEmMilissegundos))
+    clearInterval(setInterval(graficoRealDisco, intervaloEmMilissegundos))
 
     // Comando a ser realizado no banco de dados
     var query = `select Tipo, servidor from Eyes_On_Server.view_componentes_servidores  
@@ -112,8 +123,18 @@ function setDados() {
                         console.log(dados.Tipo)
 
                     }
-                    definirKpis()
-                    situacao()
+
+
+
+                    graficoReal()
+                    graficoRealCPU()
+                    graficoRealDisco()
+
+
+                    setInterval(graficoReal, intervaloEmMilissegundos);
+                    setInterval(graficoRealCPU, intervaloEmMilissegundos);
+                    setInterval(graficoRealDisco, intervaloEmMilissegundos);
+
                 });
             } else {
                 console.log(
@@ -159,6 +180,391 @@ function definirKpis() {
 
 
 
+
+
+
+function graficoReal() {
+
+    console.log(select_servidores.options[select_servidores.selectedIndex].text)
+
+    var combo = document.getElementById("select_servidores");
+    var fk = combo.value
+
+    console.log('vsi prfv ' + fk)
+
+    // Obter o valor selecionado
+
+
+    fetch("/otavioRoute/grafico", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkEmpresa_html: fk
+        })
+    }).then(function (resposta) {
+
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                console.log(JSON.stringify(json))
+
+                // var cpuData = []
+                memoryData = []
+                // var diskData = []
+
+
+                for (let i = 0; i < json.length; i++) {
+                    var dados = json[i]
+
+                    // console.log(dados.Valor)
+
+                    memoryData.push(dados.Valor)
+
+                }
+
+                // console.log(temCPU, temRAM, temDisco)
+                console.log(servidorAtual)
+                console.log(memoryData)
+                console.log(fk)
+                definirKpis()
+                situacao()
+                loadData()
+
+            });
+        } else {
+            throw ("Houve um erro ao tentar listar os servidores!");
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO AO LISTAR: ${resposta}`);
+    });
+    return false;
+}
+
+
+
+
+
+function graficoRealCPU() {
+
+    console.log(select_servidores.options[select_servidores.selectedIndex].text)
+
+    var combo = document.getElementById("select_servidores");
+    var fk = combo.value
+
+    console.log('vsi prfv ' + fk)
+
+    // Obter o valor selecionado
+
+
+    fetch("/otavioRoute/graficoCPU", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkEmpresa_html: fk
+        })
+    }).then(function (resposta) {
+
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                console.log(JSON.stringify(json))
+
+                cpuData = []
+                dataRegistro = []
+
+                for (let i = 0; i < json.length; i++) {
+                    var dados = json[i]
+
+                    cpuData.push(dados.Valor)
+                    dataRegistro.push(dados.Horario_Captura)
+
+                }
+
+                // console.log(temCPU, temRAM, temDisco)
+                console.log(servidorAtual)
+                console.log("aaaaaaa")
+
+                console.log(cpuData)
+                console.log(dataRegistro)
+                console.log(fk)
+                definirKpis()
+                situacao()
+                loadData()
+
+            });
+        } else {
+            throw ("Houve um erro ao tentar listar os servidores!");
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO AO LISTAR: ${resposta}`);
+    });
+    return false;
+}
+
+
+
+
+function graficoRealDisco() {
+
+    console.log(select_servidores.options[select_servidores.selectedIndex].text)
+
+    var combo = document.getElementById("select_servidores");
+    var fk = combo.value
+
+    console.log('vsi prfv ' + fk)
+
+    // Obter o valor selecionado
+
+
+    fetch("/otavioRoute/graficoDisco", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            fkEmpresa_html: fk
+        })
+    }).then(function (resposta) {
+
+        if (resposta.ok) {
+            resposta.json().then(json => {
+                console.log(JSON.stringify(json))
+
+                diskData = []
+                dataRegistro = []
+
+                for (let i = 0; i < json.length; i++) {
+                    var dados = json[i]
+
+                    diskData.push(dados.Valor)
+                    dataRegistro.push(dados.Horario_Captura)
+
+                }
+
+                // console.log(temCPU, temRAM, temDisco)
+                console.log(servidorAtual)
+                console.log("bbbbbbbbbbbbb")
+
+                console.log(diskData)
+                console.log(dataRegistro)
+                console.log(fk)
+                definirKpis()
+                situacao()
+                loadData()
+
+
+            });
+        } else {
+            throw ("Houve um erro ao tentar listar os servidores!");
+        }
+    }).catch(function (resposta) {
+        console.log(`#ERRO AO LISTAR: ${resposta}`);
+    });
+    return false;
+}
+
+
+// Função para carregar dados no gráfico
+function loadData() {
+    chartReal.data.labels = dataRegistro;
+
+    // Adiciona ou remove o conjunto de dados com base nas condições
+    chartReal.data.datasets = [];
+
+    if (temCPU) {
+        chartReal.data.datasets.push({
+            label: 'Uso da CPU (%)',
+            data: cpuData,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 2,
+            fill: false,
+            lineTension: 0
+        });
+    }
+
+    if (temRAM) {
+        chartReal.data.datasets.push({
+            label: 'Uso da Memória (%)',
+            data: memoryData,
+            borderColor: 'rgba(128, 0, 128, 1)',
+            borderWidth: 2,
+            fill: false,
+            lineTension: 0
+        });
+    }
+
+    if (temDisco) {
+        chartReal.data.datasets.push({
+            label: 'Uso do Disco (%)',
+            data: diskData,
+            borderColor: 'rgba(255, 0, 0, 1)',
+            borderWidth: 2,
+            fill: false,
+            lineTension: 0
+        });
+    }
+
+    chartReal.update();
+    chamarDados()
+}
+
+// Configuração inicial do gráfico
+var ctx = document.getElementById('chartReal').getContext('2d');
+var chartReal = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: dataRegistro,
+        datasets: []
+    },
+    options: {
+        scales: {
+            x: [{
+                type: 'linear',
+                position: 'bottom',
+                reverse: false
+            }],
+            y: [{
+                ticks: {
+                    beginAtZero: true,
+                    max: 100
+                }
+            }]
+        }
+    }
+});
+
+
+
+
+
+
+
+// Função para encontrar o valor mínimo em um vetor
+function encontrarMinimo(vetor) {
+    return Math.min.apply(null, vetor);
+}
+
+// Função para encontrar o valor máximo em um vetor
+function encontrarMaximo(vetor) {
+    return Math.max.apply(null, vetor);
+}
+
+function fazerMedia(vetor) {
+    var soma = 0;
+    for (let i = 0; i < vetor.length; i++) {
+        soma += vetor[i];
+    }
+    return soma / vetor.length;
+
+}
+
+// Função para imprimir o mínimo e máximo de um vetor em uma div
+function imprimirMinEMax(titulo, id, vetor) {
+    var div = document.getElementById("analysis");
+    div.innerHTML += `<h5>${titulo}</h5>
+                Mínimo: ${encontrarMinimo(vetor)}%&nbsp&nbsp&nbsp&nbsp Máximo: ${encontrarMaximo(vetor)}%<br/>
+                Média ${id}: ${fazerMedia(vetor)}%<br/><br/>`;
+}
+
+function chamarDados() {
+
+    var div = document.getElementById("analysis");
+    div.innerHTML = ``;
+    // Chamando a função para cada vetor
+    imprimirMinEMax('Dados da CPU', 'da CPU', cpuData);
+    imprimirMinEMax('Dados da Memória', 'da Memória', memoryData);
+    imprimirMinEMax('Dados do Disco', 'do Disco', diskData);
+
+    // Convertendo strings para objetos de data
+    var datas = dataRegistro.map(converterParaData);
+
+    // Chamando a função para o vetor de datas
+    imprimirMenorEMaior('result', datas);
+}
+
+
+function converterParaData(horario) {
+    var partes = horario.split(':');
+    return new Date(2000, 0, 1, partes[0], partes[1], partes[2]);
+}
+
+// Função para encontrar o menor valor em um vetor de datas
+function encontrarMenor(data) {
+    return new Date(Math.min.apply(null, data));
+}
+
+// Função para encontrar o maior valor em um vetor de datas
+function encontrarMaior(data) {
+    return new Date(Math.max.apply(null, data));
+}
+
+// Função para imprimir o menor e o maior valor em uma div
+function imprimirMenorEMaior(id, data) {
+    var div = document.getElementById("analysis");
+    div.innerHTML += `Horário contemplado: ${encontrarMenor(data).toLocaleTimeString()} a ${encontrarMaior(data).toLocaleTimeString()}`;
+}
+
+// Convertendo strings para objetos de data
+// var datas = dataRegistro.map(converterParaData);
+
+// // Chamando a função para o vetor de datas
+// imprimirMenorEMaior('result', datas);
+
+
+
+
+
+
+var controle = 1
+document.getElementById("texto").innerHTML = "Resumo dos dados do gráfico"
+
+function trocarCards() {
+
+    if (controle == 1) {
+        var analysis = document.getElementById("analysis");
+        analysis.style.display = "none";
+
+        var correlacao = document.getElementById("correlacao");
+        correlacao.style.display = "block";
+
+        document.getElementById("texto").innerHTML = "Corelação entre os dados do gráfico"
+        controle++
+        corelacao()
+
+
+    } else {
+        var correlacao = document.getElementById("correlacao");
+        correlacao.style.display = "none";
+
+        var analysis = document.getElementById("analysis");
+        analysis.style.display = "block";
+
+        document.getElementById("texto").innerHTML = "Resumo dos dados do gráfico"
+        controle--
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Busca os nomes na sessionStorage
 function nomes() {
 
@@ -172,9 +578,6 @@ function nomes() {
 
 function situacao() {
 
-    var cpuData = [10, 30, 50, 70, 40, 20, 60, 80, 90, 45];
-    var memoryData = [30, 50, 90, 40, 60, 70, 80, 10, 55, 20];
-    var diskData = [65, 35, 5, 45, 55, 15, 25, 75, 95, 70];
     var valorPosicaoVetorCpu = cpuData[cpuData.length - 1];
     var valorPosicaoVetorRam = memoryData[memoryData.length - 1];
     var valorPosicaoVetorDisco = diskData[diskData.length - 1];
@@ -318,17 +721,17 @@ function corelacao() {
     var resultados = calcularCorrelacoes(cpuData, memoryData, diskData, temCPU, temRAM, temDisco);
 
     console.log('Correlações:');
-    
+
 
     var div = document.getElementById("correlacao");
     var div1 = document.getElementById("div1");
     var div2 = document.getElementById("div2");
     var div3 = document.getElementById("div3");
 
-    div1.innerHTML =``
-    div2.innerHTML =``
-    div3.innerHTML =``
-    
+    div1.innerHTML = ``
+    div2.innerHTML = ``
+    div3.innerHTML = ``
+
     if (temCPU && temRAM) {
 
         div1.innerHTML = `<h5>Correlação entre CPU e RAM</h5>
@@ -347,12 +750,12 @@ function corelacao() {
     ${resultados['cpuData para diskData'].toFixed(2)}%<br/><br/>`;
     }
 
-    
-    
-    
+
+
+
 
     // console.log(`${key}: ${resultados[key].toFixed(2)}%`);
-  
+
 
 }
 
@@ -420,4 +823,8 @@ function calcularCorrelacoes(cpuData, memoryData, diskData, temCPU, temRAM, temD
 
 
 
+// inicio do back de processos
 
+// SELECT nome_processos, COUNT(*) AS quantidade
+// FROM Eyes_On_Server.Processos
+// GROUP BY nome_processos;
