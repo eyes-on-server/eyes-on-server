@@ -33,7 +33,6 @@ function buscarServidores() {
     })
         .then(function (resposta) {
             if (resposta.status == 200) {
-                console.log(`chegou no feach`)
                 resposta.json().then((json) => {
                     // Criamos um vetor para conferir se aquele servidor já foi inserido no HTML
                     var servidores = [];
@@ -93,7 +92,6 @@ function setDados() {
     })
         .then(function (resposta) {
             if (resposta.status == 200) {
-                console.log(`chegou no feach`)
                 resposta.json().then((json) => {
 
 
@@ -119,9 +117,6 @@ function setDados() {
                         }
 
 
-                        // console.log(temCPU, temRAM, temDisco)
-                        console.log(dados.Tipo)
-
                     }
 
 
@@ -137,11 +132,8 @@ function setDados() {
 
                 });
             } else {
-                console.log(
-                    "Erro ao realizar a busca dos servidores <function buscarServidores>"
-                );
                 resposta.text().then((texto) => {
-                    console.log(resposta);
+
                 });
             }
         })
@@ -185,12 +177,11 @@ function definirKpis() {
 
 function graficoReal() {
 
-    console.log(select_servidores.options[select_servidores.selectedIndex].text)
 
     var combo = document.getElementById("select_servidores");
     var fk = combo.value
 
-    console.log('vsi prfv ' + fk)
+
 
     // Obter o valor selecionado
 
@@ -207,7 +198,6 @@ function graficoReal() {
 
         if (resposta.ok) {
             resposta.json().then(json => {
-                console.log(JSON.stringify(json))
 
                 // var cpuData = []
                 memoryData = []
@@ -224,9 +214,7 @@ function graficoReal() {
                 }
 
                 // console.log(temCPU, temRAM, temDisco)
-                console.log(servidorAtual)
-                console.log(memoryData)
-                console.log(fk)
+
                 definirKpis()
                 situacao()
                 loadData()
@@ -247,12 +235,11 @@ function graficoReal() {
 
 function graficoRealCPU() {
 
-    console.log(select_servidores.options[select_servidores.selectedIndex].text)
 
     var combo = document.getElementById("select_servidores");
     var fk = combo.value
 
-    console.log('vsi prfv ' + fk)
+
 
     // Obter o valor selecionado
 
@@ -269,7 +256,7 @@ function graficoRealCPU() {
 
         if (resposta.ok) {
             resposta.json().then(json => {
-                console.log(JSON.stringify(json))
+                
 
                 cpuData = []
                 dataRegistro = []
@@ -283,12 +270,7 @@ function graficoRealCPU() {
                 }
 
                 // console.log(temCPU, temRAM, temDisco)
-                console.log(servidorAtual)
-                console.log("aaaaaaa")
 
-                console.log(cpuData)
-                console.log(dataRegistro)
-                console.log(fk)
                 definirKpis()
                 situacao()
                 loadData()
@@ -308,7 +290,6 @@ function graficoRealCPU() {
 
 function graficoRealDisco() {
 
-    console.log(select_servidores.options[select_servidores.selectedIndex].text)
 
     var combo = document.getElementById("select_servidores");
     var fk = combo.value
@@ -330,7 +311,7 @@ function graficoRealDisco() {
 
         if (resposta.ok) {
             resposta.json().then(json => {
-                console.log(JSON.stringify(json))
+
 
                 diskData = []
                 dataRegistro = []
@@ -344,12 +325,7 @@ function graficoRealDisco() {
                 }
 
                 // console.log(temCPU, temRAM, temDisco)
-                console.log(servidorAtual)
-                console.log("bbbbbbbbbbbbb")
 
-                console.log(diskData)
-                console.log(dataRegistro)
-                console.log(fk)
                 definirKpis()
                 situacao()
                 loadData()
@@ -407,7 +383,7 @@ function loadData() {
     }
 
     chartReal.update();
-    chamarDados()
+    chamarDados(cpuData,memoryData, diskData)
 }
 
 // Configuração inicial do gráfico
@@ -452,10 +428,13 @@ function encontrarMaximo(vetor) {
 }
 
 function fazerMedia(vetor) {
+    console.log(vetor)
+    // vetor = vetor.split(",")
     var soma = 0;
     for (let i = 0; i < vetor.length; i++) {
         soma += vetor[i];
     }
+    console.log(soma)
     return soma / vetor.length;
 
 }
@@ -463,19 +442,20 @@ function fazerMedia(vetor) {
 // Função para imprimir o mínimo e máximo de um vetor em uma div
 function imprimirMinEMax(titulo, id, vetor) {
     var div = document.getElementById("analysis");
+    // vetor = vetor.split(".")
     div.innerHTML += `<h5>${titulo}</h5>
                 Mínimo: ${encontrarMinimo(vetor)}%&nbsp&nbsp&nbsp&nbsp Máximo: ${encontrarMaximo(vetor)}%<br/>
                 Média ${id}: ${fazerMedia(vetor)}%<br/><br/>`;
 }
 
-function chamarDados() {
+function chamarDados(dadoCpu, dadoMemoria, dadoDisco) {
 
     var div = document.getElementById("analysis");
     div.innerHTML = ``;
     // Chamando a função para cada vetor
-    imprimirMinEMax('Dados da CPU', 'da CPU', cpuData);
-    imprimirMinEMax('Dados da Memória', 'da Memória', memoryData);
-    imprimirMinEMax('Dados do Disco', 'do Disco', diskData);
+    imprimirMinEMax('Dados da CPU', 'da CPU', dadoCpu);
+    imprimirMinEMax('Dados da Memória', 'da Memória', dadoMemoria);
+    imprimirMinEMax('Dados do Disco', 'do Disco', dadoDisco);
 
     // Convertendo strings para objetos de data
     var datas = dataRegistro.map(converterParaData);
