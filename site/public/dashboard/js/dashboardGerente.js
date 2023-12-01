@@ -44,18 +44,15 @@ var alertasDisco = 0;
       "dataSistema"
     ).innerHTML = `${diasSemana[dia]}, ${dataAtual}`;
 
-    dataSistema = formatDate(now, "yy-mm-dd");
+    dataSistema = formatDate(dataAtual);
   }, 1000);
 })();
 
-function formatDate(date, format) {
-  const map = {
-    mm: date.getMonth() + 1,
-    dd: date.getDate(),
-    yy: date.getFullYear(),
-  };
-
-  return format.replace(/mm|dd|yy|yyy/gi, (matched) => map[matched]);
+function formatDate(date) {
+  dataComBarras = date.split(",")[0];
+  dataSeparada = dataComBarras.split("/");
+  dataInversa = dataSeparada.reverse();
+  return dataInversa.join("-");
 }
 
 function limparFiltros() {
@@ -215,6 +212,7 @@ function resetRiscosColors() {
 }
 
 function coletarDadosCards() {
+  console.log("Data: " + dataSistema);
   fetch(`/alertas/coletarDadosCards`, {
     method: "POST",
     headers: {
