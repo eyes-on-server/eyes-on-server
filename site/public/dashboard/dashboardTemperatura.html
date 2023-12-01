@@ -121,14 +121,6 @@
                 <option value="" selected disabled>Servidores</option>
               </select>
             </div>
-
-            <div class="buttons-row01">
-              <!-- <div>
-                  <label for="alertas">Ativar alertas</label>
-                  <input type="checkbox" name="alertas" id="alertas" value="on">
-                </div> -->
-              <button class="btnLimparFiltros" onclick="limparFiltros()">Limpar filtros</button>
-            </div>
           </div>
 
           <!-- Primeira linha de gráficos -->
@@ -174,9 +166,41 @@
                   </h6>
                 </div>
                 <div class="card-body card_recomendacao" id="recomendacoesHTML" style="color: #000">
-                  <p id="recomendacaoCPU">CPU: </p>
-                  <p id="recomendacaoDisco">Disco:</p>
-                  <p id="recomendacaoMemoria" class="recomendacaoMemoria">Memoria: </p>
+                  <p id="correlacaoCPU" class="correlacao">CPU: </p>
+                  <p id="correlacaoMemoria" class="correlacao">Memoria: </p>
+                  <p id="correlacaoDisco" class="correlacao">Disco:</p>
+                </div>
+              </div>
+            </div>
+            <!-- Div para o gráfico de linhas -->
+            <div class="col-xl-7 col-lg-7">
+              <div class="card shadow mb-4 grafico-de-linha">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">
+                    Temperatura x Memória (%)
+                  </h6>
+                </div>
+                <!-- Div para o gráfico de linha -->
+                <div class="card-body card-body-grafico">
+                  <div class="chart-area" id="chartArea">
+                    <canvas id="graficoMem"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Div para o gráfico de linhas -->
+            <div class="col-xl-7 col-lg-7">
+              <div class="card shadow mb-4 grafico-de-linha">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">
+                    Temperatura x HDD (%)
+                  </h6>
+                </div>
+                <!-- Div para o gráfico de linha -->
+                <div class="card-body card-body-grafico">
+                  <div class="chart-area" id="chartArea">
+                    <canvas id="graficoHd"></canvas>
+                  </div>
                 </div>
               </div>
             </div>
@@ -234,7 +258,7 @@
 <!-- Aqui a função defer não se faz tão necessária, mas é bom ter -->
 <script src="vendor/chart.js/Chart.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="../js/dashboardTemperatura.js" defer></script>
+<script type="module" src="../js/dashboardTemperatura.js" defer></script>
 <script src="js/sb-admin-2.min.js" defer></script>
 <script src="vendor/jquery/jquery.min.js" defer></script>
 <script src="vendor/jquery-easing/jquery.easing.min.js" defer></script>
