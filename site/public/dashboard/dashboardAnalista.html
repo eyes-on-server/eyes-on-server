@@ -176,20 +176,20 @@
             <div class="row row01">
               <!-- Segundo header da página -->
               <div class="header-dash align-items-center justify-content-between">
-                <select class="col-xl-7 col-lg-7" name="" id="select_setores" onchange="buscarServidores(this.value)">
+                <select class="col-xl-7 col-lg-7" name="" id="selectSectors" onchange="searchServers(this.value)">
                   <option value="" selected disabled>Setores</option>
                 </select>
-                <select class="col-xl-7 col-lg-7" name="" id="select_servidores" onchange="setarDados(this.value)" >
+                <select class="col-xl-7 col-lg-7" name="" id="selectServers" onchange="setDataByServer(this.value)" >
                   <option value="" selected disabled>Servidores</option>
                 </select>
               </div>
 
               <div class="buttons-row01">
                 <div>
-                  <label for="alertas">Ativar alertas</label>
-                  <input type="checkbox" name="alertas" id="alertas" value="on">
+                  <!-- <label for="alerts">Ativar alertas</label> -->
+                  <!-- <input type="checkbox" name="alertas" id="alerts" value="off" onclick="changeAlertsCondition()"> -->
                 </div>
-                <button class="btnLimparFiltros" onclick="limparFiltros()">Limpar filtros</button>
+                <button class="btnLimparFiltros" onclick="resetPage()">Limpar filtros</button>
               </div>
             </div>
 
@@ -223,12 +223,12 @@
                     <div
                       class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                     >
-                      <h6 class="m-0 font-weight-bold text-primary">
+                      <h6 class="m-0 font-weight-bold text-primary" id="headerAlertServer">
                         Alertas dos Servidores
                       </h6>
                     </div>
                   <div class="card-body cards_da_linha_02">
-                    <h1 id="quantidadeDeAlertas">99</h1>
+                    <h1 id="amountAlerts"></h1>
                   </div>                 
                 </div>
 
@@ -242,9 +242,9 @@
                       </h6>
                     </div>
                   <div class="card-body card_recomendacao" id="recomendacoesHTML" style="color: #000">
-                    <p id="recomendacaoCPU">CPU: </p>
-                    <p id="recomendacaoDisco">Disco:</p>
-                    <p id="recomendacaoMemoria" class="recomendacaoMemoria">Memoria: </p>
+                    <p id="recommendationCPU">CPU: </p>
+                    <p id="recommendationDisc">Disco:</p>
+                    <p id="recommendationMemory" class="recomendacaoMemoria">Memória: </p>
                   </div>
                 </div>
               </div>
@@ -266,9 +266,10 @@
                     
                       <div class="testeDiv">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">CPU:</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">CPU</h6>
+                            <h6 class="m-0 font-weight-bold" id="cpuAlertsHTML"></h6>
                         </div>
-                        <p></p>
+                        <p id="descriptionAlertCPU"></p>
 
                     </div>
                     
@@ -277,20 +278,22 @@
                       class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                     >
                       <h6 class="m-0 font-weight-bold text-primary">
-                        Memória:
+                        Memória
                       </h6>
+                      <h6 class="m-0 font-weight-bold" id="memoryAlertsHTML"></h6>
                     </div>
-                    <p></p>
+                    <p id="descriptionAlertMemory"></p>
                       </div>
                       <div class="testeDiv">
                         <div
                       class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                     >
                       <h6 class="m-0 font-weight-bold text-primary">
-                        Disco:
+                        Disco
                       </h6>
+                      <h6 class="m-0 font-weight-bold" id="discAlertsHTML"></h6>
                     </div>
-                    <p></p>
+                    <p id="descriptionAlertDisc"></p>
                       </div>
                     </div>
                 </div>
@@ -333,7 +336,7 @@
                       <h6 class="m-0 font-weight-bold text-primary">
                         Componentes:
                       </h6>
-                      <select name="" id="">
+                      <select name="" id="selectComponents" onchange="setDatasInGraph(this.value)">
                         <option value="" selected disabled>Componentes</option>
                       </select>
                     </div>
@@ -362,17 +365,17 @@
                     </div>
                     <!-- Div para o gráfico de linha -->
                     <div class="card-body" id="dadosAoVivoHTML" style="color: #000">
-                           <p id="aoVivoCPU">Uso da CPU:</p>
+                           <p id="cpuInLive">Uso da CPU:</p>
                         <hr>
-                           <p id="aoVivoCPUfrequencia">Frequência da CPU:</p>
+                           <p id="cpuFreqInLive">Frequência da CPU:</p>
                         <hr>
-                           <p id="aoVivoMemoria">Uso da memória:</p>
+                           <p id="memoryInLive">Uso da memória:</p>
                         <hr>
-                           <p id="aoVivoDisco">Uso do disco: </p>
+                           <p id="discInLive">Uso do disco: </p>
                         <hr>
-                           <p id="aoVivoRedeRecebidos">bytes recebidos:</p>
+                           <p id="networkReceivedInLive">bytes recebidos:</p>
                         <hr>
-                           <p id="aoVivoRedeEnviados">bytes enviados:</p>
+                           <p id="networkSentInLive">bytes enviados:</p>
                         <hr>
                     </div>
                   </div>
@@ -391,15 +394,15 @@
                       </h6>
                     </div>
                     <div class="card-body card_da_linha04" id="informacoesServidorHTML" style="color: #000">
-                      <p id="nomeServidor">Nome do servidor: </p>
+                      <p id="serverName">Nome do servidor: </p>
                       <hr>
-                         <p id="nomeSetor">Setor do servidor: </p>
+                         <p id="sectorName">Setor do servidor: </p>
                       <hr>
-                         <p id="ipv6Servidor">IPV6 do servidor: </p>
+                         <p id="ipv6Server">IPV6 do servidor: </p>
                       <hr>
-                         <p id="macAddressServidor">Mac address: </p>
+                         <p id="macAddressServer">Mac address: </p>
                       <hr>
-                         <p id="soServidor">Sistema operacional: </p>
+                         <p id="soServer">Sistema operacional: </p>
                       <hr>
                     </div>                 
                   </div>
@@ -546,10 +549,6 @@
       myCalendar.select(["21/02/2024"]);
       myCalendar.select(["22/02/2024"]);
       myCalendar.select(["23/02/2024"]);
-
-      }
-      
-      function feriados(){
 
       }
       diasDePagamento();
