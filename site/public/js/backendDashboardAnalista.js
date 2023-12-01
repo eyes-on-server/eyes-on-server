@@ -166,8 +166,8 @@ function graficoDeLinha(id_servidor) {
   previsao.innerHTML = `<p id="previsaoCPU"></p><p id="previsaoDisco"></p><p id="previsaoMemoria"></p>`;
 
   var query = `
-  SELECT nome_componente, nome_medida, valor_registro, momento_registro 
-	  FROM Registro as r 
+  SELECT nome_componente, nome_medida, valor_registro, momento_registro
+	  FROM Registro as r
       JOIN Componente as C on c.id_componente = r.fk_componente
       JOIN Medida as m on m.id_medida = r.fk_medida
       WHERE fk_servidor = ${id_servidor} AND nome_medida = "PorcentagemUso"
@@ -364,8 +364,8 @@ function recomendacoes(valor, componente) {
 // Dados ao vivo
 function dadosAoVivo(id_servidor) {
   var query = `
-  SELECT nome_componente, nome_medida, valor_registro, momento_registro 
-	  FROM Registro as r 
+  SELECT nome_componente, nome_medida, valor_registro, momento_registro
+	  FROM Registro as r
       JOIN Componente as C on c.id_componente = r.fk_componente
       JOIN Medida as m on m.id_medida = r.fk_medida
       WHERE fk_servidor = ${id_servidor}
@@ -546,9 +546,6 @@ function calendario() {
 }
 
 // Funções iniciais
-<<<<<<< HEAD
 atualizarGraficoDeLinha();
-=======
->>>>>>> d6fa0c5da09b78e956180f3cfec1e5530f872619
 buscarSetores();
 calendario();

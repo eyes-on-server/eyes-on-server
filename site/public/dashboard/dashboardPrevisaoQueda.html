@@ -85,7 +85,7 @@
             <li class="nav-item">
                 <a href="./dashboardFaturamentoPerdido.html" class="nav-link">
                     <i class="fas fa-fw fa-dollar-sign text-light"></i>
-                    <span class="text-light">Análise Monetária</span>
+                    <span class="text-light">Análise de Queda</span>
                 </a>
             </li>
 
@@ -167,7 +167,7 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-1 text-gray-800" id="dataSistema"></h1>
 
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="popularPrimeiroGrafico()">
                             <i class="fas fa-eraser fa-sm text-white-50"></i> Limpar Filtros</a>
                            
                     </div>
@@ -183,7 +183,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bolder text-cold text-uppercase mb-1">
                                                 Maior % de queda (Ultimos 30 dias)</div>
-                                            <div class="h5 mb-0 font-weight-bolder text-gray-800" id="idTempoTotalDowntime">0</div>
+                                            <div class="h5 mb-0 font-weight-bolder text-gray-800" id="idPercentQueda">0</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-clock fa-2x text-black-300" id="iconeTempoTotalDowntime"></i>
@@ -201,7 +201,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bolder text-cold text-uppercase mb-1">
                                             Maior previsão de queda(Ultimos 30 dias)</div>
-                                            <div class="h5 mb-0 font-weight-bolder text-gray-800" id="idPrejuizoTotal">0</div>
+                                            <div class="h5 mb-0 font-weight-bolder text-gray-800" id="idPercentPrevisao">0</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-coins fa-2x text-black-300" id="iconePrejuizoTotal"></i>
@@ -248,22 +248,22 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bolder text-cold">Chance de quedas dos Servidores</h6>
+                                    <h6 class="m-0 font-weight-bolder text-cold">Previsao de chance de queda dos servidores</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area table-responsive">
-                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <table class="table table-bordered" id="dataTableQueda" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr class="text-dark font-weight-bolder">
                                                     <th>Id</th>
                                                     <th>Setor</th>
                                                     <th>Servidor</th>
-                                                    <th>Chance de queda</th>
+                                                    <th>Previsao de queda</th>
                                                    
                                                 </tr>
                                             </thead>
-                                            <tbody id="tabela_queda_servidores" class="text-dark font-weight-bold"></tbody>
+                                            <tbody id="tabela_previsao_queda_servidores" class="text-dark font-weight-bold"></tbody>
                                         </table>
                                     </div>  
                                 </div>

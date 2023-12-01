@@ -60,7 +60,7 @@ function popularCards() {
           console.log(JSON.stringify(json));
 
           document.getElementById("idTempoTotalDowntime").innerHTML =
-            (json[0].total_downtime / 3600).toFixed(2) + " Horas";
+            (json[0].total_downtime / 3600).toFixed(4) + " Horas";
           document.getElementById("idPrejuizoTotal").innerHTML =
             "R$" + Intl.NumberFormat().format(json[0].prejuizo_total);
         });
@@ -87,13 +87,13 @@ function popularTabela() {
           for (var i = 0; i < json.length; i++) {
             document.getElementById("tabela_downtime_servidores").innerHTML += `
                 <tr id='item${
-                  json[i].id_servidor
+                  json[i].fk_servidor
                 }' class='linha-tabela' onclick='mostrarGraficoLinha(${
-              json[i].id_servidor
+              json[i].fk_servidor
             })'>
                     <td>${i + 1}</td>
                     <td>${json[i].nome_servidor}</td>
-                    <td>${(json[i].total_downtime / 3600).toFixed(2)}</td>
+                    <td>${(json[i].total_downtime / 3600).toFixed(4)}</td>
                     <td>R$${Intl.NumberFormat().format(
                       json[i].total_prejuizo
                     )}</td>
@@ -254,6 +254,10 @@ function executarFuncoes() {
   downtimePorLocal();
   downtimePorDia();
 }
+
+setInterval(() => {
+  executarFuncoes();
+}, 10000);
 
 // Toastr para Alertas mais Visuais
 toastr.options = {
