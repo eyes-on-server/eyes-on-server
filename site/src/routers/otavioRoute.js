@@ -19,6 +19,11 @@ rota.post("/graficoDisco", (req, res) => {
     otavioController.graficoDisco(req, res);
 });
 
+rota.post("/processos", (req, res) => {
+    // info("Grafico");
+    otavioController.processos(req, res);
+});
+
 rota.post("/buscarInformacoes", (req, res) => {
     // info("/buscarInformacoes");
     otavioController.buscarInfo(req, res);

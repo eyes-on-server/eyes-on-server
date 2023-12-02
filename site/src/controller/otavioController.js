@@ -50,10 +50,8 @@ function graficoCPU(req, res) {
 
 
 function graficoDisco(req, res) {
-  // info("grafico()")
+
   var fkEmpresa = req.body.fkEmpresa_html;
-  
-  // console.log(req.body.servidorAgora_html)
 
   if(fkEmpresa == undefined){
       res.status(400).send("O nome do Servidor está indefinido")
@@ -72,7 +70,26 @@ function graficoDisco(req, res) {
   })
 }
 
+function processos(req, res) {
+  
+  var fkEmpresa = req.body.fkEmpresa_html;
 
+  if(fkEmpresa == undefined){
+      res.status(400).send("O nome do Servidor está indefinido")
+  } else
+
+  OtavioModel.processos(fkEmpresa).then((resultado) => {
+      if (resultado.length > 0){
+          res.status(200).json(resultado);
+      }
+      else{
+          res.status(204).send("TÁ VAZIO AQUI TIO, CADE AS INFO???!");
+      }
+  }).catch((erro) =>{
+      console.log(erro);
+      console.log("!!ERRO > OtavioControler: processos()\n",erro.sqlMessage)
+  })
+}
 
 
 
@@ -141,39 +158,10 @@ module.exports = {
     grafico,
     graficoCPU,
     graficoDisco,
+    processos,
     buscarInfo,
     setDados
 };
 
 
-
-// // otavioController.js
-// const otavioModel = require('../model/otavioModel');
-
-// function dadosTempoReal(req, res) {
-
-//     var fkEmpresa = req.body.fkEmpresa_html;
-//     console.log(req.body.fkEmpresa_html)
-
-//     if (fkEmpresa == undefined) {
-//         res.status(400).send("O nome do Servidor está indefinido")
-//     } else
-
-//         servidorModel.listar(fkEmpresa).then((resultado) => {
-//             if (resultado.length > 0) {
-//                 res.status(200).json(resultado);
-//             }
-//             else {
-//                 res.status(204).send("TÁ VAZIO AQUI TIO, CADE AS INFO???!");
-//             }
-//         }).catch((erro) => {
-//             console.log(erro);
-//             console.log("!!ERRO > ServidorController: Listar()\n", erro.sqlMessage)
-//         })
-// }
-    
-    
-
-
-// module.exports = { dadosTempoReal };
 
