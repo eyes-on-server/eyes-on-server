@@ -1,10 +1,10 @@
 const mysql = require("mysql2");
 
 var sqlConfig = {
-  host: "",
-  database: "",
-  user: "",
-  password: "",
+  host: "localhost",
+  database: "Eyes_On_Server",
+  user: "urubu100",
+  password: "urubu100",
 };
 
 function executar(instrucao) {

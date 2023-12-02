@@ -255,6 +255,10 @@ function executarFuncoes() {
   downtimePorDia();
 }
 
+setInterval(() => {
+  executarFuncoes();
+}, 10000);
+
 // Toastr para Alertas mais Visuais
 toastr.options = {
   closeButton: false,

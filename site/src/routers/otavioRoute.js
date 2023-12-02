@@ -9,6 +9,20 @@ rota.post("/grafico", (req, res) => {
     otavioController.grafico(req, res);
 });
 
+rota.post("/graficoCPU", (req, res) => {
+    // info("Grafico");
+    otavioController.graficoCPU(req, res);
+});
+
+rota.post("/graficoDisco", (req, res) => {
+    // info("Grafico");
+    otavioController.graficoDisco(req, res);
+});
+
+rota.post("/processos", (req, res) => {
+    // info("Grafico");
+    otavioController.processos(req, res);
+});
 
 rota.post("/buscarInformacoes", (req, res) => {
     // info("/buscarInformacoes");

@@ -114,6 +114,7 @@
 
         <!-- Início do conteúdo principal da página -->
         <div class="container-fluid">
+          
 
           <div class="row row01">
             <!-- Segundo header da página -->
@@ -122,15 +123,84 @@
                 <option value="" selected disabled>Servidores</option>
               </select>
             </div>
-
-            <div class="buttons-row01">
-              <!-- <div>
-                  <label for="alertas">Ativar alertas</label>
-                  <input type="checkbox" name="alertas" id="alertas" value="on">
-                </div> -->
-              <button class="btnLimparFiltros" onclick="limparFiltros()">Limpar filtros</button>
-            </div>
           </div>
+
+          <div class="row" style="display: flex; justify-content: center;">
+
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4" id="kpiCpu">
+                <abbr id="abbrCpu" style="text-decoration: none;">
+                    <div class="card shadow h-100 py-2 pointer" id="cardCpu">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div
+                                        class="text-xs font-weight-bolder text-cold text-uppercase mb-1">
+                                        Alertas da CPU</div>
+                                    <div class="h5 mb-0 font-weight-bolder text-gray-800"
+                                        id="situacaocpu"></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-microchip fa-2x text-black-300"
+                                        id="iconeAlertasCpu"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </abbr>
+            </div>
+
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4" id="kpiRam">
+                <abbr id="abbrRam" style="text-decoration: none;">
+                    <div class="card shadow h-100 py-2 pointer" id="cardMemo">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div
+                                        class="text-xs font-weight-bolder text-cold text-uppercase mb-1">
+                                        Alertas de uso da RAM</div>
+                                    <div class="h5 mb-0 font-weight-bolder text-gray-800"
+                                        id="situacaoram"></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-memory fa-2x text-black-300"
+                                        id="iconeAlertasMemo"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </abbr>
+            </div>
+
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4" id="kpiDisco">
+                <abbr id="abbrDisco" style="text-decoration: none;">
+                    <div class="card shadow h-100 py-2 pointer" id="cardDisco">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div
+                                        class="text-xs font-weight-bolder text-cold text-uppercase mb-1">
+                                        Alertas de uso do disco
+                                    </div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            <div class="h5 mb-0 mr-3 font-weight-bolder text-gray-800"
+                                                id="situacaoDisco"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-compact-disc fa-2x text-black-300"
+                                        id="iconeAlertasDisco"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </abbr>
+            </div>
+        
 
           <!-- Primeira linha de gráficos -->
           <div class="row">
@@ -175,13 +245,14 @@
                   </h6>
                 </div>
                 <div class="card-body card_recomendacao" id="recomendacoesHTML" style="color: #000">
-                  <p id="recomendacaoCPU">CPU: </p>
-                  <p id="recomendacaoDisco">Disco:</p>
-                  <p id="recomendacaoMemoria" class="recomendacaoMemoria">Memoria: </p>
+                  <p id="correlacaoCPU" class="correlacao">CPU: </p>  
+                  <p id="correlacaoMemoria" class="correlacao">Memoria: </p>
+                  <p id="correlacaoDisco" class="correlacao">Disco:</p>
                 </div>
               </div>
             </div>
-          </div>
+            <!-- Div para o gráfico de linhas -->
+
 
 
 
@@ -235,7 +306,7 @@
 <!-- Aqui a função defer não se faz tão necessária, mas é bom ter -->
 <script src="vendor/chart.js/Chart.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="../js/dashboardTemperatura.js" defer></script>
+<script type="module" src="../js/dashboardTemperatura.js" defer></script>
 <script src="js/sb-admin-2.min.js" defer></script>
 <script src="vendor/jquery/jquery.min.js" defer></script>
 <script src="vendor/jquery-easing/jquery.easing.min.js" defer></script>
