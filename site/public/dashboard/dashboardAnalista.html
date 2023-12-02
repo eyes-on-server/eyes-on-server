@@ -95,7 +95,7 @@
             aria-controls="collapseUtilities"
           >
             <i class="fas fa-fw fa-server"></i>
-            <span>Servidores</span>
+            <span>Complemetos: </span>
           </a>
           <div
             id="collapseUtilities"
@@ -104,7 +104,9 @@
             data-parent="#accordionSidebar"
           >
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="consulta.html">Consultar</a>
+              <a class="collapse-item" href="dashboardProcessos.html">Processos</a>
+              <a class="collapse-item" href="dashboardTemperatura.html">Temperatura</a>
+              
             </div>
           </div>
         </li>
@@ -336,7 +338,7 @@
                       <h6 class="m-0 font-weight-bold text-primary">
                         Componentes:
                       </h6>
-                      <select name="" id="selectComponents" onchange="setDatasInGraph(this.value)">
+                      <select name="" id="selectComponents" onchange="changeComponent(this.value)">
                         <option value="" selected disabled>Componentes</option>
                       </select>
                     </div>
