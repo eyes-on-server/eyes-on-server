@@ -15,6 +15,12 @@
     <!-- Link chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <!-- math -->
+    <!-- Adicione este script no cabeçalho do seu HTML para incluir a biblioteca mathjs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.1.0/math.js"></script>
+
+
+
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" />
     <link
@@ -51,7 +57,7 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="./perfilAnalista.html ">
-                <div class="sidebar-brand-text mx-3">Analista O</div>
+                <div class="sidebar-brand-text mx-3">Analista</div>
             </a>
             <div>
                 <p class="sidebar-brand-text mx-3 user_name" id="nome_do_usuario"></p>
@@ -63,7 +69,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item active">
-                <a class="nav-link" href="dashAnalistaOtavio.html">
+                <a class="nav-link" href="dashboardProcessos.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -161,7 +167,7 @@
                         <div class="row">
                             <div class="header-dash align-items-center justify-content-between">
                                 <select class="col-xl-7 col-lg-7" name="" id="select_servidores"
-                                    onchange="setDados(this.value)">
+                                    onchange="setDados(this.value), definirHorario()">
                                     <option value="" selected disabled>Selecionar servidor</option>
                                 </select>
                             </div>
@@ -245,6 +251,7 @@
 
                             <!-- Pending Requests Card Example -->
                             <div class="col-xl-3 col-md-6 mb-4">
+                                <abbr id="hora" style="text-decoration: none;">
                                 <div class="card shadow h-100 py-2 pointer" id="cardTodosComponentes">
                                     <div class="card-body">
                                         <div class="row no-gutters align-items-center">
@@ -261,6 +268,7 @@
                                         </div>
                                     </div>
                                 </div>
+                            </abbr>
                             </div>
                         </div>
 
@@ -305,6 +313,8 @@
                                             <div id="div1"></div>
                                             <div id="div2"></div>
                                             <div id="div3"></div>
+                                            <div style="font-size: 12.5px;">Info: A variação é de -1 a 1. -1 indica uma relação negativa perfeita,
+                                                 1 indica uma relação positiva perfeita, e 0 indica falta de relação linear.</div>
                                         </div>
                                     </div>
                                 </div>
