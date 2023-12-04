@@ -13,7 +13,7 @@ function buscarNomeServidores(company){
 }
 
 function buscaridServidores(local){
-  let select = `SELECT nome_servidor, id_servidor FROM Servidor WHERE local_servidor = "${local}";`;
+  let select = `SELECT nome_servidor, id_servidor FROM Servidor WHERE local_servidor = '${local}';`;
   info("searchServers", select);
   return bancoDados.executar(select);
 }
@@ -21,22 +21,22 @@ function buscaridServidores(local){
 // Funções para exportar
 function buscarConsumo(fk_servidor, company) {
   var query = `
-  SELECT 
-     AVG(CASE WHEN MONTH(momento) = 1 THEN porcentagem_uso ELSE NULL END) as [media_Janeiro],
-     AVG(CASE WHEN MONTH(momento) = 2 THEN porcentagem_uso ELSE NULL END) as [media_Fevereiro],
-     AVG(CASE WHEN MONTH(momento) = 3 THEN porcentagem_uso ELSE NULL END) as [media_Março],
-     AVG(CASE WHEN MONTH(momento) = 4 THEN porcentagem_uso ELSE NULL END) as [media_Abril],
-     AVG(CASE WHEN MONTH(momento) = 5 THEN porcentagem_uso ELSE NULL END) as [media_Maio],
-     AVG(CASE WHEN MONTH(momento) = 6 THEN porcentagem_uso ELSE NULL END) as [media_Junho],
-     AVG(CASE WHEN MONTH(momento) = 7 THEN porcentagem_uso ELSE NULL END) as [media_Julho],
-     AVG(CASE WHEN MONTH(momento) = 8 THEN porcentagem_uso ELSE NULL END) as [media_Agosto],
-     AVG(CASE WHEN MONTH(momento) = 9 THEN porcentagem_uso ELSE NULL END) as [media_Setembro],
-     AVG(CASE WHEN MONTH(momento) = 10 THEN porcentagem_uso ELSE NULL END) as [media_Outubro],
-     AVG(CASE WHEN MONTH(momento) = 11 THEN porcentagem_uso ELSE NULL END) as [media_Novembro],
-     AVG(CASE WHEN MONTH(momento) = 12 THEN porcentagem_uso ELSE NULL END) as [media_Dezembro]
-   FROM Eyes_On_Server.Consumo_Servidor CS
-   JOIN Eyes_On_Server.Servidor S ON CS.fk_servidor = S.id_servidor
-   WHERE S.fk_empresa = 'company'
+  SELECT TOP 1
+     AVG(CASE WHEN MONTH(momento) = 1 THEN porcentagem_uso ELSE 0 END) as [media_Janeiro],
+     AVG(CASE WHEN MONTH(momento) = 2 THEN porcentagem_uso ELSE 0 END) as [media_Fevereiro],
+     AVG(CASE WHEN MONTH(momento) = 3 THEN porcentagem_uso ELSE 0 END) as [media_Março],
+     AVG(CASE WHEN MONTH(momento) = 4 THEN porcentagem_uso ELSE 0 END) as [media_Abril],
+     AVG(CASE WHEN MONTH(momento) = 5 THEN porcentagem_uso ELSE 0 END) as [media_Maio],
+     AVG(CASE WHEN MONTH(momento) = 6 THEN porcentagem_uso ELSE 0 END) as [media_Junho],
+     AVG(CASE WHEN MONTH(momento) = 7 THEN porcentagem_uso ELSE 0 END) as [media_Julho],
+     AVG(CASE WHEN MONTH(momento) = 8 THEN porcentagem_uso ELSE 0 END) as [media_Agosto],
+     AVG(CASE WHEN MONTH(momento) = 9 THEN porcentagem_uso ELSE 0 END) as [media_Setembro],
+     AVG(CASE WHEN MONTH(momento) = 10 THEN porcentagem_uso ELSE 0 END) as [media_Outubro],
+     AVG(CASE WHEN MONTH(momento) = 11 THEN porcentagem_uso ELSE 0 END) as [media_Novembro],
+     AVG(CASE WHEN MONTH(momento) = 12 THEN porcentagem_uso ELSE 0 END) as [media_Dezembro]
+   FROM Consumo_Servidor CS
+   JOIN Servidor S ON CS.fk_servidor = ${fk_servidor}
+   WHERE S.fk_empresa = ${company}
      AND YEAR(momento) = YEAR(GETDATE())
    GROUP BY S.id_servidor;
   `;
@@ -48,7 +48,7 @@ function buscarConsumo(fk_servidor, company) {
 
 function buscarPrevisaoConsumo() {
   var query = `
-  SELECT top 1
+  SELECT 
   AVG(CASE WHEN mes_feriado LIKE 'Janeiro' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Janeiro,
   AVG(CASE WHEN mes_feriado LIKE 'Fevereiro' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Fevereiro,
   AVG(CASE WHEN mes_feriado LIKE 'Março' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Março,
@@ -61,8 +61,7 @@ function buscarPrevisaoConsumo() {
   AVG(CASE WHEN mes_feriado LIKE 'Outubro' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Outubro,
   AVG(CASE WHEN mes_feriado LIKE 'Novembro' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Novembro,
     AVG(CASE WHEN mes_feriado LIKE 'Dezembro' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Dezembro
-FROM E_Comerce	
-group by id_feriado;
+FROM E_Comerce	;
   `;
 
   info("buscarPrevisaoConsumo()", query);
