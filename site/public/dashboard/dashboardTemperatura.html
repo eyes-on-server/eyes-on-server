@@ -126,8 +126,30 @@
           </div>
 
           <div class="row" style="display: flex; justify-content: center;">
+            
 
             <!-- Earnings (Monthly) Card Example -->
+            <!-- <div class="col-xl-3 col-md-6 mb-4" id="kpiCpu">
+                <abbr id="abbrCpu" style="text-decoration: none;">
+                    <div class="card shadow h-100 py-2 pointer" id="cardCpu">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div
+                                        class="text-xs font-weight-bolder text-cold text-uppercase mb-1">
+                                        Alertas de Temperatura</div>
+                                    <div class="h5 mb-0 font-weight-bolder text-gray-800"
+                                        id="situacaocpu"></div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fas fa-temperature-high fa-2x text-black-300"
+                                        id="iconeAlertasCpu"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </abbr>
+            </div> -->
             <div class="col-xl-3 col-md-6 mb-4" id="kpiCpu">
                 <abbr id="abbrCpu" style="text-decoration: none;">
                     <div class="card shadow h-100 py-2 pointer" id="cardCpu">
@@ -209,14 +231,14 @@
             <div class="col-xl-7 col-lg-7">
               <div class="card shadow mb-4 grafico-de-linha">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">
+                  <h6 class="m-0 font-weight-bold text-primary" id="tituloGrafico">
                     Temperatura x CPU (%)
                   </h6>
                 </div>
                 <!-- Div para o gráfico de linha -->
                 <div class="card-body card-body-grafico">
                   <div class="chart-area" id="chartArea">
-                    <canvas id="graficoCpu"></canvas>
+                    <canvas id="graficoCorrelacao"></canvas>
                   </div>
                 </div>
               </div>
@@ -224,20 +246,6 @@
 
             <!-- Div para Exibir os alertas e aviso -->
             <div class="col-xl-5 col-lg-5">
-
-              <!-- Div para os alertas  -->
-              <div class="card shadow mb-4 alertas">
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">
-                    Alertas de Temperatura
-                  </h6>
-                </div>
-                <div class="card-body cards_da_linha_02">
-                  <h1 id="quantidadeDeAlertas">99</h1>
-                </div>
-              </div>
-
-              <!-- Div para a recomendação -->
               <div class="card shadow mb-4 recomendacoes">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">
