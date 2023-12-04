@@ -17,8 +17,8 @@ function listar(fkEmpresa) {
       s.descricao AS Descricao,
       s.local_servidor AS Local,
       GROUP_CONCAT(c.nome_componente ORDER BY c.id_componente) AS Componentes
-  FROM Eyes_On_Server.Servidor AS s
-  LEFT JOIN Eyes_On_Server.Componente AS c
+  FROM Servidor AS s
+  LEFT JOIN Componente AS c
   ON FIND_IN_SET(c.id_componente, REPLACE(s.componentes, ' ', ''))
   WHERE s.fk_empresa = ${fkEmpresa}
   GROUP BY s.id_servidor, s.nome_servidor, s.so_servidor, s.descricao, s.local_servidor;

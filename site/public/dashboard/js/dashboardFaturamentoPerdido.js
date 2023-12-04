@@ -87,9 +87,9 @@ function popularTabela() {
           for (var i = 0; i < json.length; i++) {
             document.getElementById("tabela_downtime_servidores").innerHTML += `
                 <tr id='item${
-                  json[i].fk_servidor
+                  json[i].id_servidor
                 }' class='linha-tabela' onclick='mostrarGraficoLinha(${
-              json[i].fk_servidor
+              json[i].id_servidor
             })'>
                     <td>${i + 1}</td>
                     <td>${json[i].nome_servidor}</td>

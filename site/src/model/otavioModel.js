@@ -33,12 +33,12 @@ OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY;
     //     r.valor_registro AS Valor,
     //     DATE_FORMAT(r.momento_registro, '%H:%i:%s') AS Horario_Captura
     // FROM
-    //     Eyes_On_Server.Registro r
-    //     JOIN Eyes_On_Server.Componente_Servidor cs ON r.fk_componente_servidor = cs.id_componente_servidor
-    //     JOIN Eyes_On_Server.Componente_Medida cm ON cs.fk_componente_medida = cm.id_componente_medida
-    //     JOIN Eyes_On_Server.Componente c ON cm.fk_componente = c.id_componente
-    //     JOIN Eyes_On_Server.Medida m ON cm.fk_medida = m.id_medida
-    //     JOIN Eyes_On_Server.Servidor s ON cs.fk_servidor = s.id_servidor
+    //     Registro r
+    //     JOIN Componente_Servidor cs ON r.fk_componente_servidor = cs.id_componente_servidor
+    //     JOIN Componente_Medida cm ON cs.fk_componente_medida = cm.id_componente_medida
+    //     JOIN Componente c ON cm.fk_componente = c.id_componente
+    //     JOIN Medida m ON cm.fk_medida = m.id_medida
+    //     JOIN Servidor s ON cs.fk_servidor = s.id_servidor
     // WHERE
     //     s.id_servidor = ${fkEmpresa}
     //     AND c.nome_componente = 'Memoria'
@@ -70,7 +70,7 @@ FROM
     JOIN Medida m ON cm.fk_medida = m.id_medida
     JOIN Servidor s ON cs.fk_servidor = s.id_servidor
 WHERE
-    s.id_servidor = 9
+    s.id_servidor = ${fkEmpresa}
     AND c.nome_componente = 'Cpu'
     AND m.nome_medida = 'PorcentagemUso'
 ORDER BY
@@ -86,12 +86,12 @@ OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY;
     //     r.valor_registro AS Valor,
     //     DATE_FORMAT(r.momento_registro, '%H:%i:%s') AS Horario_Captura
     // FROM
-    //     Eyes_On_Server.Registro r
-    //     JOIN Eyes_On_Server.Componente_Servidor cs ON r.fk_componente_servidor = cs.id_componente_servidor
-    //     JOIN Eyes_On_Server.Componente_Medida cm ON cs.fk_componente_medida = cm.id_componente_medida
-    //     JOIN Eyes_On_Server.Componente c ON cm.fk_componente = c.id_componente
-    //     JOIN Eyes_On_Server.Medida m ON cm.fk_medida = m.id_medida
-    //     JOIN Eyes_On_Server.Servidor s ON cs.fk_servidor = s.id_servidor
+    //     Registro r
+    //     JOIN Componente_Servidor cs ON r.fk_componente_servidor = cs.id_componente_servidor
+    //     JOIN Componente_Medida cm ON cs.fk_componente_medida = cm.id_componente_medida
+    //     JOIN Componente c ON cm.fk_componente = c.id_componente
+    //     JOIN Medida m ON cm.fk_medida = m.id_medida
+    //     JOIN Servidor s ON cs.fk_servidor = s.id_servidor
     // WHERE
     //     s.id_servidor = ${fkEmpresa}
     //     AND c.nome_componente = 'Cpu'
@@ -136,12 +136,12 @@ OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY;
     //     r.valor_registro AS Valor,
     //     DATE_FORMAT(r.momento_registro, '%H:%i:%s') AS Horario_Captura
     // FROM
-    //     Eyes_On_Server.Registro r
-    //     JOIN Eyes_On_Server.Componente_Servidor cs ON r.fk_componente_servidor = cs.id_componente_servidor
-    //     JOIN Eyes_On_Server.Componente_Medida cm ON cs.fk_componente_medida = cm.id_componente_medida
-    //     JOIN Eyes_On_Server.Componente c ON cm.fk_componente = c.id_componente
-    //     JOIN Eyes_On_Server.Medida m ON cm.fk_medida = m.id_medida
-    //     JOIN Eyes_On_Server.Servidor s ON cs.fk_servidor = s.id_servidor
+    //     Registro r
+    //     JOIN Componente_Servidor cs ON r.fk_componente_servidor = cs.id_componente_servidor
+    //     JOIN Componente_Medida cm ON cs.fk_componente_medida = cm.id_componente_medida
+    //     JOIN Componente c ON cm.fk_componente = c.id_componente
+    //     JOIN Medida m ON cm.fk_medida = m.id_medida
+    //     JOIN Servidor s ON cs.fk_servidor = s.id_servidor
     // WHERE
     //     s.id_servidor = ${fkEmpresa}
     //     AND c.nome_componente = 'Disco'
@@ -168,7 +168,7 @@ function processos(fkEmpresa) {
 
     // Mysql
     // SELECT nome_processos, COUNT(*) AS quantidade
-    //     FROM Eyes_On_Server.Processos
+    //     FROM Processos
     //     GROUP BY nome_processos
     //     LIMIT 80;
 
