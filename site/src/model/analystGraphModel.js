@@ -19,43 +19,43 @@ function searchServers(local) {
 }
 
 function searchAllAlerts(company) {
-  let select = `SELECT count(id_alertas) as Alerts FROM view_alertas WHERE fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = "${company}");`;
+  let select = `SELECT count(id_alertas) as Alerts FROM View_Alertas WHERE fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = "${company}");`;
   info("searchAllAlerts", select);
   return bancoDeDados.executar(select);
 }
 
 function searchCpuAlerts(company) {
-  let select = `SELECT count(id_alertas) as cpuAlerts FROM view_alertas WHERE fk_componente = 1 and fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = "${company}");  `;
+  let select = `SELECT count(id_alertas) as cpuAlerts FROM View_Alertas WHERE fk_componente = 1 and fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = "${company}");  `;
   info("searchCpuAlerts", select);
   return bancoDeDados.executar(select);
 }
 
 function searchDiscAlerts(company) {
-  let select = `SELECT count(id_alertas) as discAlerts FROM view_alertas WHERE fk_componente = 2 and fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = "${company}");  `;
+  let select = `SELECT count(id_alertas) as discAlerts FROM View_Alertas WHERE fk_componente = 2 and fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = "${company}");  `;
   info("searchCpuAlerts", select);
   return bancoDeDados.executar(select);
 }
 
 function searchMemoryAlerts(company) {
-  let select = `SELECT count(id_alertas) as memoryAlerts FROM view_alertas WHERE fk_componente = 3 and fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = "${company}");  `;
+  let select = `SELECT count(id_alertas) as memoryAlerts FROM View_Alertas WHERE fk_componente = 3 and fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = "${company}");  `;
   info("searchMemoryAlerts", select);
   return bancoDeDados.executar(select);
 }
 
 function searchLastAlertsByCPU(company) {
-  let select = `SELECT titulo_alerta, descricao_alerta, data_hora_abertura, tipoAlerta FROM view_alertas WHERE fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = "${company}" AND fk_componente = 1) ORDER BY  data_hora_abertura DESC LIMIT 1; `;
+  let select = `SELECT titulo_alerta, descricao_alerta, data_hora_abertura, tipoAlerta FROM View_Alertas WHERE fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = "${company}" AND fk_componente = 1) ORDER BY  data_hora_abertura DESC LIMIT 1; `;
   info("searchLastAlertsByCPU", select);
   return bancoDeDados.executar(select);
 }
 
 function searchLastAlertsByMemory(company) {
-  let select = `SELECT titulo_alerta, descricao_alerta, data_hora_abertura, tipoAlerta FROM view_alertas WHERE fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = "${company}" AND fk_componente = 2) ORDER BY  data_hora_abertura DESC LIMIT 1; `;
+  let select = `SELECT titulo_alerta, descricao_alerta, data_hora_abertura, tipoAlerta FROM View_Alertas WHERE fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = "${company}" AND fk_componente = 2) ORDER BY  data_hora_abertura DESC LIMIT 1; `;
   info("searchLastAlertsByMemory", select);
   return bancoDeDados.executar(select);
 }
 
 function searchLastAlertsByDisc(company) {
-  let select = `SELECT titulo_alerta, descricao_alerta, data_hora_abertura, tipoAlerta FROM view_alertas WHERE fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = "${company}" AND fk_componente = 3) ORDER BY  data_hora_abertura DESC LIMIT 1; `;
+  let select = `SELECT titulo_alerta, descricao_alerta, data_hora_abertura, tipoAlerta FROM View_Alertas WHERE fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = "${company}" AND fk_componente = 3) ORDER BY  data_hora_abertura DESC LIMIT 1; `;
   info("searchLastAlertsByDisc", select);
   return bancoDeDados.executar(select);
 }
@@ -79,19 +79,19 @@ function searchDatasInLive(server, componentID) {
 }
 
 function searchAlertsByServer(server) {
-  let select = `SELECT count(id_alertas) AS alerts FROM view_alertas WHERE fk_servidor = (SELECT id_servidor FROM Eyes_On_Server.Servidor WHERE nome_servidor = "${server}");`;
+  let select = `SELECT count(id_alertas) AS alerts FROM View_Alertas WHERE fk_servidor = (SELECT id_servidor FROM Eyes_On_Server.Servidor WHERE nome_servidor = "${server}");`;
   info("searchAlertsByServer", select);
   return bancoDeDados.executar(select);
 }
 
 function searchAlertsByComponent(server, componentId) {
-  let select = `SELECT count(id_alertas) AS alerts FROM view_alertas WHERE fk_servidor = (SELECT id_servidor FROM Eyes_On_Server.Servidor WHERE nome_servidor = "${server}") AND fk_componente = ${componentId};`;
+  let select = `SELECT count(id_alertas) AS alerts FROM View_Alertas WHERE fk_servidor = (SELECT id_servidor FROM Eyes_On_Server.Servidor WHERE nome_servidor = "${server}") AND fk_componente = ${componentId};`;
   info("searchAlertsByComponent", select);
   return bancoDeDados.executar(select);
 }
 
 function searchLastAlertsByComponents(server, componentId) {
-  let select = `SELECT titulo_alerta, descricao_alerta, data_hora_abertura, tipoAlerta FROM view_alertas WHERE fk_servidor = (SELECT id_servidor FROM Eyes_On_Server.Servidor WHERE nome_servidor = "${server}" AND fk_componente = ${componentId}) ORDER BY  data_hora_abertura DESC LIMIT 1`;
+  let select = `SELECT titulo_alerta, descricao_alerta, data_hora_abertura, tipoAlerta FROM View_Alertas WHERE fk_servidor = (SELECT id_servidor FROM Eyes_On_Server.Servidor WHERE nome_servidor = "${server}" AND fk_componente = ${componentId}) ORDER BY  data_hora_abertura DESC LIMIT 1`;
   info("searchLastAlertsByComponents", select);
   return bancoDeDados.executar(select);
 }
@@ -163,43 +163,43 @@ module.exports = {
 // }
 
 // function searchAllAlerts(company) {
-//   let select = `SELECT count(id_alertas) as Alerts FROM view_alertas WHERE fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = N'${company}');`;
+//   let select = `SELECT count(id_alertas) as Alerts FROM View_Alertas WHERE fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = N'${company}');`;
 //   info("searchAllAlerts", select);
 //   return bancoDeDados.executar(select);
 // }
 
 // function searchCpuAlerts(company) {
-//   let select = `SELECT count(id_alertas) as cpuAlerts FROM view_alertas WHERE fk_componente = 1 and fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = N'${company}');  `;
+//   let select = `SELECT count(id_alertas) as cpuAlerts FROM View_Alertas WHERE fk_componente = 1 and fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = N'${company}');  `;
 //   info("searchCpuAlerts", select);
 //   return bancoDeDados.executar(select);
 // }
 
 // function searchDiscAlerts(company) {
-//   let select = `SELECT count(id_alertas) as discAlerts FROM view_alertas WHERE fk_componente = 2 and fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = N'${company}');  `;
+//   let select = `SELECT count(id_alertas) as discAlerts FROM View_Alertas WHERE fk_componente = 2 and fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = N'${company}');  `;
 //   info("searchDiscAlerts", select);
 //   return bancoDeDados.executar(select);
 // }
 
 // function searchMemoryAlerts(company) {
-//   let select = `SELECT count(id_alertas) as memoryAlerts FROM view_alertas WHERE fk_componente = 3 and fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = N'${company}');  `;
+//   let select = `SELECT count(id_alertas) as memoryAlerts FROM View_Alertas WHERE fk_componente = 3 and fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = N'${company}');  `;
 //   info("searchMemoryAlerts", select);
 //   return bancoDeDados.executar(select);
 // }
 
 // function searchLastAlertsByCPU(company) {
-//   let select = `SELECT titulo_alerta, descricao_alerta, data_hora_abertura, tipoAlerta FROM view_alertas WHERE fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = N'${company}' AND fk_componente = 1) ORDER BY  data_hora_abertura DESC LIMIT 1; `;
+//   let select = `SELECT titulo_alerta, descricao_alerta, data_hora_abertura, tipoAlerta FROM View_Alertas WHERE fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = N'${company}' AND fk_componente = 1) ORDER BY  data_hora_abertura DESC LIMIT 1; `;
 //   info("searchLastAlertsByCPU", select);
 //   return bancoDeDados.executar(select);
 // }
 
 // function searchLastAlertsByMemory(company) {
-//   let select = `SELECT titulo_alerta, descricao_alerta, data_hora_abertura, tipoAlerta FROM view_alertas WHERE fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = N'${company}' AND fk_componente = 2) ORDER BY  data_hora_abertura DESC LIMIT 1; `;
+//   let select = `SELECT titulo_alerta, descricao_alerta, data_hora_abertura, tipoAlerta FROM View_Alertas WHERE fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = N'${company}' AND fk_componente = 2) ORDER BY  data_hora_abertura DESC LIMIT 1; `;
 //   info("searchLastAlertsByMemory", select);
 //   return bancoDeDados.executar(select);
 // }
 
 // function searchLastAlertsByDisc(company) {
-//   let select = `SELECT titulo_alerta, descricao_alerta, data_hora_abertura, tipoAlerta FROM view_alertas WHERE fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = N'${company}' AND fk_componente = 3) ORDER BY  data_hora_abertura DESC LIMIT 1; `;
+//   let select = `SELECT titulo_alerta, descricao_alerta, data_hora_abertura, tipoAlerta FROM View_Alertas WHERE fk_empresa = (SELECT id_empresa FROM Eyes_On_Server.Empresa WHERE nome_fantasia = N'${company}' AND fk_componente = 3) ORDER BY  data_hora_abertura DESC LIMIT 1; `;
 //   info("searchLastAlertsByDisc", select);
 //   return bancoDeDados.executar(select);
 // }
@@ -223,19 +223,19 @@ module.exports = {
 // }
 
 // function searchAlertsByServer(server) {
-//   let select = `SELECT count(id_alertas) AS alerts FROM view_alertas WHERE fk_servidor = (SELECT id_servidor FROM Eyes_On_Server.Servidor WHERE nome_servidor = N'${server}');`;
+//   let select = `SELECT count(id_alertas) AS alerts FROM View_Alertas WHERE fk_servidor = (SELECT id_servidor FROM Eyes_On_Server.Servidor WHERE nome_servidor = N'${server}');`;
 //   info("searchAlertsByServer", select);
 //   return bancoDeDados.executar(select);
 // }
 
 // function searchAlertsByComponent(server, componentId) {
-//   let select = `SELECT count(id_alertas) AS alerts FROM view_alertas WHERE fk_servidor = (SELECT id_servidor FROM Eyes_On_Server.Servidor WHERE nome_servidor = N'${server}') AND fk_componente = ${componentId};`;
+//   let select = `SELECT count(id_alertas) AS alerts FROM View_Alertas WHERE fk_servidor = (SELECT id_servidor FROM Eyes_On_Server.Servidor WHERE nome_servidor = N'${server}') AND fk_componente = ${componentId};`;
 //   info("searchAlertsByComponent", select);
 //   return bancoDeDados.executar(select);
 // }
 
 // function searchLastAlertsByComponents(server, componentId) {
-//   let select = `SELECT titulo_alerta, descricao_alerta, data_hora_abertura, tipoAlerta FROM view_alertas WHERE fk_servidor = (SELECT id_servidor FROM Eyes_On_Server.Servidor WHERE nome_servidor = N'${server}' AND fk_componente = ${componentId}) ORDER BY  data_hora_abertura DESC LIMIT 1`;
+//   let select = `SELECT titulo_alerta, descricao_alerta, data_hora_abertura, tipoAlerta FROM View_Alertas WHERE fk_servidor = (SELECT id_servidor FROM Eyes_On_Server.Servidor WHERE nome_servidor = N'${server}' AND fk_componente = ${componentId}) ORDER BY  data_hora_abertura DESC LIMIT 1`;
 //   info("searchLastAlertsByComponents", select);
 //   return bancoDeDados.executar(select);
 // }
