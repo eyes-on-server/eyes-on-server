@@ -11,7 +11,7 @@ let memoryAlerts;
 
 let atualizationInitial = setInterval(() => {
   updateInitial();
-}, "2000");
+}, "10000");
 
 function initial() {
   nome_do_usuario.innerHTML = sessionStorage.NOME_USER;
@@ -732,24 +732,18 @@ function searchServers(local) {
     });
 }
 
-function changeAlertsCondition() {
-  if (alerts.value == "on") {
-    alerts.value = "off";
-  } else {
-    alerts.value = "on";
-  }
-}
 
 function resetPage() {
   clearInterval(atualizationGraph01);
+  clearInterval(graph02Interval);
   
   atualizationInitial = setInterval(() => {
     updateInitial();
-  }, "2000");
+  }, "10000");
 
   statusGraph = 0;
 
-    serverName.innerHTML = `Nome do servidor: `;
+  serverName.innerHTML = `Nome do servidor: `;
   sectorName.innerHTML = `Nome do setor: `;
   ipv6Server.innerHTML = `IPV6 do servidor: `;
   macAddressServer.innerHTML = `Mac address: `;
@@ -1248,9 +1242,7 @@ function setDatasInGraph(measureName) {
   let registerLabels = [];
   let registers = [];
 
-  // chartArea2.innerHTML = ``;
-  // chartArea2.innerHTML = `<canvas id="GraficoDeLinha2"></canvas>`;
-  // const dash2 = document.getElementById("GraficoDeLinha2");
+
 
   let par = `${measureName}`;
   fetch(`/analystGraph/searchDatasByComponent/${serverGlobal}/${par}`, {
@@ -1300,13 +1292,6 @@ function setDatasInGraph(measureName) {
       console.log("Error: " + erro);
     });
 
-  // graph02.data.datasets = [
-  //   {
-  //     label: par,
-  //     data: registers,
-  //     borderWidth: 1,
-  //   },
-  // ];
 
   graph02.data.datasets[0].data = registers;
   graph02.data.labels = registerLabels;
@@ -1319,9 +1304,9 @@ function setDatasInGraph(measureName) {
 
 function updateGraph01(server) {
 
-  cpuAlerts = 0;
-  discAlerts = 0;
-  memoryAlerts = 0;
+  // cpuAlerts = 0;
+  // discAlerts = 0;
+  // memoryAlerts = 0;
 
   console.log("updateGraph01");
 
@@ -1666,11 +1651,12 @@ var graph02Interval;
 function changeComponent(server) {
   clearInterval(graph02Interval);
   clearInterval(atualizationGraph01);
+
   // clearInterval(atualizationInitial);
   graph02Interval = setInterval(() => {
     updateGraph01(serverGlobal);
     setDatasInGraph(server);
-  }, 1000);
+  }, 10000);
 }
 
 initial();
