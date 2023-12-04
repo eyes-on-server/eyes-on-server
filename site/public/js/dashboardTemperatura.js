@@ -252,6 +252,7 @@ buscarServidores();
 
 const chart = criarGrafico();
 atualizarGrafico();
+buscarAlertas()
 document.getElementById("correlacaoCPU").textContent = `CPU: ${(
   correlationCpu * 100
 ).toFixed(1)}%`;
