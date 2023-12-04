@@ -20,12 +20,9 @@ function buscarServidores() {
 
 
     // Comando a ser realizado no banco de dados
-    var query = `sqlserver
-    SELECT id_servidor, nome_servidor 
-FROM Servidor 
-WHERE fk_empresa = ${fk};`;
+    var query = `SELECT id_servidor, nome_servidor FROM Servidor WHERE fk_empresa = ${fk};`;
 
-// Mysql: SELECT id_servidor, nome_servidor FROM Eyes_On_Server.Servidor WHERE fk_empresa = "${fk}";
+// Mysql: SELECT id_servidor, nome_servidor FROM Servidor WHERE fk_empresa = "${fk}";
 
     // Limpar as options quando trocar de setor
     select_servidores.innerHTML = `<option value="" selected disabled>Servidores</option>`;
@@ -87,12 +84,12 @@ function setDados() {
     clearInterval(setInterval(processos, intervaloEmMilissegundos))
 
     // Comando a ser realizado no banco de dados
-    var query = `        sqlserver
-    SELECT Tipo, servidor 
-FROM view_componentes_servidores  
-WHERE servidor = '${servidorAtual}';`;
+    var query = `
+        SELECT Tipo, servidor 
+        FROM view_componentes_servidores  
+        WHERE servidor = '${servidorAtual}';`;
 
-// Mysql: select Tipo, servidor from Eyes_On_Server.view_componentes_servidores  
+// Mysql: select Tipo, servidor from view_componentes_servidores  
 //                      where servidor = "${servidorAtual}";
 
     fetch("/otavioRoute/setDados", {
