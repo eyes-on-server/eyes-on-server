@@ -50,7 +50,7 @@ function buscarServidores() {
 
                             select_servidores.innerHTML += `<option value="${id_servidor}">${servidor}</option>`;
 
-                            console.log(`esse é ${id_servidor} e o ${servidor}`)
+                            // console.log(`esse é ${id_servidor} e o ${servidor}`)
 
                         }
                     }
@@ -74,8 +74,8 @@ function buscarServidores() {
 
 function setDados() {
 
-    var intervaloEmMilissegundos = 10000; // Por exemplo, a cada 60 segundos
-    console.log(select_servidores.options[select_servidores.selectedIndex].text)
+    var intervaloEmMilissegundos = 10000; 
+    // console.log(select_servidores.options[select_servidores.selectedIndex].text)
     servidorAtual = select_servidores.options[select_servidores.selectedIndex].text
 
     clearInterval(setInterval(graficoReal, intervaloEmMilissegundos))
@@ -183,10 +183,6 @@ function definirKpis() {
 
 
 
-
-
-
-
 function graficoReal() {
 
 
@@ -219,13 +215,13 @@ function graficoReal() {
                 for (let i = 0; i < json.length; i++) {
                     var dados = json[i]
 
-                    // console.log(dados.Valor)
+                    
 
                     memoryData.push(dados.Valor)
 
                 }
 
-                // console.log(temCPU, temRAM, temDisco)
+                
 
                 definirKpis()
                 situacao()
@@ -275,7 +271,7 @@ function graficoRealCPU() {
 
                 }
 
-                // console.log(temCPU, temRAM, temDisco)
+                
 
                 definirKpis()
                 situacao()
@@ -333,9 +329,6 @@ function graficoRealDisco() {
                 definirKpis()
                 situacao()
                 loadData()
-
-
-
 
 
 
@@ -397,7 +390,7 @@ function loadData() {
 
     chamarDados(cpuData, memoryData, diskData, temCPU, temRAM, temDisco)
 
-    // corelacao()
+    
 }
 
 // Configuração inicial do gráfico
@@ -553,19 +546,6 @@ function trocarCards() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Busca os nomes na sessionStorage
 function nomes() {
 
@@ -714,9 +694,6 @@ function situacao() {
 
 
 
-
-
-
 function calcularCorrelacaoPearson(x, y) {
     var n = x.length;
 
@@ -762,7 +739,7 @@ function verificarExibirCorrelacaoCPURAM() {
 function verificarExibirCorrelacaoRAMDisco() {
     var div2 = document.getElementById('div2');
     if (temRAM && temDisco) {
-        console.log(diskData)
+        // console.log(diskData)
         exibirCorrelacao(div2, memoryData, diskData, 'RAM', 'Disco');
     } else {
         div2.style.display = "none";
@@ -780,110 +757,6 @@ function verificarExibirCorrelacaoCPUDisco() {
 }
 
 
-
-
-// function corelacao() {
-// // console.log(`como o vetor tá vindo`)
-// // console.log(cpuData)
-// // console.log(memoryData)
-// // console.log(diskData)
-
-
-//     var resultados = calcularCorrelacoes(cpuData, memoryData, diskData, temCPU, temRAM, temDisco);
-
-//     console.log('Correlações:');
-
-//     var div = document.getElementById("correlacao");
-//     var div1 = document.getElementById("div1");
-//     var div2 = document.getElementById("div2");
-//     var div3 = document.getElementById("div3");
-
-//     div1.innerHTML = `<h5>Correlação entre CPU e RAM</h5>`;
-//     div2.innerHTML = `<h5>Correlação entre RAM e Disco</h5>`;
-//     div3.innerHTML = `<h5>Correlação entre CPU e Disco</h5>`;
-
-//     if (temCPU && temRAM) {
-//         div1.innerHTML += `${resultados['cpuData para memoryData'].toFixed(2)}%<br/><br/>`;
-//     } else {
-//         document.getElementById("div1").style.display = "none";
-//     }
-
-//     if (temRAM && temDisco) {
-//         div2.innerHTML += `${resultados['memoryData para diskData'].toFixed(2)}%<br/><br/>`;
-//         console.log(resultados)
-//     } else {
-//         document.getElementById("div2").style.display = "none";
-//     }
-
-//     if (temCPU && temDisco) {
-//         div3.innerHTML += `${resultados['cpuData para diskData'].toFixed(2)}%<br/><br/>`;
-//     } else {
-//         document.getElementById("div3").style.display = "none";
-//     }
-// }
-
-
-// function calculateCorrelation(vetor1, vetor2) {
-//     if (vetor1.length !== vetor2.length) {
-//         throw new Error('Os vetores devem ter o mesmo comprimento');
-//     }
-
-//     var n = vetor1.length;
-
-//     // Função para calcular a média de um vetor
-//     function calculateMean(vetor) {
-//         return vetor.reduce(function (acc, val) {
-//             return acc + parseFloat(val);
-//         }, 0) / n;
-//     }
-
-//     // Calcula a média dos elementos nos vetores
-//     var meanVetor1 = calculateMean(vetor1);
-//     var meanVetor2 = calculateMean(vetor2);
-
-//     // Calcula os termos necessários para o coeficiente de correlação de Pearson
-//     var numerator = 0;
-//     var denominatorVetor1 = 0;
-//     var denominatorVetor2 = 0;
-
-//     for (var i = 0; i < n; i++) {
-//         var diffVetor1 = parseFloat(vetor1[i]) - meanVetor1;
-//         var diffVetor2 = parseFloat(vetor2[i]) - meanVetor2;
-
-//         numerator += diffVetor1 * diffVetor2;
-//         denominatorVetor1 += diffVetor1 ** 2;
-//         denominatorVetor2 += diffVetor2 ** 2;
-//     }
-
-//     console.log(vetor1)
-//     // Calcula o coeficiente de correlação de Pearson
-//     var correlation = (numerator / Math.sqrt(denominatorVetor1 * denominatorVetor2)) * 100;
-
-//     // Garante que o resultado esteja dentro do intervalo [-100, 100]
-//     correlation = Math.min(100, Math.max(-100, correlation));
-
-//     return Math.abs(correlation); // Retorna o valor absoluto do resultado
-// }
-
-
-// function calcularCorrelacoes(cpuData, memoryData, diskData, temCPU, temRAM, temDisco) {
-//     var resultados = {};
-
-//     if (temCPU && temRAM) {
-//         resultados['cpuData para memoryData'] = calculateCorrelation(cpuData, memoryData);
-//     }
-
-//     if (temRAM && temDisco) {
-//         resultados['memoryData para diskData'] = calculateCorrelation(memoryData, diskData);
-//     }
-
-//     if (temCPU && temDisco) {
-//         resultados['cpuData para diskData'] = calculateCorrelation(cpuData, diskData);
-//     }
-
-//     return resultados;
-
-// }
 
 
 
