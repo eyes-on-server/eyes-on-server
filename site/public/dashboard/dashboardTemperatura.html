@@ -119,7 +119,7 @@
           <div class="row row01">
             <!-- Segundo header da página -->
             <div class="header-dash align-items-center justify-content-between">
-              <select class="col-xl-7 col-lg-7" name="" id="select_servidores" onchange="setarDados(this.value)">
+              <select class="col-xl-7 col-lg-7" name="" id="select_servidores" onchange="selecionarServidor(this.value)">
                 <option value="" selected disabled>Servidores</option>
               </select>
             </div>
@@ -150,7 +150,7 @@
                     </div>
                 </abbr>
             </div> -->
-            <div class="col-xl-3 col-md-6 mb-4" id="kpiCpu">
+            <div class="col-xl-3 col-md-6 mb-4" id="kpiCpu" onchange="selecionarGrafico(0)">
                 <abbr id="abbrCpu" style="text-decoration: none;">
                     <div class="card shadow h-100 py-2 pointer" id="cardCpu">
                         <div class="card-body">
@@ -160,7 +160,7 @@
                                         class="text-xs font-weight-bolder text-cold text-uppercase mb-1">
                                         Alertas da CPU</div>
                                     <div class="h5 mb-0 font-weight-bolder text-gray-800"
-                                        id="situacaocpu"></div>
+                                        id="qtdAlertasCpu"></div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-microchip fa-2x text-black-300"
@@ -173,8 +173,8 @@
             </div>
 
             <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4" id="kpiRam">
-                <abbr id="abbrRam" style="text-decoration: none;">
+            <div class="col-xl-3 col-md-6 mb-4" id="kpiRam" onchange="selecionarGrafico(1)">
+            <abbr id="abbrRam" style="text-decoration: none;">
                     <div class="card shadow h-100 py-2 pointer" id="cardMemo">
                         <div class="card-body">
                             <div class="row no-gutters align-items-center">
@@ -183,7 +183,7 @@
                                         class="text-xs font-weight-bolder text-cold text-uppercase mb-1">
                                         Alertas de uso da RAM</div>
                                     <div class="h5 mb-0 font-weight-bolder text-gray-800"
-                                        id="situacaoram"></div>
+                                        id="qtdAlertasMem"></div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-memory fa-2x text-black-300"
@@ -196,7 +196,7 @@
             </div>
 
             <!-- Earnings (Monthly) Card Example -->
-            <div class="col-xl-3 col-md-6 mb-4" id="kpiDisco">
+            <div class="col-xl-3 col-md-6 mb-4" id="kpiDisco" onchange="selecionarGrafico(2)">
                 <abbr id="abbrDisco" style="text-decoration: none;">
                     <div class="card shadow h-100 py-2 pointer" id="cardDisco">
                         <div class="card-body">
@@ -209,7 +209,7 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col-auto">
                                             <div class="h5 mb-0 mr-3 font-weight-bolder text-gray-800"
-                                                id="situacaoDisco"></div>
+                                                id="qtdAlertasDisco"></div>
                                         </div>
                                     </div>
                                 </div>

@@ -1,13 +1,13 @@
 nome_do_usuario.innerHTML = sessionStorage.NOME_USER;
 nome_da_empresa.innerHTML = sessionStorage.NOME_FANTASIA;
 
-let temperatura = [25.0, 28.0, 30.0, 22.0, 27.0];
-let usoCpu = [10, 20, 30, 10, 25];
-let usoRam = [50, 20, 30, 10, 25];
-let usoDisco = [90, 20, 30, 10, 25];
-let cpuAlerts = 0
-let discAlerts = 0
-let memoryAlerts = 0
+let temperatura = [];
+let usoCpu = [];
+let usoRam = [];
+let usoDisco = [];
+let cpuAlerts = 0;
+let discAlerts = 0;
+let memoryAlerts = 0;
 
 const opcoes = [usoCpu, usoRam, usoDisco];
 
@@ -18,21 +18,14 @@ const correlationCpu = calculateCorrelation(temperatura, usoCpu);
 const correlationRam = calculateCorrelation(temperatura, usoRam);
 const correlationDisco = calculateCorrelation(temperatura, usoDisco);
 
-function buscarServidores() {
-  var fk = sessionStorage.FK_EMPRESA;
-
+function buscarServidores(valueSelectHTML) {
   // Comando a ser realizado no banco de dados
-  var query = `sqlserver
-    SELECT id_servidor, nome_servidor 
-FROM Servidor 
-WHERE fk_empresa = ${fk};`;
-
-  // Mysql: SELECT id_servidor, nome_servidor FROM Eyes_On_Server.Servidor WHERE fk_empresa = "${fk}";
+  var query = `SELECT id_servidor, nome_servidor FROM Servidor WHERE local_servidor = "${valueSelectHTML}";`;
 
   // Limpar as options quando trocar de setor
   select_servidores.innerHTML = `<option value="" selected disabled>Servidores</option>`;
 
-  fetch("/otavioRoute/buscarInformacoes", {
+  fetch("/graficosAnalista/buscarInformacoes", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
@@ -47,15 +40,11 @@ WHERE fk_empresa = ${fk};`;
           // Criamos um vetor para conferir se aquele servidor já foi inserido no HTML
           var servidores = [];
           // Esse for roda todo o json de resposta da query e insere o nome dos setores no select do HTML
-          select_servidores.innerHTML = `<option value="">Selecionar Servidor</option>`;
           for (var i = 0; i < json.length; i++) {
             if (!servidores.includes(json[i].nome_servidor)) {
-              var id_servidor = json[i].id_servidor;
               var servidor = json[i].nome_servidor;
-
+              var id_servidor = json[i].id_servidor;
               select_servidores.innerHTML += `<option value="${id_servidor}">${servidor}</option>`;
-
-              console.log(`esse é ${id_servidor} e o ${servidor}`);
             }
           }
         });
@@ -74,13 +63,50 @@ WHERE fk_empresa = ${fk};`;
 }
 
 function buscarAlertas(idServidor) {
-    //busca os alertas de cada componente de acordo com o servidor
-  fetch();
+  //busca os alertas de cada componente de acordo com o servidor
+  fetch(`/alertas/capturarTodosAlertas/?fkServidor=${idServidor}`).then(
+    (resultado) => {
+      resultado.json().then((resultado) => {
+        cpuAlerts = resultado.totalAlertasCpu;
+        memoryAlerts = resultado.totalAlertasMemoria;
+        discAlerts = resultado.totalAlertasDisco;
+      });
+    }
+  );
+
+  document.getElementById('qtdAlertasCpu').text = cpuAlerts
+  document.getElementById('qtdAlertasMem').text = memoryAlerts
+  document.getElementById('qtdAlertasDisco').text = discAlerts
 }
 
 function buscarDadosServidor(idServidor) {
-    //busca os dados do servidor escolhido
-  fetch();
+  //busca os dados do servidor escolhido
+  fetch(`/temperatura/dadosUsoPorServidor/?fkServidor=${idServidor}`).then(
+    (resultado) => {
+      resultado.json().then((resultado) => {
+        resultado.map((dado) => {
+          if (dado.Componente == "Cpu") {
+            usoCpu.push(dado);
+          } else if (dado.Componente == "Memoria") {
+            usoRam.push(dado);
+          } else if (dado.Componente == "Disco") {
+            usoDisco.push(dado);
+          }
+        });
+      });
+    }
+  );
+}
+
+function selecionarServidor(idServidor) {
+  buscarAlertas(idServidor)
+  buscarDadosServidor(idServidor)
+  atualizarGrafico()
+}
+
+function selecionarGrafico(escolha) {
+  escolhaGrafico = escolha
+  
 }
 
 function criarGrafico() {

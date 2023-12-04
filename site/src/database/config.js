@@ -1,10 +1,10 @@
 var sql = require('mssql');
 
 var sqlServerConfig = {
-    server: "EC2AMAZ-PFS2LAV\\SQLEXPRESS",
+    server: "172.17.0.1",
     database: "Eyes_On_Server",
     user: "sa",
-    password: "Eyes_On_Server",
+    password: "@Urubu100",
     pool: {
         max: 10,
         min: 0,

@@ -38,6 +38,14 @@ function coletarTodosDadosCards(idEmpresa, dataAtual, res) {
     });
 }
 
+function coletarTodosAlertasPorServidor(fkServidor) {
+  alertasModel.coletarTodosAlertasPorServidor().then((resultado) => {
+    res.status(200).json(resultado)
+  }).catch((erro) => {
+    res.status(500).json(erro.sqlMessage)
+  }) 
+}
+
 // DADOS POR SERVIDOR ------------------------>
 function coletarDadosCardsPorServidor(idEmpresa, dataAtual, fkServidor, res) {
   alertasModel
@@ -502,6 +510,7 @@ function realizarRankingLocaisPorComponente(
 
 module.exports = {
   coletarDadosCards,
+  coletarTodosAlertasPorServidor,
   realizarRankingServidores,
   obterServidoresPorRisco,
   coletarDadosTipoAlerta,

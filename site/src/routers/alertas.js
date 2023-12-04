@@ -7,6 +7,10 @@ rota.post("/coletarDadosCards", (req, res) => {
   alertasController.coletarDadosCards(req, res);
 });
 
+rota.get("/coletarTodosAlertas/:fkServidor", (req, res) => {
+  alertasController.coletarTodosAlertasPorServidor(req, res);
+});
+
 rota.post("/realizarRankingServidores", (req, res) => {
   alertasController.realizarRankingServidores(req, res);
 });

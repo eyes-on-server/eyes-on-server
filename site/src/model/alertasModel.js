@@ -404,6 +404,20 @@ function coletarDadosCardsPorServidor(idEmpresa, dataAtual, fkServidor) {
   `;
   return bancoDados.executar(query);
 }
+// POR SERVIDOR
+function coletarTodosAlertasPorServidor(fkServidor) {
+  var query = `
+  SELECT
+    COUNT(id_alertas) totalAlertas,
+    COALESCE(SUM(alerta_cpu),0) totalAlertasCpu,
+    COALESCE(SUM(alerta_memoria),0) totalAlertasMemoria,
+    COALESCE(SUM(alerta_disco),0) totalAlertasDisco
+  FROM View_Tipo_Alerta
+  WHERE
+    fk_servidor = ${fkServidor};
+  `;
+  return bancoDados.executar(query);
+}
 
 // POR LOCAL
 function coletarDadosCardsPorLocal(dataAtual, localServidor) {
@@ -727,6 +741,7 @@ module.exports = {
   coletarDadosCardsPorServidor,
   coletarDadosCardsPorLocal,
   coletarDadosCardsPorRisco,
+  coletarTodosAlertasPorServidor,
 
   realizarRankingServidores,
   realizarRankingLocalComponente,
