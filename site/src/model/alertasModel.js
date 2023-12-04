@@ -646,7 +646,7 @@ function realizarRankingServidoresPorRisco(idEmpresa, risco) {
         JOIN view_riscos_servidores vr ON vr.id_servidor = s.id_servidor
       WHERE
         vr.fk_empresa = ${idEmpresa} AND
-        vr.nivel_de_risco COLLATE utf8mb4_unicode_ci = '${risco}'
+        vr.nivel_de_risco COLLATE Latin1_General_CI_AI = '${risco}'
       ORDER BY vr.total_alertas DESC;
     `;
   return bancoDados.executar(query);
