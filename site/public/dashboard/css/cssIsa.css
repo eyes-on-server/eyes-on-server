@@ -1,0 +1,35 @@
+.box_grafic{
+    position: relative;
+    width: 100%;
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+    
+}
+
+.card_grafic{
+    position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #e3e6f0;
+  border-radius: 0.35rem;
+  margin-bottom: 1.5rem !important;
+}
+
+.body_grafic{
+    flex: 1 1 auto;
+    padding: 1.25rem;
+    height: 430px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.area_grafic{
+    position: relative;
+    width: 800px;
+    padding-left: 10px;
+}
