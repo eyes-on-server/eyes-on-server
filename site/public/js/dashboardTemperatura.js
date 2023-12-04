@@ -18,11 +18,11 @@ const correlationCpu = calculateCorrelation(temperatura, usoCpu);
 const correlationRam = calculateCorrelation(temperatura, usoRam);
 const correlationDisco = calculateCorrelation(temperatura, usoDisco);
 
-function buscarServidores(valueSelectHTML) {
+function buscarServidores() {
   // Comando a ser realizado no banco de dados
   var query = `SELECT id_servidor, nome_servidor 
 FROM Servidor 
-WHERE fk_empresa = ${fk};`;
+WHERE fk_empresa = ${sessionStorage.FK_EMPRESA};`;
 
   // Mysql: SELECT id_servidor, nome_servidor FROM Eyes_On_Server.Servidor WHERE fk_empresa = "${fk}";
 
