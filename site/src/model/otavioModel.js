@@ -162,9 +162,10 @@ function processos(fkEmpresa) {
 
     var query = `SELECT nome_processos, COUNT(*) AS quantidade
     FROM Processos
+	Where fk_servidor = ${fkEmpresa}
     GROUP BY nome_processos
     ORDER BY quantidade DESC
-    OFFSET 0 ROWS FETCH NEXT 80 ROWS ONLY;`
+    OFFSET 0 ROWS FETCH NEXT 80 ROWS ONLY`
 
     // Mysql
     // SELECT nome_processos, COUNT(*) AS quantidade

@@ -5,18 +5,21 @@ let atualizationGraph01;
 let graph;
 let graph02;
 let statusGraph = 0;
+let cpuAlerts;
+let discAlerts;
+let memoryAlerts;
 
 let atualizationInitial = setInterval(() => {
   updateInitial();
-}, "2000");
+}, "10000");
 
 function initial() {
   nome_do_usuario.innerHTML = sessionStorage.NOME_USER;
   nome_da_empresa.innerHTML = sessionStorage.NOME_FANTASIA;
 
-  let cpuAlerts;
-  let discAlerts;
-  let memoryAlerts;
+  cpuAlerts = 0;
+  discAlerts = 0;
+  memoryAlerts = 0;
 
   chartArea.innerHTML = ``;
   chartArea.innerHTML = `<canvas id="GraficoDeLinha"></canvas>`;
@@ -398,9 +401,9 @@ function initial() {
 
 function updateInitial() {
   console.log("updateInitial");
-  let cpuAlerts;
-  let discAlerts;
-  let memoryAlerts;
+  cpuAlerts= 0;
+  discAlerts = 0;
+  memoryAlerts =0;
 
   fetch(`/analystGraph/searchAllAlerts/${sessionStorage.NOME_FANTASIA}`, {
     method: "GET",
@@ -729,19 +732,14 @@ function searchServers(local) {
     });
 }
 
-function changeAlertsCondition() {
-  if (alerts.value == "on") {
-    alerts.value = "off";
-  } else {
-    alerts.value = "on";
-  }
-}
 
 function resetPage() {
   clearInterval(atualizationGraph01);
+  clearInterval(graph02Interval);
+  
   atualizationInitial = setInterval(() => {
     updateInitial();
-  }, "2000");
+  }, "10000");
 
   statusGraph = 0;
 
@@ -772,7 +770,9 @@ function resetPage() {
 
   selectComponents.innerHTML = `<option value="" selected disabled> Componentes  </option>;`;
 
-  initial();
+
+    initial();
+
 }
 
 function setDataByServer(server) {
@@ -780,9 +780,9 @@ function setDataByServer(server) {
   clearInterval(atualizationInitial);
   console.log("updateInitial stoped");
   headerAlertServer.innerHTML = `Alertas do servidor: `;
-  let cpuAlerts;
-  let discAlerts;
-  let memoryAlerts;
+  cpuAlerts = 0;
+  discAlerts = 0;
+  memoryAlerts = 0;
 
   fetch(`/analystGraph/searchServerInformation/${server}`, {
     method: "GET",
@@ -1232,9 +1232,9 @@ function setDataByServer(server) {
     graph.update();
   }, "500");
 
-  atualizationGraph01 = setInterval(() => {
-    updateGraph01(serverGlobal);
-  }, "2000");
+  // atualizationGraph01 = setInterval(() => {
+  //   updateGraph01(serverGlobal);
+  // }, "2000");
 }
 
 function setDatasInGraph(measureName) {
@@ -1242,9 +1242,7 @@ function setDatasInGraph(measureName) {
   let registerLabels = [];
   let registers = [];
 
-  // chartArea2.innerHTML = ``;
-  // chartArea2.innerHTML = `<canvas id="GraficoDeLinha2"></canvas>`;
-  // const dash2 = document.getElementById("GraficoDeLinha2");
+
 
   let par = `${measureName}`;
   fetch(`/analystGraph/searchDatasByComponent/${serverGlobal}/${par}`, {
@@ -1294,13 +1292,6 @@ function setDatasInGraph(measureName) {
       console.log("Error: " + erro);
     });
 
-  // graph02.data.datasets = [
-  //   {
-  //     label: par,
-  //     data: registers,
-  //     borderWidth: 1,
-  //   },
-  // ];
 
   graph02.data.datasets[0].data = registers;
   graph02.data.labels = registerLabels;
@@ -1312,6 +1303,11 @@ function setDatasInGraph(measureName) {
 }
 
 function updateGraph01(server) {
+
+  // cpuAlerts = 0;
+  // discAlerts = 0;
+  // memoryAlerts = 0;
+
   console.log("updateGraph01");
 
   for (let i = 1; i <= 6; i++) {
@@ -1649,16 +1645,18 @@ function updateGraph01(server) {
     graph.update();
   }, "500");
 
-  atualizationGraph01;
 }
+
 var graph02Interval;
 function changeComponent(server) {
   clearInterval(graph02Interval);
   clearInterval(atualizationGraph01);
+
+  // clearInterval(atualizationInitial);
   graph02Interval = setInterval(() => {
     updateGraph01(serverGlobal);
     setDatasInGraph(server);
-  }, 1000);
+  }, 10000);
 }
 
 initial();

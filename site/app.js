@@ -20,6 +20,7 @@ const mailerRota = require("./src/routers/mailer");
 const downtimeRota = require("./src/routers/downtime");
 const otavioRota = require("./src/routers/otavioRoute");
 const percentQuedaRota = require("./src/routers/percentQueda");
+const isaRoute = require("./src/routers/isaRoute");
 
 // Configurações -----------------------
 app.use(express.json());
@@ -38,6 +39,7 @@ app.use("/mailer", mailerRota);
 app.use("/downtime", downtimeRota);
 app.use("/otavioRoute", otavioRota);
 app.use("/percentQueda", percentQuedaRota);
+app.use("/isaRoute", isaRoute);
 app.use("/temperatura", temperaturaRota);
 
 // Iniciar servidor --------------------

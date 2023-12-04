@@ -20,7 +20,11 @@ const correlationDisco = calculateCorrelation(temperatura, usoDisco);
 
 function buscarServidores(valueSelectHTML) {
   // Comando a ser realizado no banco de dados
-  var query = `SELECT id_servidor, nome_servidor FROM Servidor WHERE local_servidor = "${valueSelectHTML}";`;
+  var query = `SELECT id_servidor, nome_servidor 
+FROM Servidor 
+WHERE fk_empresa = ${fk};`;
+
+  // Mysql: SELECT id_servidor, nome_servidor FROM Eyes_On_Server.Servidor WHERE fk_empresa = "${fk}";
 
   // Limpar as options quando trocar de setor
   select_servidores.innerHTML = `<option value="" selected disabled>Servidores</option>`;
