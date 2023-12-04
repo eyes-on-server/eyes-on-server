@@ -5,6 +5,9 @@ let atualizationGraph01;
 let graph;
 let graph02;
 let statusGraph = 0;
+let cpuAlerts;
+let discAlerts;
+let memoryAlerts;
 
 let atualizationInitial = setInterval(() => {
   updateInitial();
@@ -14,9 +17,9 @@ function initial() {
   nome_do_usuario.innerHTML = sessionStorage.NOME_USER;
   nome_da_empresa.innerHTML = sessionStorage.NOME_FANTASIA;
 
-  let cpuAlerts;
-  let discAlerts;
-  let memoryAlerts;
+  cpuAlerts = 0;
+  discAlerts = 0;
+  memoryAlerts = 0;
 
   chartArea.innerHTML = ``;
   chartArea.innerHTML = `<canvas id="GraficoDeLinha"></canvas>`;
@@ -398,9 +401,9 @@ function initial() {
 
 function updateInitial() {
   console.log("updateInitial");
-  let cpuAlerts;
-  let discAlerts;
-  let memoryAlerts;
+  cpuAlerts= 0;
+  discAlerts = 0;
+  memoryAlerts =0;
 
   fetch(`/analystGraph/searchAllAlerts/${sessionStorage.NOME_FANTASIA}`, {
     method: "GET",
@@ -739,13 +742,14 @@ function changeAlertsCondition() {
 
 function resetPage() {
   clearInterval(atualizationGraph01);
+  
   atualizationInitial = setInterval(() => {
     updateInitial();
   }, "2000");
 
   statusGraph = 0;
 
-  serverName.innerHTML = `Nome do servidor: `;
+    serverName.innerHTML = `Nome do servidor: `;
   sectorName.innerHTML = `Nome do setor: `;
   ipv6Server.innerHTML = `IPV6 do servidor: `;
   macAddressServer.innerHTML = `Mac address: `;
@@ -772,7 +776,9 @@ function resetPage() {
 
   selectComponents.innerHTML = `<option value="" selected disabled> Componentes  </option>;`;
 
-  initial();
+
+    initial();
+
 }
 
 function setDataByServer(server) {
@@ -780,9 +786,9 @@ function setDataByServer(server) {
   clearInterval(atualizationInitial);
   console.log("updateInitial stoped");
   headerAlertServer.innerHTML = `Alertas do servidor: `;
-  let cpuAlerts;
-  let discAlerts;
-  let memoryAlerts;
+  cpuAlerts = 0;
+  discAlerts = 0;
+  memoryAlerts = 0;
 
   fetch(`/analystGraph/searchServerInformation/${server}`, {
     method: "GET",
@@ -1232,9 +1238,9 @@ function setDataByServer(server) {
     graph.update();
   }, "500");
 
-  atualizationGraph01 = setInterval(() => {
-    updateGraph01(serverGlobal);
-  }, "2000");
+  // atualizationGraph01 = setInterval(() => {
+  //   updateGraph01(serverGlobal);
+  // }, "2000");
 }
 
 function setDatasInGraph(measureName) {
@@ -1312,6 +1318,11 @@ function setDatasInGraph(measureName) {
 }
 
 function updateGraph01(server) {
+
+  cpuAlerts = 0;
+  discAlerts = 0;
+  memoryAlerts = 0;
+
   console.log("updateGraph01");
 
   for (let i = 1; i <= 6; i++) {
@@ -1649,12 +1660,13 @@ function updateGraph01(server) {
     graph.update();
   }, "500");
 
-  atualizationGraph01;
 }
+
 var graph02Interval;
 function changeComponent(server) {
   clearInterval(graph02Interval);
   clearInterval(atualizationGraph01);
+  // clearInterval(atualizationInitial);
   graph02Interval = setInterval(() => {
     updateGraph01(serverGlobal);
     setDatasInGraph(server);

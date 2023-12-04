@@ -212,7 +212,7 @@ function searchServerInformation(server) {
 
 function searchDatasInLive(server, componentID) {
   let select = `
-  SELECT TOP 1 valor_registro FROM Registro AS r
+  SELECT TOP 10 valor_registro FROM Registro AS r
 	JOIN Componente_Servidor AS cs
     ON  r.fk_componente_servidor = cs.id_componente_servidor
     AND cs.fk_servidor = (SELECT id_Servidor FROM Servidor WHERE nome_servidor = N'${server}')
