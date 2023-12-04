@@ -46,10 +46,10 @@ function login(email, senha) {
     u.cargo,
     e.nome_fantasia,
     l.senha
-  FROM Eyes_On_Server.Usuario u 
-	  join Eyes_On_Server.Empresa e on u.fk_empresa = e.id_empresa
-	  join Eyes_On_Server.Login l on l.fk_usuario = u.id_usuario
-    WHERE u.email = "${email}" AND l.senha = "${senha}";  
+  FROM Usuario u 
+	  join Empresa e on u.fk_empresa = e.id_empresa
+	  join Login l on l.fk_usuario = u.id_usuario
+    WHERE u.email = '${email}' AND l.senha = '${senha}';  
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return bancoDados.executar(instrucao);
@@ -101,9 +101,9 @@ function exibirFuncionario(email, senha){
     u.email,
     u.cargo,
     l.senha
-  FROM Eyes_On_Server.Usuario u 
-	  join Eyes_On_Server.Empresa e on u.fk_empresa = e.id_empresa
-	  join Eyes_On_Server.Login l on l.fk_usuario = u.id_usuario
+  FROM Usuario u 
+	  join Empresa e on u.fk_empresa = e.id_empresa
+	  join Login l on l.fk_usuario = u.id_usuario
     WHERE u.email = "${email}" AND l.senha = "${senha}";  
     `;
     return bancoDados.executar(instrucao);

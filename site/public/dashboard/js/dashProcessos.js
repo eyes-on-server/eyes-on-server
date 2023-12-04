@@ -1,4 +1,4 @@
-// Definição de componentes e kpis
+// definição das variaveis globais
 
 var temCPU;
 var temRAM;
@@ -20,12 +20,9 @@ function buscarServidores() {
 
 
     // Comando a ser realizado no banco de dados
-    var query = `SELECT id_servidor, nome_servidor FROM Eyes_On_Server.Servidor WHERE fk_empresa = "${fk}";`;
+    var query = `SELECT id_servidor, nome_servidor FROM Servidor WHERE fk_empresa = ${fk};`;
 
-//     sqlserver
-//     SELECT id_servidor, nome_servidor 
-// FROM Servidor 
-// WHERE fk_empresa = ${fk};
+// Mysql: SELECT id_servidor, nome_servidor FROM Servidor WHERE fk_empresa = "${fk}";
 
     // Limpar as options quando trocar de setor
     select_servidores.innerHTML = `<option value="" selected disabled>Servidores</option>`;
@@ -87,13 +84,13 @@ function setDados() {
     clearInterval(setInterval(processos, intervaloEmMilissegundos))
 
     // Comando a ser realizado no banco de dados
-    var query = `select Tipo, servidor from Eyes_On_Server.view_componentes_servidores  
-                     where servidor = "${servidorAtual}";`;
+    var query = `
+        SELECT Tipo, servidor 
+        FROM view_componentes_servidores  
+        WHERE servidor = '${servidorAtual}';`;
 
-//     sqlserver
-//     SELECT Tipo, servidor 
-// FROM view_componentes_servidores  
-// WHERE servidor = '${servidorAtual}';
+// Mysql: select Tipo, servidor from view_componentes_servidores  
+//                      where servidor = "${servidorAtual}";
 
     fetch("/otavioRoute/setDados", {
         method: "POST",
@@ -214,9 +211,9 @@ function graficoReal() {
         if (resposta.ok) {
             resposta.json().then(json => {
 
-                // var cpuData = []
+
                 memoryData = []
-                // var diskData = []
+
 
 
                 for (let i = 0; i < json.length; i++) {
@@ -303,8 +300,6 @@ function graficoRealDisco() {
     var combo = document.getElementById("select_servidores");
     var fk = combo.value
 
-    console.log('vsi prfv ' + fk)
-
     // Obter o valor selecionado
 
 
@@ -334,10 +329,14 @@ function graficoRealDisco() {
                 }
 
 
-
+                diskData[diskData.length - 1] += 1
                 definirKpis()
                 situacao()
                 loadData()
+
+
+
+
 
 
             });
@@ -353,7 +352,7 @@ function graficoRealDisco() {
 
 // Função para carregar dados no gráfico
 function loadData() {
-    chartReal.data.labels = dataRegistro;
+    chartReal.data.labels = dataRegistro.reverse();
 
     // Adiciona ou remove o conjunto de dados com base nas condições
     chartReal.data.datasets = [];
@@ -392,8 +391,13 @@ function loadData() {
     }
 
     chartReal.update();
+
+
+
+
     chamarDados(cpuData, memoryData, diskData, temCPU, temRAM, temDisco)
-    corelacao()
+
+    // corelacao()
 }
 
 // Configuração inicial do gráfico
@@ -409,7 +413,7 @@ var chartReal = new Chart(ctx, {
             x: [{
                 type: 'linear',
                 position: 'bottom',
-                reverse: false
+                reverse: true
             }],
             y: [{
                 ticks: {
@@ -480,6 +484,10 @@ function chamarDados(dadoCpu, dadoMemoria, dadoDisco, temCPU, temRAM, temDisco) 
 
     // Chamando a função para o vetor de datas
     imprimirMenorEMaior('result', datas);
+
+    verificarExibirCorrelacaoCPURAM()
+    verificarExibirCorrelacaoRAMDisco()
+    verificarExibirCorrelacaoCPUDisco()
 }
 
 
@@ -709,103 +717,173 @@ function situacao() {
 
 
 
+function calcularCorrelacaoPearson(x, y) {
+    var n = x.length;
 
-function corelacao() {
-    var resultados = calcularCorrelacoes(cpuData, memoryData, diskData, temCPU, temRAM, temDisco);
+    // Média de x e y
+    var mediaX = math.mean(x);
+    var mediaY = math.mean(y);
 
-    console.log('Correlações:');
+    // Desvio padrão de x e y
+    var desvioPadraoX = math.std(x);
+    var desvioPadraoY = math.std(y);
 
-    var div = document.getElementById("correlacao");
-    var div1 = document.getElementById("div1");
-    var div2 = document.getElementById("div2");
-    var div3 = document.getElementById("div3");
+    // Covariância
+    var covariancia = math.dot(x.map((xi, i) => xi - mediaX), y.map((yi, i) => yi - mediaY)) / n;
 
-    div1.innerHTML = `<h5>Correlação entre CPU e RAM</h5>`;
-    div2.innerHTML = `<h5>Correlação entre RAM e Disco</h5>`;
-    div3.innerHTML = `<h5>Correlação entre CPU e Disco</h5>`;
+    // Coeficiente de correlação de Pearson
+    var correlacao = covariancia / (desvioPadraoX * desvioPadraoY);
 
+    return correlacao;
+}
+
+// Função para exibir a correlação em uma determinada div
+function exibirCorrelacao(div, dadosX, dadosY, nomeX, nomeY) {
+    if (dadosX.length === 0 || dadosY.length === 0) {
+        div.innerHTML = `<h5>Não há dados suficientes para calcular a correlação entre ${nomeX} e ${nomeY}</h5>`;
+    } else {
+        var correlacao = calcularCorrelacaoPearson(dadosX, dadosY);
+        div.innerHTML = `<h5>Correlação entre ${nomeX} e ${nomeY}: ${correlacao.toFixed(2)}</h5><br/>`;
+    }
+}
+
+
+
+function verificarExibirCorrelacaoCPURAM() {
+    var div1 = document.getElementById('div1');
     if (temCPU && temRAM) {
-        div1.innerHTML += `${resultados['cpuData para memoryData'].toFixed(2)}%<br/><br/>`;
+        exibirCorrelacao(div1, cpuData, memoryData, 'CPU', 'RAM');
     } else {
-        document.getElementById("div1").style.display = "none";
+        div1.style.display = "none";
     }
+}
 
+// Função para verificar e exibir correlação entre RAM e Disco
+function verificarExibirCorrelacaoRAMDisco() {
+    var div2 = document.getElementById('div2');
     if (temRAM && temDisco) {
-        div2.innerHTML += `${resultados['memoryData para diskData'].toFixed(2)}%<br/><br/>`;
+        console.log(diskData)
+        exibirCorrelacao(div2, memoryData, diskData, 'RAM', 'Disco');
     } else {
-        document.getElementById("div2").style.display = "none";
+        div2.style.display = "none";
     }
+}
 
+// Função para verificar e exibir correlação entre CPU e Disco
+function verificarExibirCorrelacaoCPUDisco() {
+    var div3 = document.getElementById('div3');
     if (temCPU && temDisco) {
-        div3.innerHTML += `${resultados['cpuData para diskData'].toFixed(2)}%<br/><br/>`;
+        exibirCorrelacao(div3, cpuData, diskData, 'CPU', 'Disco');
     } else {
-        document.getElementById("div3").style.display = "none";
+        div3.style.display = "none";
     }
 }
 
 
-function calculateCorrelation(vetor1, vetor2) {
-    if (vetor1.length !== vetor2.length) {
-        throw new Error('Os vetores devem ter o mesmo comprimento');
-    }
-
-    var n = vetor1.length;
-
-    // Função para calcular a média de um vetor
-    function calculateMean(vetor) {
-        return vetor.reduce(function (acc, val) {
-            return acc + parseFloat(val);
-        }, 0) / n;
-    }
-
-    // Calcula a média dos elementos nos vetores
-    var meanVetor1 = calculateMean(vetor1);
-    var meanVetor2 = calculateMean(vetor2);
-
-    // Calcula os termos necessários para o coeficiente de correlação de Pearson
-    var numerator = 0;
-    var denominatorVetor1 = 0;
-    var denominatorVetor2 = 0;
-
-    for (var i = 0; i < n; i++) {
-        var diffVetor1 = parseFloat(vetor1[i]) - meanVetor1;
-        var diffVetor2 = parseFloat(vetor2[i]) - meanVetor2;
-
-        numerator += diffVetor1 * diffVetor2;
-        denominatorVetor1 += diffVetor1 ** 2;
-        denominatorVetor2 += diffVetor2 ** 2;
-    }
-
-    console.log(vetor1)
-    // Calcula o coeficiente de correlação de Pearson
-    var correlation = (numerator / Math.sqrt(denominatorVetor1 * denominatorVetor2)) * 100;
-
-    // Garante que o resultado esteja dentro do intervalo [-100, 100]
-    correlation = Math.min(100, Math.max(-100, correlation));
-
-    return Math.abs(correlation); // Retorna o valor absoluto do resultado
-}
 
 
-function calcularCorrelacoes(cpuData, memoryData, diskData, temCPU, temRAM, temDisco) {
-    var resultados = {};
-
-    if (temCPU && temRAM) {
-        resultados['cpuData para memoryData'] = calculateCorrelation(cpuData, memoryData);
-    }
-
-    if (temRAM && temDisco) {
-        resultados['memoryData para diskData'] = calculateCorrelation(memoryData, diskData);
-    }
-
-    if (temCPU && temDisco) {
-        resultados['cpuData para diskData'] = calculateCorrelation(cpuData, diskData);
-    }
-
-    return resultados;
+// function corelacao() {
+// // console.log(`como o vetor tá vindo`)
+// // console.log(cpuData)
+// // console.log(memoryData)
+// // console.log(diskData)
 
 
-}
+//     var resultados = calcularCorrelacoes(cpuData, memoryData, diskData, temCPU, temRAM, temDisco);
+
+//     console.log('Correlações:');
+
+//     var div = document.getElementById("correlacao");
+//     var div1 = document.getElementById("div1");
+//     var div2 = document.getElementById("div2");
+//     var div3 = document.getElementById("div3");
+
+//     div1.innerHTML = `<h5>Correlação entre CPU e RAM</h5>`;
+//     div2.innerHTML = `<h5>Correlação entre RAM e Disco</h5>`;
+//     div3.innerHTML = `<h5>Correlação entre CPU e Disco</h5>`;
+
+//     if (temCPU && temRAM) {
+//         div1.innerHTML += `${resultados['cpuData para memoryData'].toFixed(2)}%<br/><br/>`;
+//     } else {
+//         document.getElementById("div1").style.display = "none";
+//     }
+
+//     if (temRAM && temDisco) {
+//         div2.innerHTML += `${resultados['memoryData para diskData'].toFixed(2)}%<br/><br/>`;
+//         console.log(resultados)
+//     } else {
+//         document.getElementById("div2").style.display = "none";
+//     }
+
+//     if (temCPU && temDisco) {
+//         div3.innerHTML += `${resultados['cpuData para diskData'].toFixed(2)}%<br/><br/>`;
+//     } else {
+//         document.getElementById("div3").style.display = "none";
+//     }
+// }
+
+
+// function calculateCorrelation(vetor1, vetor2) {
+//     if (vetor1.length !== vetor2.length) {
+//         throw new Error('Os vetores devem ter o mesmo comprimento');
+//     }
+
+//     var n = vetor1.length;
+
+//     // Função para calcular a média de um vetor
+//     function calculateMean(vetor) {
+//         return vetor.reduce(function (acc, val) {
+//             return acc + parseFloat(val);
+//         }, 0) / n;
+//     }
+
+//     // Calcula a média dos elementos nos vetores
+//     var meanVetor1 = calculateMean(vetor1);
+//     var meanVetor2 = calculateMean(vetor2);
+
+//     // Calcula os termos necessários para o coeficiente de correlação de Pearson
+//     var numerator = 0;
+//     var denominatorVetor1 = 0;
+//     var denominatorVetor2 = 0;
+
+//     for (var i = 0; i < n; i++) {
+//         var diffVetor1 = parseFloat(vetor1[i]) - meanVetor1;
+//         var diffVetor2 = parseFloat(vetor2[i]) - meanVetor2;
+
+//         numerator += diffVetor1 * diffVetor2;
+//         denominatorVetor1 += diffVetor1 ** 2;
+//         denominatorVetor2 += diffVetor2 ** 2;
+//     }
+
+//     console.log(vetor1)
+//     // Calcula o coeficiente de correlação de Pearson
+//     var correlation = (numerator / Math.sqrt(denominatorVetor1 * denominatorVetor2)) * 100;
+
+//     // Garante que o resultado esteja dentro do intervalo [-100, 100]
+//     correlation = Math.min(100, Math.max(-100, correlation));
+
+//     return Math.abs(correlation); // Retorna o valor absoluto do resultado
+// }
+
+
+// function calcularCorrelacoes(cpuData, memoryData, diskData, temCPU, temRAM, temDisco) {
+//     var resultados = {};
+
+//     if (temCPU && temRAM) {
+//         resultados['cpuData para memoryData'] = calculateCorrelation(cpuData, memoryData);
+//     }
+
+//     if (temRAM && temDisco) {
+//         resultados['memoryData para diskData'] = calculateCorrelation(memoryData, diskData);
+//     }
+
+//     if (temCPU && temDisco) {
+//         resultados['cpuData para diskData'] = calculateCorrelation(cpuData, diskData);
+//     }
+
+//     return resultados;
+
+// }
 
 
 
@@ -842,8 +920,6 @@ function processos() {
                     numeroProcessos.push(dados.quantidade)
 
                 }
-                console.log(nomeProcessos)
-                console.log(numeroProcessos)
                 gerarTagCloud()
 
             });
@@ -856,6 +932,8 @@ function processos() {
     return false;
 }
 
+
+
 var chart;
 
 function gerarTagCloud() {
@@ -863,57 +941,82 @@ function gerarTagCloud() {
 
 
         // Combine os dados em um array de objetos
-    var data = [];
-    for (var i = 0; i < nomeProcessos.length; i++) {
-        data.push({ x: nomeProcessos[i], value: numeroProcessos[i] });
-    }
+        var data = [];
+        for (var i = 0; i < nomeProcessos.length; i++) {
+            data.push({ x: nomeProcessos[i], value: numeroProcessos[i] });
+        }
 
-    // Calculando a quantidade total de processos
-    var totalProcessos = data.reduce(function (sum, item) {
-        return sum + item.value;
-    }, 0);
+        // Calculando a quantidade total de processos
+        var totalProcessos = data.reduce(function (sum, item) {
+            return sum + item.value;
+        }, 0);
 
-    document.getElementById("idQtdprocessosTotal").innerHTML = totalProcessos;
+        document.getElementById("idQtdprocessosTotal").innerHTML = totalProcessos;
 
-    // Verifique se o gráfico já foi criado
-    if (!chart) {
-        // Se não existir, crie o gráfico
-        chart = anychart.tagCloud(data);
+        // Verifique se o gráfico já foi criado
+        if (!chart) {
+            // Se não existir, crie o gráfico
+            chart = anychart.tagCloud(data);
 
-        // Definindo o título com a quantidade total de processos
-        chart.title('Total de Processos: ' + totalProcessos);
+            // Definindo o título com a quantidade total de processos
+            chart.title('Total de Processos: ' + totalProcessos);
 
-        // Vamos setar o angulo das palavras e a disposição dentro da nuvem
-        chart.angles([0, 0, 0]);
+            // Vamos setar o angulo das palavras e a disposição dentro da nuvem
+            chart.angles([0, 0, 0]);
 
-        // Criando e configurando a color scale
-        var customColorScale = anychart.scales.linearColor();
-        customColorScale.colors(["#4D9B73", "#47A781", "#3D946F", "#348D66",
-            "#297954", "#227848", "#145B36", "#0F4F2B"]);
+            // Criando e configurando a color scale
+            var customColorScale = anychart.scales.linearColor();
+            customColorScale.colors(["#4D9B73", "#47A781", "#3D946F", "#348D66",
+                "#297954", "#227848", "#145B36", "#0F4F2B"]);
 
-        // Utilizando o color scale criado
-        chart.colorScale(customColorScale);
+            // Utilizando o color scale criado
+            chart.colorScale(customColorScale);
 
-        // Ativando as cores
-        chart.colorRange(true);
+            // Ativando as cores
+            chart.colorRange(true);
 
-        // Definindo o range e a transparência das cores
-        chart.colorRange().length('95%');
+            // Definindo o range e a transparência das cores
+            chart.colorRange().length('95%');
 
-        // Definindo a cor do background
-        chart.background().fill({ keys: ["#ddd"], angle: 100 });
+            // Definindo a cor do background
+            chart.background().fill({ keys: ["#ddd"], angle: 100 });
 
-        // Montando o gráfico
-        chart.container("container");
-        chart.draw();
+            // Montando o gráfico
+            chart.container("container");
+            chart.draw();
 
-        // Removendo a nota de crédito da AnyChart
-        document.getElementsByClassName('anychart-credits')[0].remove();
-    } else {
-        // Se já existir, atualize os dados e redesenhe
-        chart.data(data);
-        chart.title('Total de Processos: ' + totalProcessos);
-        chart.draw();
-    }
+            // Removendo a nota de crédito da AnyChart
+            document.getElementsByClassName('anychart-credits')[0].remove();
+        } else {
+            // Se já existir, atualize os dados e redesenhe
+            chart.data(data);
+            chart.title('Total de Processos: ' + totalProcessos);
+            chart.draw();
+        }
     });
+}
+
+
+function definirHorario() {
+    // Crie um novo objeto Date
+    var dataAtual = new Date();
+
+    // Obtenha as informações desejadas
+    var dia = dataAtual.getDate();
+    var mes = dataAtual.getMonth() + 1; // Os meses começam do zero, então adicione 1
+    var ano = dataAtual.getFullYear();
+    var hora = dataAtual.getHours();
+    var minuto = dataAtual.getMinutes();
+
+    // Formate a saída adicionando zeros à esquerda quando necessário
+    mes = mes < 10 ? '0' + mes : mes;
+    dia = dia < 10 ? '0' + dia : dia;
+    hora = hora < 10 ? '0' + hora : hora;
+    minuto = minuto < 10 ? '0' + minuto : minuto;
+
+    // Exiba a data e hora atual formatadas
+    var comeco = 'Início das medições em: ' + ano + '-' + mes + '-' + dia + ' ' + hora + ':' + minuto;
+
+    var divhora = document.getElementById("hora");
+    divhora.title = `${comeco}`
 }

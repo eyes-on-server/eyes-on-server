@@ -5,7 +5,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
-const porta = 5000;
+const porta = 80;
 
 // Chamada de rotas --------------------
 const servidorRota = require("./src/routers/servidor");

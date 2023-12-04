@@ -1,125 +1,232 @@
-const temperatura = [25.0, 28.0, 30.0, 22.0, 27.0];
-const usoCpu = [10, 20, 30, 10, 25];
+nome_do_usuario.innerHTML = sessionStorage.NOME_USER;
+nome_da_empresa.innerHTML = sessionStorage.NOME_FANTASIA;
+
+let temperatura = [25.0, 28.0, 30.0, 22.0, 27.0];
+let usoCpu = [10, 20, 30, 10, 25];
+let usoRam = [50, 20, 30, 10, 25];
+let usoDisco = [90, 20, 30, 10, 25];
+let cpuAlerts = 0
+let discAlerts = 0
+let memoryAlerts = 0
+
+const opcoes = [usoCpu, usoRam, usoDisco];
+
+let escolhaGrafico = 0;
 
 // Calcule a correlação entre os dados
-const correlation = calculateCorrelation(temperatura, usoCpu);
-console.log('Correlação entre Temperatura e Uso de CPU:', correlation);
+const correlationCpu = calculateCorrelation(temperatura, usoCpu);
+const correlationRam = calculateCorrelation(temperatura, usoRam);
+const correlationDisco = calculateCorrelation(temperatura, usoDisco);
 
-const ctx = document.getElementById('graficoCpu').getContext('2d');
+function buscarServidores() {
+  var fk = sessionStorage.FK_EMPRESA;
 
-// Configurações do gráfico
-const config = {
-    type: 'scatter',
+  // Comando a ser realizado no banco de dados
+  var query = `SELECT id_servidor, nome_servidor 
+FROM Servidor 
+WHERE fk_empresa = ${fk};`;
+
+  // Mysql: SELECT id_servidor, nome_servidor FROM Eyes_On_Server.Servidor WHERE fk_empresa = "${fk}";
+
+  // Limpar as options quando trocar de setor
+  select_servidores.innerHTML = `<option value="" selected disabled>Servidores</option>`;
+
+  fetch("/otavioRoute/buscarInformacoes", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify({
+      selectServer: query,
+    }),
+  })
+    .then(function (resposta) {
+      if (resposta.status == 200) {
+        resposta.json().then((json) => {
+          // Criamos um vetor para conferir se aquele servidor já foi inserido no HTML
+          var servidores = [];
+          // Esse for roda todo o json de resposta da query e insere o nome dos setores no select do HTML
+          select_servidores.innerHTML = `<option value="">Selecionar Servidor</option>`;
+          for (var i = 0; i < json.length; i++) {
+            if (!servidores.includes(json[i].nome_servidor)) {
+              var id_servidor = json[i].id_servidor;
+              var servidor = json[i].nome_servidor;
+
+              select_servidores.innerHTML += `<option value="${id_servidor}">${servidor}</option>`;
+
+              console.log(`esse é ${id_servidor} e o ${servidor}`);
+            }
+          }
+        });
+      } else {
+        console.log(
+          "Erro ao realizar a busca dos servidores <function buscarServidores>"
+        );
+        resposta.text().then((texto) => {
+          console.log(resposta);
+        });
+      }
+    })
+    .catch((erro) => {
+      console.log("Erro ao realizar a busca: " + erro);
+    });
+}
+
+function buscarAlertas(idServidor) {
+    //busca os alertas de cada componente de acordo com o servidor
+  fetch();
+}
+
+function buscarDadosServidor(idServidor) {
+    //busca os dados do servidor escolhido
+  fetch();
+}
+
+function criarGrafico() {
+  const ctx = document.getElementById("graficoCorrelacao").getContext("2d");
+
+  // Configurações do gráfico
+  const config = {
+    type: "scatter",
     data: {
-        datasets: [{
-            label: 'Dispersão',
-            data: temperatura.map((value, index) => ({ x: value, y: usoCpu[index] })),
-            borderColor: '#0000FF', // Cor de fundo
-            borderWidth: 2
-        }]
+      datasets: [
+        {
+          label: "Dispersão",
+          data: temperatura.map((value, index) => ({
+            x: value,
+            y: usoCpu[index],
+          })),
+          borderColor: "#0000FF", // Cor de fundo
+          borderWidth: 2,
+        },
+      ],
     },
     options: {
-        scales: {
-            x: {
-                type: 'linear',
-                position: 'bottom',
-                title: {
-                    display: true,
-                    text: 'Temperatura'
-                }
-            },
-            y: {
-                type: 'linear',
-                position: 'left',
-                title: {
-                    display: true,
-                    text: 'Uso de CPU'
-                }
-            }
+      scales: {
+        x: {
+          type: "linear",
+          position: "bottom",
+          title: {
+            display: true,
+            text: "Temperatura",
+          },
         },
-        plugins: {
-            title: {
-                display: true,
-                text: 'Gráfico de Correlação'
-            }
-        }
-    }
-};
+        y: {
+          type: "linear",
+          position: "left",
+          title: {
+            display: true,
+            text: "Uso de CPU",
+          },
+        },
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: "Gráfico de Correlação",
+        },
+      },
+    },
+  };
 
-const chart = new Chart(ctx, config);
+  return new Chart(ctx, config);
+}
 
-const regressionLine = calculateLinearRegression(temperatura, usoCpu);
+function atualizarGrafico() {
+  let regressionLine = calculateLinearRegression(
+    temperatura,
+    opcoes[escolhaGrafico]
+  );
 
-// Adicionar a linha de regressão linear ao gráfico
-chart.data.datasets.push({
-    label: 'Linha de Regressão',
-    type: 'line',
+  // Adicionar a linha de regressão linear ao gráfico
+  chart.data.datasets.push({
+    label: "Linha de Regressão",
+    type: "line",
     data: [
-        { x: Math.min(...temperatura), y: regressionLine(Math.min(...temperatura)) },
-        { x: Math.max(...temperatura), y: regressionLine(Math.max(...temperatura)) }
+      {
+        x: Math.min(...temperatura),
+        y: regressionLine(Math.min(...temperatura)),
+      },
+      {
+        x: Math.max(...temperatura),
+        y: regressionLine(Math.max(...temperatura)),
+      },
     ],
-    borderColor: 'red',
+    borderColor: "red",
     borderWidth: 4,
-    fill: false
-});
-chart.update();
+    fill: false,
+  });
+  chart.update();
+}
 
 // Função para calcular a correlação
 function calculateCorrelation(x, y) {
-    if (x.length !== y.length) {
-        throw new Error('Os arrays devem ter o mesmo comprimento');
-    }
+  if (x.length !== y.length) {
+    throw new Error("Os arrays devem ter o mesmo comprimento");
+  }
 
-    const n = x.length;
-    const meanX = calculateMean(x);
-    const meanY = calculateMean(y);
+  const n = x.length;
+  const meanX = calculateMean(x);
+  const meanY = calculateMean(y);
 
-    let numerator = 0.0;
-    let sumSquaredXDiff = 0.0;
-    let sumSquaredYDiff = 0.0;
+  let numerator = 0.0;
+  let sumSquaredXDiff = 0.0;
+  let sumSquaredYDiff = 0.0;
 
-    for (let i = 0; i < n; i++) {
-        const xDiff = x[i] - meanX;
-        const yDiff = y[i] - meanY;
+  for (let i = 0; i < n; i++) {
+    const xDiff = x[i] - meanX;
+    const yDiff = y[i] - meanY;
 
-        numerator += xDiff * yDiff;
-        sumSquaredXDiff += xDiff * xDiff;
-        sumSquaredYDiff += yDiff * yDiff;
-    }
+    numerator += xDiff * yDiff;
+    sumSquaredXDiff += xDiff * xDiff;
+    sumSquaredYDiff += yDiff * yDiff;
+  }
 
-    const denominator = Math.sqrt(sumSquaredXDiff * sumSquaredYDiff);
-    return numerator / denominator;
+  const denominator = Math.sqrt(sumSquaredXDiff * sumSquaredYDiff);
+  return numerator / denominator;
 }
 
 // Função para calcular a média de um array
 function calculateMean(array) {
-    const sum = array.reduce((acc, value) => acc + value, 0);
-    return sum / array.length;
+  const sum = array.reduce((acc, value) => acc + value, 0);
+  return sum / array.length;
 }
 
 // Função para calcular a regressão linear manualmente
 function calculateLinearRegression(x, y) {
-    if (x.length !== y.length) {
-        throw new Error('Os arrays devem ter o mesmo comprimento');
-    }
+  if (x.length !== y.length) {
+    throw new Error("Os arrays devem ter o mesmo comprimento");
+  }
 
-    const n = x.length;
-    const meanX = calculateMean(x);
-    const meanY = calculateMean(y);
+  const n = x.length;
+  const meanX = calculateMean(x);
+  const meanY = calculateMean(y);
 
-    let numerator = 0.0;
-    let denominator = 0.0;
+  let numerator = 0.0;
+  let denominator = 0.0;
 
-    for (let i = 0; i < n; i++) {
-        numerator += (x[i] - meanX) * (y[i] - meanY);
-        denominator += Math.pow(x[i] - meanX, 2);
-    }
+  for (let i = 0; i < n; i++) {
+    numerator += (x[i] - meanX) * (y[i] - meanY);
+    denominator += Math.pow(x[i] - meanX, 2);
+  }
 
-    const m = numerator / denominator;  // Coeficiente angular
-    const b = meanY - m * meanX;        // Interceptação y
+  const m = numerator / denominator; // Coeficiente angular
+  const b = meanY - m * meanX; // Interceptação y
 
-    // Retornar a função da linha de regressão
-    return (inputX) => m * inputX + b;
+  // Retornar a função da linha de regressão
+  return (inputX) => m * inputX + b;
 }
 
-document.getElementById("correlacaoCPU").textContent = `CPU: ${(correlation * 100).toFixed(1)}%`
+buscarServidores();
+
+const chart = criarGrafico();
+atualizarGrafico();
+document.getElementById("correlacaoCPU").textContent = `CPU: ${(
+  correlationCpu * 100
+).toFixed(1)}%`;
+document.getElementById("correlacaoMemoria").textContent = `RAM: ${(
+  correlationRam * 100
+).toFixed(1)}%`;
+document.getElementById("correlacaoDisco").textContent = `Disco: ${(
+  correlationDisco * 100
+).toFixed(1)}%`;

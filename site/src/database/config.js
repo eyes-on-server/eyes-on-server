@@ -1,4 +1,19 @@
-const mysql = require("mysql2");
+var sql = require('mssql');
+
+var sqlServerConfig = {
+    server: "EC2AMAZ-PFS2LAV\\SQLEXPRESS",
+    database: "Eyes_On_Server",
+    user: "sa",
+    password: "Eyes_On_Server",
+    pool: {
+        max: 10,
+        min: 0,
+        idleTimeoutMillis: 30000
+    },  
+	options: {
+        encrypt: false
+    }
+}
 
 var sqlConfig = {
   host: process.env.DB_HOST,
@@ -8,24 +23,20 @@ var sqlConfig = {
 };
 
 function executar(instrucao) {
-  return new Promise((resolve, reject) => {
-    var conexao = mysql.createConnection(sqlConfig);
-    conexao.connect();
-
-    conexao.query(instrucao, (erro, resultados) => {
-      conexao.end();
-
-      if (erro) {
-        reject(erro);
-      }
-
-      resolve(resultados);
-    });
-
-    conexao.on("error", function (erro) {
-      return "ERRO NO MySQL: ", erro.sqlMessage;
-    });
-  });
+  return new Promise(function (resolve, reject) {
+            sql.connect(sqlServerConfig).then(function () {
+                return sql.query(instrucao);
+            }).then(function (resultados) {
+                console.log(resultados);
+                resolve(resultados.recordset);
+            }).catch(function (erro) {
+                reject(erro);
+                console.log('ERRO: ', erro);
+            });
+            sql.on('error', function (erro) {
+                return ("ERRO NO SQL SERVER: ", erro);
+            });
+        });
 }
 
 module.exports = { executar };
