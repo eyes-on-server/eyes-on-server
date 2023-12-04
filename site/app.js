@@ -9,6 +9,7 @@ const porta = 80;
 
 // Chamada de rotas --------------------
 const servidorRota = require("./src/routers/servidor");
+const temperaturaRota = require("./src/routers/temperatura");
 const empresaRota = require("./src/routers/empresa");
 const userRota = require("./src/routers/user");
 const indexRota = require("./src/routers/index");
@@ -39,6 +40,7 @@ app.use("/downtime", downtimeRota);
 app.use("/otavioRoute", otavioRota);
 app.use("/percentQueda", percentQuedaRota);
 app.use("/isaRoute", isaRoute);
+app.use("/temperatura", temperaturaRota);
 
 // Iniciar servidor --------------------
 app.listen(porta, () => {
