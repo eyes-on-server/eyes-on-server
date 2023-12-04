@@ -8,7 +8,7 @@ function popularTabelaQueda(data, fkEmpresa) {
         nome_servidor, 
         chanceDiaria
       FROM View_PercentQueda_Servidores 
-      WHERE id_empresa = ${fkEmpresa} AND dataRegistro = ${data}
+      WHERE id_empresa = ${fkEmpresa} AND dataRegistro = '2023-11-30'
       ORDER BY chanceDiaria DESC;`;
 
   return database.executar(query);
@@ -30,8 +30,9 @@ function popularTabelaQuedaPrevisao(data, fkEmpresa) {
 
 function atualizarKPI( fkEmpresa) {
   const query = `
-	SELECT MAX(chanceDiaria) chanceQueda, MAX(chancePrevisto) chancePrevista FROM View_PercentQueda_Servidores 
-WHERE id_empresa = ${fkEmpresa} AND dataRegistro >= DATE_SUB(NOW(), INTERVAL 30 DAY);`;
+	SELECT MAX(chanceDiaria) as chanceQueda, MAX(chancePrevisto) as chancePrevista 
+FROM View_PercentQueda_Servidores 
+WHERE id_empresa = ${fkEmpresa} AND  dataRegistro >= DATEADD(DAY, -30, GETDATE());;`;
 
   return database.executar(query);
 }
@@ -41,16 +42,17 @@ function carregarDadosServidorInicio(data, fkEmpresa) {
 
   
   const query = `
-	SELECT chanceDiaria, dataRegistro
-  FROM View_PercentQueda_Servidores 
-  WHERE id_empresa = ${fkEmpresa} 
-  AND id_servidor = (SELECT u.id_servidor FROM View_PercentQueda_Servidores u 
-                    RIGHT JOIN View_PercentQueda_Servidores n ON u.id_servidor = n.id_servidor 
-                    WHERE u.dataRegistro = ${data} AND u.id_empresa = ${fkEmpresa} 
+
+  SELECT chanceDiaria, dataRegistro
+FROM View_PercentQueda_Servidores 
+WHERE id_empresa = ${fkEmpresa}
+AND id_servidor = (SELECT TOP 1 u.id_servidor 
+                    FROM View_PercentQueda_Servidores u 
+                    INNER JOIN View_PercentQueda_Servidores n ON u.id_servidor = n.id_servidor 
+                    WHERE CONVERT(DATE, u.dataRegistro) = ${data} AND u.id_empresa = ${fkEmpresa} 
                     GROUP BY u.id_servidor 
-                    ORDER BY MAX(n.chanceDiaria) DESC 
-                    LIMIT 1)
-                    ORDER BY dataRegistro ASC;
+                    ORDER BY MAX(n.chanceDiaria) DESC)
+ORDER BY dataRegistro ASC;
   `;
   
   return database.executar(query);
