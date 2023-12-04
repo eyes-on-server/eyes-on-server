@@ -9,3 +9,5 @@ rota.get('/dadosUsoPorServidor/:fkServidor', (req, res) => {
 rota.get('/dadosTemperaturaPorServidor/:fkServidor', (req, res) => {
     temperaturaController.dadosTemperaturaPorServidor(req, res)
 })
+
+module.exports = rota;
