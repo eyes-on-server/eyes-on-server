@@ -7,7 +7,7 @@ function info(nome_funcao, info_query) {
 }
 
 function buscarNomeServidores(company){
-  let select = `SELECT local_servidor FROM Servidor WHERE fk_empresa = (SELECT id_empresa FROM Empresa WHERE nome_fantasia = "${company}");`;
+  let select = `SELECT local_servidor FROM Servidor WHERE fk_empresa = (SELECT id_empresa FROM Empresa WHERE nome_fantasia = '${company}');`;
   info("selectSectors", select);
   return bancoDados.executar(select);
 }
@@ -36,7 +36,7 @@ function buscarConsumo(fk_servidor, company) {
      AVG(CASE WHEN MONTH(momento) = 12 THEN porcentagem_uso ELSE NULL END) as [media_Dezembro]
    FROM Eyes_On_Server.Consumo_Servidor CS
    JOIN Eyes_On_Server.Servidor S ON CS.fk_servidor = S.id_servidor
-   WHERE S.fk_empresa = @company
+   WHERE S.fk_empresa = 'company'
      AND YEAR(momento) = YEAR(GETDATE())
    GROUP BY S.id_servidor;
   `;
@@ -48,21 +48,21 @@ function buscarConsumo(fk_servidor, company) {
 
 function buscarPrevisaoConsumo() {
   var query = `
-  SELECT 
-    AVG(CASE WHEN mes_feriado LIKE 'Janeiro' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Janeiro,
-    AVG(CASE WHEN mes_feriado LIKE 'Fevereiro' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Fevereiro,
-    AVG(CASE WHEN mes_feriado LIKE 'Março' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Março,
-    AVG(CASE WHEN mes_feriado LIKE 'Abril' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Abril,
-    AVG(CASE WHEN mes_feriado LIKE 'Maio' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Maio,
-    AVG(CASE WHEN mes_feriado LIKE 'Junho' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Junho,
-    AVG(CASE WHEN mes_feriado LIKE 'Julho' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Julho,
-    AVG(CASE WHEN mes_feriado LIKE 'Agosto' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Agosto,
-    AVG(CASE WHEN mes_feriado LIKE 'Setembro' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Setembro,
-    AVG(CASE WHEN mes_feriado LIKE 'Outubro' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Outubro,
-    AVG(CASE WHEN mes_feriado LIKE 'Novembro' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Novembro,
-      AVG(CASE WHEN mes_feriado LIKE 'Dezembro' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Dezembro
- FROM Eyes_On_Server.E_Comerce
- GROUP BY fk_servidor;
+  SELECT top 1
+  AVG(CASE WHEN mes_feriado LIKE 'Janeiro' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Janeiro,
+  AVG(CASE WHEN mes_feriado LIKE 'Fevereiro' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Fevereiro,
+  AVG(CASE WHEN mes_feriado LIKE 'Março' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Março,
+  AVG(CASE WHEN mes_feriado LIKE 'Abril' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Abril,
+  AVG(CASE WHEN mes_feriado LIKE 'Maio' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Maio,
+  AVG(CASE WHEN mes_feriado LIKE 'Junho' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Junho,
+  AVG(CASE WHEN mes_feriado LIKE 'Julho' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Julho,
+  AVG(CASE WHEN mes_feriado LIKE 'Agosto' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Agosto,
+  AVG(CASE WHEN mes_feriado LIKE 'Setembro' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Setembro,
+  AVG(CASE WHEN mes_feriado LIKE 'Outubro' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Outubro,
+  AVG(CASE WHEN mes_feriado LIKE 'Novembro' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Novembro,
+    AVG(CASE WHEN mes_feriado LIKE 'Dezembro' THEN valor_prioridade ELSE NULL END) as qtd_feriados_Dezembro
+FROM E_Comerce	
+group by id_feriado;
   `;
 
   info("buscarPrevisaoConsumo()", query);
