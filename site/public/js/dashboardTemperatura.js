@@ -22,8 +22,7 @@ function buscarServidores() {
   var fk = sessionStorage.FK_EMPRESA;
 
   // Comando a ser realizado no banco de dados
-  var query = `sqlserver
-    SELECT id_servidor, nome_servidor 
+  var query = `SELECT id_servidor, nome_servidor 
 FROM Servidor 
 WHERE fk_empresa = ${fk};`;
 
