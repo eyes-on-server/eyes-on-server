@@ -187,57 +187,81 @@ function criarGrafico() {
         },
       ],
     },
+    // options: {
+    //   scales: {
+    //     x: {
+    //       type: "linear",
+    //       position: "bottom",
+    //       title: {
+    //         display: true,
+    //         text: "Temperatura",
+    //       },
+    //     },
+    //     y: {
+    //       type: "linear",
+    //       position: "left",
+    //       title: {
+    //         display: true,
+    //         text: "Uso de CPU",
+    //       },
+    //     },
+    //   },
+    //   plugins: {
+    //     title: {
+    //       display: true,
+    //       text: "Gráfico de Correlação",
+    //     },
+    //   },
+    // },
   };
 
   return new Chart(ctx, config);
 }
 
 function atualizarGrafico() {
-  // console.log(opcoes[escolhaGrafico]);
-  // chart.data.labels.pop();
-  // chart.data.datasets.forEach((dataset) => {
-  //   dataset.data.pop();
-  // });
-  // chart.update();
+  console.log(opcoes[escolhaGrafico]);
+  chart.data.labels.pop();
+  chart.data.datasets.forEach((dataset) => {
+    dataset.data.pop();
+  });
+  chart.update();
 
-  // let regressionLine = calculateLinearRegression(
-  //   temperatura,
-  //   opcoes[escolhaGrafico]
-  // );
+  let regressionLine = calculateLinearRegression(
+    temperatura,
+    opcoes[escolhaGrafico]
+  );
 
-  // // Adicionar a linha de regressão linear ao gráfico
-  // chart.data.datasets.push({
-  //   label: "Linha de Regressão",
-  //   type: "line",
-  //   data: [
-  //     {
-  //       x: Math.min(...temperatura),
-  //       y: regressionLine(Math.min(...temperatura)),
-  //     },
-  //     {
-  //       x: Math.max(...temperatura),
-  //       y: regressionLine(Math.max(...temperatura)),
-  //     },
-  //   ],
-  //   borderColor: "red",
-  //   borderWidth: 4,
-  //   fill: false,
-  // });
-  // chart.data.datasets.push({
-  //   type: "scatter",
-  //   data: {
-  //     label: "Dispersão",
-  //     data: temperatura.map((value, index) => ({
-  //       x: value,
-  //       y: opcoes[escolhaGrafico][index],
-  //     })),
-  //     borderColor: "#0000FF", // Cor de fundo
-  //     borderWidth: 2,
-  //   },
-  // });
-  // chart.update();
-  chart.destroy()
-  
+  // Adicionar a linha de regressão linear ao gráfico
+  chart.data.datasets.push({
+    label: "Linha de Regressão",
+    type: "line",
+    data: [
+      {
+        x: Math.min(...temperatura),
+        y: regressionLine(Math.min(...temperatura)),
+      },
+      {
+        x: Math.max(...temperatura),
+        y: regressionLine(Math.max(...temperatura)),
+      },
+    ],
+    borderColor: "red",
+    borderWidth: 4,
+    fill: false,
+  });
+  chart.data.datasets.push({
+    type: "scatter",
+    data: {
+      label: "Dispersão",
+      data: temperatura.map((value, index) => ({
+        x: value,
+        y: opcoes[escolhaGrafico][index],
+      })),
+      borderColor: "#0000FF", // Cor de fundo
+      borderWidth: 2,
+    },
+  });
+  chart.update();
 }
 
 // Função para calcular a correlação
