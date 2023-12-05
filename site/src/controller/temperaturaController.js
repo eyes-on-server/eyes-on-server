@@ -7,7 +7,7 @@ function dadosTemperaturaPorServidor(req, res) {
     temperaturaModel.dadosTemperaturaPorServidor(fkServidor).then((resultado) => {
         res.status(200).json(resultado)
     }).catch((erro) => {
-        res.status(400).send("Erro")
+        res.status(400).send(erro)
         console.log(erro)
     })
 }
@@ -18,7 +18,7 @@ function dadosUsoCpuPorServidor(req, res) {
     temperaturaModel.dadosUsoCpuPorServidor(fkServidor).then((resultado) => {
         res.status(200).json(resultado)
     }).catch((erro) => {
-        res.status(400).send("Erro")
+        res.status(400).send(erro)
         console.log(erro)
     })
 }
@@ -28,7 +28,7 @@ function dadosUsoMemPorServidor(req, res) {
     temperaturaModel.dadosUsoMemPorServidor(fkServidor).then((resultado) => {
         res.status(200).json(resultado)
     }).catch((erro) => {
-        res.status(400).send("Erro")
+        res.status(400).send(erro)
         console.log(erro)
     })
 }
@@ -38,7 +38,7 @@ function dadosUsoDiscoPorServidor(req, res) {
     temperaturaModel.dadosUsoDiscoPorServidor(fkServidor).then((resultado) => {
         res.status(200).json(resultado)
     }).catch((erro) => {
-        res.status(400).send("Erro")
+        res.status(400).send(erro)
         console.log(erro)
     })
 }
