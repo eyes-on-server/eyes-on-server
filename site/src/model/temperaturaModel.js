@@ -28,10 +28,16 @@ function dadosUsoDiscoPorServidor(fkServidor) {
     `;
   bancoDados.executar(query);
 }
+function servidoresPorEmpresa(fkEmpresa) {
+  let query = `SELECT * FROM Servidor WHERE fk_empresa = ${fkEmpresa}
+    `;
+  bancoDados.executar(query);
+}
 
 module.exports = {
   dadosTemperaturaPorServidor,
   dadosUsoCpuPorServidor,
   dadosUsoMemPorServidor,
   dadosUsoDiscoPorServidor,
+  servidoresPorEmpresa
 };
