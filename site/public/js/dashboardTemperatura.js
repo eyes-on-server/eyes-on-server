@@ -65,9 +65,9 @@ function buscarAlertas(idServidor) {
   fetch(`/alertas/coletarTodosAlertas/${idServidor}`).then(
     (resultado) => {
       resultado.json().then((resultado) => {
-        cpuAlerts = resultado.totalAlertasCpu;
-        memoryAlerts = resultado.totalAlertasMemoria;
-        discAlerts = resultado.totalAlertasDisco;
+        cpuAlerts = resultado[0].totalAlertasCpu;
+        memoryAlerts = resultado[0].totalAlertasMemoria;
+        discAlerts = resultado[0].totalAlertasDisco;
       });
     }
   );
