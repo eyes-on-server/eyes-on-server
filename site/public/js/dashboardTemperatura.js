@@ -14,9 +14,9 @@ const opcoes = [usoCpu, usoRam, usoDisco];
 let escolhaGrafico = 0;
 
 // Calcule a correlação entre os dados
-const correlationCpu = calculateCorrelation(temperatura, usoCpu);
-const correlationRam = calculateCorrelation(temperatura, usoRam);
-const correlationDisco = calculateCorrelation(temperatura, usoDisco);
+let correlationCpu = calculateCorrelation(temperatura, usoCpu);
+let correlationRam = calculateCorrelation(temperatura, usoRam);
+let correlationDisco = calculateCorrelation(temperatura, usoDisco);
 
 function buscarServidores() {
 
@@ -112,6 +112,7 @@ function selecionarServidor(idServidor) {
   buscarAlertas(idServidor)
   buscarDadosServidor(idServidor)
   atualizarGrafico()
+  definirCorrelacoes()
 }
 
 function selecionarGrafico(escolha) {
@@ -256,13 +257,21 @@ function calculateLinearRegression(x, y) {
 
 buscarServidores();
 const chart = criarGrafico();
-atualizarGrafico();
-document.getElementById("correlacaoCPU").textContent = `CPU: ${(
-  correlationCpu * 100
-).toFixed(1)}%`;
-document.getElementById("correlacaoMemoria").textContent = `RAM: ${(
-  correlationRam * 100
-).toFixed(1)}%`;
-document.getElementById("correlacaoDisco").textContent = `Disco: ${(
-  correlationDisco * 100
-).toFixed(1)}%`;
+
+function definirCorrelacoes() {
+  correlationCpu = calculateCorrelation(temperatura, usoCpu);
+  correlationRam = calculateCorrelation(temperatura, usoRam);
+  correlationDisco = calculateCorrelation(temperatura, usoDisco);
+  
+  document.getElementById("correlacaoCPU").textContent = `CPU: ${(
+    correlationCpu * 100
+  ).toFixed(1)}%`;
+  document.getElementById("correlacaoMemoria").textContent = `RAM: ${(
+    correlationRam * 100
+  ).toFixed(1)}%`;
+  document.getElementById("correlacaoDisco").textContent = `Disco: ${(
+    correlationDisco * 100
+  ).toFixed(1)}%`;
+}
+
+
