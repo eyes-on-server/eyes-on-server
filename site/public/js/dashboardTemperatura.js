@@ -149,7 +149,6 @@ function selecionarGrafico(escolha) {
 
 function criarGrafico() {
   const ctx = document.getElementById("graficoCorrelacao").getContext("2d");
-
   // Configurações do gráfico
   const config = {
     type: "scatter",
@@ -198,6 +197,11 @@ function criarGrafico() {
 }
 
 function atualizarGrafico() {
+  chart.data.labels.pop();
+  chart.data.datasets.forEach((dataset) => {
+        dataset.data.pop();
+  });
+  chart.update()
 
   let regressionLine = calculateLinearRegression(
     temperatura,
