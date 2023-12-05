@@ -121,6 +121,8 @@ function buscarDadosServidor(idServidor) {
       });
     }
   );
+
+  opcoes.push(usoCpu, usoRam, usoDisco)
 }
 
 function selecionarServidor(idServidor) {
