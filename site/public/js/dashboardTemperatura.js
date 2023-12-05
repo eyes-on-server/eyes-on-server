@@ -125,6 +125,7 @@ function selecionarServidor(idServidor) {
   buscarAlertas(idServidor);
   buscarDadosServidor(idServidor);
   criarGrafico();
+  atualizarGrafico()
   definirCorrelacoes();
 }
 
