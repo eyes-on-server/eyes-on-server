@@ -9,7 +9,7 @@ let cpuAlerts = 0;
 let discAlerts = 0;
 let memoryAlerts = 0;
 
-const opcoes = [usoCpu, usoRam, usoDisco];
+let opcoes = [usoCpu, usoRam, usoDisco];
 
 let escolhaGrafico = 0;
 
