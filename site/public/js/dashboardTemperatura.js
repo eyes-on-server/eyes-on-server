@@ -133,6 +133,18 @@ function selecionarServidor(idServidor) {
 function selecionarGrafico(escolha) {
   escolhaGrafico = escolha
   atualizarGrafico()
+
+  switch (escolha) {
+    case 0:
+      document.getElementById('tituloGrafico').innerHTML = "Temperatura X Cpu (%)" 
+      break;
+    case 1:
+      document.getElementById('tituloGrafico').innerHTML = "Temperatura X Memória (%)" 
+      break;
+    case 2:
+      document.getElementById('tituloGrafico').innerHTML = "Temperatura X Disco (%)" 
+      break;
+  }
 }
 
 function criarGrafico() {
