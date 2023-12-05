@@ -523,7 +523,7 @@ function trocarCards() {
         var correlacao = document.getElementById("correlacao");
         correlacao.style.display = "block";
 
-        document.getElementById("texto").innerHTML = "Corelação entre os dados do gráfico"
+        document.getElementById("texto").innerHTML = "Correlação entre os dados do gráfico"
         controle++
 
 
