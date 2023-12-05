@@ -23,7 +23,7 @@ function buscarServidores() {
   // Limpar as options quando trocar de setor
   select_servidores.innerHTML = `<option value="" selected disabled>Servidores</option>`;
 
-  fetch(`/analystGraph/selectSectors/${sessionStorage.NOME_FANTASIA}`, {
+  fetch(`/temperatura/servidoresPorEmpresa/${sessionStorage.NOME_FANTASIA}`, {
       method: "GET",
       headers: {
           "Content-type": "application/json",
@@ -62,7 +62,7 @@ function buscarServidores() {
 
 function buscarAlertas(idServidor) {
   //busca os alertas de cada componente de acordo com o servidor
-  fetch(`/alertas/coletarTodosAlertas/?fkServidor=${idServidor}`).then(
+  fetch(`/alertas/coletarTodosAlertas/${idServidor}`).then(
     (resultado) => {
       resultado.json().then((resultado) => {
         cpuAlerts = resultado.totalAlertasCpu;
@@ -79,7 +79,7 @@ function buscarAlertas(idServidor) {
 
 function buscarDadosServidor(idServidor) {
   //busca os dados do servidor escolhido
-  fetch(`/temperatura/dadosUsoCpuPorServidor/?fkServidor=${idServidor}`).then(
+  fetch(`/temperatura/dadosUsoCpuPorServidor/${idServidor}`).then(
     (resultado) => {
       resultado.json().then((resultado) => {
         resultado.map((dado) => {
@@ -88,7 +88,7 @@ function buscarDadosServidor(idServidor) {
       });
     }
   );
-  fetch(`/temperatura/dadosUsoMemPorServidor/?fkServidor=${idServidor}`).then(
+  fetch(`/temperatura/dadosUsoMemPorServidor/${idServidor}`).then(
     (resultado) => {
       resultado.json().then((resultado) => {
         resultado.map((dado) => {
@@ -97,7 +97,7 @@ function buscarDadosServidor(idServidor) {
       });
     }
   );
-  fetch(`/temperatura/dadosUsoDiscoPorServidor/?fkServidor=${idServidor}`).then(
+  fetch(`/temperatura/dadosUsoDiscoPorServidor/${idServidor}`).then(
     (resultado) => {
       resultado.json().then((resultado) => {
         resultado.map((dado) => {
