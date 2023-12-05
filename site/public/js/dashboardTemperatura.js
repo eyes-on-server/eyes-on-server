@@ -156,10 +156,10 @@ function criarGrafico() {
   );
   // Configurações do gráfico
   const config = {
-    type: "scatter",
     data: {
       datasets: [
         {
+          type: "scatter",
           label: "Dispersão",
           data: temperatura.map((value, index) => ({
             x: value,
