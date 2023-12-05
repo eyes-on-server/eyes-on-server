@@ -23,7 +23,7 @@ function buscarServidores() {
   // Limpar as options quando trocar de setor
   select_servidores.innerHTML = `<option value="" selected disabled>Servidores</option>`;
 
-  fetch(`/temperatura/servidoresPorEmpresa/${sessionStorage.NOME_FANTASIA}`, {
+  fetch(`/temperatura/servidoresPorEmpresa/${sessionStorage.ID_EMPRESA}`, {
       method: "GET",
       headers: {
           "Content-type": "application/json",
