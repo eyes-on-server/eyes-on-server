@@ -19,56 +19,50 @@ const correlationRam = calculateCorrelation(temperatura, usoRam);
 const correlationDisco = calculateCorrelation(temperatura, usoDisco);
 
 function buscarServidores() {
-  // Comando a ser realizado no banco de dados
-  var query = `SELECT id_servidor, nome_servidor 
-FROM Servidor 
-WHERE fk_empresa = ${sessionStorage.FK_EMPRESA};`;
-
-  // Mysql: SELECT id_servidor, nome_servidor FROM Eyes_On_Server.Servidor WHERE fk_empresa = "${fk}";
 
   // Limpar as options quando trocar de setor
   select_servidores.innerHTML = `<option value="" selected disabled>Servidores</option>`;
 
-  fetch("/graficosAnalista/buscarInformacoes", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({
-      selectServer: query,
-    }),
+  fetch(`/analystGraph/selectSectors/${sessionStorage.NOME_FANTASIA}`, {
+      method: "GET",
+      headers: {
+          "Content-type": "application/json",
+      },
   })
-    .then(function (resposta) {
-      if (resposta.status == 200) {
-        resposta.json().then((json) => {
-          // Criamos um vetor para conferir se aquele servidor já foi inserido no HTML
-          var servidores = [];
-          // Esse for roda todo o json de resposta da query e insere o nome dos setores no select do HTML
-          for (var i = 0; i < json.length; i++) {
-            if (!servidores.includes(json[i].nome_servidor)) {
-              var servidor = json[i].nome_servidor;
-              var id_servidor = json[i].id_servidor;
-              select_servidores.innerHTML += `<option value="${id_servidor}">${servidor}</option>`;
-            }
+      .then(function (resposta) {
+          if (resposta.status == 200) {
+              resposta.json().then((json) => {
+                  // Criamos um vetor para conferir se aquele servidor já foi inserido no HTML
+                  let servidores = [];
+                  // Esse for roda todo o json de resposta da query e insere o nome dos setores no select do HTML
+                  select_servidores.innerHTML = `<option value="">Selecionar Servidor</option>`;
+                  for (let i = 0; i < json.length; i++) {
+                      if (!servidores.includes(json[i].nome_servidor)) {
+                          let id_servidor = json[i].id_servidor;
+                          let servidor = json[i].nome_servidor;
+
+                          select_servidores.innerHTML += `<option value="${id_servidor}">${servidor}</option>`;
+
+                      }
+                  }
+              });
+          } else {
+              console.log(
+                  "Erro ao realizar a busca dos servidores <function buscarServidores>"
+              );
+              resposta.text().then((texto) => {
+                  console.log(resposta);
+              });
           }
-        });
-      } else {
-        console.log(
-          "Erro ao realizar a busca dos servidores <function buscarServidores>"
-        );
-        resposta.text().then((texto) => {
-          console.log(resposta);
-        });
-      }
-    })
-    .catch((erro) => {
-      console.log("Erro ao realizar a busca: " + erro);
-    });
+      })
+      .catch((erro) => {
+          console.log("Erro ao realizar a busca: " + erro);
+      });
 }
 
 function buscarAlertas(idServidor) {
   //busca os alertas de cada componente de acordo com o servidor
-  fetch(`/alertas/capturarTodosAlertas/?fkServidor=${idServidor}`).then(
+  fetch(`/alertas/coletarTodosAlertas/?fkServidor=${idServidor}`).then(
     (resultado) => {
       resultado.json().then((resultado) => {
         cpuAlerts = resultado.totalAlertasCpu;
@@ -85,17 +79,29 @@ function buscarAlertas(idServidor) {
 
 function buscarDadosServidor(idServidor) {
   //busca os dados do servidor escolhido
-  fetch(`/temperatura/dadosUsoPorServidor/?fkServidor=${idServidor}`).then(
+  fetch(`/temperatura/dadosUsoCpuPorServidor/?fkServidor=${idServidor}`).then(
     (resultado) => {
       resultado.json().then((resultado) => {
         resultado.map((dado) => {
-          if (dado.Componente == "Cpu") {
             usoCpu.push(dado);
-          } else if (dado.Componente == "Memoria") {
-            usoRam.push(dado);
-          } else if (dado.Componente == "Disco") {
-            usoDisco.push(dado);
-          }
+        });
+      });
+    }
+  );
+  fetch(`/temperatura/dadosUsoMemPorServidor/?fkServidor=${idServidor}`).then(
+    (resultado) => {
+      resultado.json().then((resultado) => {
+        resultado.map((dado) => {
+            usoCpu.push(dado);
+        });
+      });
+    }
+  );
+  fetch(`/temperatura/dadosUsoDiscoPorServidor/?fkServidor=${idServidor}`).then(
+    (resultado) => {
+      resultado.json().then((resultado) => {
+        resultado.map((dado) => {
+            usoCpu.push(dado);
         });
       });
     }
@@ -249,7 +255,6 @@ function calculateLinearRegression(x, y) {
 }
 
 buscarServidores();
-
 const chart = criarGrafico();
 atualizarGrafico();
 buscarAlertas()
