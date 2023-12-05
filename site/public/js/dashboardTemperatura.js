@@ -197,6 +197,7 @@ function criarGrafico() {
 }
 
 function atualizarGrafico() {
+  console.log(opcoes[escolhaGrafico])
   chart.data.labels.pop();
   chart.data.datasets.forEach((dataset) => {
         dataset.data.pop();
@@ -207,6 +208,8 @@ function atualizarGrafico() {
     temperatura,
     opcoes[escolhaGrafico]
   );
+
+  console.log(regressionLine)
 
   // Adicionar a linha de regressão linear ao gráfico
   chart.data.datasets.push({
