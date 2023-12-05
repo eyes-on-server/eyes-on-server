@@ -150,70 +150,74 @@ function selecionarGrafico(escolha) {
 
 function criarGrafico() {
   const ctx = document.getElementById("graficoCorrelacao").getContext("2d");
-  let regressionLine = calculateLinearRegression(
-    temperatura,
-    opcoes[escolhaGrafico]
-  );
+
   // Configurações do gráfico
   const config = {
+    type: "scatter",
     data: {
       datasets: [
         {
-          type: "scatter",
           label: "Dispersão",
           data: temperatura.map((value, index) => ({
             x: value,
-            y: opcoes[escolhaGrafico][index],
+            y: usoCpu[index],
           })),
-          borderColor: "#0000FF", // Cor de fundo
-          borderWidth: 2,
-        },
-        {
-          label: "Linha de Regressão",
-          type: "line",
-          data: [
-            {
-              x: Math.min(...temperatura),
-              y: regressionLine(Math.min(...temperatura)),
-            },
-            {
-              x: Math.max(...temperatura),
-              y: regressionLine(Math.max(...temperatura)),
-            },
-          ],
-          borderColor: "red",
-          borderWidth: 4,
-          fill: false,
+          backgroundColor: "rgba(75, 192, 192, 0.5)", // Cor de fundo
         },
       ],
     },
-    // options: {
-    //   scales: {
-    //     x: {
-    //       type: "linear",
-    //       position: "bottom",
-    //       title: {
-    //         display: true,
-    //         text: "Temperatura",
-    //       },
-    //     },
-    //     y: {
-    //       type: "linear",
-    //       position: "left",
-    //       title: {
-    //         display: true,
-    //         text: "Uso de CPU",
-    //       },
-    //     },
-    //   },
-    //   plugins: {
-    //     title: {
-    //       display: true,
-    //       text: "Gráfico de Correlação",
-    //     },
-    //   },
-    // },
+    options: {
+      scales: {
+        x: {
+          type: "linear",
+          position: "bottom",
+          title: {
+            display: true,
+            text: "Temperatura",
+          },
+        },
+        y: {
+          type: "linear",
+          position: "left",
+          title: {
+            display: true,
+            text: "Uso de CPU",
+          },
+        },
+      },
+      plugins: {
+        title: {
+          display: true,
+          text: "Gráfico de Dispersão com Regressão Linear",
+        },
+      },
+    },
   };
+
+  // Crie o gráfico
+  const chart = new Chart(ctx, config);
+
+  // Calcular a regressão linear manualmente
+  const regressionLine = calculateLinearRegression(temperatura, usoCpu);
+
+  // Adicionar a linha de regressão linear ao gráfico
+  chart.data.datasets.push({
+    label: "Linha de Regressão",
+    data: [
+      {
+        x: Math.min(...temperatura),
+        y: regressionLine(Math.min(...temperatura)),
+      },
+      {
+        x: Math.max(...temperatura),
+        y: regressionLine(Math.max(...temperatura)),
+      },
+    ],
+    borderColor: "red",
+    borderWidth: 2,
+    fill: false,
+  });
+  chart.update();
 
   return new Chart(ctx, config);
 }
