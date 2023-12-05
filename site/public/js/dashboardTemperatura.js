@@ -194,8 +194,10 @@ function criarGrafico() {
     },
   };
 
-  // Crie o gráfico
 
+
+  // Crie o gráfico
+  chart = new Chart(ctx, config);
   // Calcular a regressão linear manualmente
   const regressionLine = calculateLinearRegression(temperatura, usoCpu);
 
@@ -218,7 +220,7 @@ function criarGrafico() {
   });
   chart.update();
 
-  return new Chart(ctx, config);
+  return chart;
 }
 
 function atualizarGrafico() {
