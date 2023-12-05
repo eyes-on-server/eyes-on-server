@@ -203,6 +203,8 @@ function criarGrafico() {
 }
 
 function atualizarGrafico() {
+  chart.destroy()
+  chart = criarGrafico()
   // Calcular a regressão linear manualmente
   const regressionLine = calculateLinearRegression(temperatura, usoCpu);
 
