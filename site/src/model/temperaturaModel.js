@@ -1,26 +1,26 @@
 const bancoDados = require("../database/config");
 
 function dadosTemperaturaPorServidor(fkServidor) {
-  let query = `SELECT * FROM View_Registros WHERE Servidor = ${fkServidor} AND Medida = 'Temperatura' 
-    ORDER BY momento_registro DESC LIMIT 100;
+  let query = `SELECT TOP 100 * FROM View_Registros WHERE Servidor = ${fkServidor} AND Medida = 'Temperatura' 
+    ORDER BY momento_registro DESC;
     `;
   return bancoDados.executar(query);
 }
 function dadosUsoCpuPorServidor(fkServidor) {
-  let query = `SELECT * FROM View_Registros WHERE Servidor = ${fkServidor} AND Componente = 'Cpu'
-    ORDER BY momento_registro DESC LIMIT 100;
+  let query = `SELECT TOP 100 * FROM View_Registros WHERE Servidor = ${fkServidor} AND Componente = 'Cpu'
+    ORDER BY momento_registro DESC;
     `;
   return bancoDados.executar(query);
 }
 function dadosUsoMemPorServidor(fkServidor) {
-  let query = `SELECT * FROM View_Registros WHERE Servidor = ${fkServidor} AND Componente = 'Memoria'
-    ORDER BY momento_registro DESC LIMIT 100;
+  let query = `SELECT TOP 100 * FROM View_Registros WHERE Servidor = ${fkServidor} AND Componente = 'Memoria'
+    ORDER BY momento_registro DESC;
     `;
   return bancoDados.executar(query);
 }
 function dadosUsoDiscoPorServidor(fkServidor) {
-  let query = `SELECT * FROM View_Registros WHERE Servidor = ${fkServidor} AND Componente = 'Disco'
-    ORDER BY momento_registro DESC LIMIT 100;
+  let query = `SELECT TOP 100 * FROM View_Registros WHERE Servidor = ${fkServidor} AND Componente = 'Disco'
+    ORDER BY momento_registro DESC;
     `;
   return bancoDados.executar(query);
 }
