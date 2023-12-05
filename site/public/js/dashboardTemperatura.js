@@ -150,6 +150,10 @@ function selecionarGrafico(escolha) {
 
 function criarGrafico() {
   const ctx = document.getElementById("graficoCorrelacao").getContext("2d");
+  let regressionLine = calculateLinearRegression(
+    temperatura,
+    opcoes[escolhaGrafico]
+  );
   // Configurações do gráfico
   const config = {
     type: "scatter",
