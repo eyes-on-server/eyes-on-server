@@ -186,10 +186,6 @@ function criarGrafico() {
 }
 
 function atualizarGrafico() {
-  chart.data.labels.pop();
-  chart.data.datasets.forEach((dataset) => {
-        dataset.data.pop();
-  });
 
   let regressionLine = calculateLinearRegression(
     temperatura,
