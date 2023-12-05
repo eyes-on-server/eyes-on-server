@@ -38,8 +38,10 @@ function coletarTodosDadosCards(idEmpresa, dataAtual, res) {
     });
 }
 
-function coletarTodosAlertasPorServidor(fkServidor) {
-  alertasModel.coletarTodosAlertasPorServidor().then((resultado) => {
+function coletarTodosAlertasPorServidor(req, res) {
+  let fkServidor = req.params.fkServidor;
+
+  alertasModel.coletarTodosAlertasPorServidor(fkServidor).then((resultado) => {
     res.status(200).json(resultado)
   }).catch((erro) => {
     res.status(500).json(erro.sqlMessage)
