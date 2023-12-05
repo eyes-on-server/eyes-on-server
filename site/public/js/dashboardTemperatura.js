@@ -73,9 +73,9 @@ function buscarAlertas(idServidor) {
     }
   );
 
-  document.getElementById('qtdAlertasCpu').text = cpuAlerts
-  document.getElementById('qtdAlertasMem').text = memoryAlerts
-  document.getElementById('qtdAlertasDisco').text = discAlerts
+  document.getElementById('qtdAlertasCpu').innerHTML = cpuAlerts
+  document.getElementById('qtdAlertasMem').innerHTML = memoryAlerts
+  document.getElementById('qtdAlertasDisco').innerHTML = discAlerts
 }
 
 function buscarDadosServidor(idServidor) {
@@ -128,6 +128,7 @@ function selecionarServidor(idServidor) {
 
 function selecionarGrafico(escolha) {
   escolhaGrafico = escolha
+  atualizarGrafico()
 }
 
 function criarGrafico() {
