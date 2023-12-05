@@ -187,32 +187,6 @@ function criarGrafico() {
         },
       ],
     },
-    options: {
-      scales: {
-        x: {
-          type: "linear",
-          position: "bottom",
-          title: {
-            display: true,
-            text: "Temperatura",
-          },
-        },
-        y: {
-          type: "linear",
-          position: "left",
-          title: {
-            display: true,
-            text: "Uso de CPU",
-          },
-        },
-      },
-      plugins: {
-        title: {
-          display: true,
-          text: "Gráfico de Correlação",
-        },
-      },
-    },
   };
 
   return new Chart(ctx, config);
