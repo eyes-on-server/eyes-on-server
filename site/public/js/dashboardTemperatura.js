@@ -122,7 +122,7 @@ function buscarDadosServidor(idServidor) {
     }
   );
 
-  opcoes.push(usoCpu, usoRam, usoDisco)
+  opcoes = [usoCpu, usoRam, usoDisco]
 }
 
 function selecionarServidor(idServidor) {
