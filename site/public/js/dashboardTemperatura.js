@@ -79,10 +79,10 @@ function buscarAlertas(idServidor) {
 }
 
 function buscarDadosServidor(idServidor) {
-  let temperatura = [];
-  let usoCpu = [];
-  let usoRam = [];
-  let usoDisco = [];
+  temperatura = [];
+  usoCpu = [];
+  usoRam = [];
+  usoDisco = [];
   //busca os dados do servidor escolhido
   fetch(`/temperatura/dadosTemperaturaPorServidor/${idServidor}`).then(
     (resultado) => {
@@ -209,7 +209,6 @@ function atualizarGrafico() {
     opcoes[escolhaGrafico]
   );
 
-  console.log(regressionLine)
 
   // Adicionar a linha de regressão linear ao gráfico
   chart.data.datasets.push({
