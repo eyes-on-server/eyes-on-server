@@ -85,7 +85,7 @@ function buscarDadosServidor(idServidor) {
       resultado.json().then((resultado) => {
         console.log(resultado)
         resultado.map((dado) => {
-            usoCpu.push(dado.Valor);
+            usoCpu.push(Number(dado.Valor));
         });
       });
     }
@@ -94,7 +94,7 @@ function buscarDadosServidor(idServidor) {
     (resultado) => {
       resultado.json().then((resultado) => {
         resultado.map((dado) => {
-            usoCpu.push(dado.Valor);
+            usoCpu.push(Number(dado.Valor));
         });
       });
     }
@@ -103,7 +103,7 @@ function buscarDadosServidor(idServidor) {
     (resultado) => {
       resultado.json().then((resultado) => {
         resultado.map((dado) => {
-            usoCpu.push(dado.Valor);
+            usoCpu.push(Number(dado.Valor));
         });
       });
     }
@@ -112,7 +112,7 @@ function buscarDadosServidor(idServidor) {
     (resultado) => {
       resultado.json().then((resultado) => {
         resultado.map((dado) => {
-            usoCpu.push(dado.Valor);
+            usoCpu.push(Number(dado.Valor));
         });
       });
     }
