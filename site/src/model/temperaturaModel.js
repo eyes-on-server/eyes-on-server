@@ -5,33 +5,33 @@ function dadosTemperaturaPorServidor(fkServidor) {
     ORDER BY momento_registro DESC
     OFFSET 0 ROWS FETCH FIRST 100 ROWS ONLY;
     `;
-  bancoDados.executar(query);
+  return bancoDados.executar(query);
 }
 function dadosUsoCpuPorServidor(fkServidor) {
   let query = `SELECT * FROM View_Registros WHERE Servidor = ${fkServidor} AND Componente = 'Cpu' LIMIT 100
     ORDER BY momento_registro DESC
     OFFSET 0 ROWS FETCH FIRST 100 ROWS ONLY;
     `;
-  bancoDados.executar(query);
+  return bancoDados.executar(query);
 }
 function dadosUsoMemPorServidor(fkServidor) {
   let query = `SELECT * FROM View_Registros WHERE Servidor = ${fkServidor} AND Componente = 'Memoria' LIMIT 100
     ORDER BY momento_registro DESC
     OFFSET 0 ROWS FETCH FIRST 100 ROWS ONLY;
     `;
-  bancoDados.executar(query);
+  return bancoDados.executar(query);
 }
 function dadosUsoDiscoPorServidor(fkServidor) {
   let query = `SELECT * FROM View_Registros WHERE Servidor = ${fkServidor} AND Componente = 'Disco' LIMIT 100
     ORDER BY momento_registro DESC
     OFFSET 0 ROWS FETCH FIRST 100 ROWS ONLY;
     `;
-  bancoDados.executar(query);
+  return bancoDados.executar(query);
 }
 function servidoresPorEmpresa(fkEmpresa) {
   let query = `SELECT * FROM Servidor WHERE fk_empresa = ${fkEmpresa}
     `;
-  bancoDados.executar(query);
+  return bancoDados.executar(query);
 }
 
 module.exports = {
