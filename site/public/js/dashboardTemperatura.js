@@ -68,6 +68,7 @@ function buscarAlertas(idServidor) {
         cpuAlerts = resultado[0].totalAlertasCpu;
         memoryAlerts = resultado[0].totalAlertasMemoria;
         discAlerts = resultado[0].totalAlertasDisco;
+        console.log(resultado)
       });
     }
   );
@@ -79,9 +80,20 @@ function buscarAlertas(idServidor) {
 
 function buscarDadosServidor(idServidor) {
   //busca os dados do servidor escolhido
+  fetch(`/temperatura/dadosTemperaturaPorServidor/${idServidor}`).then(
+    (resultado) => {
+      resultado.json().then((resultado) => {
+        console.log(resultado)
+        resultado.map((dado) => {
+            usoCpu.push(dado);
+        });
+      });
+    }
+  );
   fetch(`/temperatura/dadosUsoCpuPorServidor/${idServidor}`).then(
     (resultado) => {
       resultado.json().then((resultado) => {
+        console.log(resultado)
         resultado.map((dado) => {
             usoCpu.push(dado);
         });
@@ -117,7 +129,6 @@ function selecionarServidor(idServidor) {
 
 function selecionarGrafico(escolha) {
   escolhaGrafico = escolha
-  
 }
 
 function criarGrafico() {
