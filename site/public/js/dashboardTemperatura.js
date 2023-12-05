@@ -125,7 +125,6 @@ function selecionarServidor(idServidor) {
   buscarAlertas(idServidor);
   buscarDadosServidor(idServidor);
   criarGrafico();
-  atualizarGrafico()
   definirCorrelacoes();
 }
 
@@ -152,6 +151,7 @@ function selecionarGrafico(escolha) {
 
 function criarGrafico() {
   const ctx = document.getElementById("graficoCorrelacao").getContext("2d");
+  const regressionLine = calculateLinearRegression(temperatura, opcoes[escolhaGrafico]);
 
   // Configurações do gráfico
   const config = {
@@ -162,10 +162,26 @@ function criarGrafico() {
           label: "Dispersão",
           data: temperatura.map((value, index) => ({
             x: value,
-            y: usoCpu[index],
+            y: opcoes[escolhaGrafico][index],
           })),
           backgroundColor: "rgba(75, 192, 192, 0.5)", // Cor de fundo
         },
+        {
+          label: "Linha de Regressão",
+          data: [
+            {
+              x: Math.min(...temperatura),
+              y: regressionLine(Math.min(...temperatura)),
+            },
+            {
+              x: Math.max(...temperatura),
+              y: regressionLine(Math.max(...temperatura)),
+            },
+          ],
+          borderColor: "red",
+          borderWidth: 2,
+          fill: false,
+        }
       ],
     },
     options: {
@@ -203,10 +219,7 @@ function criarGrafico() {
 }
 
 function atualizarGrafico() {
-  chart.destroy()
-  chart = criarGrafico()
   // Calcular a regressão linear manualmente
-  const regressionLine = calculateLinearRegression(temperatura, usoCpu);
 
   // Adicionar a linha de regressão linear ao gráfico
   chart.data.datasets.push({
