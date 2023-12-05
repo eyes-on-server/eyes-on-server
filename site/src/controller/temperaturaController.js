@@ -48,7 +48,7 @@ function servidoresPorEmpresa(req, res) {
     temperaturaModel.servidoresPorEmpresa(fkServidor).then((resultado) => {
         res.status(200).json(resultado)
     }).catch((erro) => {
-        res.status(400).send("Erro")
+        res.status(400).send(erro)
         console.log(erro)
     })
 }
