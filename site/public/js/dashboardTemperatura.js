@@ -124,7 +124,7 @@ function buscarDadosServidor(idServidor) {
 function selecionarServidor(idServidor) {
   buscarAlertas(idServidor);
   buscarDadosServidor(idServidor);
-  atualizarGrafico();
+  criarGrafico();
   definirCorrelacoes();
 }
 
