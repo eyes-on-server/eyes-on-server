@@ -217,8 +217,6 @@ function atualizarGrafico() {
   chart.data.datasets.push({
     type: "scatter",
     data: {
-      datasets: [
-        {
           label: "Dispersão",
           data: temperatura.map((value, index) => ({
             x: value,
@@ -226,8 +224,6 @@ function atualizarGrafico() {
           })),
           borderColor: "#0000FF", // Cor de fundo
           borderWidth: 2,
-        },
-      ],
     },
   });
   chart.update();
