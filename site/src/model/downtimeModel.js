@@ -118,7 +118,7 @@ function downtimePorLocal(fkEmpresa) {
 
 function downtimePorDia(fkEmpresa) {
   const query = `
-    SELECT TOP 1
+    SELECT TOP 7
       SUM(prejuizo) total_prejuizo,
       CAST(momento AS DATE) data_downtime
     FROM View_Downtime_Servidores
