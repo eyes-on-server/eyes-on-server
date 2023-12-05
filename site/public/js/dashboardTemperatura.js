@@ -130,6 +130,7 @@ function selecionarServidor(idServidor) {
 
 function selecionarGrafico(escolha) {
   escolhaGrafico = escolha;
+  criarGrafico()
   atualizarGrafico();
 
   switch (escolha) {
@@ -194,10 +195,13 @@ function criarGrafico() {
     },
   };
 
-
+  return new Chart(ctx, config);
+  
 
   // Crie o gráfico
-  chart = new Chart(ctx, config);
+}
+
+function atualizarGrafico() {
   // Calcular a regressão linear manualmente
   const regressionLine = calculateLinearRegression(temperatura, usoCpu);
 
@@ -217,54 +221,6 @@ function criarGrafico() {
     borderColor: "red",
     borderWidth: 2,
     fill: false,
-  });
-  chart.update();
-
-  return chart;
-}
-
-function atualizarGrafico() {
-  console.log(opcoes[escolhaGrafico]);
-  chart.data.labels.pop();
-  chart.data.datasets.forEach((dataset) => {
-    dataset.data.pop();
-  });
-  chart.update();
-
-  let regressionLine = calculateLinearRegression(
-    temperatura,
-    opcoes[escolhaGrafico]
-  );
-
-  // Adicionar a linha de regressão linear ao gráfico
-  chart.data.datasets.push({
-    label: "Linha de Regressão",
-    type: "line",
-    data: [
-      {
-        x: Math.min(...temperatura),
-        y: regressionLine(Math.min(...temperatura)),
-      },
-      {
-        x: Math.max(...temperatura),
-        y: regressionLine(Math.max(...temperatura)),
-      },
-    ],
-    borderColor: "red",
-    borderWidth: 4,
-    fill: false,
-  });
-  chart.data.datasets.push({
-    type: "scatter",
-    data: {
-      label: "Dispersão",
-      data: temperatura.map((value, index) => ({
-        x: value,
-        y: opcoes[escolhaGrafico][index],
-      })),
-      borderColor: "#0000FF", // Cor de fundo
-      borderWidth: 2,
-    },
   });
   chart.update();
 }
