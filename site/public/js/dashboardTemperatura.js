@@ -79,6 +79,10 @@ function buscarAlertas(idServidor) {
 }
 
 function buscarDadosServidor(idServidor) {
+  let temperatura = [];
+  let usoCpu = [];
+  let usoRam = [];
+  let usoDisco = [];
   //busca os dados do servidor escolhido
   fetch(`/temperatura/dadosTemperaturaPorServidor/${idServidor}`).then(
     (resultado) => {
@@ -182,6 +186,11 @@ function criarGrafico() {
 }
 
 function atualizarGrafico() {
+  chart.data.labels.pop();
+  chart.data.datasets.forEach((dataset) => {
+        dataset.data.pop();
+  });
+
   let regressionLine = calculateLinearRegression(
     temperatura,
     opcoes[escolhaGrafico]
@@ -204,6 +213,22 @@ function atualizarGrafico() {
     borderColor: "red",
     borderWidth: 4,
     fill: false,
+  });
+  chart.data.datasets.push({
+    type: "scatter",
+    data: {
+      datasets: [
+        {
+          label: "Dispersão",
+          data: temperatura.map((value, index) => ({
+            x: value,
+            y: opcoes[escolhaGrafico][index],
+          })),
+          borderColor: "#0000FF", // Cor de fundo
+          borderWidth: 2,
+        },
+      ],
+    },
   });
   chart.update();
 }
