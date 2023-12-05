@@ -285,6 +285,7 @@ function calculateLinearRegression(x, y) {
 
 buscarServidores();
 let chart = criarGrafico();
+atualizarGrafico()
 
 function definirCorrelacoes() {
   correlationCpu = calculateCorrelation(temperatura, usoCpu);
